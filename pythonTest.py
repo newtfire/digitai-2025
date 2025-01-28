@@ -10,7 +10,7 @@ model70b = 'llama3.3:70b'
 prompt = "How can I learn more about how TEI handles link associations between documents?"
 
 stream = ollama.chat(
-    model=model,
+    model=model3b,
     messages=[{'role': 'user', 'content': prompt}],
     stream=True,
 )
