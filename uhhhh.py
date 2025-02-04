@@ -10,7 +10,7 @@ model = 'llama3.2'
 
 loader = XMLReader()
 
-file = loader.load_data(file=Path("./p5subset.xml"))
+
 
 def read_file(file):
     # Try-except block for handling FileNotFoundError exception if the file does not exist.
@@ -22,8 +22,8 @@ def read_file(file):
         print("The file could not be found.")
 
 # Calling the function with a filename as argument to get its content.
-
-data = read_file('./teiTester-dmJournal.xml.xml')
+file = loader.load_data(file=Path("./p5subset.xml"))
+data = read_file('./teiTester-dmJournal.xml')
 
 # print("# Input JSON content with multiple errors")  # Printing the content of the JSON file.
 # print(data)  # Printing the content of the JSON file.
@@ -36,7 +36,8 @@ ollama_response = ollama.chat(model=model, messages=[
   },
   {
     'role': 'user',
-    'content': f'I need help with coding in TEI.  I am not sure whether we are coding the TEI del element correctly around the gap element. Can you advise us? \n\n {data}',
+    'content': f'I need help with coding in TEI.  I am not sure whether we are coding the TEI del element correctly around the gap element. Can you advise us? '
+               f'Here is a sample file: \n\n {data} ',
   },
 ],
 options = {
