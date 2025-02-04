@@ -23,7 +23,7 @@ def read_file(file):
 
 # Calling the function with a filename as argument to get its content.
 
-# data = read_file('./p5subset.xml')
+data = read_file('./teiTester-dmJournal.xml.xml')
 
 # print("# Input JSON content with multiple errors")  # Printing the content of the JSON file.
 # print(data)  # Printing the content of the JSON file.
@@ -36,7 +36,7 @@ ollama_response = ollama.chat(model=model, messages=[
   },
   {
     'role': 'user',
-    'content': f'I need help with coding in TEI, and work',
+    'content': f'I need help with coding in TEI.  I am not sure whether we are coding the TEI del element correctly around the gap element. Can you advise us? \n\n {data}',
   },
 ],
 options = {
