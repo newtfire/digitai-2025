@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+    <fileDesc>
+        <titleStmt>
+            <title>Mary Russell Mitford's Notebook of 1819 to 1823</title>
+            <author ref="#MRM">Mary Russell Mitford</author>
+            <editor ref="#hjb">Hadleigh Jae Bills</editor>
+            <editor ref="#TSA">Tyler Akam</editor>
+            <editor ref="#srr">Savannah Ricks</editor> 
+            <editor ref="#rjp">Rebecca J. Parker</editor>
+            <editor ref="#ebb">Elisa Beshero-Bondar</editor>
+            <editor ref="#lmw">Lisa M. Wilson</editor>
+            <sponsor>
+                <orgName>Mary Russell Mitford Society: Digital Mitford Project</orgName>
+            </sponsor>
+            <principal>Elisa Beshero-Bondar</principal>
+            <respStmt>
+                <resp>Transcription and coding by</resp>
+                <persName ref="#hjb">Hadleigh Jae Bills</persName>
+                <persName ref="#TSA">Tyler Akam</persName>
+                <persName ref="#srr">Savannah Ricks</persName>
+                <persName ref="#rjp">Rebecca J. Parker</persName>
+                <persName ref="#ebb">Elisa Beshero-Bondar</persName>
+                <persName ref="#lmw">Lisa M. Wilson</persName>
+            </respStmt>
+            <respStmt>
+                <resp>Proofing and corrections by</resp>
+                <persName ref="#ebb">Elisa Beshero-Bondar</persName>
+                <persName ref="#lmw">Lisa M. Wilson</persName>
+            </respStmt>
+        </titleStmt>
+        <editionStmt>
+            <edition>First digital edition in TEI, date: 03 September 2024. P5.</edition>
+        </editionStmt>
+        <publicationStmt>
+            <authority>Digital Mitford: The Mary Russell Mitford Archive</authority>
+            <pubPlace>Penn State Erie, The Behrend College</pubPlace>
+            <date>2024</date>
+            <availability>
+                <p>Reproduced by courtesy of the <placeName>Reading Central
+                        Library</placeName>.</p>
+                <licence>Distributed under a Creative Commons Attribution-ShareAlike 3.0 Unported
+                    License</licence>
+            </availability>
+        </publicationStmt>
+        <sourceDesc>
+            
+            
+            <msDesc>
+                <msIdentifier>
+                    <repository ref="#ReadingCL">Reading Central Library</repository>
+                    <collection>Accession Number: L 7088</collection>
+                    <idno>qB/TU/MIT #1361549 REF. STRONGROOM. Barcode number:
+                        34126003337949<!--ebb:is the last digit a g? I think it's a 9, but check at Reading Central Library.--></idno>
+                </msIdentifier>
+                <p>This helpful source text is marked as an <q>original carbon copy</q> of a typed transcript
+                    of Mary Russell Mitford's notebook. From the title page of the source text: <q>The
+                        transcript of which this is a copy is in the possession of the Public Library,
+                        Reading, Berks, England. A photostat copy of the MS is also available at that
+                        library.</q> Copyright presumably rests with the <orgName ref="#BL">British Museum</orgName>. <date
+                            when="1955-07">July 1955</date>.
+                    <!--ebb: Check with British Library (now housing the British Museum manuscripts) re copyright permissions before posting an html view of this file.--></p>
+            </msDesc>
+        </sourceDesc>
+        <sourceDesc>
+            <msDesc>
+                <msIdentifier>
+                    <repository ref="#BL">British Library</repository>
+                    <collection><!--ebb:Check current collection info for BL Literary Pocket Book ms of Mitford's notebook.</collection>--></collection>
+                    <idno><!--ebb:This is the shelfmark from the British Library Catalog-->DPB
+                        c.60.b.7.<!--ebb:What follows is the shelfmark for the BL as indicated on the July 1955 typescript. Doublecheck in BL catalog.-->P
+                        24834 : C.60.b.7.</idno>
+                </msIdentifier>
+                <p>This is the location information for the autograph manuscript in Mary Russell
+                    Mitford's hand, at the British Library.</p>
+            </msDesc>
+        </sourceDesc>
+    </fileDesc>
+    <profileDesc>
+        <handNotes>
+            <handNote xml:id="red_crayon_RCLnb" medium="red_crayon"> Red crayon or thick red pencil.
+                Annotation by an archivist on an opening page of the carbon copy of the typed
+                transcript of Mitford's journal at Reading Central Library</handNote>
+            <handNote xml:id="black_pencil_RCLnb" medium="black_pencil">Black pencil or crayon.
+                Crosses out lines in the red crayon indicated above.</handNote>
+            <handNote xml:id="black_pen_RCLnb" medium="pen">Annotation by an archivist, presumably
+                at Reading Central Library, recording the shelfmark.</handNote>
+            <handNote xml:id="lt_pencil_RCLnb" medium="pencil">Annotation by an archivist at Reading
+                Central Library, recording the shelfmark on the title page in light grey
+                pencil.</handNote>
+            <handNote xml:id="blue_pen_RCLnb" medium="pen">Annotation by an archivist at Reading
+                Central Library, recording the accession number.</handNote>
+        </handNotes>
+    </profileDesc>
+    <encodingDesc>
+        <editorialDecl>
+            <p>Mitford’s spelling and punctuation are retained, except where a word is split at the
+                end of a line and the beginning of the next in the manuscript. Where Mitford’s
+                spelling and hyphenation of words deviates from the standard, in order to facilitate
+                searching we are using the TEI elements choice, sic, and reg to encode both Mitford’s
+                spelling and the regular international standard of Oxford English spelling, following
+                the first listed spelling in the Oxford English Dictionary. The long s and ligatured
+                forms are not encoded.</p>
+            <p>In this journal, after 1819 (when she no longer has print indications of the date
+                from the published journal), Mitford usually indicates the month and year at the top
+                of her pages. Mitford began adding the location where she wrote her entries around
+                October 1820 to the top of each page near the date. When she had no room to write the
+                place name after the date, e.g. <q>Three Mile Cross</q>, she the split the place name
+                so part of it appears before the date, and part after the date, for example: <q>Three
+                    Mile October 1820 Cross</q>. We have decided to represent these form headings in
+                meaningful order, so as to clearly distinguish the place from the date. Because they
+                were added afterwards, we chose to position these place names after the date
+                information.</p>
+        </editorialDecl>
+    </encodingDesc>
+</teiHeader>
+<text>
+    <body><fw>March 1820</fw>
+<div type="entry" xml:id="e-442">
+    <head><del rend="squiggles">At home</del>
+        <date when="1820-03-16">Thursday 16th</date></head>
+    <p>At <placeName ref="#Bertram_house">home</placeName>--went <name ref="#fir"
+            >fir</name>topping, got a few--went <name ref="#primrose">primros</name>ing,
+        got a good many--read <title ref="#Mems_Napoleon1815">Memoires de Napoleon <pb
+                n="38"/> en 1815 par <persName ref="#deChaboulon">M. Fleury de
+                    Chaboulon</persName></title>--a good fellow--<del rend="squiggles"><gap
+                            reason="illegible" unit="char" quantity="4"/></del> but the book rather
+        dull.</p>
+</div>
+<div type="entry" xml:id="e-443">
+    <head><date when="1820-03-17">Friday 17th</date></head>
+    <p><persName ref="#Elliott_Mr">Mr. Elliot</persName> &amp; <persName
+            ref="#Elliott_John">his son</persName> came to take possession--<persName
+                ref="#White_Tom">Tom White</persName> &amp; <persName ref="#Tuppen_Capt"
+                    >Captain Tuppen</persName> called--read <title ref="#Mems_Napoleon1815"
+                        >Memoires de Napoleon</title>--a most interesting book. At <placeName
+                            ref="#Bertram_house">home</placeName> all day with a bad cold.</p>
+</div>
+<div type="entry" xml:id="e-444">
+    <head><date when="1820-03-18">Saturday 18th</date></head>
+    <p>At <placeName ref="#Bertram_house">home</placeName>--went <name ref="#fir"
+            >Fir</name>topping in the <placeName ref="#plantation_BH">middle
+                Plantation</placeName>--got a great many--heard from <persName
+                    ref="#Webb_Mary_younger">Mary Webb</persName>--read <title
+                        ref="#Vicissitudes">Vicissitudes</title>--my cold a good deal better--nursed
+        <persName ref="#Molly_pet">Molly</persName>.</p>
+</div>
+    </body>
+    
+</text>
+</TEI>
