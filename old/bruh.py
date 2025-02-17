@@ -13,9 +13,9 @@ from llama_parse import LlamaParse
 model = 'llama3.2'
 
 loader = XMLReader()
-documents = loader.load_data(file=Path("./p5subset.xml"))
+documents = loader.load_data(file=Path("../p5subset.xml"))
 
-tree = ET.parse("./p5subset.xml")
+tree = ET.parse("../p5subset.xml")
 
 stream = ollama.chat(
     model=model,
