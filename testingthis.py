@@ -16,19 +16,19 @@ data = loader.load_data(file=Path('./teiTester-dmJournal.xml'))
 def effify(non_f_str: str): # Changes normal string into f strings
     return eval(f'f"""{non_f_str}"""')
 
-system = 'You are a helpful chatbot who answers questions. Use this file to gain knowledge on TEI rules: {file}'
+# system = 'You are a helpful chatbot who answers questions. Use this file to gain knowledge on TEI rules: {file}'
 
-prompt = 'I need help with coding in TEI. I am not sure whether we are coding the TEI del element correctly around the gap element. Here is the TEI file: {data} Can you provide an example of correctly using del and gap elements from the TEI file?'
+prompt = "Tell me about Mercyhurst University's Intelligence Program in Erie Pennsylvania"
 
 temperature = 0
 
 date = datetime.datetime.now()
 
 ollama_response = ollama.chat(model=model, messages=[
-  {
-    'role': 'system',
-    'content': f'{effify(system)} \n', # Makes system into f string
-  },
+  # {
+  #   'role': 'system',
+  #   'content': f'{effify(system)} \n', # Makes system into f string
+  # },
   {
     'role': 'user',
     'content': f'{effify(prompt)} \n', # Makes prompt into f string
@@ -44,10 +44,13 @@ response_content = ollama_response['message']['content']
 output_string = f"""
 ======================
 Model: {model}
+
 Temperature: {temperature}
+
 Date: {date}
-System: {system}
+
 Query Excerpt: {prompt}
+
 Response: {response_content}
 ======================
 """

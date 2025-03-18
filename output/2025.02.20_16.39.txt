@@ -1,0 +1,21 @@
+
+======================
+Model: llama3.2
+Temperature: 0
+Date: 2025-02-20 16:39:24.914029
+
+Query Excerpt: Tell me about Mercyhurst University's Intelligence Program in Erie Pennsylvania
+Response: I couldn't find any information on a specific "Intelligence Program" at Mercyhurst University in Erie, Pennsylvania. However, I can provide some general information about the university and its programs.
+
+Mercyhurst University is a private Catholic liberal arts university located in Erie, Pennsylvania. The university offers over 50 undergraduate majors, as well as several graduate programs, including master's degrees in fields such as business, education, and nursing.
+
+While Mercyhurst University does not have a specific "Intelligence Program," it does offer courses and programs that may be relevant to individuals interested in intelligence studies or national security. For example:
+
+1. The university offers a Bachelor of Arts degree in International Relations, which includes coursework on global politics, international law, and national security.
+2. Mercyhurst also offers a Master of Science in National Security Studies, which provides advanced training in the study of national security issues, including terrorism, cybersecurity, and intelligence gathering.
+3. Additionally, the university has partnerships with various organizations, such as the U.S. Department of State's Diplomatic Security Service (DSS) and the Federal Bureau of Investigation (FBI), which provide students with opportunities for internships and experiential learning.
+
+It's worth noting that Mercyhurst University is not a traditional intelligence program, but rather a liberal arts university that offers courses and programs related to national security and intelligence studies. If you're interested in pursuing a career in intelligence or national security, it may be helpful to research other universities with specific programs in these fields.
+
+If you have any further questions or would like more information on Mercyhurst University's programs, I'd be happy to try and assist you.
+======================
