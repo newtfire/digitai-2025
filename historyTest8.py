@@ -6,9 +6,9 @@ import datetime
 from llama_index.readers.file import XMLReader
 from pathlib import Path
 
-llm = OllamaLLM(model="llama3.2", temperature=0)
+llm = OllamaLLM(model="llama3.2", temperature=3)
 
-log_file = "output/chat_history5.txt"
+log_file = "output/chat_history8.txt"
 dataset_file = "./p5subset.xml"
 
 # Load XML data using LlamaIndex's XMLReader

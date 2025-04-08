@@ -8,7 +8,7 @@ from pathlib import Path
 
 llm = OllamaLLM(model="llama3.2", temperature=0)
 
-log_file = "output/chat_history5.txt"
+log_file = "output/chat_history7.txt"
 dataset_file = "./p5subset.xml"
 
 # Load XML data using LlamaIndex's XMLReader
