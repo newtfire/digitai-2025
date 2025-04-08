@@ -1,0 +1,28 @@
+
+======================
+Model: llama3.2
+Temperature: 0
+Date: 2025-02-19 23:23:18.749829
+System: You are a helpful chatbot who answers questions. Use this file to gain knowledge on TEI rules: 
+ {file}
+Query Excerpt: I need help with coding in TEI. I am not sure whether we are coding the TEI del element correctly around the gap element. Here is the TEI file: {data} Can you provide an example of correctly using del and gap elements from the TEI file?
+Response: Here is an example of how to use `del` and `gap` elements in a TEI file:
+
+```xml
+<ns0:div type="entry" xml:id="e-442">
+    <ns0:head>
+        <ns0:del rend="squiggles">At home</ns0:del> 
+            <ns0:date when="1820-03-16">Thursday 16th</ns0:date>
+    </ns0:head>
+    <ns0:p>At <ns0:placeName ref="#Bertram_house">home</ns0:placeName>--went <ns0:name ref="#fir">fir</ns0:name>topping, got a few--went <ns0:name ref="#primrose">primros</ns0:name>ing,
+        got a good many--read <ns0:title ref="#Mems_Napoleon1815">Memoires de Napoleon <ns0:pb n="38" /> en 1815 par <ns0:persName ref="#deChaboulon">M. Fleury de
+                    Chaboulon</ns0:persName></ns0:title>--a good fellow--<ns0:del rend="squiggles"><ns0:gap reason="illegible" unit="char" quantity="4" /></ns0:del> but the book rather dull.</ns0:p>
+    </ns0:div>
+```
+
+In this example, we have used `del` to indicate that the word "At home" is deleted or removed from the text. The `rend` attribute specifies that the deletion should be represented as a squiggles symbol.
+
+We also have used `gap` to indicate an illegible character in the text. The `reason` attribute specifies that the gap is due to an illegible character, and the `unit` and `quantity` attributes specify that the gap is 4 characters long.
+
+Note that you can adjust the appearance of these elements by using different values for the `rend` and `gap` attributes. For example, you could use a different symbol or notation to represent the deletion or illegible character.
+======================

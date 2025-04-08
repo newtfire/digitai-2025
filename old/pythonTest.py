@@ -6,9 +6,9 @@ from llama_index.core import VectorStoreIndex
 import xml.etree.ElementTree as ET
 
 loader = XMLReader()
-documents = loader.load_data(file=Path("./p5subset.xml"))
+documents = loader.load_data(file=Path("../p5subset.xml"))
 
-tree = ET.parse("./p5subset.xml")
+tree = ET.parse("../p5subset.xml")
 root = tree.getroot()
 
 for child in root:
