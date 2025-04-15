@@ -10,8 +10,8 @@ model = 'llama3.2'
 
 loader = XMLReader()
 
-file = loader.load_data(file=Path("./p5subset.xml"))
-data = loader.load_data(file=Path('./teiTester-dmJournal.xml'))
+file = loader.load_data(file=Path("../p5subset.xml"))
+data = loader.load_data(file=Path('../teiTester-dmJournal.xml'))
 
 def effify(non_f_str: str): # Changes normal string into f strings
     return eval(f'f"""{non_f_str}"""')
