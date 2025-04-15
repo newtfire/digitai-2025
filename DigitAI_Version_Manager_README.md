@@ -6,7 +6,7 @@ A simple Python tool to create consistent versioned files for the DigitAI projec
 
 ## 📦 Features
 - 📁 Folder structure by phase (`alpha/`, `beta/`, `release/`)
-- 🧠 **Auto-suggests** the next version and rewrite number based on `CHANGELOG.md`
+- 🧠 **Auto-suggests** the next version based on `CHANGELOG.md`
 - 📓 Automatically generates and updates a `CHANGELOG.md` in Markdown
 - ✅ Optional Git commit for the versioned file and changelog
 
@@ -22,7 +22,7 @@ A simple Python tool to create consistent versioned files for the DigitAI projec
 2. Enter details when prompted:
    - Phase: `alpha`, `beta`, or `release`
    - It will display the latest version and suggest the next one
-   - Accept or override the suggested major, minor, and rewrite numbers
+   - Accept or override the suggested major and minor numbers
    - Add a short description
 
 3. Confirm Git commit if desired.
@@ -31,15 +31,15 @@ A simple Python tool to create consistent versioned files for the DigitAI projec
 
 ## 🔤 File Naming Format
 ```
-digitAI-[phase][major.minor]-r[rewrite].py
+digitAI-[phase][major.minor].py
 ```
 
 ## Example Filenames
 ```
-digitAI-a1.0-r1.py
-digitAI-a1.1-r1.py
-digitAI-a1.1-r2.py
-digitAI-b1.0-r1.py
+digitAI-a1.0.py
+digitAI-a1.1.py
+digitAI-b1.0.py
+digitAI-r1.0.py
 ```
 
 ---
@@ -48,14 +48,14 @@ digitAI-b1.0-r1.py
 
 When you choose a phase, the script:
 - Reads `CHANGELOG.md`
-- Finds the latest version and rewrite
-- Suggests the next minor version and resets the rewrite count
+- Finds the latest version
+- Suggests the next minor version
 
 Example prompt:
 ```
 Phase (alpha, beta, release): alpha
-✔️ Latest for alpha: v1.3 (Rewrite 2)
-Suggested: v1.4 (Rewrite 1)
+✔️ Latest for alpha: v1.2
+Suggested: v1.3
 ```
 
 ---
@@ -64,10 +64,10 @@ Suggested: v1.4 (Rewrite 1)
 ```markdown
 ## Alpha
 
-### v1.4 (Rewrite 1)
-- **Created:** 2025-04-08 21:15:00  
-- **File:** `alpha/digitAI-a1.4-r1.py`  
-- **Description:** Added async handler
+### v1.3
+- **Created:** 2025-04-08 21:55:00  
+- **File:** `alpha/digitAI-a1.3.py`  
+- **Description:** Improved async support
 ```
 
 ---
