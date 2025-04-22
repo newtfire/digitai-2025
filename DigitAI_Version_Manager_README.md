@@ -10,13 +10,23 @@ A simple Python tool to create consistent versioned files for the DigitAI projec
 - 📓 Automatically generates and updates a `CHANGELOG.md` in Markdown
 - ✅ Optional Git commit for the versioned file and changelog
 
+## DigitAI Python Versioning Rules
+* Stages: 
+    * *alpha* stage includes all code as we are learning, prior to the implementation of a functional AI bot.
+    * *beta* stage includes code related to a functional, if flawed interactive generative AI system. Beta stage should include a system beyond terminal conversation, including interaction over a localhost web interface.
+* Major and minor version numbers
+    * Increment a version number iff the file represents a paradigmatic break with previous versions, implementing entirely new functions, for example. Eg. `a1` to `a2`
+    * Increment a minor version number when making a significant change to improve functionality, including adding new library to develop an existing code strategy. Eg. `a1.1` to `a1.2`
+    * Optional: -r1, -r2: Eg. `a1.1-r1` to `a1.1-r2`: Apply "r numbers" if the change is relatively small, but worth documenting.
+* Always add a description of your change so it is added to the Changelog. This is similar to making a meaningful git commit and will help us track the history of our thinking.
+
 ---
 
 ## 🚀 Usage
 
 1. Run the script:
    ```bash
-   python digitai_version_manager.py
+   python digitai_version_manager
    ```
 
 2. Enter details when prompted:
