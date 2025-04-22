@@ -18,7 +18,9 @@ A simple Python tool to create consistent versioned files for the DigitAI projec
     * Increment a version number iff the file represents a paradigmatic break with previous versions, implementing entirely new functions, for example. Eg. `a1` to `a2`
     * Increment a minor version number when making a significant change to improve functionality, including adding new library to develop an existing code strategy. Eg. `a1.1` to `a1.2`
     * Optional: -r1, -r2: Eg. `a1.1-r1` to `a1.1-r2`: Apply "r numbers" if the change is relatively small, but worth documenting.
-* Always add a description of your change so it is added to the Changelog. This is similar to making a meaningful git commit and will help us track the history of our thinking.
+* Always add a description of your **intended change** so it is added to the Changelog.
+  * This is similar to making a meaningful git commit and will help us track the history of our thinking.
+  * Go back and edit the previous version decription in [CHANGELOG.md](CHANGELOG.md) to update its description as needed.
 
 ---
 

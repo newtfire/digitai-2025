@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
     major_input = input(f"Major version number [{suggested_major}]: ") or str(suggested_major)
     minor_input = input(f"Minor version number [{suggested_minor}]: ") or str(suggested_minor)
-    description_input = input(f"Optional description (e.g., parser, cleanup):")
+    description_input = input(f"Required: description of intended change (e.g., parser, cleanup):")
 
     try:
         versioned_filename, phase_tag = generate_filename(
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
         print(f"\n🔧 Generated filename: {full_file_path}")
         create_version_file(full_file_path)
-        append_to_changelog(full_file_path, selected_phase, major_input, minor_input, description_input or "None")
+        append_to_changelog(full_file_path, selected_phase, major_input, minor_input, description_input)
 
         if os.path.exists(".git"):
             confirm_commit = input("Commit this change to Git? (y/n): ")
