@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
     major_input = input(f"Major version number [{suggested_major}]: ") or str(suggested_major)
     minor_input = input(f"Minor version number [{suggested_minor}]: ") or str(suggested_minor)
-    description_input = input("Optional description (e.g., parser, cleanup): ")
+    description_input = input(f"Optional description (e.g., parser, cleanup):")
 
     try:
         versioned_filename, phase_tag = generate_filename(
