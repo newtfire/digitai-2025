@@ -7,9 +7,11 @@ def start_app():
             user_input = input("Type an xPath Expression: ").strip()
             slashes = '//'
             if user_input.startswith(slashes):
-                e1, e2, e3, e4 = user_input.split("//")
-                print(e2)
-                print(e3)
-                print(e4)
+                tokens = user_input.split("//")
+                # ebb: Let's try to make the split either / or // (regex will be the way: look up how to use it).
+                for t in tokens:
+                    print(t)
+
+
 if __name__ == "__main__":
     start_app()
