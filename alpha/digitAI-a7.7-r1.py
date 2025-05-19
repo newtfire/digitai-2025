@@ -5,11 +5,12 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 import datetime
 from llama_index.readers.file import XMLReader
 import xml.etree.ElementTree as ET
+from lxml import etree
 
 llm = OllamaLLM(model="llama3.2", temperature=0.5)
 
-log_file = "/output/chat_history13.txt"
-dataset_file = "/teiTester-dmJournal.xml"
+log_file = "../output/chat_history13.txt"
+dataset_file = "../teiTester-dmJournal.xml"
 
 # Load XML data using LlamaIndex's XMLReader
 def load_xml_data(file_path):
@@ -37,6 +38,9 @@ prompt_template = ChatPromptTemplate.from_messages(
 
 chain = prompt_template | llm
 
+tree = etree.parse(dataset_file)
+root = tree.getroot()
+
 def start_app():
     with open(log_file, "a") as file:
         file.write(f"\n--- Chat started on {datetime.datetime.now()} ---\n")
@@ -48,27 +52,10 @@ def start_app():
             print("Chat history saved. Exiting...")
             return
         if question.lower() == "xpath":
-            tree = ET.parse(dataset_file)
-            root = tree.getroot()
-            # Extract namespace (if any)
-            ns = {'tei': root.tag.split('}')[0].strip('{')} if '}' in root.tag else {}
-            tag_name = input("Type an Element: ").strip()
-            # Try to find elements with namespace
-            elements = root.findall(".//tei:" + tag_name, ns) if ns else root.findall(".//" + tag_name)
-            if elements:
-                local_tag = elements[0].tag.split('}')[-1]  # Use first element's tag name
-                with open(log_file, "a") as file:
-                    file.write(f"You: {local_tag}\n")
-                for idx, elem in enumerate(elements, start=1):
-                    text = (elem.text or "").strip()
-                    xpathResponse = f"{text if text else '(no text)'}"
-                    print(xpathResponse)
-                    chat_history.append(AIMessage(content=xpathResponse))
-                    with open(log_file, "a") as file:
-                        file.write(f"AI: {xpathResponse}\n")
-            else:
-                print(f"No {tag_name} elements found.")
-            continue
+            for element in elements:
+                tag = element.tag.split('}', 1)[1] if '}' in element.tag else element.tag
+            r = root.xpath('(//@ref)[1]')
+            print(r)
         else:
             response = chain.invoke({"input": question, "chat_history": chat_history})
             chat_history.append(HumanMessage(content=question))

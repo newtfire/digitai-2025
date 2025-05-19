@@ -38,6 +38,9 @@ prompt_template = ChatPromptTemplate.from_messages(
 
 chain = prompt_template | llm
 
+tree = etree.parse(dataset_file)
+root = tree.getroot()
+
 def start_app():
     with open(log_file, "a") as file:
         file.write(f"\n--- Chat started on {datetime.datetime.now()} ---\n")
@@ -49,8 +52,6 @@ def start_app():
             print("Chat history saved. Exiting...")
             return
         if question.lower() == "xpath":
-            tree = etree.parse(dataset_file)
-            root = tree.getroot()
             r = root.xpath('(//@ref)[1]')
             print(r)
         else:
