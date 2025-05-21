@@ -1,0 +1,190 @@
+
+--- Chat started on 2025-05-20 21:20:46.212362 ---
+
+--- Chat started on 2025-05-20 21:23:10.966532 ---
+
+--- xPath started ---
+
+You: //div[@type='entry']//date/text()
+Thursday 16th
+Friday 17th
+Saturday 18th
+You: //editor/text()
+Hadleigh Jae Bills
+Tyler Akam
+Savannah Ricks
+Rebecca J. Parker
+Elisa Beshero-Bondar
+Lisa M. Wilson
+You: exit
+
+--- xPath Ended ---
+
+
+--- Chat Ended ---
+
+--- Chat started on 2025-05-20 21:26:12.104461 ---
+
+--- xPath started ---
+
+
+You: //div[@type='entry']//date/text()
+
+Result:
+Thursday 16th
+
+Result:
+Friday 17th
+
+Result:
+Saturday 18th
+
+--- Chat started on 2025-05-20 21:27:28.179538 ---
+
+--- xPath started ---
+
+
+You: //div[@type='entry']//date/text()
+
+Result:
+Thursday 16th
+
+Result:
+Friday 17th
+
+Result:
+Saturday 18th
+
+--- Chat started on 2025-05-20 21:28:26.603112 ---
+
+--- xPath started ---
+
+
+You: //div[@type='entry']//date/text()
+
+Result:
+Thursday 16th
+
+Result:
+Friday 17th
+
+Result:
+Saturday 18th
+
+--- Chat started on 2025-05-20 21:29:23.949128 ---
+
+--- xPath started ---
+
+
+You: //div[@type='entry']//date/text()
+
+Result:
+Thursday 16th
+
+Result:
+Friday 17th
+
+Result:
+Saturday 18th
+
+You: //editor/text()
+
+Result:
+Hadleigh Jae Bills
+
+Result:
+Tyler Akam
+
+Result:
+Savannah Ricks
+
+Result:
+Rebecca J. Parker
+
+Result:
+Elisa Beshero-Bondar
+
+Result:
+Lisa M. Wilson
+
+You: exit
+
+--- xPath Ended ---
+
+
+--- Chat Ended ---
+
+--- Chat started on 2025-05-20 21:31:54.092161 ---
+
+--- xPath started ---
+
+
+You: //div[@type='entry']//date/text()
+
+Result:
+Thursday 16th
+Friday 17th
+Saturday 18th
+
+You: exit
+
+--- xPath Ended ---
+
+
+--- Chat Ended ---
+
+--- Chat started on 2025-05-20 21:32:59.612018 ---
+
+--- xPath started ---
+
+You: //div[@type='entry']//date/text()
+
+Result:
+Thursday 16th
+Friday 17th
+Saturday 18th
+
+You: exit
+
+--- xPath Ended ---
+
+
+--- Chat Ended ---
+
+--- Chat started on 2025-05-20 21:39:48.742443 ---
+
+--- xPath started ---
+
+You: //div[@type='entry']//date/text()
+
+Result:
+Thursday 16th
+Friday 17th
+Saturday 18th
+
+You: //editor
+
+Result:
+<editor xmlns="http://www.tei-c.org/ns/1.0" ref="#hjb">Hadleigh Jae Bills</editor>
+<editor xmlns="http://www.tei-c.org/ns/1.0" ref="#TSA">Tyler Akam</editor>
+<editor xmlns="http://www.tei-c.org/ns/1.0" ref="#srr">Savannah Ricks</editor>
+<editor xmlns="http://www.tei-c.org/ns/1.0" ref="#rjp">Rebecca J. Parker</editor>
+<editor xmlns="http://www.tei-c.org/ns/1.0" ref="#ebb">Elisa Beshero-Bondar</editor>
+<editor xmlns="http://www.tei-c.org/ns/1.0" ref="#lmw">Lisa M. Wilson</editor>
+
+You: //editor/text()
+
+Result:
+Hadleigh Jae Bills
+Tyler Akam
+Savannah Ricks
+Rebecca J. Parker
+Elisa Beshero-Bondar
+Lisa M. Wilson
+
+You: exit
+
+--- xPath Ended ---
+
+
+--- Chat Ended ---
