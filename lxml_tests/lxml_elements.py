@@ -1,7 +1,7 @@
 # List all unique elements
 from lxml import etree
 
-dataset_file = "../teiTester-dmJournal.xml"
+dataset_file = "../p5subset.xml"
 tree = etree.parse(dataset_file)
 parent_tag = 'teiHeader'
 
