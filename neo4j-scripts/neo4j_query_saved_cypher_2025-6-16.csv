@@ -1,0 +1,110 @@
+name,description,query,id,parentId,isFolder
+"starter apoc load of TEI ",,"CALL apoc.load.xml(""https://raw.githubusercontent.com/newtfire/digitai/refs/heads/hjb/p5subset.xml"", ""//t:text"", {namespaces: {t: 'http://www.tei-c.org/ns/1.0', rng: 'http://relaxng.org/ns/structure/1.0', sch: 'http://purl.oclc.org/dsdl/schematron'}}) 
+/* ebb: calling and prefixing namespaces doesn't seem to work */
+",0,1,false
+chapter-names,,"CALL apoc.load.xml(""https://raw.githubusercontent.com/newtfire/digitai/refs/heads/hjb/p5subset.xml"", '(/*[local-name()=""TEI""]/*[local-name() = ""text""]//*[@type=""div1""])') YIELD value AS chapter
+
+WITH chapter 
+UNWIND [child in chapter._children WHERE child._type = 'head'] as chapterName
+
+RETURN chapterName._text
+",2,1,false
+learning,,,3,,true
+exempla,,"CALL apoc.load.xml(""https://raw.githubusercontent.com/newtfire/digitai/refs/heads/hjb/p5subset.xml"", '(/*[local-name()=""TEI""]/*[local-name() = ""text""]//*[local-name() = ""exemplum""])') YIELD value AS exemplum
+
+WITH exemplum 
+UNWIND [child in exemplum._children] as exemplary
+
+RETURN exemplary
+",4,3,false
+chapter-names,,"CALL apoc.load.xml(""https://raw.githubusercontent.com/newtfire/digitai/refs/heads/hjb/p5subset.xml"", '(/*[local-name()=""TEI""]/*[local-name() = ""text""]//*[@type=""div1""])') YIELD value AS chapter
+
+WITH chapter 
+UNWIND [child in chapter._children WHERE child._type = 'head'] as chapterName
+
+RETURN chapterName._text
+",5,3,false
+sections-to-chapters,,"CALL apoc.load.xml(""https://raw.githubusercontent.com/newtfire/digitai/refs/heads/hjb/p5subset.xml"", '(/*[local-name()=""TEI""]/*[local-name() = ""text""]/*)') YIELD value AS section
+//Create Section nodes
+MERGE (s:Section {type: section._type})
+ON CREATE SET
+  s.name = s.type
+ON MATCH SET
+  s.name = s.type
+
+WITH section
+UNWIND [child in section._children WHERE child._type = 'div1'] as chapter 
+WITH section, chapter
+UNWIND [child in chapter._children WHERE child._type = 'head'] as chapterName
+MERGE (c:Chapter {type: chapter._type})
+ON CREATE SET
+   c.name = chapterName._text
+ON MATCH SET 
+  c.name = chapterName._text
+
+MERGE (s)-[:HAS_CHAPTERS]->(c)
+
+RETURN s
+
+
+
+",6,3,false
+elementSpecs-to-modules-glosses-refined,,"CALL apoc.load.xml(""https://raw.githubusercontent.com/newtfire/digitai/refs/heads/hjb/p5subset.xml"", '(/*[local-name()=""TEI""]//*[local-name() = ""elementSpec""])') YIELD value AS elementSpec
+WITH elementSpec,
+     elementSpec.ident AS elementIdent,
+     elementSpec.module AS elementModule,
+     [child IN elementSpec._children WHERE child._type = 'gloss' AND child._text IS NOT NULL | child._text][0] AS elementGlossText // Extract gloss text
+MERGE (e:elementSpec {id: elementIdent})
+ON CREATE SET
+  e.name = elementIdent,
+  e.gloss = elementGlossText // Set gloss as a property on creation
+ON MATCH SET
+  e.name = elementIdent,
+  e.gloss = elementGlossText // Update gloss as a property on match
+WITH e, elementModule
+WHERE elementModule IS NOT NULL
+MERGE (m:Module {kind: elementModule})
+ON CREATE SET
+   m.name = elementModule
+ON MATCH SET
+   m.name = elementModule
+MERGE (e)-[r:HAS_MODULE]->(m)
+RETURN e, r, m",7,3,false
+eSpecs-to-modules-and-glosses-big,,"CALL apoc.load.xml(""https://raw.githubusercontent.com/newtfire/digitai/refs/heads/hjb/p5subset.xml"", '(/*[local-name()=""TEI""]//*[local-name() = ""elementSpec""])') YIELD value AS elementSpec 
+WITH elementSpec, elementSpec.ident AS elementIdent, elementSpec.module AS elementModule
+
+MERGE (e:elementSpec {id: elementIdent})
+ON CREATE SET 
+  e.name = elementIdent
+ON MATCH SET
+  e.name = elementIdent
+
+WITH e, elementModule, elementSpec
+WHERE elementModule IS NOT NULL
+MERGE (m:Module {kind: elementModule})
+ON CREATE SET
+   m.name = elementModule
+ON MATCH SET
+   m.name = elementModule
+MERGE (e)-[r:HAS_MODULE]->(m)
+
+WITH e, r, m, elementSpec
+UNWIND [child in elementSpec._children WHERE child._type = 'gloss'] as elementGloss
+WITH elementGloss, e, r, m
+WHERE elementGloss._text IS NOT NULL
+MERGE (g:gloss {gloss: elementGloss._text})
+ON CREATE SET
+   g.name = elementGloss._text
+ON MATCH SET
+  g.name = elementGloss._text
+
+MERGE (e)-[q:HAS_GLOSS]->(g)
+RETURN e,r,m,q,g
+
+
+/* MERGE (e)-[r:HAS_MODULE]->(m)
+RETURN e,r,m */
+
+",8,3,false
+apoc schema birds-eye view,,"CALL apoc.meta.data()
+// ebb: Saves a ""big picture"" view of the schema we've created and its mappings. ",9,3,false
