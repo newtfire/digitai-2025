@@ -1,0 +1,137 @@
+{
+  "P5subset-text": "2025-06-17T16:05:56.959594-04:00",
+  "CONTAINS-SECTIONS": [
+    {
+      "section": "front",
+      "CONTAINS-CHAPTERS": [
+        { "CONTAINS-CHAPTERS":[
+            { "AB":"About These Guidelines" },
+            { "SG":"A Gentle Introduction to XML" },
+            { "CH":"Languages and Character Sets" }
+          ] },
+        { "CONTAINS-CHAPTERS":[
+            { "ST":"The TEI Infrastructure" },
+            { "HD":"The TEI Header" },
+            { "CO":"Elements Available in All TEI Documents" },
+            { "DS":"Default Text Structure" },
+            { "WD":"Characters, Glyphs, and Writing Modes" },
+            { "VE":"Verse" },
+            { "DR":"Performance Texts" },
+            { "TS":"Transcriptions of Speech" },
+            { "CMC":"Computer-mediated Communication" },
+            { "DI":"Dictionaries" },
+            { "MS":"Manuscript Description" },
+            { "PH":"Representation of Primary Sources" },
+            { "TC":"Critical Apparatus" },
+            { "ND":"Names, Dates, People, and Places" },
+            { "FT":"Tables, Formulæ, Graphics, and Notated Music" },
+            { "CC":"Language Corpora" },
+            { "SA":"Linking, Segmentation, and Alignment" },
+            { "AI":"Simple Analytic Mechanisms" },
+            { "FS":"Feature Structures" },
+            { "GD":"Graphs, Networks, and Trees" },
+            { "NH":"Non-hierarchical Structures" },
+            { "CE":"Certainty, Precision, and Responsibility" },
+            { "TD":"Documentation Elements" },
+            { "USE":"Using the TEI" }
+          ] },
+        { "CONTAINS-CHAPTERS":[
+            { "REF-CLASSES-MODEL":"Model Classes" },
+            { "REF-CLASSES-ATTS":"Attribute Classes" },
+            { "REF-ELEMENTS":"Elements" },
+            { "REF-ATTS":"Attributes" },
+            { "REF-MACROS":"Datatypes and Other Macros" },
+            { "DEPRECATIONS":"Deprecations" }
+          ] }
+      ]
+    },
+    {
+      "section": "body",
+      "CONTAINS-CHAPTERS": [
+        { "CONTAINS-CHAPTERS":[
+            { "AB":"About These Guidelines" },
+            { "SG":"A Gentle Introduction to XML" },
+            { "CH":"Languages and Character Sets" }
+          ] },
+        { "CONTAINS-CHAPTERS":[
+            { "ST":"The TEI Infrastructure" },
+            { "HD":"The TEI Header" },
+            { "CO":"Elements Available in All TEI Documents" },
+            { "DS":"Default Text Structure" },
+            { "WD":"Characters, Glyphs, and Writing Modes" },
+            { "VE":"Verse" },
+            { "DR":"Performance Texts" },
+            { "TS":"Transcriptions of Speech" },
+            { "CMC":"Computer-mediated Communication" },
+            { "DI":"Dictionaries" },
+            { "MS":"Manuscript Description" },
+            { "PH":"Representation of Primary Sources" },
+            { "TC":"Critical Apparatus" },
+            { "ND":"Names, Dates, People, and Places" },
+            { "FT":"Tables, Formulæ, Graphics, and Notated Music" },
+            { "CC":"Language Corpora" },
+            { "SA":"Linking, Segmentation, and Alignment" },
+            { "AI":"Simple Analytic Mechanisms" },
+            { "FS":"Feature Structures" },
+            { "GD":"Graphs, Networks, and Trees" },
+            { "NH":"Non-hierarchical Structures" },
+            { "CE":"Certainty, Precision, and Responsibility" },
+            { "TD":"Documentation Elements" },
+            { "USE":"Using the TEI" }
+          ] },
+        { "CONTAINS-CHAPTERS":[
+            { "REF-CLASSES-MODEL":"Model Classes" },
+            { "REF-CLASSES-ATTS":"Attribute Classes" },
+            { "REF-ELEMENTS":"Elements" },
+            { "REF-ATTS":"Attributes" },
+            { "REF-MACROS":"Datatypes and Other Macros" },
+            { "DEPRECATIONS":"Deprecations" }
+          ] }
+      ]
+    },
+    {
+      "section": "back",
+      "CONTAINS-CHAPTERS": [
+        { "CONTAINS-CHAPTERS":[
+            { "AB":"About These Guidelines" },
+            { "SG":"A Gentle Introduction to XML" },
+            { "CH":"Languages and Character Sets" }
+          ] },
+        { "CONTAINS-CHAPTERS":[
+            { "ST":"The TEI Infrastructure" },
+            { "HD":"The TEI Header" },
+            { "CO":"Elements Available in All TEI Documents" },
+            { "DS":"Default Text Structure" },
+            { "WD":"Characters, Glyphs, and Writing Modes" },
+            { "VE":"Verse" },
+            { "DR":"Performance Texts" },
+            { "TS":"Transcriptions of Speech" },
+            { "CMC":"Computer-mediated Communication" },
+            { "DI":"Dictionaries" },
+            { "MS":"Manuscript Description" },
+            { "PH":"Representation of Primary Sources" },
+            { "TC":"Critical Apparatus" },
+            { "ND":"Names, Dates, People, and Places" },
+            { "FT":"Tables, Formulæ, Graphics, and Notated Music" },
+            { "CC":"Language Corpora" },
+            { "SA":"Linking, Segmentation, and Alignment" },
+            { "AI":"Simple Analytic Mechanisms" },
+            { "FS":"Feature Structures" },
+            { "GD":"Graphs, Networks, and Trees" },
+            { "NH":"Non-hierarchical Structures" },
+            { "CE":"Certainty, Precision, and Responsibility" },
+            { "TD":"Documentation Elements" },
+            { "USE":"Using the TEI" }
+          ] },
+        { "CONTAINS-CHAPTERS":[
+            { "REF-CLASSES-MODEL":"Model Classes" },
+            { "REF-CLASSES-ATTS":"Attribute Classes" },
+            { "REF-ELEMENTS":"Elements" },
+            { "REF-ATTS":"Attributes" },
+            { "REF-MACROS":"Datatypes and Other Macros" },
+            { "DEPRECATIONS":"Deprecations" }
+          ] }
+      ]
+    }
+  ]
+}
