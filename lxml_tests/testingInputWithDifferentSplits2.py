@@ -5,11 +5,12 @@ def start_app():
         question = input("You: ")
         if question.lower() == "xpath":
             user_input = input("Type an xPath Expression: ").strip()
-            slashes = '//'
-            if user_input.startswith(slashes):
-                e1, e2, e3, e4 = user_input.split("//")
-                print(e2)
-                print(e3)
-                print(e4)
+            xpath = 'root.xpath'
+            if user_input.startswith('//'):
+                tokens = user_input.split("//")
+                # ebb: Let's try to make the split either / or // (regex will be the way: look up how to use it).
+                for t in tokens:
+                    if t.strip(): # Prints not blank t
+                        print(t)
 if __name__ == "__main__":
     start_app()

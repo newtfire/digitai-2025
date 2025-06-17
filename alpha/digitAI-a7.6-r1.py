@@ -52,7 +52,7 @@ def start_app():
             print("Chat history saved. Exiting...")
             return
         if question.lower() == "xpath":
-            r = root.xpath('(//@ref)[1]')
+            r = root.xpath('(//editor)[1]')
             print(r)
         else:
             response = chain.invoke({"input": question, "chat_history": chat_history})
