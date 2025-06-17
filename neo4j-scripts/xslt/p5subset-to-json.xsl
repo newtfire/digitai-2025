@@ -28,19 +28,12 @@
         
         <xsl:sequence select="map {
             'P5subset-text': current-dateTime(),
-            'CONTAINS-SECTIONS' :  $process
+            'CONTAINS-PARTS' :  $process
             }"/>
       
         
  
     </xsl:template>
-    
-   <!-- <xsl:template match="test" as="map(*)">
-        <xsl:sequence select="map {
-            'lastBuildDate' : @lastBuildDate => xs:string()
-            }"/>
-    </xsl:template>-->
-
     
     <xsl:template match="text/*" as="map(*)*">
      
@@ -49,10 +42,12 @@
             <xsl:sequence select="array {
                 for $chap in child::div[@type='div1'] return
                 map {
-                  $chap/@xml:id : $chap/head/text()
+                  $chap/@xml:id : $chap/head/text(),
+                  'CONTAINS-SECTION': 'coming-soon'
                   }
                 }
                "/> 
+       <!-- CONTINUE HERE! -->
         </xsl:variable>
         
         <xsl:sequence select="map {

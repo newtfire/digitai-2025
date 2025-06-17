@@ -1,47 +1,145 @@
 {
-  "P5subset-text": "2025-06-17T16:05:56.959594-04:00",
-  "CONTAINS-SECTIONS": [
+  "CONTAINS-PARTS": [
     {
       "section": "front",
       "CONTAINS-CHAPTERS": [
         { "CONTAINS-CHAPTERS":[
-            { "AB":"About These Guidelines" },
-            { "SG":"A Gentle Introduction to XML" },
-            { "CH":"Languages and Character Sets" }
+            {
+              "AB": "About These Guidelines",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "SG": "A Gentle Introduction to XML",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CH": "Languages and Character Sets",
+              "CONTAINS-SECTION": "coming-soon"
+            }
           ] },
         { "CONTAINS-CHAPTERS":[
-            { "ST":"The TEI Infrastructure" },
-            { "HD":"The TEI Header" },
-            { "CO":"Elements Available in All TEI Documents" },
-            { "DS":"Default Text Structure" },
-            { "WD":"Characters, Glyphs, and Writing Modes" },
-            { "VE":"Verse" },
-            { "DR":"Performance Texts" },
-            { "TS":"Transcriptions of Speech" },
-            { "CMC":"Computer-mediated Communication" },
-            { "DI":"Dictionaries" },
-            { "MS":"Manuscript Description" },
-            { "PH":"Representation of Primary Sources" },
-            { "TC":"Critical Apparatus" },
-            { "ND":"Names, Dates, People, and Places" },
-            { "FT":"Tables, Formulæ, Graphics, and Notated Music" },
-            { "CC":"Language Corpora" },
-            { "SA":"Linking, Segmentation, and Alignment" },
-            { "AI":"Simple Analytic Mechanisms" },
-            { "FS":"Feature Structures" },
-            { "GD":"Graphs, Networks, and Trees" },
-            { "NH":"Non-hierarchical Structures" },
-            { "CE":"Certainty, Precision, and Responsibility" },
-            { "TD":"Documentation Elements" },
-            { "USE":"Using the TEI" }
+            {
+              "ST": "The TEI Infrastructure",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "HD": "The TEI Header"
+            },
+            {
+              "CO": "Elements Available in All TEI Documents",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "DS": "Default Text Structure",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "WD": "Characters, Glyphs, and Writing Modes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "VE": "Verse",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "DR": "Performance Texts",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "TS": "Transcriptions of Speech"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "CMC": "Computer-mediated Communication"
+            },
+            {
+              "DI": "Dictionaries",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "MS": "Manuscript Description",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "PH": "Representation of Primary Sources"
+            },
+            {
+              "TC": "Critical Apparatus",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "ND": "Names, Dates, People, and Places",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "FT": "Tables, Formulæ, Graphics, and Notated Music",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CC": "Language Corpora",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "SA": "Linking, Segmentation, and Alignment",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "AI": "Simple Analytic Mechanisms",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "FS": "Feature Structures",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "GD": "Graphs, Networks, and Trees"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "NH": "Non-hierarchical Structures"
+            },
+            {
+              "CE": "Certainty, Precision, and Responsibility",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "TD": "Documentation Elements",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "USE": "Using the TEI",
+              "CONTAINS-SECTION": "coming-soon"
+            }
           ] },
         { "CONTAINS-CHAPTERS":[
-            { "REF-CLASSES-MODEL":"Model Classes" },
-            { "REF-CLASSES-ATTS":"Attribute Classes" },
-            { "REF-ELEMENTS":"Elements" },
-            { "REF-ATTS":"Attributes" },
-            { "REF-MACROS":"Datatypes and Other Macros" },
-            { "DEPRECATIONS":"Deprecations" }
+            {
+              "REF-CLASSES-MODEL": "Model Classes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-CLASSES-ATTS": "Attribute Classes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-ELEMENTS": "Elements",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-ATTS": "Attributes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-MACROS": "Datatypes and Other Macros",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "DEPRECATIONS": "Deprecations"
+            }
           ] }
       ]
     },
@@ -49,43 +147,142 @@
       "section": "body",
       "CONTAINS-CHAPTERS": [
         { "CONTAINS-CHAPTERS":[
-            { "AB":"About These Guidelines" },
-            { "SG":"A Gentle Introduction to XML" },
-            { "CH":"Languages and Character Sets" }
+            {
+              "AB": "About These Guidelines",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "SG": "A Gentle Introduction to XML",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CH": "Languages and Character Sets",
+              "CONTAINS-SECTION": "coming-soon"
+            }
           ] },
         { "CONTAINS-CHAPTERS":[
-            { "ST":"The TEI Infrastructure" },
-            { "HD":"The TEI Header" },
-            { "CO":"Elements Available in All TEI Documents" },
-            { "DS":"Default Text Structure" },
-            { "WD":"Characters, Glyphs, and Writing Modes" },
-            { "VE":"Verse" },
-            { "DR":"Performance Texts" },
-            { "TS":"Transcriptions of Speech" },
-            { "CMC":"Computer-mediated Communication" },
-            { "DI":"Dictionaries" },
-            { "MS":"Manuscript Description" },
-            { "PH":"Representation of Primary Sources" },
-            { "TC":"Critical Apparatus" },
-            { "ND":"Names, Dates, People, and Places" },
-            { "FT":"Tables, Formulæ, Graphics, and Notated Music" },
-            { "CC":"Language Corpora" },
-            { "SA":"Linking, Segmentation, and Alignment" },
-            { "AI":"Simple Analytic Mechanisms" },
-            { "FS":"Feature Structures" },
-            { "GD":"Graphs, Networks, and Trees" },
-            { "NH":"Non-hierarchical Structures" },
-            { "CE":"Certainty, Precision, and Responsibility" },
-            { "TD":"Documentation Elements" },
-            { "USE":"Using the TEI" }
+            {
+              "ST": "The TEI Infrastructure",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "HD": "The TEI Header"
+            },
+            {
+              "CO": "Elements Available in All TEI Documents",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "DS": "Default Text Structure",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "WD": "Characters, Glyphs, and Writing Modes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "VE": "Verse",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "DR": "Performance Texts",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "TS": "Transcriptions of Speech"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "CMC": "Computer-mediated Communication"
+            },
+            {
+              "DI": "Dictionaries",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "MS": "Manuscript Description",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "PH": "Representation of Primary Sources"
+            },
+            {
+              "TC": "Critical Apparatus",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "ND": "Names, Dates, People, and Places",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "FT": "Tables, Formulæ, Graphics, and Notated Music",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CC": "Language Corpora",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "SA": "Linking, Segmentation, and Alignment",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "AI": "Simple Analytic Mechanisms",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "FS": "Feature Structures",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "GD": "Graphs, Networks, and Trees"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "NH": "Non-hierarchical Structures"
+            },
+            {
+              "CE": "Certainty, Precision, and Responsibility",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "TD": "Documentation Elements",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "USE": "Using the TEI",
+              "CONTAINS-SECTION": "coming-soon"
+            }
           ] },
         { "CONTAINS-CHAPTERS":[
-            { "REF-CLASSES-MODEL":"Model Classes" },
-            { "REF-CLASSES-ATTS":"Attribute Classes" },
-            { "REF-ELEMENTS":"Elements" },
-            { "REF-ATTS":"Attributes" },
-            { "REF-MACROS":"Datatypes and Other Macros" },
-            { "DEPRECATIONS":"Deprecations" }
+            {
+              "REF-CLASSES-MODEL": "Model Classes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-CLASSES-ATTS": "Attribute Classes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-ELEMENTS": "Elements",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-ATTS": "Attributes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-MACROS": "Datatypes and Other Macros",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "DEPRECATIONS": "Deprecations"
+            }
           ] }
       ]
     },
@@ -93,45 +290,145 @@
       "section": "back",
       "CONTAINS-CHAPTERS": [
         { "CONTAINS-CHAPTERS":[
-            { "AB":"About These Guidelines" },
-            { "SG":"A Gentle Introduction to XML" },
-            { "CH":"Languages and Character Sets" }
+            {
+              "AB": "About These Guidelines",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "SG": "A Gentle Introduction to XML",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CH": "Languages and Character Sets",
+              "CONTAINS-SECTION": "coming-soon"
+            }
           ] },
         { "CONTAINS-CHAPTERS":[
-            { "ST":"The TEI Infrastructure" },
-            { "HD":"The TEI Header" },
-            { "CO":"Elements Available in All TEI Documents" },
-            { "DS":"Default Text Structure" },
-            { "WD":"Characters, Glyphs, and Writing Modes" },
-            { "VE":"Verse" },
-            { "DR":"Performance Texts" },
-            { "TS":"Transcriptions of Speech" },
-            { "CMC":"Computer-mediated Communication" },
-            { "DI":"Dictionaries" },
-            { "MS":"Manuscript Description" },
-            { "PH":"Representation of Primary Sources" },
-            { "TC":"Critical Apparatus" },
-            { "ND":"Names, Dates, People, and Places" },
-            { "FT":"Tables, Formulæ, Graphics, and Notated Music" },
-            { "CC":"Language Corpora" },
-            { "SA":"Linking, Segmentation, and Alignment" },
-            { "AI":"Simple Analytic Mechanisms" },
-            { "FS":"Feature Structures" },
-            { "GD":"Graphs, Networks, and Trees" },
-            { "NH":"Non-hierarchical Structures" },
-            { "CE":"Certainty, Precision, and Responsibility" },
-            { "TD":"Documentation Elements" },
-            { "USE":"Using the TEI" }
+            {
+              "ST": "The TEI Infrastructure",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "HD": "The TEI Header"
+            },
+            {
+              "CO": "Elements Available in All TEI Documents",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "DS": "Default Text Structure",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "WD": "Characters, Glyphs, and Writing Modes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "VE": "Verse",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "DR": "Performance Texts",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "TS": "Transcriptions of Speech"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "CMC": "Computer-mediated Communication"
+            },
+            {
+              "DI": "Dictionaries",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "MS": "Manuscript Description",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "PH": "Representation of Primary Sources"
+            },
+            {
+              "TC": "Critical Apparatus",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "ND": "Names, Dates, People, and Places",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "FT": "Tables, Formulæ, Graphics, and Notated Music",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CC": "Language Corpora",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "SA": "Linking, Segmentation, and Alignment",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "AI": "Simple Analytic Mechanisms",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "FS": "Feature Structures",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "GD": "Graphs, Networks, and Trees"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "NH": "Non-hierarchical Structures"
+            },
+            {
+              "CE": "Certainty, Precision, and Responsibility",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "TD": "Documentation Elements",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "USE": "Using the TEI",
+              "CONTAINS-SECTION": "coming-soon"
+            }
           ] },
         { "CONTAINS-CHAPTERS":[
-            { "REF-CLASSES-MODEL":"Model Classes" },
-            { "REF-CLASSES-ATTS":"Attribute Classes" },
-            { "REF-ELEMENTS":"Elements" },
-            { "REF-ATTS":"Attributes" },
-            { "REF-MACROS":"Datatypes and Other Macros" },
-            { "DEPRECATIONS":"Deprecations" }
+            {
+              "REF-CLASSES-MODEL": "Model Classes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-CLASSES-ATTS": "Attribute Classes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-ELEMENTS": "Elements",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-ATTS": "Attributes",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "REF-MACROS": "Datatypes and Other Macros",
+              "CONTAINS-SECTION": "coming-soon"
+            },
+            {
+              "CONTAINS-SECTION": "coming-soon",
+              "DEPRECATIONS": "Deprecations"
+            }
           ] }
       ]
     }
-  ]
+  ],
+  "P5subset-text": "2025-06-17T16:35:22.402893-04:00"
 }
