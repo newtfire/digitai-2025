@@ -4,13 +4,27 @@
     xmlns:eg ="http://www.tei-c.org/ns/Examples"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+    xmlns:nf="http://newtfire.org"
     exclude-result-prefixes="xs math eg"
     version="4.0">
     
     <xsl:output method="json" indent="yes"/>
     
-    <xsl:variable name="P5-chapters" as="document-node()+" select="collection('../../p5-chapters/en-2025-06/?select=*.xml')"/>
-     
+    <xsl:variable name="P5-chapters" as="document-node()+" select="collection('../p5-chapters/en-2025-06-17/?select=*.xml')"/>
+     <!-- 2025-06-17 ebb: The directory path will change with updates to the P5 subset saved to the  -->
+   
+    <xsl:function name="nf:chapterCollPull" as="item()*">
+        <xsl:param name="input-id" as="xs:string"/>
+       <xsl:param name="input2" as="xs:string"/>-
+        <xsl:sequence select="array{
+            for $div in ($P5-chapters/div[@type='div1' and @xml:id =$input-id ]/div[@type='div2'])
+            return map {
+            $div/@xml:id : $div/head ! string(),
+            'CONTAINS-WHATNOW?' : 'CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.'
+            }
+            }"/>
+    </xsl:function>
+    
     <xsl:template match="/">
         
         <xsl:variable name="COLLTESTER">
@@ -43,6 +57,7 @@
     </xsl:template>
     
     <xsl:template match="text/*" as="map(*)*">
+        
      
       
    <xsl:variable name="chapters" as="array(*)*">
@@ -50,11 +65,10 @@
                 for $chap in child::div[@type='div1'] return
                 map {
                   $chap/@xml:id : $chap/head/text(),
-                  'CONTAINS-SECTION': 'coming-soon'
+                  'CONTAINS-SECTION': array {nf:chapterCollPull($chap/@xml:id, 'section')}
                   }
                 }
                "/> 
-       <!-- CONTINUE HERE! -->
         </xsl:variable>
         
         <xsl:sequence select="map {
