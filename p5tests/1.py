@@ -4,7 +4,7 @@ from lxml import etree
 import os
 
 INPUT = "../p5subset.xml"
-OUTPUT = "data/processed/chunks_with_children_classes.jsonl"
+OUTPUT = "data/processed/chunks.jsonl"
 NS = {"tei": "http://www.tei-c.org/ns/1.0"}
 
 def clean_text(text):
@@ -68,32 +68,21 @@ def main():
             classes = extract_classes(spec)
 
             text_parts = []
-            if gloss:
-                text_parts.append(gloss + ".")
-            if desc:
-                text_parts.append("Description: " + desc)
-            if attributes:
-                text_parts.append("Attributes: " + "; ".join(attributes))
-            if examples:
-                text_parts.append("Examples: " + " | ".join(examples))
-            if children:
-                text_parts.append("Allowed children: " + ", ".join(children))
-            if classes:
-                text_parts.append("Class membership: " + ", ".join(classes))
 
             full_text = "\n".join(text_parts)
             url = f"https://tei-c.org/release/doc/tei-p5-doc/en/html/ref-{ident}.html"
 
             entry = {
                 "id": f"tei-{ident}",
-                "text": full_text,
-                "meta": {
-                    "element": ident,
-                    "module": module,
-                    "url": url,
-                    "children": children,
-                    "classes": classes
-                }
+                "gloss": gloss,
+                "description": desc,
+                "attributes": attributes,
+                "examples": examples,
+                "element": ident,
+                "module": module,
+                "url": url,
+                "children": children,
+                "classes": classes
             }
             out.write(json.dumps(entry) + "\n")
 
