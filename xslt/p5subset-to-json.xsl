@@ -9,7 +9,13 @@
     
     <xsl:output method="json" indent="yes"/>
     
+    <xsl:variable name="P5-chapters" as="document-node()+" select="collection('../../p5-chapters/en-2025-06/?select=*.xml')"/>
+     
     <xsl:template match="/">
+        
+        <xsl:variable name="COLLTESTER">
+            <xsl:apply-templates select="$P5-chapters//div[@type='div1'][1]/head/text()"/>
+        </xsl:variable>
         
         <xsl:variable name="chapterMaps" as="map(*)*">
             <xsl:apply-templates select="child::TEI[1]/text/*"/>
@@ -28,7 +34,8 @@
         
         <xsl:sequence select="map {
             'P5subset-text': current-dateTime(),
-            'CONTAINS-PARTS' :  $process
+            'CONTAINS-PARTS' :  $process,
+            'CONTAINS-COLLSTUFF': $COLLTESTER
             }"/>
       
         
