@@ -11,7 +11,11 @@
     <xsl:output method="json" indent="yes"/>
     
     <xsl:variable name="P5-chapters" as="document-node()+" select="collection('../p5-chapters/en-2025-06-17/?select=*.xml')"/>
-     <!-- 2025-06-17 ebb: The directory path will change with updates to the P5 subset saved to the  -->
+     <!-- 2025-06-17 ebb: The directory path will change with updates to the P5 subset saved to the repo. We are removing the following:
+     * BIBL (too much information indirectly related to the elements  
+     * file named "DEPRECATION" (contains little explicit information)
+     * files with names starting REF- (mostly empty files that represent from the element / attribute / class / module specs)
+     -->
    
     <xsl:function name="nf:chapterDivPull" as="map(*)*">
         <xsl:param name="input-id" as="xs:string"/>
@@ -70,8 +74,9 @@
     
     <xsl:template match="text/*" as="map(*)*">      
    <xsl:variable name="chapters" as="array(*)*">
+       <!--ebb: NOTE: Here we are excluding the P5 Subset file's references to the REF- and Deprecations files we've removed.  -->
             <xsl:sequence select="array {
-                for $chap in child::div[@type='div1'] return
+                for $chap in child::div[@type='div1'][not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))] return
                 map {
                   'CHAPTER': $chap/head/text(),
                   'ID': $chap/@xml:id ! string(),

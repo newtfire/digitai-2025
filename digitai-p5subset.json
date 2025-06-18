@@ -1098,38 +1098,7 @@
               ]
             }
           ] },
-        { "CHAPTERS":[
-            {
-              "CHAPTER": "Model Classes",
-              "ID": "REF-CLASSES-MODEL",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Attribute Classes",
-              "ID": "REF-CLASSES-ATTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Elements",
-              "ID": "REF-ELEMENTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Attributes",
-              "ID": "REF-ATTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Datatypes and Other Macros",
-              "ID": "REF-MACROS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Deprecations",
-              "ID": "DEPRECATIONS",
-              "CONTAINS-SECTIONS": [  ]
-            }
-          ] }
+        { "CHAPTERS":[  ] }
       ]
     },
     {
@@ -2230,38 +2199,7 @@
               ]
             }
           ] },
-        { "CHAPTERS":[
-            {
-              "CHAPTER": "Model Classes",
-              "ID": "REF-CLASSES-MODEL",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Attribute Classes",
-              "ID": "REF-CLASSES-ATTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Elements",
-              "ID": "REF-ELEMENTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Attributes",
-              "ID": "REF-ATTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Datatypes and Other Macros",
-              "ID": "REF-MACROS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Deprecations",
-              "ID": "DEPRECATIONS",
-              "CONTAINS-SECTIONS": [  ]
-            }
-          ] }
+        { "CHAPTERS":[  ] }
       ]
     },
     {
@@ -3362,40 +3300,9 @@
               ]
             }
           ] },
-        { "CHAPTERS":[
-            {
-              "CHAPTER": "Model Classes",
-              "ID": "REF-CLASSES-MODEL",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Attribute Classes",
-              "ID": "REF-CLASSES-ATTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Elements",
-              "ID": "REF-ELEMENTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Attributes",
-              "ID": "REF-ATTS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Datatypes and Other Macros",
-              "ID": "REF-MACROS",
-              "CONTAINS-SECTIONS": [  ]
-            },
-            {
-              "CHAPTER": "Deprecations",
-              "ID": "DEPRECATIONS",
-              "CONTAINS-SECTIONS": [  ]
-            }
-          ] }
+        { "CHAPTERS":[  ] }
       ]
     }
   ],
-  "P5subset-text": "2025-06-18T17:44:30.705695-04:00"
+  "P5subset-text": "2025-06-18T18:17:43.310746-04:00"
 }
