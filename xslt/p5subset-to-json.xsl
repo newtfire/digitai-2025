@@ -51,30 +51,31 @@
     </xsl:function>
     
     <xsl:template match="/">
-        <xsl:variable name="chapterMaps" as="map(*)*">
-            <xsl:apply-templates select="child::TEI[1]/text/*"/>
-        </xsl:variable>
-        
-        <xsl:variable name="process" as="array(*)*">
-          <xsl:sequence select="array{ 
-              for $part in (child::TEI[1]/text/*)
-              return map {
-               'PART' : $part/name(),
-               'CONTAINS-CHAPTERS': array { $chapterMaps
-               }
-               }
-            }"/>
+   
+  
+       <xsl:variable name="partInfo" as="map(*)*"> 
+           <xsl:for-each select="child::TEI[1]/text/*">
+            <xsl:variable name="chapterMaps" as="map(*)*">
+                <xsl:apply-templates select="current()"/>
+            </xsl:variable>
+            <xsl:sequence select="map {
+                'PART' : current()/name(),
+                'CONTAINS-CHAPTERS': array { $chapterMaps
+                }}"/>
+        </xsl:for-each>
         </xsl:variable>
         
         <xsl:sequence select="map {
             'P5subset-text': current-dateTime(),
-            'CONTAINS-PARTS' :  $process
+            'CONTAINS-PARTS' : array { $partInfo }
             }"/>
+       
     </xsl:template>
     
     <xsl:template match="text/*" as="map(*)*">      
    <xsl:variable name="chapters" as="array(*)*">
        <!--ebb: NOTE: Here we are excluding the P5 Subset file's references to the REF- and Deprecations files we've removed.  -->
+       <!-- 2025-06-18 ebb: JUST constraining this to output the AI (Analytic Mechanisms) chapter -->
             <xsl:sequence select="array {
                 for $chap in child::div[@type='div1'][not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))] return
                 map {
