@@ -13,16 +13,35 @@
     <xsl:variable name="P5-chapters" as="document-node()+" select="collection('../p5-chapters/en-2025-06-17/?select=*.xml')"/>
      <!-- 2025-06-17 ebb: The directory path will change with updates to the P5 subset saved to the  -->
    
-    <xsl:function name="nf:chapterCollPull" as="array(*)*">
+    <xsl:function name="nf:chapterDivPull" as="map(*)*">
         <xsl:param name="input-id" as="xs:string"/>
-        <xsl:param name="input2" as="xs:string"/>
-        <xsl:sequence select="array{
-            for $div in ($P5-chapters/div[@type='div1' and @xml:id =$input-id ]/div[@type='div2'])
+        <xsl:param name="whichDiv" as="xs:string"/>
+        <xsl:param name="sectionLevel" as="xs:string"/>
+      <!--  <xsl:sequence select="array{
+            for $div in ($P5-chapters//div[@type=$whichDiv and @xml:id =$input-id ]/div[@type])
             return map {
             $div/@xml:id : $div/head ! string(),
             'CONTAINS-WHATNOW?' : 'CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.'
             }
-            }"/>
+            }"/>-->
+        <xsl:for-each select="$P5-chapters//div[@type=$whichDiv and @xml:id =$input-id ]/div[@type and @xml:id]">
+         
+           <xsl:choose> 
+               <xsl:when test="current()[child::div/@type]">
+                   <xsl:sequence select="map {
+                       current()/@xml:id : current()/head ! string(),
+                       'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') }
+                       }"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="map {
+                    current()/@xml:id : current()/head ! string()
+                    }"/>
+
+            </xsl:otherwise>
+           </xsl:choose>
+            
+        </xsl:for-each>
     </xsl:function>
     
     <xsl:template match="/">
@@ -53,7 +72,7 @@
                 for $chap in child::div[@type='div1'] return
                 map {
                   $chap/@xml:id : $chap/head/text(),
-                  'CONTAINS-SECTION': array {nf:chapterCollPull($chap/@xml:id, 'SECTION')}
+                  'CONTAINS-SECTION': array { nf:chapterDivPull($chap/@xml:id, 'div1', 'SUBSECTION') }
                   }
                 }
                "/> 
@@ -61,9 +80,11 @@
         
         <xsl:sequence select="map {
            
-            'CONTAINS-CHAPTERS': $chapters
+            'CHAPTERS': $chapters
             }"/>
-
     </xsl:template>
+    
+   
+  
     
 </xsl:stylesheet>
