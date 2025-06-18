@@ -1,14 +1,12 @@
 {
   "CONTAINS-PARTS": [
     {
-      "section": "front",
+      "PART": "front",
       "CONTAINS-CHAPTERS": [
         { "CONTAINS-CHAPTERS":[
             {
               "AB": "About These Guidelines",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "ABSTRUNC": "Structure and Notational\nConventions of this Document",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -17,14 +15,11 @@
                     "ABTEI": "Historical Background",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "SG": "A Gentle Introduction to XML",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "SG11": "What's Special about XML?",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -57,14 +52,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "SG18": "Putting It All Together"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "CH": "Languages and Character Sets",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CHSH": "Language Identification",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -73,16 +65,13 @@
                     "CHCS": "Characters and Character Sets",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             }
           ] },
         { "CONTAINS-CHAPTERS":[
             {
               "ST": "The TEI Infrastructure",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "STMA": "TEI Modules",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -103,13 +92,10 @@
                     "STOV": "The TEI Infrastructure Module",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "HD1": "Organization of the TEI Header",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -142,15 +128,12 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "HD8": "Note for Library Cataloguers"
                   }
-                ]
-              ],
+                ] ],
               "HD": "The TEI Header"
             },
             {
               "CO": "Elements Available in All TEI Documents",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "COPA": "Paragraphs"
@@ -207,14 +190,11 @@
                     "COOV": "Overview of the Core Module ",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "DS": "Default Text Structure",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DSDIV": "Divisions of the Body",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -243,14 +223,11 @@
                     "DSSTRUC": "Module for Default Text Structure",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "WD": "Characters, Glyphs, and Writing Modes",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "WDNE": "Is Your Journey Really Necessary?",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -283,14 +260,11 @@
                     "WSD-DEF": "Formal Definition",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "VE": "Verse",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "VEST": "Structural Divisions of Verse Texts",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -319,14 +293,11 @@
                     "VESTR": "Module for Verse",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "DR": "Performance Texts",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DRFAB": "Front and Back Matter\n ",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -339,13 +310,10 @@
                     "DROTH": "Other Types of Performance Text",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "TSOV": "General Considerations and Overview",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -358,14 +326,11 @@
                     "TSSA": "Elements Defined Elsewhere",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "TS": "Transcriptions of Speech"
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CMCintro": "General Considerations",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -378,15 +343,12 @@
                     "CMCcmc": "Encoding Unique to CMC",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "CMC": "Computer-mediated Communication"
             },
             {
               "DI": "Dictionaries",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DIBO": "Dictionary Body and Overall Structure",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -411,14 +373,11 @@
                     "DIFR": "Unstructured Entries",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "MS": "Manuscript Description",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "msov": "Overview",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -467,13 +426,10 @@
                     "MSref": "Module for Manuscript Description",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "PHRB": "Transcription and Ruby",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -486,15 +442,12 @@
                     "PHTRXX": "Other Primary Source Features not Covered in these Guidelines",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "PH": "Representation of Primary Sources"
             },
             {
               "TC": "Critical Apparatus",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "TCAPLL": "The Apparatus Entry, Readings, and Witnesses"
@@ -507,24 +460,18 @@
                     "TCTR": "Using Apparatus Elements in Transcriptions",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "ND": "Names, Dates, People, and Places",
-              "CONTAINS-SECTION": [
-                "-",
-                [ {
+              "CONTAINS-SECTION": [ [ {
                     "NDPERS": "Biographical and Prosopographical Data",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
-                  } ]
-              ]
+                  } ] ]
             },
             {
               "FT": "Tables, Formulæ, Graphics, and Notated Music",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "FTTAB": "Tables",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -549,14 +496,11 @@
                     "FTGRNO": "Graphic Image Formats",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "CC": "Language Corpora",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CCDEF": "Varieties of Composite Text",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -577,14 +521,11 @@
                     "CCREC": "Recommendations for the Encoding of Large Corpora",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "SA": "Linking, Segmentation, and Alignment",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "SAPT": "Links",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -637,14 +578,11 @@
                     "SAref": "Module for Linking, Segmentation, and Alignment",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "AI": "Simple Analytic Mechanisms",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "AILC": "Linguistic Segment Categories"
@@ -661,14 +599,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "AILA": "Linguistic Annotation"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "FS": "Feature Structures",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "FSor": "Organization of this Chapter",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -713,13 +648,10 @@
                     "FSDEF": "Formal Definition and Implementation",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "GDGR": "Graphs and Digraphs",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -732,14 +664,11 @@
                     "GDAT": "Another Tree Notation",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "GD": "Graphs, Networks, and Trees"
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "NHME": "Multiple Encodings of the Same Information",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -760,15 +689,12 @@
                     "NHNX": "Non-XML-based Approaches",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "NH": "Non-hierarchical Structures"
             },
             {
               "CE": "Certainty, Precision, and Responsibility",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CECERT": "Levels of Certainty",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -781,14 +707,11 @@
                     "CERESP": "Attribution of Responsibility",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "TD": "Documentation Elements",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "TDphrase": "Phrase Level Documentary Elements",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -805,14 +728,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "TDformal": "Module for Documentation Elements"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "USE": "Using the TEI",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "MEDIATYPE": "Serving TEI files with the TEI Media Type"
@@ -833,65 +753,44 @@
                     "IM": "Implementation of an ODD System",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             }
           ] },
         { "CONTAINS-CHAPTERS":[
             {
               "REF-CLASSES-MODEL": "Model Classes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-CLASSES-ATTS": "Attribute Classes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-ELEMENTS": "Elements",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-ATTS": "Attributes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-MACROS": "Datatypes and Other Macros",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ],
+              "CONTAINS-SECTION": [ [  ] ],
               "DEPRECATIONS": "Deprecations"
             }
           ] }
       ]
     },
     {
-      "section": "body",
+      "PART": "body",
       "CONTAINS-CHAPTERS": [
         { "CONTAINS-CHAPTERS":[
             {
               "AB": "About These Guidelines",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "ABSTRUNC": "Structure and Notational\nConventions of this Document",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -900,14 +799,11 @@
                     "ABTEI": "Historical Background",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "SG": "A Gentle Introduction to XML",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "SG11": "What's Special about XML?",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -940,14 +836,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "SG18": "Putting It All Together"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "CH": "Languages and Character Sets",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CHSH": "Language Identification",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -956,16 +849,13 @@
                     "CHCS": "Characters and Character Sets",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             }
           ] },
         { "CONTAINS-CHAPTERS":[
             {
               "ST": "The TEI Infrastructure",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "STMA": "TEI Modules",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -986,13 +876,10 @@
                     "STOV": "The TEI Infrastructure Module",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "HD1": "Organization of the TEI Header",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1025,15 +912,12 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "HD8": "Note for Library Cataloguers"
                   }
-                ]
-              ],
+                ] ],
               "HD": "The TEI Header"
             },
             {
               "CO": "Elements Available in All TEI Documents",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "COPA": "Paragraphs"
@@ -1090,14 +974,11 @@
                     "COOV": "Overview of the Core Module ",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "DS": "Default Text Structure",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DSDIV": "Divisions of the Body",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1126,14 +1007,11 @@
                     "DSSTRUC": "Module for Default Text Structure",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "WD": "Characters, Glyphs, and Writing Modes",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "WDNE": "Is Your Journey Really Necessary?",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1166,14 +1044,11 @@
                     "WSD-DEF": "Formal Definition",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "VE": "Verse",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "VEST": "Structural Divisions of Verse Texts",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1202,14 +1077,11 @@
                     "VESTR": "Module for Verse",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "DR": "Performance Texts",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DRFAB": "Front and Back Matter\n ",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1222,13 +1094,10 @@
                     "DROTH": "Other Types of Performance Text",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "TSOV": "General Considerations and Overview",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1241,14 +1110,11 @@
                     "TSSA": "Elements Defined Elsewhere",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "TS": "Transcriptions of Speech"
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CMCintro": "General Considerations",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1261,15 +1127,12 @@
                     "CMCcmc": "Encoding Unique to CMC",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "CMC": "Computer-mediated Communication"
             },
             {
               "DI": "Dictionaries",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DIBO": "Dictionary Body and Overall Structure",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1294,14 +1157,11 @@
                     "DIFR": "Unstructured Entries",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "MS": "Manuscript Description",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "msov": "Overview",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1350,13 +1210,10 @@
                     "MSref": "Module for Manuscript Description",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "PHRB": "Transcription and Ruby",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1369,15 +1226,12 @@
                     "PHTRXX": "Other Primary Source Features not Covered in these Guidelines",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "PH": "Representation of Primary Sources"
             },
             {
               "TC": "Critical Apparatus",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "TCAPLL": "The Apparatus Entry, Readings, and Witnesses"
@@ -1390,24 +1244,18 @@
                     "TCTR": "Using Apparatus Elements in Transcriptions",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "ND": "Names, Dates, People, and Places",
-              "CONTAINS-SECTION": [
-                "-",
-                [ {
+              "CONTAINS-SECTION": [ [ {
                     "NDPERS": "Biographical and Prosopographical Data",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
-                  } ]
-              ]
+                  } ] ]
             },
             {
               "FT": "Tables, Formulæ, Graphics, and Notated Music",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "FTTAB": "Tables",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1432,14 +1280,11 @@
                     "FTGRNO": "Graphic Image Formats",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "CC": "Language Corpora",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CCDEF": "Varieties of Composite Text",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1460,14 +1305,11 @@
                     "CCREC": "Recommendations for the Encoding of Large Corpora",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "SA": "Linking, Segmentation, and Alignment",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "SAPT": "Links",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1520,14 +1362,11 @@
                     "SAref": "Module for Linking, Segmentation, and Alignment",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "AI": "Simple Analytic Mechanisms",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "AILC": "Linguistic Segment Categories"
@@ -1544,14 +1383,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "AILA": "Linguistic Annotation"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "FS": "Feature Structures",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "FSor": "Organization of this Chapter",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1596,13 +1432,10 @@
                     "FSDEF": "Formal Definition and Implementation",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "GDGR": "Graphs and Digraphs",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1615,14 +1448,11 @@
                     "GDAT": "Another Tree Notation",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "GD": "Graphs, Networks, and Trees"
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "NHME": "Multiple Encodings of the Same Information",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1643,15 +1473,12 @@
                     "NHNX": "Non-XML-based Approaches",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "NH": "Non-hierarchical Structures"
             },
             {
               "CE": "Certainty, Precision, and Responsibility",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CECERT": "Levels of Certainty",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1664,14 +1491,11 @@
                     "CERESP": "Attribution of Responsibility",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "TD": "Documentation Elements",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "TDphrase": "Phrase Level Documentary Elements",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1688,14 +1512,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "TDformal": "Module for Documentation Elements"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "USE": "Using the TEI",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "MEDIATYPE": "Serving TEI files with the TEI Media Type"
@@ -1716,65 +1537,44 @@
                     "IM": "Implementation of an ODD System",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             }
           ] },
         { "CONTAINS-CHAPTERS":[
             {
               "REF-CLASSES-MODEL": "Model Classes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-CLASSES-ATTS": "Attribute Classes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-ELEMENTS": "Elements",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-ATTS": "Attributes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-MACROS": "Datatypes and Other Macros",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ],
+              "CONTAINS-SECTION": [ [  ] ],
               "DEPRECATIONS": "Deprecations"
             }
           ] }
       ]
     },
     {
-      "section": "back",
+      "PART": "back",
       "CONTAINS-CHAPTERS": [
         { "CONTAINS-CHAPTERS":[
             {
               "AB": "About These Guidelines",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "ABSTRUNC": "Structure and Notational\nConventions of this Document",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1783,14 +1583,11 @@
                     "ABTEI": "Historical Background",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "SG": "A Gentle Introduction to XML",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "SG11": "What's Special about XML?",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1823,14 +1620,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "SG18": "Putting It All Together"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "CH": "Languages and Character Sets",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CHSH": "Language Identification",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1839,16 +1633,13 @@
                     "CHCS": "Characters and Character Sets",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             }
           ] },
         { "CONTAINS-CHAPTERS":[
             {
               "ST": "The TEI Infrastructure",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "STMA": "TEI Modules",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1869,13 +1660,10 @@
                     "STOV": "The TEI Infrastructure Module",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "HD1": "Organization of the TEI Header",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -1908,15 +1696,12 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "HD8": "Note for Library Cataloguers"
                   }
-                ]
-              ],
+                ] ],
               "HD": "The TEI Header"
             },
             {
               "CO": "Elements Available in All TEI Documents",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "COPA": "Paragraphs"
@@ -1973,14 +1758,11 @@
                     "COOV": "Overview of the Core Module ",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "DS": "Default Text Structure",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DSDIV": "Divisions of the Body",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2009,14 +1791,11 @@
                     "DSSTRUC": "Module for Default Text Structure",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "WD": "Characters, Glyphs, and Writing Modes",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "WDNE": "Is Your Journey Really Necessary?",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2049,14 +1828,11 @@
                     "WSD-DEF": "Formal Definition",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "VE": "Verse",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "VEST": "Structural Divisions of Verse Texts",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2085,14 +1861,11 @@
                     "VESTR": "Module for Verse",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "DR": "Performance Texts",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DRFAB": "Front and Back Matter\n ",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2105,13 +1878,10 @@
                     "DROTH": "Other Types of Performance Text",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "TSOV": "General Considerations and Overview",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2124,14 +1894,11 @@
                     "TSSA": "Elements Defined Elsewhere",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "TS": "Transcriptions of Speech"
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CMCintro": "General Considerations",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2144,15 +1911,12 @@
                     "CMCcmc": "Encoding Unique to CMC",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "CMC": "Computer-mediated Communication"
             },
             {
               "DI": "Dictionaries",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "DIBO": "Dictionary Body and Overall Structure",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2177,14 +1941,11 @@
                     "DIFR": "Unstructured Entries",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "MS": "Manuscript Description",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "msov": "Overview",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2233,13 +1994,10 @@
                     "MSref": "Module for Manuscript Description",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "PHRB": "Transcription and Ruby",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2252,15 +2010,12 @@
                     "PHTRXX": "Other Primary Source Features not Covered in these Guidelines",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "PH": "Representation of Primary Sources"
             },
             {
               "TC": "Critical Apparatus",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "TCAPLL": "The Apparatus Entry, Readings, and Witnesses"
@@ -2273,24 +2028,18 @@
                     "TCTR": "Using Apparatus Elements in Transcriptions",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "ND": "Names, Dates, People, and Places",
-              "CONTAINS-SECTION": [
-                "-",
-                [ {
+              "CONTAINS-SECTION": [ [ {
                     "NDPERS": "Biographical and Prosopographical Data",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
-                  } ]
-              ]
+                  } ] ]
             },
             {
               "FT": "Tables, Formulæ, Graphics, and Notated Music",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "FTTAB": "Tables",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2315,14 +2064,11 @@
                     "FTGRNO": "Graphic Image Formats",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "CC": "Language Corpora",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CCDEF": "Varieties of Composite Text",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2343,14 +2089,11 @@
                     "CCREC": "Recommendations for the Encoding of Large Corpora",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "SA": "Linking, Segmentation, and Alignment",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "SAPT": "Links",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2403,14 +2146,11 @@
                     "SAref": "Module for Linking, Segmentation, and Alignment",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "AI": "Simple Analytic Mechanisms",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "AILC": "Linguistic Segment Categories"
@@ -2427,14 +2167,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "AILA": "Linguistic Annotation"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "FS": "Feature Structures",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "FSor": "Organization of this Chapter",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2479,13 +2216,10 @@
                     "FSDEF": "Formal Definition and Implementation",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "GDGR": "Graphs and Digraphs",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2498,14 +2232,11 @@
                     "GDAT": "Another Tree Notation",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "GD": "Graphs, Networks, and Trees"
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "NHME": "Multiple Encodings of the Same Information",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2526,15 +2257,12 @@
                     "NHNX": "Non-XML-based Approaches",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ],
+                ] ],
               "NH": "Non-hierarchical Structures"
             },
             {
               "CE": "Certainty, Precision, and Responsibility",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CECERT": "Levels of Certainty",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2547,14 +2275,11 @@
                     "CERESP": "Attribution of Responsibility",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "TD": "Documentation Elements",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "TDphrase": "Phrase Level Documentary Elements",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
@@ -2571,14 +2296,11 @@
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "TDformal": "Module for Documentation Elements"
                   }
-                ]
-              ]
+                ] ]
             },
             {
               "USE": "Using the TEI",
-              "CONTAINS-SECTION": [
-                "-",
-                [
+              "CONTAINS-SECTION": [ [
                   {
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.",
                     "MEDIATYPE": "Serving TEI files with the TEI Media Type"
@@ -2599,57 +2321,37 @@
                     "IM": "Implementation of an ODD System",
                     "CONTAINS-WHATNOW?": "CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM."
                   }
-                ]
-              ]
+                ] ]
             }
           ] },
         { "CONTAINS-CHAPTERS":[
             {
               "REF-CLASSES-MODEL": "Model Classes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-CLASSES-ATTS": "Attribute Classes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-ELEMENTS": "Elements",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-ATTS": "Attributes",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
               "REF-MACROS": "Datatypes and Other Macros",
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ]
+              "CONTAINS-SECTION": [ [  ] ]
             },
             {
-              "CONTAINS-SECTION": [
-                "-",
-                [  ]
-              ],
+              "CONTAINS-SECTION": [ [  ] ],
               "DEPRECATIONS": "Deprecations"
             }
           ] }
       ]
     }
   ],
-  "P5subset-text": "2025-06-17T19:39:22.708569-04:00",
-  "CONTAINS-COLLSTUFF": "Simple Analytic MechanismsAttributesCritical ApparatusCharacters, Glyphs, and Writing ModesTranscriptions of SpeechDatatypes and Other MacrosCertainty, Precision, and ResponsibilityNon-hierarchical StructuresFeature StructuresFeature System DeclarationVerseAbout These GuidelinesComputer-mediated CommunicationGraphs, Networks, and TreesElements Available in All TEI DocumentsDocumentation ElementsModel ClassesRepresentation of Primary SourcesUsing the TEIElementsThe TEI HeaderDictionariesLinking, Segmentation, and AlignmentPerformance TextsDeprecationsManuscript DescriptionLanguages and Character SetsDefault Text StructureLanguage CorporaThe TEI InfrastructureAttribute ClassesA Gentle Introduction to XMLNames, Dates, People, and PlacesTables, Formulæ, Graphics, and Notated Music"
+  "P5subset-text": "2025-06-17T20:16:48.057486-04:00"
 }

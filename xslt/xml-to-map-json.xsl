@@ -11,7 +11,6 @@
     <xsl:template match="/">
         <xsl:variable name="elementTester" as="element()">
             <test lastBuildDate="{current-dateTime()}"/>
-            
         </xsl:variable>
 
             <xsl:apply-templates select="$elementTester"/>
@@ -21,7 +20,7 @@
     
     <xsl:template match="test" as="map(*)">
         <xsl:sequence select="map {
-            'lastBuildDate' : @lastBuildDate => xs:string()
+            @* ! name() : @lastBuildDate => xs:string()
             }"/>
     </xsl:template>
     
