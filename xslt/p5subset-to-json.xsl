@@ -6,7 +6,7 @@
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:nf="http://newtfire.org"
     exclude-result-prefixes="xs math eg"
-    version="4.0">
+    version="3.0">
     
     <xsl:output method="json" indent="yes"/>
     
@@ -29,13 +29,15 @@
            <xsl:choose> 
                <xsl:when test="current()[child::div/@type]">
                    <xsl:sequence select="map {
-                       current()/@xml:id : current()/head ! string(),
+                       'SECTION' : current()/head ! string(),
+                       'ID': current()/@xml:id ! string(),
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') }
                        }"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="map {
-                    current()/@xml:id : current()/head ! string()
+                    'SECTION' : current()/head ! string(),
+                    'ID' : current()/@xml:id ! string()
                     }"/>
 
             </xsl:otherwise>
@@ -71,15 +73,15 @@
             <xsl:sequence select="array {
                 for $chap in child::div[@type='div1'] return
                 map {
-                  $chap/@xml:id : $chap/head/text(),
-                  'CONTAINS-SECTION': array { nf:chapterDivPull($chap/@xml:id, 'div1', 'SUBSECTION') }
+                  'CHAPTER': $chap/head/text(),
+                  'ID': $chap/@xml:id ! string(),
+                  'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap/@xml:id, 'div1', 'SUBSECTION') }
                   }
                 }
                "/> 
         </xsl:variable>
         
         <xsl:sequence select="map {
-           
             'CHAPTERS': $chapters
             }"/>
     </xsl:template>
