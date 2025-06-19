@@ -1,4 +1,8 @@
 {
+  "DOCUMENT-TITLE": "THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH",
+  "TEI_SOURCE-VERSION-NUMBER": "4.10.0a",
+  "TEI_SOURCE-OUTPUT-DATE": "2025-06-11",
+  "THIS-JSON-DATETIME": "2025-06-19T15:34:04.183967-04:00",
   "CONTAINS-PARTS": [
     {
       "PART": "front",
@@ -125,8 +129,8 @@
                   "String-Length": 870
                 },
                 {
-                  "PARA": "Schema validation for XML is usually written in the RELAX NG language ( () ) originally developed within the OASIS Technical Committee and now an ISO standard ISO\/IEC FDIS 19757-2 Document Schema Definition Language (DSDL) — Part 2: Regular-grammar-based validation — RELAX NG , though other older methods include the Document Type Definition (DTD) language which XML inherited from SGML and the XML Schema language ( () ) defined by the W3C.Schema validation languages co-evolved with early markup language specifications, as summarized in Rick Jelliffe's Family Tree of Schema Languages for Markup Languages. In this chapter, and throughout these Guidelines, we give examples using the compact syntax of RELAX NG for ease of reading. The specifications for the TEI Guidelines are first expressed in the TEI language itself and a RELAX NG schema is generated from them for processing convenience. Details about schema customization using the TEI ODD language are addressed in TD (Documentation Elements) , MD (Customization) and IM (Implementation of an ODD System) .",
-                  "String-Length": 1068
+                  "PARA": "Schema validation for XML is usually written in the RELAX NG language (http:\/\/relaxng.org\/ () ) originally developed within the OASIS Technical Committee and now an ISO standard ISO\/IEC FDIS 19757-2 Document Schema Definition Language (DSDL) — Part 2: Regular-grammar-based validation — RELAX NG , though other older methods include the Document Type Definition (DTD) language which XML inherited from SGML and the XML Schema language (https:\/\/www.w3.org\/XML\/Schema () ) defined by the W3C.Schema validation languages co-evolved with early markup language specifications, as summarized in Rick Jelliffe's Family Tree of Schema Languages for Markup Languages. In this chapter, and throughout these Guidelines, we give examples using the compact syntax of RELAX NG for ease of reading. The specifications for the TEI Guidelines are first expressed in the TEI language itself and a RELAX NG schema is generated from them for processing convenience. Details about schema customization using the TEI ODD language are addressed in #TD (Documentation Elements) , #MD (Customization) and #IM (Implementation of an ODD System) .",
+                  "String-Length": 1119
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -189,8 +193,8 @@
                   "String-Length": 482
                 },
                 {
-                  "PARA": "For example: ... Here attribute values are being specified for two attributes previously declared for the poem element: xml:id and status. For the instance of a poem in this example, represented here by ellipsis points, the xml:id attribute has the value P1 and the status attribute has the value draft. An XML processor can use the values of the attributes in any way it chooses; for example, a poem in which the status attribute has the value draft might be formatted differently from one in which the same attribute has the value revised; another processor might use the same attribute to determine whether or not poem elements are to be processed at all. The xml:id attribute is a slightly special case in that, by convention, it is always used to supply a unique value to identify a particular element occurrence, which may be used for cross-reference purposes, as discussed further below (SG-id (Identifiers and Indicators) ).",
-                  "String-Length": 932
+                  "PARA": "For example: ... Here attribute values are being specified for two attributes previously declared for the poem element: xml:id and status. For the instance of a poem in this example, represented here by ellipsis points, the xml:id attribute has the value P1 and the status attribute has the value draft. An XML processor can use the values of the attributes in any way it chooses; for example, a poem in which the status attribute has the value draft might be formatted differently from one in which the same attribute has the value revised; another processor might use the same attribute to determine whether or not poem elements are to be processed at all. The xml:id attribute is a slightly special case in that, by convention, it is always used to supply a unique value to identify a particular element occurrence, which may be used for cross-reference purposes, as discussed further below (#SG-id (Identifiers and Indicators) ).",
+                  "String-Length": 933
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -210,8 +214,8 @@
                   "String-Length": 945
                 },
                 {
-                  "PARA": "The XML declaration should be supplied at the very beginning of every XML file; while it looks like a processing instruction, it is not, and may not occur anywhere other than at the very beginning of an XML file. For example: <?xml version=\"1.0\" encoding=\"UTF-8\"?> The XML declaration specifies the version number of the XML Recommendation applicable to the document it introduces (in this case, version 1.0), and optionally also the character encoding used to represent the Unicode characters within it. By default an XML document uses the character encoding UTF-8 or UTF-16; other commonly-encountered encodings include ISO 8859-1. If any character present in the document is not available in the specified character encoding, it must be represented as a character reference (SG-er (Character References) ). The XML declaration is documentary, but should normally be supplied at the start of any XML file. If it is missing many XML-aware processors will be unable to process the associated text correctly.",
-                  "String-Length": 1007
+                  "PARA": "The XML declaration should be supplied at the very beginning of every XML file; while it looks like a processing instruction, it is not, and may not occur anywhere other than at the very beginning of an XML file. For example: <?xml version=\"1.0\" encoding=\"UTF-8\"?> The XML declaration specifies the version number of the XML Recommendation applicable to the document it introduces (in this case, version 1.0), and optionally also the character encoding used to represent the Unicode characters within it. By default an XML document uses the character encoding UTF-8 or UTF-16; other commonly-encountered encodings include ISO 8859-1. If any character present in the document is not available in the specified character encoding, it must be represented as a character reference (#SG-er (Character References) ). The XML declaration is documentary, but should normally be supplied at the start of any XML file. If it is missing many XML-aware processors will be unable to process the associated text correctly.",
+                  "String-Length": 1008
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -234,8 +238,8 @@
                       "String-Length": 415
                     },
                     {
-                      "PARA": "Fortunately we do not need to invent a schema for the representation of graphical components such as diagrams; it already exists in the shape of the Scalable Vector Graphics (SVG) language defined by the W3C.The W3C Recommendation is defined at () . SVG is a widely used and rich XML vocabulary for representing all kinds of two-dimensional graphics; it is also well supported by existing software. Using an SVG-aware drawing package, we can easily draw our diagram and save it in XML format for inclusion within our anthology. When we do so, we need to indicate that this part of the document contains elements taken from the SVG namespace, if only to ensure that processing software does not confuse our line element with the SVG line, which means something quite different.",
-                      "String-Length": 776
+                      "PARA": "Fortunately we do not need to invent a schema for the representation of graphical components such as diagrams; it already exists in the shape of the Scalable Vector Graphics (SVG) language defined by the W3C.The W3C Recommendation is defined at https:\/\/www.w3.org\/Graphics\/SVG\/ () . SVG is a widely used and rich XML vocabulary for representing all kinds of two-dimensional graphics; it is also well supported by existing software. Using an SVG-aware drawing package, we can easily draw our diagram and save it in XML format for inclusion within our anthology. When we do so, we need to indicate that this part of the document contains elements taken from the SVG namespace, if only to ensure that processing software does not confuse our line element with the SVG line, which means something quite different.",
+                      "String-Length": 809
                     },
                     {
                       "PARA": "An XML document need not specify any namespace: it is then said to use the null namespace. Alternatively, the root element of a document may supply a default namespace, understood to apply to all elements which have no namespace prefix. This is the function of the xmlns attribute which provides a unique name for the default namespace, in the form of a URI: In exactly the same way, on the root element for each part of our document which uses the SVG language, we might introduce the SVG namespace name: Although a namespace name usually uses the URI (Uniform Resource Identifier) syntax, it is not treated as an online address and an XML processor regards it just as a string, providing a longer name for the namespace.",
@@ -287,8 +291,8 @@
                       "String-Length": 535
                     },
                     {
-                      "PARA": "However, since one very common application for XML documents is to serve them as browsable documents over the Web, the W3C has defined a procedure and a syntax for associating a document instance with its stylesheet (see () ). This Recommendation allows a document to supply a link to a default stylesheet and also to categorize the stylesheet according to its MIME type, for example to indicate whether the stylesheet is written in CSS or XSLT, using a specialized form of processing instruction.",
-                      "String-Length": 497
+                      "PARA": "However, since one very common application for XML documents is to serve them as browsable documents over the Web, the W3C has defined a procedure and a syntax for associating a document instance with its stylesheet (see https:\/\/www.w3.org\/TR\/xml-stylesheet\/ () ). This Recommendation allows a document to supply a link to a default stylesheet and also to categorize the stylesheet according to its MIME type, for example to indicate whether the stylesheet is written in CSS or XSLT, using a specialized form of processing instruction.",
+                      "String-Length": 535
                     },
                     {
                       "PARA": "Assuming therefore that we have made a CSS-conformant stylesheet for our anthology and stored it in a file called anthology.css which is available from the same location as the anthology itself, we could make it available over the Web simply by adding a processing instruction like the following to the anthology: <?xml-stylesheet href=\"anthology.css\" type=\"text\/css\"?>",
@@ -358,8 +362,8 @@
                 {
                   "SECTION": "Issues Arising from the Internal Representations of Unicode",
                   "CONTAINS-PARAS": [ {
-                      "PARA": "In theory it should not be necessary for encoders to have any knowledge of the various ways in which Unicode code points can be represented internally within a document or in the memory of a processing system, but experience shows that problems frequently arise in this area because of mistaken practice or defective software, and in order to recognize the resulting symptoms and correct their causes an outline knowledge of certain aspects of Unicode internal representation is desirable. There are three encodings of Unicode available for use: UTF-8, which uses 1–4 bytes per character, UTF-16, which uses 2–4, and UTF-32, which uses 4 bytes per character. Current practice for documents to be transmitted via the Web recommends only UTF-8.See the W3C Internationalization document, Choosing & applying a character encoding at ()",
-                      "String-Length": 831
+                      "PARA": "In theory it should not be necessary for encoders to have any knowledge of the various ways in which Unicode code points can be represented internally within a document or in the memory of a processing system, but experience shows that problems frequently arise in this area because of mistaken practice or defective software, and in order to recognize the resulting symptoms and correct their causes an outline knowledge of certain aspects of Unicode internal representation is desirable. There are three encodings of Unicode available for use: UTF-8, which uses 1–4 bytes per character, UTF-16, which uses 2–4, and UTF-32, which uses 4 bytes per character. Current practice for documents to be transmitted via the Web recommends only UTF-8.See the W3C Internationalization document, Choosing & applying a character encoding at https:\/\/www.w3.org\/International\/questions\/qa-choosing-encodings ()",
+                      "String-Length": 896
                     } ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [ { "SECTION":"Encoding Errors Related to UTF-8", "ID":"D4-48-1" } ],
@@ -391,12 +395,12 @@
               "SECTION": "Defining a TEI Schema",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "To determine that an XML document is valid (as opposed to merely well-formed), its structure must be checked against a schema, as discussed in chapter SG (A Gentle Introduction to XML) . For a valid TEI document, this schema must be a conformant TEI schema, as further defined in chapter CF (Conformance) . Local systems may allow their schema to be implicit, but for interchange purposes the schema associated with a document must be made explicit. The method of doing this recommended by these Guidelines is to provide explicitly or by reference a TEI schema specification against which the document may be validated.",
-                  "String-Length": 619
+                  "PARA": "To determine that an XML document is valid (as opposed to merely well-formed), its structure must be checked against a schema, as discussed in chapter #SG (A Gentle Introduction to XML) . For a valid TEI document, this schema must be a conformant TEI schema, as further defined in chapter #CF (Conformance) . Local systems may allow their schema to be implicit, but for interchange purposes the schema associated with a document must be made explicit. The method of doing this recommended by these Guidelines is to provide explicitly or by reference a TEI schema specification against which the document may be validated.",
+                  "String-Length": 621
                 },
                 {
-                  "PARA": "A TEI-conformant schema is a specific combination of TEI modules, possibly also including additional declarations that modify the element and attribute declarations contained by each module, for example to suppress or rename some elements. The TEI provides an application-independent way of specifying a TEI schema by means of the schemaSpec element defined in chapter TD (Documentation Elements) . The same system may also be used to specify a schema which extends the TEI by adding new elements explicitly, or by reference to other XML vocabularies. In either case, the specification may be processed to generate a formal schema, expressed in a variety of specific schema languages, such as XML DTD language, RELAX NG, or W3C Schema. These output schemas can then be used by an XML processor such as a validator or editor to validate or otherwise process documents. Further information about the processing of a TEI formal specification is given in chapter USE (Using the TEI) .",
-                  "String-Length": 980
+                  "PARA": "A TEI-conformant schema is a specific combination of TEI modules, possibly also including additional declarations that modify the element and attribute declarations contained by each module, for example to suppress or rename some elements. The TEI provides an application-independent way of specifying a TEI schema by means of the schemaSpec element defined in chapter #TD (Documentation Elements) . The same system may also be used to specify a schema which extends the TEI by adding new elements explicitly, or by reference to other XML vocabularies. In either case, the specification may be processed to generate a formal schema, expressed in a variety of specific schema languages, such as XML DTD language, RELAX NG, or W3C Schema. These output schemas can then be used by an XML processor such as a validator or editor to validate or otherwise process documents. Further information about the processing of a TEI formal specification is given in chapter #USE (Using the TEI) .",
+                  "String-Length": 982
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -452,8 +456,8 @@
                       "String-Length": 687
                     },
                     {
-                      "PARA": "Attributes specific to particular modules are documented along with the relevant module rather than in the present chapter. One particular attribute class, known as att.global, is common to all modules, and is therefore described in some detail in the next section. A full list of all attribute classes is given in REF-CLASSES-ATTS (Attribute Classes) below.",
-                      "String-Length": 358
+                      "PARA": "Attributes specific to particular modules are documented along with the relevant module rather than in the present chapter. One particular attribute class, known as att.global, is common to all modules, and is therefore described in some detail in the next section. A full list of all attribute classes is given in #REF-CLASSES-ATTS (Attribute Classes) below.",
+                      "String-Length": 359
                     }
                   ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -470,8 +474,8 @@
             {
               "SECTION": "Macros",
               "CONTAINS-PARAS": [ {
-                  "PARA": "The infrastructure module defined by this chapter also declares a number of macros, or shortcut names for frequently occurring parts of other declarations. Macros are used in two ways in the TEI scheme: to stand for frequently-encountered content models, or parts of content models (STECST (Standard Content Models) ); and to stand for attribute datatypes (DTYPES (Datatype Specifications) ).",
-                  "String-Length": 392
+                  "PARA": "The infrastructure module defined by this chapter also declares a number of macros, or shortcut names for frequently occurring parts of other declarations. Macros are used in two ways in the TEI scheme: to stand for frequently-encountered content models, or parts of content models (#STECST (Standard Content Models) ); and to stand for attribute datatypes (#DTYPES (Datatype Specifications) ).",
+                  "String-Length": 394
                 } ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
@@ -516,16 +520,16 @@
                   "String-Length": 99
                 },
                 {
-                  "PARA": "The bibliographic description of a machine-readable or digital text resembles in structure that of a book, an article, or any other kind of textual object. The file description element of the TEI header has therefore been closely modelled on existing standards in library cataloguing; it should thus provide enough information to allow users to give standard bibliographic references to the electronic text, and to allow cataloguers to catalogue it. Bibliographic citations occurring elsewhere in the header, and also in the text itself, are derived from the same model (on bibliographic citations in general, see further section COBI (Bibliographic Citations and References) ). See further section HD8 (Note for Library Cataloguers) .",
-                  "String-Length": 735
+                  "PARA": "The bibliographic description of a machine-readable or digital text resembles in structure that of a book, an article, or any other kind of textual object. The file description element of the TEI header has therefore been closely modelled on existing standards in library cataloguing; it should thus provide enough information to allow users to give standard bibliographic references to the electronic text, and to allow cataloguers to catalogue it. Bibliographic citations occurring elsewhere in the header, and also in the text itself, are derived from the same model (on bibliographic citations in general, see further section #COBI (Bibliographic Citations and References) ). See further section #HD8 (Note for Library Cataloguers) .",
+                  "String-Length": 737
                 },
                 {
                   "PARA": "The bibliographic description of an electronic text should be supplied by the mandatory fileDesc element:",
                   "String-Length": 105
                 },
                 {
-                  "PARA": "The fileDesc element contains three mandatory elements and four optional elements, each of which is described in more detail in sections HD21 (The Title Statement) to HD27 (The Notes Statement) below. These elements are listed below in the order in which they must be given within the fileDesc element.",
-                  "String-Length": 302
+                  "PARA": "The fileDesc element contains three mandatory elements and four optional elements, each of which is described in more detail in sections #HD21 (The Title Statement) to #HD27 (The Notes Statement) below. These elements are listed below in the order in which they must be given within the fileDesc element.",
+                  "String-Length": 304
                 },
                 {
                   "PARA": "A complete file description containing all possible sub-elements might look like this: Of these elements, only the titleStmt, publicationStmt, and sourceDesc are required; the others may be omitted unless considered useful.",
@@ -555,8 +559,8 @@
             {
               "SECTION": "The Encoding Description",
               "CONTAINS-PARAS": [ {
-                  "PARA": "The encodingDesc element is the second major subdivision of the TEI header. It specifies the methods and editorial principles which governed the transcription or encoding of the text in hand and may also include sets of coded definitions used by other components of the header. Though not formally required, its use is highly recommended. The encoding description may contain any combination of paragraphs of text, marked up using the p element, along with more specialized elements taken from the model.encodingDescPart class. By default, this class makes available the following elements: Each of these elements is further described in the appropriate section below. Other modules have the ability to extend this class; examples are noted in section HDENCOTH (Module-Specific Declarations)",
-                  "String-Length": 791
+                  "PARA": "The encodingDesc element is the second major subdivision of the TEI header. It specifies the methods and editorial principles which governed the transcription or encoding of the text in hand and may also include sets of coded definitions used by other components of the header. Though not formally required, its use is highly recommended. The encoding description may contain any combination of paragraphs of text, marked up using the p element, along with more specialized elements taken from the model.encodingDescPart class. By default, this class makes available the following elements: Each of these elements is further described in the appropriate section below. Other modules have the ability to extend this class; examples are noted in section #HDENCOTH (Module-Specific Declarations)",
+                  "String-Length": 792
                 } ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"HDENCOTH" } ],
@@ -569,8 +573,8 @@
                   "SECTION": "The Reference System Declaration",
                   "CONTAINS-PARAS": [
                     {
-                      "PARA": "The refsDecl element is used to document the way in which any standard referencing scheme built into the encoding works. It may contain either a series of prose paragraphs or the following specialized elements: Note that not all possible referencing schemes are equally easily supported by current software systems. A choice must be made between the convenience of the encoder and the likely efficiency of the particular software applications envisaged, in this context as in many others. For a more detailed discussion of referencing systems supported by these Guidelines, see section CORS (Reference Systems) below.",
-                      "String-Length": 617
+                      "PARA": "The refsDecl element is used to document the way in which any standard referencing scheme built into the encoding works. It may contain either a series of prose paragraphs or the following specialized elements: Note that not all possible referencing schemes are equally easily supported by current software systems. A choice must be made between the convenience of the encoder and the likely efficiency of the particular software applications envisaged, in this context as in many others. For a more detailed discussion of referencing systems supported by these Guidelines, see section #CORS (Reference Systems) below.",
+                      "String-Length": 618
                     },
                     {
                       "PARA": "A referencing scheme may be described in one of four ways using this element: as a prose description as nested set of citation structure declarations as a series of pairs of regular expressions and XPaths as a concatenation of sequentially organized milestones Each method is described in more detail below. Only one method can be used within a single refsDecl element.",
@@ -612,16 +616,16 @@
                   "String-Length": 210
                 },
                 {
-                  "PARA": "When the corpus module described in chapter CC (Language Corpora) is included in a schema, three further elements become available within the profileDesc element: For descriptions of these elements, see section CCAH (Contextual Information) .",
-                  "String-Length": 242
+                  "PARA": "When the corpus module described in chapter #CC (Language Corpora) is included in a schema, three further elements become available within the profileDesc element: For descriptions of these elements, see section #CCAH (Contextual Information) .",
+                  "String-Length": 244
                 },
                 {
-                  "PARA": "When the transcr module for the transcription of primary sources described in chapter PH (Representation of Primary Sources) is included in a schema, the following elements become available within the profileDesc element: For a description of the handNotes element, see section PHDH (Document Hands) . Its purpose is to group together a number of handNote elements, each of which describes a different hand or equivalent identified within a manuscript. The handNote element can also appear within a structured manuscript description, when the msdescription module described in chapter MS (Manuscript Description) is included in a schema. For this reason, the handNote element is actually declared within the header module, but is only accessible to a schema when one or other of the transcr or msdescription modules is included in a schema. See further the discussion at PHDH (Document Hands) .",
-                  "String-Length": 894
+                  "PARA": "When the transcr module for the transcription of primary sources described in chapter #PH (Representation of Primary Sources) is included in a schema, the following elements become available within the profileDesc element: For a description of the handNotes element, see section #PHDH (Document Hands) . Its purpose is to group together a number of handNote elements, each of which describes a different hand or equivalent identified within a manuscript. The handNote element can also appear within a structured manuscript description, when the msdescription module described in chapter #MS (Manuscript Description) is included in a schema. For this reason, the handNote element is actually declared within the header module, but is only accessible to a schema when one or other of the transcr or msdescription modules is included in a schema. See further the discussion at #PHDH (Document Hands) .",
+                  "String-Length": 898
                 },
                 {
-                  "PARA": "The listTranspose element is discussed in detail in section transpo (Transpositions) .",
-                  "String-Length": 86
+                  "PARA": "The listTranspose element is discussed in detail in section #transpo (Transpositions) .",
+                  "String-Length": 87
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -713,16 +717,16 @@
                       "String-Length": 766
                     },
                     {
-                      "PARA": "In the absence of a gloss in the source text, a term can also be associated with a gloss or definition by means of its ref attribute, as in this imaginary example: We discuss Leech's concept of discoursal point of view below. Here, the value #TDPV2 references some other XML element in the same document. This might be, for example, an entry in a list of technical vocabulary given in the document header, or in an appendix. This attribute could also reference an entry in some centrally maintained terminological database, perhaps using one of the pointing mechanisms discussed in section SAXP (Pointing Mechanisms) .",
-                      "String-Length": 618
+                      "PARA": "In the absence of a gloss in the source text, a term can also be associated with a gloss or definition by means of its ref attribute, as in this imaginary example: We discuss Leech's concept of discoursal point of view below. Here, the value #TDPV2 references some other XML element in the same document. This might be, for example, an entry in a list of technical vocabulary given in the document header, or in an appendix. This attribute could also reference an entry in some centrally maintained terminological database, perhaps using one of the pointing mechanisms discussed in section #SAXP (Pointing Mechanisms) .",
+                      "String-Length": 619
                     },
                     {
                       "PARA": "Note that the element term is intended for use with words or phrases identified as terminological in nature; where words or phrases are simply being cited, discussed, or glossed in a text, it will often be more appropriate to use the mentioned element, as in the following example: There is thus a striking accentual difference between a verbal form like eluthemen we were released, accented on the second syllable of the word, and its participial derivative lutheis released, accented on the last.",
                       "String-Length": 498
                     },
                     {
-                      "PARA": "For technical terminology in particular, and generally in terminological studies, it may be useful to associate an instance of a term within a text with a canonical definition for it, which is stored either elsewhere in the same text (for example in a glossary of terms) or externally, for example in a database, authority file, or published standard. The attributes key and ref discussed in section CONARS (Referring Strings) below are available on the term element for this purpose.",
-                      "String-Length": 484
+                      "PARA": "For technical terminology in particular, and generally in terminological studies, it may be useful to associate an instance of a term within a text with a canonical definition for it, which is stored either elsewhere in the same text (for example in a glossary of terms) or externally, for example in a database, authority file, or published standard. The attributes key and ref discussed in section #CONARS (Referring Strings) below are available on the term element for this purpose.",
+                      "String-Length": 485
                     }
                   ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -748,8 +752,8 @@
                   "String-Length": 434
                 },
                 {
-                  "PARA": "The tags described here handle most common types of editorial intervention and stereotyped comment; where less structured commentary of other types is to be included, it may be marked using the note element described in section CONO (Notes, Annotation, and Indexing) . Systematic interpretive annotation is also possible using the various methods described in chapter SA (Linking, Segmentation, and Alignment) . The examples given here illustrate only simple cases of editorial intervention; in particular, they permit economical encoding of a simple set of alternative readings of a short span of text. To encode multiple views of large or heterogeneous spans of text, the mechanisms described in chapter SA (Linking, Segmentation, and Alignment) should be used. To encode multiple witnesses of a particular text, a similar mechanism designed specifically for critical editions is described in chapter TC (Critical Apparatus) .",
-                  "String-Length": 928
+                  "PARA": "The tags described here handle most common types of editorial intervention and stereotyped comment; where less structured commentary of other types is to be included, it may be marked using the note element described in section #CONO (Notes, Annotation, and Indexing) . Systematic interpretive annotation is also possible using the various methods described in chapter #SA (Linking, Segmentation, and Alignment) . The examples given here illustrate only simple cases of editorial intervention; in particular, they permit economical encoding of a simple set of alternative readings of a short span of text. To encode multiple views of large or heterogeneous spans of text, the mechanisms described in chapter #SA (Linking, Segmentation, and Alignment) should be used. To encode multiple witnesses of a particular text, a similar mechanism designed specifically for critical editions is described in chapter #TC (Critical Apparatus) .",
+                  "String-Length": 932
                 },
                 {
                   "PARA": "For most of the elements discussed here, some encoders may wish to indicate both a responsibility, that is, a code indicating the person or agency responsible for making the editorial intervention in question, and also an indication of the degree of certainty which the encoder wishes to associate with the intervention. These requirements are served by the att.global.responsibility class, along with att.global.source and att.dimensions. Any of the elements discussed here thus may potentially carry any of the following optional attributes:",
@@ -768,8 +772,8 @@
                   "String-Length": 251
                 },
                 {
-                  "PARA": "A more extended treatment of the use of these tags in transcriptional and editorial work is given in chapter PH (Representation of Primary Sources) .",
-                  "String-Length": 149
+                  "PARA": "A more extended treatment of the use of these tags in transcriptional and editorial work is given in chapter #PH (Representation of Primary Sources) .",
+                  "String-Length": 150
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -796,8 +800,8 @@
                   "String-Length": 376
                 },
                 {
-                  "PARA": "The treatment of these textual features proposed here is not intended to be exhaustive: fuller treatments for names, numbers, measures, and dates are provided in the names and dates module (see chapter ND (Names, Dates, People, and Places) ); more detailed treatment of abbreviations is provided by the transcription module (see section PHAB (Abbreviation and Expansion) ).",
-                  "String-Length": 373
+                  "PARA": "The treatment of these textual features proposed here is not intended to be exhaustive: fuller treatments for names, numbers, measures, and dates are provided in the names and dates module (see chapter #ND (Names, Dates, People, and Places) ); more detailed treatment of abbreviations is provided by the transcription module (see section #PHAB (Abbreviation and Expansion) ).",
+                  "String-Length": 375
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -851,8 +855,8 @@
                       "String-Length": 251
                     },
                     {
-                      "PARA": "For further discussion of pointing to points and spans in the text, see section COXR (Simple Links and Cross-References) .",
-                      "String-Length": 122
+                      "PARA": "For further discussion of pointing to points and spans in the text, see section #COXR (Simple Links and Cross-References) .",
+                      "String-Length": 123
                     },
                     {
                       "PARA": "In the following example, the type attribute is used to categorise the note as a gloss: The self-same moment I could pray And from my neck so free The albatross fell off, and sank Like lead into the sea. The spell begins to break As the note appears within an l element, we may infer that its point of attachment is in the margin adjacent to the line in question. In the following version of the same text, however, it may be inferred that the note applies to the whole of the stanza: The self-same moment I could pray And from my neck so free The albatross fell off, and sank Like lead into the sea. The spell begins to break",
@@ -871,12 +875,12 @@
                       "String-Length": 566
                     },
                     {
-                      "PARA": "As a simple example, an edition of the Ancient Mariner might include both Coleridge's original glosses and those of a modern commentator: The self-same moment I could pray; The spell begins to break The turning point of the poem... For this to be valid, the codes #JLL and #STC must point to some more information identifying the agency concerned. The syntax used is identical to that used for other cross-references, as discussed in COXR (Simple Links and Cross-References) ; thus in this case, the TEI header for this text might contain a title statement like the following: The Rime of the Ancient Mariner: an annotated edition Samuel Taylor Coleridge John Livingston Lowes",
-                      "String-Length": 676
+                      "PARA": "As a simple example, an edition of the Ancient Mariner might include both Coleridge's original glosses and those of a modern commentator: The self-same moment I could pray; The spell begins to break The turning point of the poem... For this to be valid, the codes #JLL and #STC must point to some more information identifying the agency concerned. The syntax used is identical to that used for other cross-references, as discussed in #COXR (Simple Links and Cross-References) ; thus in this case, the TEI header for this text might contain a title statement like the following: The Rime of the Ancient Mariner: an annotated edition Samuel Taylor Coleridge John Livingston Lowes",
+                      "String-Length": 677
                     },
                     {
-                      "PARA": "When annotating the electronic text by means of analytic notes in some structured vocabulary, e.g. to specify the topics or themes of a text, the span and interp elements may be more effective than the free form note element; these elements are available when the module for simple analysis is selected (see section AISP (Spans and Interpretations) ).",
-                      "String-Length": 351
+                      "PARA": "When annotating the electronic text by means of analytic notes in some structured vocabulary, e.g. to specify the topics or themes of a text, the span and interp elements may be more effective than the free form note element; these elements are available when the module for simple analysis is selected (see section #AISP (Spans and Interpretations) ).",
+                      "String-Length": 352
                     }
                   ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -917,8 +921,8 @@
                   "String-Length": 777
                 },
                 {
-                  "PARA": "Reference systems may be recorded in TEI-encoded texts in any of the following ways: where a reference system exists, and is based on the same logical structure as that of the text's markup, the reference for a passage may be recorded as the value of the global xml:id or n attribute on an appropriate tag, or may be constructed by combining attribute values from several levels of tags, as described below in section CORS1 (Using the xml:id and n Attributes) . where there is no pre-existing reference system, the global xml:id or n attributes may be used to construct one (e.g. collections and corpora created in electronic form), as described below in section CORS2 (Creating New Reference Systems) . where a reference system exists which is not based on the same logical structure as that of the text's markup (for example, one based on the page and line numbers of particular editions of the text rather than on the structural divisions of it), any of a variety of methods for encoding the logical structure representing the reference system may be employed, as described in chapter NH (Non-hierarchical Structures) . where a reference system exists which does not correspond to any particular logical structure, or where the logical structure concerned is of no interest to the encoder except as a means of supporting the referencing system, then references may be encoded by means of milestone elements, which simply mark points in the text at which values in the reference system change, as described below in section CORS5 (Milestone Elements) . The specific method used to record traditional or new reference systems for a text should be declared in the TEI header, as further described in section CORS6 (Declaring Reference Systems) and in section SACR (Canonical References) .",
-                  "String-Length": 1788
+                  "PARA": "Reference systems may be recorded in TEI-encoded texts in any of the following ways: where a reference system exists, and is based on the same logical structure as that of the text's markup, the reference for a passage may be recorded as the value of the global xml:id or n attribute on an appropriate tag, or may be constructed by combining attribute values from several levels of tags, as described below in section #CORS1 (Using the xml:id and n Attributes) . where there is no pre-existing reference system, the global xml:id or n attributes may be used to construct one (e.g. collections and corpora created in electronic form), as described below in section #CORS2 (Creating New Reference Systems) . where a reference system exists which is not based on the same logical structure as that of the text's markup (for example, one based on the page and line numbers of particular editions of the text rather than on the structural divisions of it), any of a variety of methods for encoding the logical structure representing the reference system may be employed, as described in chapter #NH (Non-hierarchical Structures) . where a reference system exists which does not correspond to any particular logical structure, or where the logical structure concerned is of no interest to the encoder except as a means of supporting the referencing system, then references may be encoded by means of milestone elements, which simply mark points in the text at which values in the reference system change, as described below in section #CORS5 (Milestone Elements) . The specific method used to record traditional or new reference systems for a text should be declared in the TEI header, as further described in section #CORS6 (Declaring Reference Systems) and in section #SACR (Canonical References) .",
+                  "String-Length": 1794
                 },
                 {
                   "PARA": "When a text has no pre-existing associated reference system of any kind, these Guidelines recommend as a minimum that at least the page boundaries of the source text be marked using one of the methods outlined in this section. Retaining page boundaries in the markup is also recommended for texts which have a detailed reference system of their own. Line divisions in prose texts may be, but need not be, encoded.Many encoders find it convenient to retain the line divisions of the original during data entry, to simplify proofreading, but this may be done without inserting an element for the beginning of each line in the original.",
@@ -948,8 +952,8 @@
                       "String-Length": 363
                     },
                     {
-                      "PARA": "Determining a referencing system for a TEI encoding depends on many factors that may either be derived from textual structure, or influenced by extra-textual contingencies such as project and file management concerns. It is important, therefore, that the attribute used, the elements which can bear standard reference identifiers, and the method for constructing standard reference identifiers, should all be declared in the header as described in section HD54 (The Reference System Declaration) .",
-                      "String-Length": 497
+                      "PARA": "Determining a referencing system for a TEI encoding depends on many factors that may either be derived from textual structure, or influenced by extra-textual contingencies such as project and file management concerns. It is important, therefore, that the attribute used, the elements which can bear standard reference identifiers, and the method for constructing standard reference identifiers, should all be declared in the header as described in section #HD54 (The Reference System Declaration) .",
+                      "String-Length": 498
                     },
                     {
                       "PARA": "The Guidelines do not recommend one specific method for creating new referencing systems; however, the rest of this section lists some possibly useful strategies.",
@@ -975,16 +979,16 @@
               "SECTION": "Bibliographic Citations and References",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "Bibliographic references (that is, full descriptions of bibliographic items such as books, articles, films, broadcasts, songs, etc.) or pointers to them may appear at various places in a TEI text. They are required at several points within the TEI header's source description, as discussed in section HD3 (The Source Description) ; they may also appear within the body of a text, either singly (for example within a footnote), or collected together in a list as a distinct part of a text; detailed bibliographic descriptions of manuscript or other source materials may also be required. These Guidelines propose a number of specialized elements to encode such descriptions, which together constitute the model.biblLike class. Lists of such elements may also be encoded using the following element:",
-                  "String-Length": 797
+                  "PARA": "Bibliographic references (that is, full descriptions of bibliographic items such as books, articles, films, broadcasts, songs, etc.) or pointers to them may appear at various places in a TEI text. They are required at several points within the TEI header's source description, as discussed in section #HD3 (The Source Description) ; they may also appear within the body of a text, either singly (for example within a footnote), or collected together in a list as a distinct part of a text; detailed bibliographic descriptions of manuscript or other source materials may also be required. These Guidelines propose a number of specialized elements to encode such descriptions, which together constitute the model.biblLike class. Lists of such elements may also be encoded using the following element:",
+                  "String-Length": 798
                 },
                 {
                   "PARA": "In printed texts, the individual constituents of a bibliographic reference are conventionally marked off from each other and from the flow of text by such features as bracketing, italics, special punctuation conventions, underlining, etc. In electronic texts, such distinctions are also important, whether in order to produce acceptably formatted output or to facilitate intelligent retrieval processing,For example, to distinguish London as an author's name from London as a place of publication or as a component of a title. quite apart from the need to distinguish the reference itself as a textual object with particular linguistic properties.",
                   "String-Length": 647
                 },
                 {
-                  "PARA": "It should be emphasized that for references as for other textual features, the primary or sole consideration is not how the text should be formatted when it is printed or displayed. The distinctions permitted by the scheme outlined here may not necessarily be all that particular formatters or bibliographic styles require, although they should prove adequate to the needs of many such commonly used software systems.Among the bibliographic software systems and subsystems consulted in the design of the biblStruct structure were BibTeX, Scribe, and ProCite. The distinctions made by all three may be preserved in biblStruct structures, though the nature of their design prevents a simple one-to-one mapping from their data elements to TEI elements. For further information, see section COBIOT (Relationship to Other Bibliographic Schemes) . The features distinguished and described below (in section COBICO (Components of Bibliographic References) ) constitute a set which has been useful for a wide range of bibliographic purposes and in many applications, and which moreover corresponds to a great extent with existing bibliographic and library cataloguing practice. For a fuller account of that practice as applied to electronic texts see section HD3 (The Source Description) ; for a brief mention of related library standards see section HD8 (Note for Library Cataloguers) .",
-                  "String-Length": 1379
+                  "PARA": "It should be emphasized that for references as for other textual features, the primary or sole consideration is not how the text should be formatted when it is printed or displayed. The distinctions permitted by the scheme outlined here may not necessarily be all that particular formatters or bibliographic styles require, although they should prove adequate to the needs of many such commonly used software systems.Among the bibliographic software systems and subsystems consulted in the design of the biblStruct structure were BibTeX, Scribe, and ProCite. The distinctions made by all three may be preserved in biblStruct structures, though the nature of their design prevents a simple one-to-one mapping from their data elements to TEI elements. For further information, see section #COBIOT (Relationship to Other Bibliographic Schemes) . The features distinguished and described below (in section #COBICO (Components of Bibliographic References) ) constitute a set which has been useful for a wide range of bibliographic purposes and in many applications, and which moreover corresponds to a great extent with existing bibliographic and library cataloguing practice. For a fuller account of that practice as applied to electronic texts see section #HD3 (The Source Description) ; for a brief mention of related library standards see section #HD8 (Note for Library Cataloguers) .",
+                  "String-Length": 1383
                 },
                 {
                   "PARA": "The most commonly used elements in the model.biblLike class are biblStruct and bibl. biblStruct will usually be easier to process mechanically than bibl because its structure is more constrained and predictable. It is suited to situations in which the objective is to represent bibliographic information for machine processing directly by other systems or after conversion to some other bibliographic markup formats such as BibTeXML or MODS. Punctuation delimiting the components of a print citation is not permitted directly within a biblStruct element; instead, the presence and order of child elements must be used to reconstruct the punctuation required by a particular style.",
@@ -1015,8 +1019,8 @@
                 {
                   "SECTION": "Components of Bibliographic References",
                   "CONTAINS-PARAS": [ {
-                      "PARA": "This section discusses commonly occurring components of bibliographic references and elements used for encoding them. They fall into four groups: elements for grouping components of the analytic, monographic, and series levels in a structured bibliographic reference titles of various kinds, and statements of intellectual responsibility (authorship, etc.) information relating to the publication, pagination, etc. of an item (most of these constitute the default members of the model.biblPart class) annotation, commentary, and further detail The following sections describe the elements which may be used to represent such information within a bibl or biblStruct element. Within the former, elements from the model.biblPart class, other phrase-level elements, and plain text may be combined without other constraint; within the latter, such of these elements as exist for a given reference must be distinguished, and must also be presented in a specific order, discussed further below (section COBICOO (Order of Components within References) ).",
-                      "String-Length": 1046
+                      "PARA": "This section discusses commonly occurring components of bibliographic references and elements used for encoding them. They fall into four groups: elements for grouping components of the analytic, monographic, and series levels in a structured bibliographic reference titles of various kinds, and statements of intellectual responsibility (authorship, etc.) information relating to the publication, pagination, etc. of an item (most of these constitute the default members of the model.biblPart class) annotation, commentary, and further detail The following sections describe the elements which may be used to represent such information within a bibl or biblStruct element. Within the former, elements from the model.biblPart class, other phrase-level elements, and plain text may be combined without other constraint; within the latter, such of these elements as exist for a given reference must be distinguished, and must also be presented in a specific order, discussed further below (section #COBICOO (Order of Components within References) ).",
+                      "String-Length": 1047
                     } ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
@@ -1048,8 +1052,8 @@
                   "String-Length": 148
                 },
                 {
-                  "PARA": "Full details of other, more specialized, elements for the encoding of texts which are predominantly verse or drama are described in the appropriate chapter of part three (for verse, see the verse base described in chapter VE (Verse) ; for performance texts, see the drama base described in chapter DR (Performance Texts) ). In this section, we describe only the elements listed above, all of which can appear in any text, whichever of the three modes prose, verse, or drama may predominate in it.",
-                  "String-Length": 496
+                  "PARA": "Full details of other, more specialized, elements for the encoding of texts which are predominantly verse or drama are described in the appropriate chapter of part three (for verse, see the verse base described in chapter #VE (Verse) ; for performance texts, see the drama base described in chapter #DR (Performance Texts) ). In this section, we describe only the elements listed above, all of which can appear in any text, whichever of the three modes prose, verse, or drama may predominate in it.",
+                  "String-Length": 498
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1079,8 +1083,8 @@
               "SECTION": "Divisions of the Body",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "In some texts, the body consists simply of a sequence of low-level structural items, referred to here as components or component-level elements (see section STEC (The TEI Class System) ). Examples in prose texts include paragraphs or lists; in dramatic texts, speeches and stage directions; in dictionaries, dictionary entries. In other cases sequences of such elements will be grouped together hierarchically into textual divisions and subdivisions, such as chapters or sections. The names used for these structural subdivisions of texts vary with the genre and period of the text, or even at the whim of the author, editor, or publisher. For example, a major subdivision of an epic or of the Bible is generally called a book, that of a report is usually called a part or section, that of a novel a chapter—unless it is an epistolary novel, in which case it may be called a letter. Even texts which are not organized as linear prose narratives, or not as narratives at all, will frequently be subdivided in a similar way: a drama into acts and scenes; a reference book into sections; a diary or day book into entries; a newspaper into issues and sections, and so forth.",
-                  "String-Length": 1170
+                  "PARA": "In some texts, the body consists simply of a sequence of low-level structural items, referred to here as components or component-level elements (see section #STEC (The TEI Class System) ). Examples in prose texts include paragraphs or lists; in dramatic texts, speeches and stage directions; in dictionaries, dictionary entries. In other cases sequences of such elements will be grouped together hierarchically into textual divisions and subdivisions, such as chapters or sections. The names used for these structural subdivisions of texts vary with the genre and period of the text, or even at the whim of the author, editor, or publisher. For example, a major subdivision of an epic or of the Bible is generally called a book, that of a report is usually called a part or section, that of a novel a chapter—unless it is an epistolary novel, in which case it may be called a letter. Even texts which are not organized as linear prose narratives, or not as narratives at all, will frequently be subdivided in a similar way: a drama into acts and scenes; a reference book into sections; a diary or day book into entries; a newspaper into issues and sections, and so forth.",
+                  "String-Length": 1171
                 },
                 {
                   "PARA": "Because of this variety, these Guidelines propose that all such textual divisions be regarded as occurrences of the same neutrally named elements, with an attribute type used to categorize elements independently of their hierarchic level. Two alternative styles are provided for the marking of these neutral divisions: numbered and un-numbered. Numbered divisions are named div1, div2, etc., where the number indicates the depth of this particular division within the hierarchy, the largest such division being div1, any subdivision within it being div2, any further sub-sub-division being div3 and so on. Un-numbered divisions are simply named div, and allowed to nest recursively to indicate their hierarchic depth. The two styles must not be combined within a single front, body, or back element.",
@@ -1124,8 +1128,8 @@
             {
               "SECTION": "Grouped and Floating Texts",
               "CONTAINS-PARAS": [ {
-                  "PARA": "The group element discussed in DSGRP (Grouped Texts) should be used to represent a collection of independent texts which is to be regarded as a single unit for processing or other purposes. The floatingText element discussed in DSFLT (Floating Texts) should be used to represent an independent text which interrupts the text containing it at any point but after which the surrounding text resumes.",
-                  "String-Length": 397
+                  "PARA": "The group element discussed in #DSGRP (Grouped Texts) should be used to represent a collection of independent texts which is to be regarded as a single unit for processing or other purposes. The floatingText element discussed in #DSFLT (Floating Texts) should be used to represent an independent text which interrupts the text containing it at any point but after which the surrounding text resumes.",
+                  "String-Length": 399
                 } ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
@@ -1179,8 +1183,8 @@
                   "String-Length": 585
                 },
                 {
-                  "PARA": "Usage examples for these elements are given below at D25-30 (Annotating Characters) and D25-40 (Adding New Characters) . The gaiji module itself is formally defined in section WSD-DEF (Formal Definition) below. It declares the following additional elements: The charDecl element is a member of the class model.encodingDescPart, and thus becomes available within encodingDesc when this module is included in a schema. The g element is the only member of the class model.gLike: this class is referenced as an alternative to plain text in almost every element which contains plain text, thus permitting the g element also to appear at such places when this module is included in a schema.",
-                  "String-Length": 685
+                  "PARA": "Usage examples for these elements are given below at #D25-30 (Annotating Characters) and #D25-40 (Adding New Characters) . The gaiji module itself is formally defined in section #WSD-DEF (Formal Definition) below. It declares the following additional elements: The charDecl element is a member of the class model.encodingDescPart, and thus becomes available within encodingDesc when this module is included in a schema. The g element is the only member of the class model.gLike: this class is referenced as an alternative to plain text in almost every element which contains plain text, thus permitting the g element also to appear at such places when this module is included in a schema.",
+                  "String-Length": 688
                 },
                 {
                   "PARA": "The following elements may appear within a charDecl element:",
@@ -1191,8 +1195,8 @@
                   "String-Length": 755
                 },
                 {
-                  "PARA": "The glyph element is provided for cases where the encoder wants to specify a specific glyph (or family of glyphs) out of all possible glyphs. Unfortunately, due to the way Unicode has been defined, there are cases where several glyphs that logically belong together have been given separate code points, especially in the blocks defining East Asian characters. In such cases, glyph elements can also be used to express the view that these apparently distinct characters are to be regarded as instances of the same character (see further D25-30 (Annotating Characters) ).",
-                  "String-Length": 570
+                  "PARA": "The glyph element is provided for cases where the encoder wants to specify a specific glyph (or family of glyphs) out of all possible glyphs. Unfortunately, due to the way Unicode has been defined, there are cases where several glyphs that logically belong together have been given separate code points, especially in the blocks defining East Asian characters. In such cases, glyph elements can also be used to express the view that these apparently distinct characters are to be regarded as instances of the same character (see further #D25-30 (Annotating Characters) ).",
+                  "String-Length": 571
                 },
                 {
                   "PARA": "The Unicode Standard recommends naming conventions which should be followed strictly where the intention is to annotate an existing Unicode character, and which may also be used as a model when creating new names for characters or glyphsIt should be noted, however, that this naming convention cannot meaningfully be applied to East Asian characters; the typical Unicode descriptions for these characters take the form CJK Unified Ideograph U+4E00 , where U+4E00 is simply the Unicode code point value of the character in question. In cases where no Unicode code point exists, there is little hope of finding a name that helps to identify the character. Names should therefore be constructed in a way meaningful to local practice, for example by using a reference number from a well-known character dictionary or a project-specific serial number.:",
@@ -1278,8 +1282,8 @@
                   "String-Length": 680
                 },
                 {
-                  "PARA": "The primary function of the metrical attributes is to encode the conventional metrical or rhyming structure within which the poet is working, rather than the actual prosodic realization of each line; the latter can be recorded using the real attribute, as further discussed below. A simple mechanism is also provided for recording the actual realization of a rhyme pattern; see VERH (Rhyme) .",
-                  "String-Length": 392
+                  "PARA": "The primary function of the metrical attributes is to encode the conventional metrical or rhyming structure within which the poet is working, rather than the actual prosodic realization of each line; the latter can be recorded using the real attribute, as further discussed below. A simple mechanism is also provided for recording the actual realization of a rhyme pattern; see #VERH (Rhyme) .",
+                  "String-Length": 393
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1309,20 +1313,20 @@
               "SECTION": "Front and Back Matter",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "In dramatic texts, as in all TEI-conformant documents, the header element is followed by a text element, which contains optional front and back matter, and either a body or else a group of nested text elements. For more information on these, see chapter DS (Default Text Structure) .",
-                  "String-Length": 283
+                  "PARA": "In dramatic texts, as in all TEI-conformant documents, the header element is followed by a text element, which contains optional front and back matter, and either a body or else a group of nested text elements. For more information on these, see chapter #DS (Default Text Structure) .",
+                  "String-Length": 284
                 },
                 {
                   "PARA": "The front and back elements are most likely to be of use when encoding preliminary materials in published performance texts. When the module defined by this chapter is included in a schema, the following additional elements not generally found in other forms of text become available as part of the front or back matter:",
                   "String-Length": 320
                 },
                 {
-                  "PARA": "Elements for encoding each of these specific kinds of front matter are discussed in the remainder of this section, in the order given above. In addition, the front matter of dramatic texts may include the same elements as that of any other kind of text, notably title pages and various kinds of text division, as discussed in section DSFRONT (Front Matter) . The encoder may choose to ignore the specialized elements discussed in this section and instead use constructions of the type div type=\"performance\" or div1 type=\"set\".",
-                  "String-Length": 527
+                  "PARA": "Elements for encoding each of these specific kinds of front matter are discussed in the remainder of this section, in the order given above. In addition, the front matter of dramatic texts may include the same elements as that of any other kind of text, notably title pages and various kinds of text division, as discussed in section #DSFRONT (Front Matter) . The encoder may choose to ignore the specialized elements discussed in this section and instead use constructions of the type div type=\"performance\" or div1 type=\"set\".",
+                  "String-Length": 528
                 },
                 {
-                  "PARA": "Most other material in the front matter of a performance text will be marked with the default text structure elements described in chapter DS (Default Text Structure) . For example, the title page, dedication, other commendatory material, preface, etc., in a printed text should be encoded using div or div1 elements, containing headings, paragraphs, and other core tags.",
-                  "String-Length": 371
+                  "PARA": "Most other material in the front matter of a performance text will be marked with the default text structure elements described in chapter #DS (Default Text Structure) . For example, the title page, dedication, other commendatory material, preface, etc., in a printed text should be encoded using div or div1 elements, containing headings, paragraphs, and other core tags.",
+                  "String-Length": 372
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1344,12 +1348,12 @@
               "SECTION": "The Body of a Performance Text",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "The body of a performance text may be divided into structural units, variously called acts, scenes, stasima, entr'actes, etc. All such formal divisions should be encoded using an appropriate text-division element (div, div1, div2, etc.), as further discussed in section DRDIV (Major Structural Divisions) . Whether divided up into such units or not, all performance texts consist of sequences of speeches (see DRSP (Speeches and Speakers) ) and stage directions (see DRSTA (Stage Directions) ). In musical performances, it is also common to identify groups of speeches which act as a single unit, sometimes called a number; such units typically float within the structural hierarchy at the same level as speeches preceding or following them and cannot therefore be treated as text-divisions. (see DRSPG (Grouped Speeches) ). Speeches will generally consist of a sequence of chunk-level items: paragraphs, verse lines, stanzas, or (in case of uncertainty as to whether something is verse or prose) ab elements (see DRPAL (Speech Contents) ).",
-                  "String-Length": 1040
+                  "PARA": "The body of a performance text may be divided into structural units, variously called acts, scenes, stasima, entr'actes, etc. All such formal divisions should be encoded using an appropriate text-division element (div, div1, div2, etc.), as further discussed in section #DRDIV (Major Structural Divisions) . Whether divided up into such units or not, all performance texts consist of sequences of speeches (see #DRSP (Speeches and Speakers) ) and stage directions (see #DRSTA (Stage Directions) ). In musical performances, it is also common to identify groups of speeches which act as a single unit, sometimes called a number; such units typically float within the structural hierarchy at the same level as speeches preceding or following them and cannot therefore be treated as text-divisions. (see #DRSPG (Grouped Speeches) ). Speeches will generally consist of a sequence of chunk-level items: paragraphs, verse lines, stanzas, or (in case of uncertainty as to whether something is verse or prose) ab elements (see #DRPAL (Speech Contents) ).",
+                  "String-Length": 1045
                 },
                 {
-                  "PARA": "The boundaries of formal units such as verse lines or paragraphs do not always coincide with speech boundaries. Units such as songs may be discontinuous or shared among several speakers. As described below in section DREMB (Embedded Structures) , such fragmentation may be encoded in a relatively simple fashion using the linkage and aggregation mechanisms defined in chapter SA (Linking, Segmentation, and Alignment) .",
-                  "String-Length": 419
+                  "PARA": "The boundaries of formal units such as verse lines or paragraphs do not always coincide with speech boundaries. Units such as songs may be discontinuous or shared among several speakers. As described below in section #DREMB (Embedded Structures) , such fragmentation may be encoded in a relatively simple fashion using the linkage and aggregation mechanisms defined in chapter #SA (Linking, Segmentation, and Alignment) .",
+                  "String-Length": 421
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1378,16 +1382,16 @@
               "SECTION": "Other Types of Performance Text",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "Most of the elements and structures identified thus far are derived from traditional theatrical texts. Although other performance texts, such as screenplays or radio scripts, have not been discussed specifically, they can be encoded using the elements and structures listed above. Encoders may however find it convenient to use, as well, the additional specialized elements discussed in this section. For scripts containing very detailed technical information, the tech element discussed in section DRTEC (Technical Information) may also be useful.",
-                  "String-Length": 548
+                  "PARA": "Most of the elements and structures identified thus far are derived from traditional theatrical texts. Although other performance texts, such as screenplays or radio scripts, have not been discussed specifically, they can be encoded using the elements and structures listed above. Encoders may however find it convenient to use, as well, the additional specialized elements discussed in this section. For scripts containing very detailed technical information, the tech element discussed in section #DRTEC (Technical Information) may also be useful.",
+                  "String-Length": 549
                 },
                 {
                   "PARA": "Like other texts, screenplays and television or radio scripts may be divided into text divisions marked with div or div1, etc. Within units corresponding with the traditional act and scene, further subdivisions or sequences may be identified, composed of individual shots, each associated with a single camera angle and setting. Shots and sequences should be encoded using an appropriate text-division element (i.e., a div3 element if numbered division elements are in use and the next largest unit is a div2, or a div element if un-numbered divisions are in use) specifying sequence or shot as the value of the type attribute, as appropriate.",
                   "String-Length": 643
                 },
                 {
-                  "PARA": "It is normal practice in screenplays and radio scripts to distinguish directions concerning camera angles, sound effects, etc., from other forms of stage direction. Such texts also generally include far more detailed specifications of what the audience actually sees: descriptions of actions and background, etc. Scripts derived from cinema and television productions may also include texts displayed as captions superimposed on the action. All of these may be encoded using the general purpose stage element discussed in section DRSTA (Stage Directions) , and distinguished by means of its type attribute. Alternatively, or in addition, the following more specific elements may be used, where clear distinctions can be made:",
-                  "String-Length": 725
+                  "PARA": "It is normal practice in screenplays and radio scripts to distinguish directions concerning camera angles, sound effects, etc., from other forms of stage direction. Such texts also generally include far more detailed specifications of what the audience actually sees: descriptions of actions and background, etc. Scripts derived from cinema and television productions may also include texts displayed as captions superimposed on the action. All of these may be encoded using the general purpose stage element discussed in section #DRSTA (Stage Directions) , and distinguished by means of its type attribute. Alternatively, or in addition, the following more specific elements may be used, where clear distinctions can be made:",
+                  "String-Length": 726
                 },
                 {
                   "PARA": "Some examples of the use of these elements follow: Angle on Olivia. Ryan's wife, standing nervously alone on the sidelines, biting her lip. She's scared and she shows it.",
@@ -1439,24 +1443,24 @@
                   "String-Length": 222
                 },
                 {
-                  "PARA": "Each of these elements is further discussed and specified in sections TSBAUT (Utterances) to TSBAWR (Writing) .",
-                  "String-Length": 111
+                  "PARA": "Each of these elements is further discussed and specified in sections #TSBAUT (Utterances) to #TSBAWR (Writing) .",
+                  "String-Length": 113
                 },
                 {
-                  "PARA": "We can show the relationship between four of these constituents of speech using the features eventive, communicative, anthropophonic (for sounds produced by the human vocal apparatus), and lexical: eventive communicative anthropophonic lexical incident + - - - kinesic + + - - vocal + + + - utterance + + + + The differences are not always clear-cut. Among incidents might be included actions like slamming the door, which can certainly be communicative. Vocals include coughing and sneezing, which are vocal events in transcription of speech usually involuntary noises. Equally, the distinction between utterances and vocals is not always clear, although for many analytic purposes it will be convenient to regard them as distinct. Individual scholars may differ in the way borderlines are drawn and should declare their definitions in the editorialDecl element of the header (see HD53 (The Editorial Practices Declaration) ).",
-                  "String-Length": 927
+                  "PARA": "We can show the relationship between four of these constituents of speech using the features eventive, communicative, anthropophonic (for sounds produced by the human vocal apparatus), and lexical: eventive communicative anthropophonic lexical incident + - - - kinesic + + - - vocal + + + - utterance + + + + The differences are not always clear-cut. Among incidents might be included actions like slamming the door, which can certainly be communicative. Vocals include coughing and sneezing, which are vocal events in transcription of speech usually involuntary noises. Equally, the distinction between utterances and vocals is not always clear, although for many analytic purposes it will be convenient to regard them as distinct. Individual scholars may differ in the way borderlines are drawn and should declare their definitions in the editorialDecl element of the header (see #HD53 (The Editorial Practices Declaration) ).",
+                  "String-Length": 928
                 },
                 {
-                  "PARA": "The following short extract exemplifies several of these elements. It is recoded from a text originally transcribed in the CHILDES format.The original is a conversation between two children and their parents, recorded in 1987, and discussed in TS-BIBL-4 () Each utterance is encoded using a u element (see section TSBAUT (Utterances) ). The speakers are defined using the listPerson element discussed in NDPERSE (The Person Element) and each is given a unique identifier also used to identify their speech. Pauses marked by the transcriber are indicated using the pause element (see section TSBAPA (Pausing) ). Non-verbal vocal effects such as the child's meowing are indicated either with orthographic transcriptions or with the vocal element, and entirely non-linguistic but significant incidents such as the sound of the toy cat are represented by the incident elements (see section TSBAVO (Vocal, Kinesic, Incident) ). you never take this cat for show and tell meow meow yeah well I dont want to toy cat has bell in tail which continues to make a tinkling sound meows because it is so old how bout about your cat yours is new shows Father the cat thats darling no mine isnt old mine is just um a little dirty",
-                  "String-Length": 1212
+                  "PARA": "The following short extract exemplifies several of these elements. It is recoded from a text originally transcribed in the CHILDES format.The original is a conversation between two children and their parents, recorded in 1987, and discussed in #TS-BIBL-4 () Each utterance is encoded using a u element (see section #TSBAUT (Utterances) ). The speakers are defined using the listPerson element discussed in #NDPERSE (The Person Element) and each is given a unique identifier also used to identify their speech. Pauses marked by the transcriber are indicated using the pause element (see section #TSBAPA (Pausing) ). Non-verbal vocal effects such as the child's meowing are indicated either with orthographic transcriptions or with the vocal element, and entirely non-linguistic but significant incidents such as the sound of the toy cat are represented by the incident elements (see section #TSBAVO (Vocal, Kinesic, Incident) ). you never take this cat for show and tell meow meow yeah well I dont want to toy cat has bell in tail which continues to make a tinkling sound meows because it is so old how bout about your cat yours is new shows Father the cat thats darling no mine isnt old mine is just um a little dirty",
+                  "String-Length": 1217
                 },
                 {
-                  "PARA": "This example also uses some elements common to all TEI texts, notably the reg tag for editorial regularization. Unusually stressed syllables have been encoded with the emph element. The seg element has also been used to segment the last utterance. Further discussion of all of such options is provided in section TSSA (Elements Defined Elsewhere) .",
-                  "String-Length": 348
+                  "PARA": "This example also uses some elements common to all TEI texts, notably the reg tag for editorial regularization. Unusually stressed syllables have been encoded with the emph element. The seg element has also been used to segment the last utterance. Further discussion of all of such options is provided in section #TSSA (Elements Defined Elsewhere) .",
+                  "String-Length": 349
                 },
                 {
-                  "PARA": "Contextual information is of particular importance in spoken texts, and should be provided by the TEI header of a text. In general, all of the information in a header is understood to be relevant to the whole of the associated text. The element u as a member of the att.declaring class, may however specify a different context by means of the decls attribute (see further section CCAS (Associating Contextual Information with a Text) ).",
-                  "String-Length": 436
+                  "PARA": "Contextual information is of particular importance in spoken texts, and should be provided by the TEI header of a text. In general, all of the information in a header is understood to be relevant to the whole of the associated text. The element u as a member of the att.declaring class, may however specify a different context by means of the decls attribute (see further section #CCAS (Associating Contextual Information with a Text) ).",
+                  "String-Length": 437
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1486,8 +1490,8 @@
             {
               "SECTION": "Elements Defined Elsewhere",
               "CONTAINS-PARAS": [ {
-                  "PARA": "This section describes the following features characteristic of spoken texts for which elements are defined elsewhere in these Guidelines: segmentation below the utterance level synchronization and overlap regularization of orthography The elements discussed here are not provided by the module for spoken texts. Some of them are included in the core module and others are contained in the modules for linking and for analysis respectively. The selection of modules and their combination to define a TEI schema is discussed in section STIN (Defining a TEI Schema) .",
-                  "String-Length": 565
+                  "PARA": "This section describes the following features characteristic of spoken texts for which elements are defined elsewhere in these Guidelines: segmentation below the utterance level synchronization and overlap regularization of orthography The elements discussed here are not provided by the module for spoken texts. Some of them are included in the core module and others are contained in the modules for linking and for analysis respectively. The selection of modules and their combination to define a TEI schema is discussed in section #STIN (Defining a TEI Schema) .",
+                  "String-Length": 566
                 } ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"STIN" } ],
@@ -1530,12 +1534,12 @@
               "SECTION": "The Structure of Dictionary Entries",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "A simple dictionary entry may contain information about the form of the word treated, its grammatical characterization, its definition, synonyms, or translation equivalents, its etymology, cross-references to other entries, usage information, and examples. These we refer to as the constituent parts or constituents of the entry; some dictionary constituents possess no internal structure, while others are most naturally viewed as groups of smaller elements, which may be marked in their own right. In some styles of markup, tags will be applied only to the low-level items, leaving the constituent groups which contain them untagged. We distinguish the class of top-level constituents of dictionary entries, which can occur directly within the entry element, from the class of phrase-level constituents, which can normally occur only within top-level constituents. The top-level constituents of dictionary entries are described in section DIENGP (Groups and Constituents) , and documented more fully, together with their phrase-level sub-constituents, in section DITP (Top-level Constituents of Entries) .",
-                  "String-Length": 1107
+                  "PARA": "A simple dictionary entry may contain information about the form of the word treated, its grammatical characterization, its definition, synonyms, or translation equivalents, its etymology, cross-references to other entries, usage information, and examples. These we refer to as the constituent parts or constituents of the entry; some dictionary constituents possess no internal structure, while others are most naturally viewed as groups of smaller elements, which may be marked in their own right. In some styles of markup, tags will be applied only to the low-level items, leaving the constituent groups which contain them untagged. We distinguish the class of top-level constituents of dictionary entries, which can occur directly within the entry element, from the class of phrase-level constituents, which can normally occur only within top-level constituents. The top-level constituents of dictionary entries are described in section #DIENGP (Groups and Constituents) , and documented more fully, together with their phrase-level sub-constituents, in section #DITP (Top-level Constituents of Entries) .",
+                  "String-Length": 1109
                 },
                 {
-                  "PARA": "In addition, however, dictionary entries often have a complex hierarchical structure. For example, an entry may consist of two or more sub-parts, each corresponding to information for a different part-of-speech homograph of the headword. The entry (or part-of-speech homographs, if the entry is split this way) may also consist of senses, each of which may in turn be composed of two or more sub-senses, etc. Each sub-part, homograph entry, sense, or sub-sense we call a level; at any level in an entry, any or all of the constituent parts of dictionary entries may appear. The hierarchical levels of dictionary entries are documented in section DIENHI (Hierarchical Levels) .",
-                  "String-Length": 676
+                  "PARA": "In addition, however, dictionary entries often have a complex hierarchical structure. For example, an entry may consist of two or more sub-parts, each corresponding to information for a different part-of-speech homograph of the headword. The entry (or part-of-speech homographs, if the entry is split this way) may also consist of senses, each of which may in turn be composed of two or more sub-senses, etc. Each sub-part, homograph entry, sense, or sub-sense we call a level; at any level in an entry, any or all of the constituent parts of dictionary entries may appear. The hierarchical levels of dictionary entries are documented in section #DIENHI (Hierarchical Levels) .",
+                  "String-Length": 677
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1554,8 +1558,8 @@
             {
               "SECTION": "Top-level Constituents of Entries",
               "CONTAINS-PARAS": [ {
-                  "PARA": "This section describes the top-level constituents of dictionary entries, together with the phrase-level constituents peculiar to each. the form element, which groups orthographic information and pronunciations, is described in section DITPFO (Information on Written and Spoken Forms) the gramGrp element, which groups elements for the grammatical characterization of the headword, is described in section DITPGR (Grammatical Information) the def element, which describes the meaning of the headword, is described in section DITPSE (Sense Information) the etym element and its special phrase-level elements are documented in section DITPET (Etymological Information) the cit element and its specific applications are described in section DITPSE (Sense Information) and section DITPMI (Other Information) the usg, lbl, xr, and note elements are described in section DITPMI (Other Information) the re element, which marks nested entries for related words, is described in section DITPRE (Related Entries)",
-                  "String-Length": 1001
+                  "PARA": "This section describes the top-level constituents of dictionary entries, together with the phrase-level constituents peculiar to each. the form element, which groups orthographic information and pronunciations, is described in section #DITPFO (Information on Written and Spoken Forms) the gramGrp element, which groups elements for the grammatical characterization of the headword, is described in section #DITPGR (Grammatical Information) the def element, which describes the meaning of the headword, is described in section #DITPSE (Sense Information) the etym element and its special phrase-level elements are documented in section #DITPET (Etymological Information) the cit element and its specific applications are described in section #DITPSE (Sense Information) and section #DITPMI (Other Information) the usg, lbl, xr, and note elements are described in section #DITPMI (Other Information) the re element, which marks nested entries for related words, is described in section #DITPRE (Related Entries)",
+                  "String-Length": 1009
                 } ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
@@ -1575,12 +1579,12 @@
                   "SECTION": "Sense Information",
                   "CONTAINS-PARAS": [
                     {
-                      "PARA": "Dictionaries may describe the meanings of words in a wide variety of different ways—by means of synonyms, paraphrases, translations into other languages, formal definitions in various highly stylized forms, etc. No attempt is made here to distinguish all the different forms which sense information may take; all of them may be tagged using the def element described in section DITPDE (Definitions) .",
-                      "String-Length": 400
+                      "PARA": "Dictionaries may describe the meanings of words in a wide variety of different ways—by means of synonyms, paraphrases, translations into other languages, formal definitions in various highly stylized forms, etc. No attempt is made here to distinguish all the different forms which sense information may take; all of them may be tagged using the def element described in section #DITPDE (Definitions) .",
+                      "String-Length": 401
                     },
                     {
-                      "PARA": "As a special case it is frequently desirable to distinguish the provision of translation equivalents in other languages from other forms of sense information; the use of cit type=\"translation\" (which groups a translation equivalent with related information such as its grammatical description) for this purpose is described in section DITPTR (Translation Equivalents) .",
-                      "String-Length": 369
+                      "PARA": "As a special case it is frequently desirable to distinguish the provision of translation equivalents in other languages from other forms of sense information; the use of cit type=\"translation\" (which groups a translation equivalent with related information such as its grammatical description) for this purpose is described in section #DITPTR (Translation Equivalents) .",
+                      "String-Length": 370
                     }
                   ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1636,8 +1640,8 @@
                   "String-Length": 927
                 },
                 {
-                  "PARA": "This section describes some principles which may be useful in capturing one or the other of these views as consistently and completely as possible, and describes some methods of attempting to capture more than one view in a single encoding. Only the editorial and lexical views are explicitly treated here; for methods of recording the physical or typographic details of a text, see chapter PH (Representation of Primary Sources) . Other approaches to these problems, such as the use of repetitive encoding and links to show their correspondences, or the use of feature structures to capture the information structure, and of the ana and inst attributes to link feature structures to a transcription of the editorial view of a dictionary, are not discussed here (for feature structures, see chapter FS (Feature Structures) . For linkage of textual form and underlying information, see chapter AI (Simple Analytic Mechanisms) ).",
-                  "String-Length": 927
+                  "PARA": "This section describes some principles which may be useful in capturing one or the other of these views as consistently and completely as possible, and describes some methods of attempting to capture more than one view in a single encoding. Only the editorial and lexical views are explicitly treated here; for methods of recording the physical or typographic details of a text, see chapter #PH (Representation of Primary Sources) . Other approaches to these problems, such as the use of repetitive encoding and links to show their correspondences, or the use of feature structures to capture the information structure, and of the ana and inst attributes to link feature structures to a transcription of the editorial view of a dictionary, are not discussed here (for feature structures, see chapter #FS (Feature Structures) . For linkage of textual form and underlying information, see chapter #AI (Simple Analytic Mechanisms) ).",
+                  "String-Length": 930
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1689,8 +1693,8 @@
                   "String-Length": 230
                 },
                 {
-                  "PARA": "Within a manuscript description, many other standard TEI phrase level elements are available, notably those described in the Core module (CO (Elements Available in All TEI Documents) ). Additional elements of particular relevance to manuscript description, such as those for names and dates, may also be made available by including the relevant module in one's schema.",
-                  "String-Length": 368
+                  "PARA": "Within a manuscript description, many other standard TEI phrase level elements are available, notably those described in the Core module (#CO (Elements Available in All TEI Documents) ). Additional elements of particular relevance to manuscript description, such as those for names and dates, may also be made available by including the relevant module in one's schema.",
+                  "String-Length": 369
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1750,8 +1754,8 @@
               "SECTION": "Physical Description",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "Under the general heading physical description we subsume a large number of different aspects generally regarded as useful in the description of a given manuscript. These include: aspects of the form, support, extent, and quire structure of the manuscript object and of the way in which the text is laid out on the page (msph1 (Object Description) ); the styles of writing, such as the way it is laid out on the page, the styles of writing, decorative features, any musical notation employed and any annotations or marginalia (msph2 (Writing, Decoration, and Other Notations) ); and discussion of its binding, seals, and any accompanying material (msph3 (Bindings, Seals, and Additional Material) ).",
-                  "String-Length": 699
+                  "PARA": "Under the general heading physical description we subsume a large number of different aspects generally regarded as useful in the description of a given manuscript. These include: aspects of the form, support, extent, and quire structure of the manuscript object and of the way in which the text is laid out on the page (#msph1 (Object Description) ); the styles of writing, such as the way it is laid out on the page, the styles of writing, decorative features, any musical notation employed and any annotations or marginalia (#msph2 (Writing, Decoration, and Other Notations) ); and discussion of its binding, seals, and any accompanying material (#msph3 (Bindings, Seals, and Additional Material) ).",
+                  "String-Length": 702
                 },
                 {
                   "PARA": "Most manuscript descriptions touch on several of these categories of information though few include them all, and not all distinguish them as clearly as we propose here. In particular, it is often the case that an existing description will include information for which we propose distinct elements within a single paragraph, or even sentence. The encoder must then decide whether to rewrite the description using the structure proposed here, or to retain the existing prose, marked up simply as a series of p elements, directly within the physDesc element.",
@@ -1793,8 +1797,8 @@
                       "String-Length": 141
                     },
                     {
-                      "PARA": "Each of these elements contains paragraphs relating to the topic concerned. Within these paragraphs, phrase-level elements (in particular those discussed above at msphrase (Phrase-level Elements) ), may be used to tag specific terms of interest if so desired. Mostly paper, with watermarks unicorn (Briquet 9993) and ox (close to Briquet 2785). The first and last leaf of each quire, with the exception of quires xvi and xviii, are constituted by bifolia of parchment, and all seven miniatures have been painted on inserted singletons of parchment.",
-                      "String-Length": 548
+                      "PARA": "Each of these elements contains paragraphs relating to the topic concerned. Within these paragraphs, phrase-level elements (in particular those discussed above at #msphrase (Phrase-level Elements) ), may be used to tag specific terms of interest if so desired. Mostly paper, with watermarks unicorn (Briquet 9993) and ox (close to Briquet 2785). The first and last leaf of each quire, with the exception of quires xvi and xviii, are constituted by bifolia of parchment, and all seven miniatures have been painted on inserted singletons of parchment.",
+                      "String-Length": 549
                     },
                     {
                       "PARA": "This example combines information which might alternatively be more precisely tagged using the more specific elements described in the following subsections.",
@@ -1920,12 +1924,12 @@
               "SECTION": "The Apparatus Entry, Readings, and Witnesses",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "This section introduces the fundamental markup methods used to encode textual variations: the app element for entries in the critical apparatus: see section TCAPEN (The Apparatus Entry) . elements for identifying individual readings: see section TCAPLR (Readings) . ways of grouping readings together: see section TCAPSU (Indicating Subvariation in Apparatus Entries) . methods of identifying which witnesses support a particular reading, and for describing the witnesses included in the apparatus: see section TCAPLW (Witness Information) . elements for indicating which portions of a text are covered by fragmentary witnesses: see section TCAPMI (Fragmentary Witnesses) .",
-                  "String-Length": 673
+                  "PARA": "This section introduces the fundamental markup methods used to encode textual variations: the app element for entries in the critical apparatus: see section #TCAPEN (The Apparatus Entry) . elements for identifying individual readings: see section #TCAPLR (Readings) . ways of grouping readings together: see section #TCAPSU (Indicating Subvariation in Apparatus Entries) . methods of identifying which witnesses support a particular reading, and for describing the witnesses included in the apparatus: see section #TCAPLW (Witness Information) . elements for indicating which portions of a text are covered by fragmentary witnesses: see section #TCAPMI (Fragmentary Witnesses) .",
+                  "String-Length": 678
                 },
                 {
-                  "PARA": "The app element is in one sense a more sophisticated and complex version of the choice element introduced in COEDCOR (Apparent Errors) as a way of marking points where the encoding of a passage in a single source may be carried out in more than one way. Unlike choice, however, the app element allows for the representation of many different versions of the same passage taken from different sources.",
-                  "String-Length": 400
+                  "PARA": "The app element is in one sense a more sophisticated and complex version of the choice element introduced in #COEDCOR (Apparent Errors) as a way of marking points where the encoding of a passage in a single source may be carried out in more than one way. Unlike choice, however, the app element allows for the representation of many different versions of the same passage taken from different sources.",
+                  "String-Length": 401
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -1944,8 +1948,8 @@
                 {
                   "SECTION": "Witness Information",
                   "CONTAINS-PARAS": [ {
-                      "PARA": "A given reading is associated with the set of witnesses attesting it by listing the witnesses in the wit attribute on the rdg or lem element. Special mechanisms, described in the following sections, are needed to associate annotation on a reading with one specific witness among several (section TCAPWD (Witness Detail Information) ), to transcribe witness information verbatim from a source edition (section TCSCWL (Witness Information in the Source) ), and to identify the formal lists of witnesses typically provided in the front matter of critical editions (section TCAPWL (The Witness List) ).",
-                      "String-Length": 598
+                      "PARA": "A given reading is associated with the set of witnesses attesting it by listing the witnesses in the wit attribute on the rdg or lem element. Special mechanisms, described in the following sections, are needed to associate annotation on a reading with one specific witness among several (section #TCAPWD (Witness Detail Information) ), to transcribe witness information verbatim from a source edition (section #TCSCWL (Witness Information in the Source) ), and to identify the formal lists of witnesses typically provided in the front matter of critical editions (section #TCAPWL (The Witness List) ).",
+                      "String-Length": 601
                     } ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
@@ -2015,8 +2019,8 @@
                   "String-Length": 751
                 },
                 {
-                  "PARA": "To cater for this diversity, these Guidelines propose a flexible strategy, in which encoders may choose for themselves the approach appropriate to their needs. If one were interested, for example, in converting existing DNB-type records, and wanted to preserve the text as is, the person element (see NDPERSE (The Person Element) ) could simply contain the text of an article, placed within p elements, possibly using elements such as name or date to mark up features of that text. For a more structured entry, however, one would extract the data and place information contained in the text, and encode it directly using the more specific elements described in this section.",
-                  "String-Length": 674
+                  "PARA": "To cater for this diversity, these Guidelines propose a flexible strategy, in which encoders may choose for themselves the approach appropriate to their needs. If one were interested, for example, in converting existing DNB-type records, and wanted to preserve the text as is, the person element (see #NDPERSE (The Person Element) ) could simply contain the text of an article, placed within p elements, possibly using elements such as name or date to mark up features of that text. For a more structured entry, however, one would extract the data and place information contained in the text, and encode it directly using the more specific elements described in this section.",
+                  "String-Length": 675
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2027,16 +2031,16 @@
                   "SECTION": "The Person Element",
                   "CONTAINS-PARAS": [
                     {
-                      "PARA": "Information about a person, as distinct from references to a person, for example by name, is grouped together within a person element. Information about a group of people regarded as a single entity (for example the audience of a performance) may be encoded using the personGrp element. Note however that information about a group of people with a distinct identity (for example a named theatrical troupe) should be recorded using the org element described in section ND-org (Organizational Data) below.",
-                      "String-Length": 503
+                      "PARA": "Information about a person, as distinct from references to a person, for example by name, is grouped together within a person element. Information about a group of people regarded as a single entity (for example the audience of a performance) may be encoded using the personGrp element. Note however that information about a group of people with a distinct identity (for example a named theatrical troupe) should be recorded using the org element described in section #ND-org (Organizational Data) below.",
+                      "String-Length": 504
                     },
                     {
                       "PARA": "These elements may appear only within a listPerson element, which groups such descriptions together, and optionally also describes relationships amongst the people listed.",
                       "String-Length": 171
                     },
                     {
-                      "PARA": "One or more listPerson elements may be supplied within the standOff element (see SASOstdf (The standOff Container) ) or, when used to list the participants in a linguistic interaction, within the particDesc (participant description) element in the profileDesc element of a TEI header. Like other forms of list, however, listPerson can also appear within the body of a text when the module defined by this chapter is included in a schema.",
-                      "String-Length": 437
+                      "PARA": "One or more listPerson elements may be supplied within the standOff element (see #SASOstdf (The standOff Container) ) or, when used to list the participants in a linguistic interaction, within the particDesc (participant description) element in the profileDesc element of a TEI header. Like other forms of list, however, listPerson can also appear within the body of a text when the module defined by this chapter is included in a schema.",
+                      "String-Length": 438
                     },
                     {
                       "PARA": "The type attribute may be used to distinguish lists of people of different kinds where this is considered convenient: Adam Schiff District Attorney for Manhattan in seasons 1 to 10 of Law and Order. Mike Logan NYPD New York Police Department Detective regularly appearing in seasons 1 to 5 of Law and Order and seasons 5 to 7 of Law and Order: Criminal Intent. Benjamin Stone Executive Assistant District Attorney for Manhattan in seasons 1 to 4 of Law and Order Jack McCoy An Executive Assistant District Attorney then District Attorney for Manhattan in seasons 5 to 10 of Law and Order, in seasons 1, 9, 11, and 19 of Law and Order: Special Victims Unit, and in season 1 of Law and Order: Trial by Jury. Jamie Ross An Assistant District Attorney for Manhattan in seasons 7 & 8 of Law and Order, and a defense attorney in seasons 10 & 11, and then a judge in Law and Order: Trial by Jury. Joe Fontana NYPD New York Police Department Detective regularly appearing in seasons 15 & 16 of Law and Order. Adam Schiff U.S. Representative from California since 2013. Mike Logan Gridiron football player for the Pittsburgh Steelers from 2001 to 2006. Benjamin Stone Michigan State Senator from 1968 to 1979. Jack McCoy Iowa State Representative from 1955 to 1959. Jamie Ross Broadway actor, with occasional forays into television, from 1971 to roughly 2007. Joe Fontana A member of Canada’s House of Commons from 1987 to 2006, and mayor of London, Ontario from 2010 to 2014.",
@@ -2051,16 +2055,16 @@
                       "String-Length": 478
                     },
                     {
-                      "PARA": "Note that the age attribute is not intended to record the person's age expressed in years, months, or other temporal unit. Rather it is intended to record into which age bracket, for the purposes of some analysis, the person falls. A simple (perhaps too simple to be useful) binary classification of age brackets would be child and adult. The actual age brackets useful to various projects are likely to be varied and idiosyncratic, and thus these Guidelines make no particular recommendation as to possible values. Instead, individual projects are recommended to define the values they use in their own customization file, using a declaration like the following: less than 18 years of age 18 to 65 years of age over 65 years of age The above declaration, were it properly placed in a customization file, establishes that the age attribute of person has only three possible values, child, adult, and retired. For more information on customization see MD (Customization) .",
-                      "String-Length": 971
+                      "PARA": "Note that the age attribute is not intended to record the person's age expressed in years, months, or other temporal unit. Rather it is intended to record into which age bracket, for the purposes of some analysis, the person falls. A simple (perhaps too simple to be useful) binary classification of age brackets would be child and adult. The actual age brackets useful to various projects are likely to be varied and idiosyncratic, and thus these Guidelines make no particular recommendation as to possible values. Instead, individual projects are recommended to define the values they use in their own customization file, using a declaration like the following: less than 18 years of age 18 to 65 years of age over 65 years of age The above declaration, were it properly placed in a customization file, establishes that the age attribute of person has only three possible values, child, adult, and retired. For more information on customization see #MD (Customization) .",
+                      "String-Length": 972
                     },
                     {
                       "PARA": "The person element may contain many sub-elements, each specifying a different property of the person being described. The remainder of this section describes these more specific elements. For convenience, these elements are grouped into three classes, corresponding with the tripartite division outlined above: one for traits, one for states and one for events. Each class may contain specific elements for common types of biographical information, and contains a generic element for other, user-defined, types of information.",
                       "String-Length": 526
                     },
                     {
-                      "PARA": "All the elements in these three classes belong to the attribute class att.datable, which provides the following attributes: as discussed in NDATTS (Attribute Classes Defined by This Module) above.",
-                      "String-Length": 196
+                      "PARA": "All the elements in these three classes belong to the attribute class att.datable, which provides the following attributes: as discussed in #NDATTS (Attribute Classes Defined by This Module) above.",
+                      "String-Length": 197
                     }
                   ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2101,8 +2105,8 @@
                   "String-Length": 826
                 },
                 {
-                  "PARA": "When, however, particular elements are required to encode the tabular arrangement itself, then one or other of the various table schemas now available may be preferable. The schemas in common use generally view a table as a special text element, made up of row elements, themselves composed of cells. Table cells generally appear in row-major order, with the first row from left to right, then the second row, and so on. Details of appearance such as column widths, border lines, and alignment are generally encoded by numerous attributes. Beyond this, however, such schemas differ greatly. This section begins by describing a table schema of this kind; a brief summary of some other widely available table schemas is also provided in section FTTAB2 (Other Table Schemas) .",
-                  "String-Length": 773
+                  "PARA": "When, however, particular elements are required to encode the tabular arrangement itself, then one or other of the various table schemas now available may be preferable. The schemas in common use generally view a table as a special text element, made up of row elements, themselves composed of cells. Table cells generally appear in row-major order, with the first row from left to right, then the second row, and so on. Details of appearance such as column widths, border lines, and alignment are generally encoded by numerous attributes. Beyond this, however, such schemas differ greatly. This section begins by describing a table schema of this kind; a brief summary of some other widely available table schemas is also provided in section #FTTAB2 (Other Table Schemas) .",
+                  "String-Length": 774
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2163,20 +2167,20 @@
                   "String-Length": 852
                 },
                 {
-                  "PARA": "Such contextual information is potentially of equal importance for unitary texts, and these Guidelines accordingly make no particular distinction between the kinds of information which should be gathered for unitary and for composite texts. In either case, the information should be recorded in the appropriate section of a TEI header, as described in chapter HD (The TEI Header) . In the case of language corpora, such information may be gathered together in the overall corpus header, or split across all the component texts of a corpus, in their individual headers, or divided between the two. The association between an individual corpus text and the contextual information applicable to it may be made in a number of ways, as further discussed in section CCAS (Associating Contextual Information with a Text) below.",
-                  "String-Length": 820
+                  "PARA": "Such contextual information is potentially of equal importance for unitary texts, and these Guidelines accordingly make no particular distinction between the kinds of information which should be gathered for unitary and for composite texts. In either case, the information should be recorded in the appropriate section of a TEI header, as described in chapter #HD (The TEI Header) . In the case of language corpora, such information may be gathered together in the overall corpus header, or split across all the component texts of a corpus, in their individual headers, or divided between the two. The association between an individual corpus text and the contextual information applicable to it may be made in a number of ways, as further discussed in section #CCAS (Associating Contextual Information with a Text) below.",
+                  "String-Length": 822
                 },
                 {
-                  "PARA": "Chapter HD (The TEI Header) , which should be read in conjunction with the present section, describes in full the range of elements available for the encoding of information relating to the electronic file itself, for example its bibliographic description and those of the source or sources from which it was derived (see section HD2 (The File Description) ); information about the encoding practices followed with the corpus, for example its design principles, editorial practices, reference system, etc. (see section HD5 (The Encoding Description) ); more detailed descriptive information about the creation and content of the corpus, such as the languages used within it and any descriptive classification system used (see section HD4 (The Profile Description) ); and version information documenting any changes made in the electronic text (see section HD6 (The Revision Description) ).",
-                  "String-Length": 889
+                  "PARA": "Chapter #HD (The TEI Header) , which should be read in conjunction with the present section, describes in full the range of elements available for the encoding of information relating to the electronic file itself, for example its bibliographic description and those of the source or sources from which it was derived (see section #HD2 (The File Description) ); information about the encoding practices followed with the corpus, for example its design principles, editorial practices, reference system, etc. (see section #HD5 (The Encoding Description) ); more detailed descriptive information about the creation and content of the corpus, such as the languages used within it and any descriptive classification system used (see section #HD4 (The Profile Description) ); and version information documenting any changes made in the electronic text (see section #HD6 (The Revision Description) ).",
+                  "String-Length": 894
                 },
                 {
-                  "PARA": "In addition to the elements defined by chapter HD (The TEI Header) , several other elements can be used in the TEI header if the additional module defined by this chapter is invoked. These additional tags make it possible to characterize the social or other situation within which a language interaction takes place or is experienced, the physical setting of a language interaction, and the participants in it. Though this information may be relevant to, and provided for, unitary texts as well as for collections or corpora, it is more often recorded for the components of systematically developed corpora than for isolated texts, and thus this module is referred to as being for language corpora.",
-                  "String-Length": 698
+                  "PARA": "In addition to the elements defined by chapter #HD (The TEI Header) , several other elements can be used in the TEI header if the additional module defined by this chapter is invoked. These additional tags make it possible to characterize the social or other situation within which a language interaction takes place or is experienced, the physical setting of a language interaction, and the participants in it. Though this information may be relevant to, and provided for, unitary texts as well as for collections or corpora, it is more often recorded for the components of systematically developed corpora than for isolated texts, and thus this module is referred to as being for language corpora.",
+                  "String-Length": 699
                 },
                 {
-                  "PARA": "When the module defined in this chapter is included in a schema, a number of additional elements become available within the profileDesc element of the TEI header (discussed in section HD4 (The Profile Description) ). These elements, members of the model.profileDescPart, are discussed in the remainder of the chapter.",
-                  "String-Length": 318
+                  "PARA": "When the module defined in this chapter is included in a schema, a number of additional elements become available within the profileDesc element of the TEI header (discussed in section #HD4 (The Profile Description) ). These elements, members of the model.profileDescPart, are discussed in the remainder of the chapter.",
+                  "String-Length": 319
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2203,8 +2207,8 @@
               "SECTION": "Associating Contextual Information with a Text",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "This section discusses the association of the contextual information held in the header with the individual elements making up a TEI text or corpus. Contextual information is held in elements of various kinds within the TEI header, as discussed elsewhere in this section and in chapter HD (The TEI Header) . Here we consider what happens when different parts of a document need to be associated with different contextual information of the same type, for example when one part of a document uses a different encoding practice from another, or where one part relates to a different setting from another. In such situations, there will be more than one instance of a header element of the relevant type.",
-                  "String-Length": 701
+                  "PARA": "This section discusses the association of the contextual information held in the header with the individual elements making up a TEI text or corpus. Contextual information is held in elements of various kinds within the TEI header, as discussed elsewhere in this section and in chapter #HD (The TEI Header) . Here we consider what happens when different parts of a document need to be associated with different contextual information of the same type, for example when one part of a document uses a different encoding practice from another, or where one part relates to a different setting from another. In such situations, there will be more than one instance of a header element of the relevant type.",
+                  "String-Length": 702
                 },
                 {
                   "PARA": "The TEI scheme allow for the following possibilities: A given element may appear in the corpus header only, in the header of one or more texts only, or in both places There may be multiple occurrences of certain elements in either the corpus or a text header.",
@@ -2228,8 +2232,8 @@
             {
               "SECTION": "Linguistic Annotation of Corpora",
               "CONTAINS-PARAS": [ {
-                  "PARA": "Language corpora often include analytic encodings or annotations, designed to support a variety of different views of language. The present Guidelines do not advocate any particular approach to linguistic annotation (or tagging); instead a number of general analytic facilities are provided which support the representation of most forms of annotation in a standard and self-documenting manner. Analytic annotation is of importance in many fields, not only in corpus linguistics, and is therefore discussed in general terms elsewhere in the Guidelines.See in particular chapters SA (Linking, Segmentation, and Alignment) , AI (Simple Analytic Mechanisms) , and FS (Feature Structures) . The present section presents informally some particular applications of these general mechanisms to the specific practice of corpus linguistics.",
-                  "String-Length": 831
+                  "PARA": "Language corpora often include analytic encodings or annotations, designed to support a variety of different views of language. The present Guidelines do not advocate any particular approach to linguistic annotation (or tagging); instead a number of general analytic facilities are provided which support the representation of most forms of annotation in a standard and self-documenting manner. Analytic annotation is of importance in many fields, not only in corpus linguistics, and is therefore discussed in general terms elsewhere in the Guidelines.See in particular chapters #SA (Linking, Segmentation, and Alignment) , #AI (Simple Analytic Mechanisms) , and #FS (Feature Structures) . The present section presents informally some particular applications of these general mechanisms to the specific practice of corpus linguistics.",
+                  "String-Length": 834
                 } ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
@@ -2299,8 +2303,8 @@
                       "String-Length": 454
                     },
                     {
-                      "PARA": "One important scheme, also defined by the W3C, and recommended by these Guidelines is the xpath() pointer scheme, which allows for any part of an XML structure to be selected using the syntax defined by the XPath specification. This is further discussed below, SATSXP (xpath()) . These Guidelines also define six other pointer schemes, which provide access to parts of an XML document such as points within data content or stretches of data content. These additional TEI pointer schemes are defined in sections SATSL (left()) to SATSMA (match()) below.",
-                      "String-Length": 552
+                      "PARA": "One important scheme, also defined by the W3C, and recommended by these Guidelines is the xpath() pointer scheme, which allows for any part of an XML structure to be selected using the syntax defined by the XPath specification. This is further discussed below, #SATSXP (xpath()) . These Guidelines also define six other pointer schemes, which provide access to parts of an XML document such as points within data content or stretches of data content. These additional TEI pointer schemes are defined in sections #SATSL (left()) to #SATSMA (match()) below.",
+                      "String-Length": 555
                     }
                   ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2334,12 +2338,12 @@
                       "String-Length": 601
                     },
                     {
-                      "PARA": "For the cRef attribute to function as required, a mechanism is needed to define the mapping between (for example) the book called Matt and the part of the XML structure which corresponds with it. This is provided by the refsDecl element in the TEI header, which contains an algorithm for translating a canonical reference string (like Matt 5:7) into a URI such as #xpath(\/\/div[@n='Matt']\/div[5]\/div[7]). The refsDecl element is described in section HD54 (The Reference System Declaration) ; the following example is discussed in more detail below in section SACRWE (Worked Example) . An alternative and less verbose method is described in section SACRCS (Citation Structures) . This pointer pattern extracts and references the book, chapter, and verse parts of a biblical reference. This pointer pattern extracts and references the book and chapter parts of a biblical reference. This pointer pattern extracts and references just the book part of a biblical reference.",
-                      "String-Length": 968
+                      "PARA": "For the cRef attribute to function as required, a mechanism is needed to define the mapping between (for example) the book called Matt and the part of the XML structure which corresponds with it. This is provided by the refsDecl element in the TEI header, which contains an algorithm for translating a canonical reference string (like Matt 5:7) into a URI such as #xpath(\/\/div[@n='Matt']\/div[5]\/div[7]). The refsDecl element is described in section #HD54 (The Reference System Declaration) ; the following example is discussed in more detail below in section #SACRWE (Worked Example) . An alternative and less verbose method is described in section #SACRCS (Citation Structures) . This pointer pattern extracts and references the book, chapter, and verse parts of a biblical reference. This pointer pattern extracts and references the book and chapter parts of a biblical reference. This pointer pattern extracts and references just the book part of a biblical reference.",
+                      "String-Length": 971
                     },
                     {
-                      "PARA": "When an application encounters a canonical reference as the value of cRef attribute, it might follow this sequence of specific steps to transform it into a URI reference: Ascertain the correct refsDecl following the rules summarized in section CCAS3 (Summary) . For each cRefPattern element encountered in the appropriate refsDecl, in the order encountered: match the value of the cRef attribute to the regular expression found as the value of the matchPattern attribute if the value of the cRef attribute matches: take the value of the replacementPattern attribute and substitute the back references ($1, $2, etc.) with the corresponding matched substrings the result is taken as if it were a relative or absolute URI reference specified on the target attribute; i.e., it should be used as is or combined with the current xml:base attribute value as usual no further processing of this value of the cRef attribute against the refsDecl should take place if, however, the value of the cRef attribute does not match the regular expression specified in the value of the matchPattern attribute, proceed to the next cRefPattern If all the cRefPattern elements are examined in turn and none matches, the pointer fails.",
-                      "String-Length": 1212
+                      "PARA": "When an application encounters a canonical reference as the value of cRef attribute, it might follow this sequence of specific steps to transform it into a URI reference: Ascertain the correct refsDecl following the rules summarized in section #CCAS3 (Summary) . For each cRefPattern element encountered in the appropriate refsDecl, in the order encountered: match the value of the cRef attribute to the regular expression found as the value of the matchPattern attribute if the value of the cRef attribute matches: take the value of the replacementPattern attribute and substitute the back references ($1, $2, etc.) with the corresponding matched substrings the result is taken as if it were a relative or absolute URI reference specified on the target attribute; i.e., it should be used as is or combined with the current xml:base attribute value as usual no further processing of this value of the cRef attribute against the refsDecl should take place if, however, the value of the cRef attribute does not match the regular expression specified in the value of the matchPattern attribute, proceed to the next cRefPattern If all the cRefPattern elements are examined in turn and none matches, the pointer fails.",
+                      "String-Length": 1213
                     },
                     {
                       "PARA": "The regular expression language used as the value of the matchPattern attribute is that used for the pattern facet of the World Wide Web Consortium's XML Schema Language in an Appendix to XML Schema Part 2.As always seems to be the case, no two regular expression languages are precisely the same. For those used to Perl regular expressions, be warned that while in Perl the pattern tei matches any string that contains tei, in the W3C language it only matches the string tei. The value of the replacementPattern attribute is simply a string, except that occurrences of $1 through $9 are replaced by the corresponding substring match. Note that since a maximum of nine substring matches are permitted, the string $18 means the value of the first matched substring followed by the character 8 as opposed to the eighteenth matched substring. If there is a need for an actual string including a dollar sign followed by a digit that is not supposed to be replaced, the dollar sign should be written as $$. Implementations must convert $$ to $ during processing.",
@@ -2385,8 +2389,8 @@
             {
               "SECTION": "Correspondence and Alignment",
               "CONTAINS-PARAS": [ {
-                  "PARA": "In this section we introduce the notions of correspondence, expressed by the corresp attribute, and of alignment, which is a special kind of correspondence involving an ordered set of correspondences. Both cases may be represented using the link and linkGrp elements introduced in section SAPT (Links) . We also discuss the special case of alignment in time or synchronization, for which special purpose elements are proposed in section SASY (Synchronization) .",
-                  "String-Length": 461
+                  "PARA": "In this section we introduce the notions of correspondence, expressed by the corresp attribute, and of alignment, which is a special kind of correspondence involving an ordered set of correspondences. Both cases may be represented using the link and linkGrp elements introduced in section #SAPT (Links) . We also discuss the special case of alignment in time or synchronization, for which special purpose elements are proposed in section #SASY (Synchronization) .",
+                  "String-Length": 463
                 } ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
@@ -2451,16 +2455,16 @@
               "SECTION": "Linguistic Annotation",
               "CONTAINS-PARAS": [
                 {
-                  "PARA": "By linguistic annotation we mean here any annotation determined by an analysis of linguistic features of the text, excluding as borderline cases both the formal structural properties of the text (e.g. its division into chapters or paragraphs) and descriptive information about its context (the circumstances of its production, its genre or medium). The structural properties of any TEI-conformant text should be represented using the structural elements discussed elsewhere in this chapter and in chapters CO (Elements Available in All TEI Documents) , DS (Default Text Structure) , VE (Verse) , DR (Performance Texts) , TS (Transcriptions of Speech) , DI (Dictionaries) , and CC (Language Corpora) . The contextual properties of a TEI text are fully documented in the TEI header, which is discussed in chapter HD (The TEI Header) , and in section CCAH (Contextual Information) .",
-                  "String-Length": 879
+                  "PARA": "By linguistic annotation we mean here any annotation determined by an analysis of linguistic features of the text, excluding as borderline cases both the formal structural properties of the text (e.g. its division into chapters or paragraphs) and descriptive information about its context (the circumstances of its production, its genre or medium). The structural properties of any TEI-conformant text should be represented using the structural elements discussed elsewhere in this chapter and in chapters #CO (Elements Available in All TEI Documents) , #DS (Default Text Structure) , #VE (Verse) , #DR (Performance Texts) , #TS (Transcriptions of Speech) , #DI (Dictionaries) , and #CC (Language Corpora) . The contextual properties of a TEI text are fully documented in the TEI header, which is discussed in chapter #HD (The TEI Header) , and in section #CCAH (Contextual Information) .",
+                  "String-Length": 888
                 },
                 {
                   "PARA": "Other forms of linguistic annotation may be applied at a number of levels in a text. A code (such as a word-class or part-of-speech code) may be associated with each word or token, or with groups of such tokens, which may be continuous, discontinuous, or nested. A code may also be associated with relationships (such as cohesion) perceived as existing between distinct parts of a text. The codes themselves may stand for discrete and non-decomposable categories, or they may represent highly articulated bundles of textual features. Their function may be to place the annotated part of the text somewhere within a narrowly linguistic or discoursal domain of analysis, or within a more general semantic field, or any combination drawn from these and other domains.",
                   "String-Length": 764
                 },
                 {
-                  "PARA": "The manner by which such annotations are generated and attached to the text may be entirely automatic, entirely manual or a mixture. The ease and accuracy with which analysis may be automated may vary with the level at which the annotation is attached. The method employed should be documented in the interpretation element within the encoding description of the TEI header, as described in section HD53 (The Editorial Practices Declaration) . Where different parts of a language corpus have used different annotation methods, the decls attribute may be used to indicate the fact, as further discussed in section CCAS (Associating Contextual Information with a Text) .",
-                  "String-Length": 668
+                  "PARA": "The manner by which such annotations are generated and attached to the text may be entirely automatic, entirely manual or a mixture. The ease and accuracy with which analysis may be automated may vary with the level at which the annotation is attached. The method employed should be documented in the interpretation element within the encoding description of the TEI header, as described in section #HD53 (The Editorial Practices Declaration) . Where different parts of a language corpus have used different annotation methods, the decls attribute may be used to indicate the fact, as further discussed in section #CCAS (Associating Contextual Information with a Text) .",
+                  "String-Length": 670
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2528,8 +2532,8 @@
                   "String-Length": 950
                 },
                 {
-                  "PARA": "The scheme described in this chapter may be used to document any feature structure system, but is primarily intended for use with the feature structure representation defined by the ISO 24610-1:2006 standard, which corresponds with the recommendations presented in these Guidelines, FS (Feature Structures) . This chapter relies upon, but does not reproduce, formal definitions and descriptions presented more thoroughly in the ISO standard, which should be consulted in case of ambiguity or uncertainty.",
-                  "String-Length": 504
+                  "PARA": "The scheme described in this chapter may be used to document any feature structure system, but is primarily intended for use with the feature structure representation defined by the ISO 24610-1:2006 standard, which corresponds with the recommendations presented in these Guidelines, #FS (Feature Structures) . This chapter relies upon, but does not reproduce, formal definitions and descriptions presented more thoroughly in the ISO standard, which should be consulted in case of ambiguity or uncertainty.",
+                  "String-Length": 505
                 },
                 {
                   "PARA": "The FSD serves an important function in documenting precisely what the encoder intended by the system of feature structure markup used in an XML-encoded text. The FSD is also an important resource which standardizes the rules of inference used by software to validate the feature structure markup in a text, and to infer the full interpretation of underspecified feature structures.",
@@ -2540,8 +2544,8 @@
                   "String-Length": 1268
                 },
                 {
-                  "PARA": "We begin by describing how an encoded text is associated with one or more feature system declarations. The second, third, and fourth sections describe the overall structure of a feature system declaration and give details of how to encode its components. The final section offers a full example; fuller discussion of the reasoning behind FSDs and another complete example are provided in FS-BIBL-01 () .",
-                  "String-Length": 403
+                  "PARA": "We begin by describing how an encoded text is associated with one or more feature system declarations. The second, third, and fourth sections describe the overall structure of a feature system declaration and give details of how to encode its components. The final section offers a full example; fuller discussion of the reasoning behind FSDs and another complete example are provided in #FS-BIBL-01 () .",
+                  "String-Length": 404
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2669,8 +2673,8 @@
                   "String-Length": 389
                 },
                 {
-                  "PARA": "The following types of uncertainty are not indicated with the certainty element: the numerical precision associated with a number or date (for this use the precision element discussed in CEPREC (Indications of Precision) ) the content of the document being transcribed is identifiable, but may be read or understood in different ways (for this use the transcriptional elements such as unclear, discussed in chapter PH (Representation of Primary Sources) ) a transcriber, editor, or author wishes to indicate a level of confidence in a factual assertion made in the text (for this use the interpretative mechanisms discussed in AI (Simple Analytic Mechanisms) and FS (Feature Structures) )",
-                  "String-Length": 688
+                  "PARA": "The following types of uncertainty are not indicated with the certainty element: the numerical precision associated with a number or date (for this use the precision element discussed in #CEPREC (Indications of Precision) ) the content of the document being transcribed is identifiable, but may be read or understood in different ways (for this use the transcriptional elements such as unclear, discussed in chapter #PH (Representation of Primary Sources) ) a transcriber, editor, or author wishes to indicate a level of confidence in a factual assertion made in the text (for this use the interpretative mechanisms discussed in #AI (Simple Analytic Mechanisms) and #FS (Feature Structures) )",
+                  "String-Length": 692
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2716,8 +2720,8 @@
             {
               "SECTION": "Common Elements",
               "CONTAINS-PARAS": [ {
-                  "PARA": "This section discusses the child elements common to all of the specification elements; some of these are defined in the core module (COHTG (Terms and Glosses) ). These child elements are used to specify the naming, description, exemplification, and classification of the specification elements.",
-                  "String-Length": 294
+                  "PARA": "This section discusses the child elements common to all of the specification elements; some of these are defined in the core module (#COHTG (Terms and Glosses) ). These child elements are used to specify the naming, description, exemplification, and classification of the specification elements.",
+                  "String-Length": 295
                 } ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"COHTG" } ],
@@ -2759,8 +2763,8 @@
                       "String-Length": 152
                     },
                     {
-                      "PARA": "The attList within an elementSpec is used to specify only the attributes which are specific to that particular element. Instances of the element may carry other attributes which are declared by the classes of which the element is a member. These extra attributes, which are shared by other elements, or by all elements, are specified by an attList contained within a classSpec element, as described in section TDCLA (Class Specifications) below.",
-                      "String-Length": 445
+                      "PARA": "The attList within an elementSpec is used to specify only the attributes which are specific to that particular element. Instances of the element may carry other attributes which are declared by the classes of which the element is a member. These extra attributes, which are shared by other elements, or by all elements, are specified by an attList contained within a classSpec element, as described in section #TDCLA (Class Specifications) below.",
+                      "String-Length": 446
                     }
                   ],
                   "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2798,32 +2802,32 @@
                   "String-Length": 623
                 },
                 {
-                  "PARA": "This section describes how the TEI encoding schema may be customized, and should be read in conjunction with chapter TD (Documentation Elements) , which describes how a specific application of the TEI encoding schema should be documented. The documentation system described in that chapter is, like the rest of the TEI schema, independent of any particular schema or document type definition language.",
-                  "String-Length": 401
+                  "PARA": "This section describes how the TEI encoding schema may be customized, and should be read in conjunction with chapter #TD (Documentation Elements) , which describes how a specific application of the TEI encoding schema should be documented. The documentation system described in that chapter is, like the rest of the TEI schema, independent of any particular schema or document type definition language.",
+                  "String-Length": 402
                 },
                 {
-                  "PARA": "Formally speaking, these Guidelines provide both syntactic rules about how elements and attributes may be used in valid documents and semantic recommendations about what interpretation should be attached to a given syntactic construct. In this sense, they provide both a document type definition and a document type declaration. More exactly, we may distinguish between the TEI Abstract Model, which defines a set of related concepts, and the TEI schema which defines a set of syntactic rules and constraints. Many (though not all) of the semantic recommendations are provided solely as informal descriptive prose, though some of them are also enforced by means of such constructs as datatypes (see DTYPES (Datatype Specifications) ), or by schema constraints expressed using the Schematron language. Schematron constraints provide information about special kinds of validation errors dependent on conditional relationships, such as the invalidity of an attribute name or value on one element when another is present, or when, given a pair of attributes such as minOccurs and maxOccurs, the minimum value exceeds the maximum value. Schematron constraints also provide warnings when a particular element, attribute, or combination is to be deprecated in future releases of the TEI scheme, to alert users that the feature in question is no longer to be used after a certain date. Very rarely, TEI Schematron constraints offer warnings that do not explicitly break with the TEI but suggest a more efficient or less ambiguous encoding. Although the descriptions, validation errors, and warnings have been written with care, there will inevitably be cases where the intention of the contributors has not been conveyed with sufficient clarity to prevent users of these Guidelines from extending them in the sense of attaching slightly variant semantics to them.",
-                  "String-Length": 1855
+                  "PARA": "Formally speaking, these Guidelines provide both syntactic rules about how elements and attributes may be used in valid documents and semantic recommendations about what interpretation should be attached to a given syntactic construct. In this sense, they provide both a document type definition and a document type declaration. More exactly, we may distinguish between the TEI Abstract Model, which defines a set of related concepts, and the TEI schema which defines a set of syntactic rules and constraints. Many (though not all) of the semantic recommendations are provided solely as informal descriptive prose, though some of them are also enforced by means of such constructs as datatypes (see #DTYPES (Datatype Specifications) ), or by schema constraints expressed using the Schematron language. Schematron constraints provide information about special kinds of validation errors dependent on conditional relationships, such as the invalidity of an attribute name or value on one element when another is present, or when, given a pair of attributes such as minOccurs and maxOccurs, the minimum value exceeds the maximum value. Schematron constraints also provide warnings when a particular element, attribute, or combination is to be deprecated in future releases of the TEI scheme, to alert users that the feature in question is no longer to be used after a certain date. Very rarely, TEI Schematron constraints offer warnings that do not explicitly break with the TEI but suggest a more efficient or less ambiguous encoding. Although the descriptions, validation errors, and warnings have been written with care, there will inevitably be cases where the intention of the contributors has not been conveyed with sufficient clarity to prevent users of these Guidelines from extending them in the sense of attaching slightly variant semantics to them.",
+                  "String-Length": 1856
                 },
                 {
                   "PARA": "Beyond this unintentional semantic extension, some of the elements described can intentionally be used in a variety of ways; for example, the element note has an attribute type which can take on arbitrary string values, depending on how it is used in a document. A new type of note, therefore, requires no change in the existing model. On the other hand, for many applications, it may be desirable to constrain the possible values for the type attribute to a small set of possibilities. A schema modified in this way would no longer necessarily regard as valid the same set of documents as the corresponding unmodified TEI schema, but would remain faithful to the same conceptual model.",
                   "String-Length": 686
                 },
                 {
-                  "PARA": "This section explains how the TEI schema can be customized by suppressing elements, modifying classes of elements, or adding elements. Documents which validate against an application of the TEI schema which has been customized in this way may or may not be considered TEI-conformant, as further discussed in section CF (Conformance) .",
-                  "String-Length": 334
+                  "PARA": "This section explains how the TEI schema can be customized by suppressing elements, modifying classes of elements, or adding elements. Documents which validate against an application of the TEI schema which has been customized in this way may or may not be considered TEI-conformant, as further discussed in section #CF (Conformance) .",
+                  "String-Length": 335
                 },
                 {
                   "PARA": "The TEI system is designed to support modification and customization in a documented way that can be validated by an XML processor. This is achieved by writing a small TEI-conformant document, known informally as an ODD (One Document Does it all), from which an appropriate processor can generate both human-readable documentation, and a schema expressed in a language such as RELAX NG or DTD. The mechanisms used to instantiate a TEI schema differ for different schema languages, and are therefore not defined here. In XML DTDs, for example, extensive use is made of parameter entities, while in RELAX NG schemas, extensive use is made of patterns. In either case, the names of elements and, wherever possible, their attributes and content models are defined indirectly. The syntax used to implement this indirection also varies with the schema language used, but the underlying constructs in the TEI Abstract Model are given the same names. This indirection makes it simpler to implement customization of the TEI system in an accessible and human-readable way.",
                   "String-Length": 1062
                 },
                 {
-                  "PARA": "As further discussed in section ST (The TEI Infrastructure) , the TEI encoding schema comprises a set of class and macro declarations, and a number of modules. Each module is made up of element and attribute declarations, and a schema is made by combining a particular set of modules together. In the absence of any other kind of customization, when modules are combined together: all the elements defined by the module (and described in the corresponding section of these Guidelines) are included in the schema; each such element is identified by the canonical name given it in these Guidelines; the content model of each such element is as defined by these Guidelines; the names, datatypes, and permitted values declared for each attribute associated with each such element are as given in these Guidelines; the elements comprising element classes and the meaning of macro declarations expressed in terms of element classes is determined by the particular combination of modules selected. The TEI customization mechanisms allow the user to control this behaviour as follows: particular elements may be suppressed, removing them from any classes in which they are members, and also from any generated schema; new elements may be added to an existing class, thus making them available in macros or content models defined in terms of those classes; additional attributes, or attribute values, may be specified for an individual element or for classes of elements; within certain limits, attributes, or attribute values, may also be removed either from an individual element or for classes of elements; the characteristics inherited by one class from another class may be modified by modifying its class membership: all members of the class then inherit the changed characteristics; the set of values legal for an attribute or attribute class may be constrained or relaxed by supplying or modifying a value list, or by modifying its datatype. within certain limits, the name (generic identifier) associated with an element may be changed, without changing the semantic or syntactic properties of the element; The modification mechanisms presented in this section are quite general, and may be used to make all the types of changes just listed.",
-                  "String-Length": 2241
+                  "PARA": "As further discussed in section #ST (The TEI Infrastructure) , the TEI encoding schema comprises a set of class and macro declarations, and a number of modules. Each module is made up of element and attribute declarations, and a schema is made by combining a particular set of modules together. In the absence of any other kind of customization, when modules are combined together: all the elements defined by the module (and described in the corresponding section of these Guidelines) are included in the schema; each such element is identified by the canonical name given it in these Guidelines; the content model of each such element is as defined by these Guidelines; the names, datatypes, and permitted values declared for each attribute associated with each such element are as given in these Guidelines; the elements comprising element classes and the meaning of macro declarations expressed in terms of element classes is determined by the particular combination of modules selected. The TEI customization mechanisms allow the user to control this behaviour as follows: particular elements may be suppressed, removing them from any classes in which they are members, and also from any generated schema; new elements may be added to an existing class, thus making them available in macros or content models defined in terms of those classes; additional attributes, or attribute values, may be specified for an individual element or for classes of elements; within certain limits, attributes, or attribute values, may also be removed either from an individual element or for classes of elements; the characteristics inherited by one class from another class may be modified by modifying its class membership: all members of the class then inherit the changed characteristics; the set of values legal for an attribute or attribute class may be constrained or relaxed by supplying or modifying a value list, or by modifying its datatype. within certain limits, the name (generic identifier) associated with an element may be changed, without changing the semantic or syntactic properties of the element; The modification mechanisms presented in this section are quite general, and may be used to make all the types of changes just listed.",
+                  "String-Length": 2242
                 },
                 {
-                  "PARA": "The recommended way of implementing and documenting all such modifications is by means of the ODD system described in chapter TD (Documentation Elements) ; in the remainder of this section we give specific examples to illustrate how that system may be applied. An ODD processor, such as the Roma application supported by the TEI, or any other comparable set of stylesheets will use the declarations provided by an ODD to generate appropriate sets of declarations in a specific schema language such as RELAX NG or the XML DTD language. We do not discuss in detail here how this should be done, since the details are schema language-specific; some background information about the methods used for XML DTD and RELAX NG schema generation is however provided in section STIN (Defining a TEI Schema) . Several example ODD files are also provided as part of the standard TEI release: see further section MDlite (Examples of Modification) below.",
-                  "String-Length": 938
+                  "PARA": "The recommended way of implementing and documenting all such modifications is by means of the ODD system described in chapter #TD (Documentation Elements) ; in the remainder of this section we give specific examples to illustrate how that system may be applied. An ODD processor, such as the Roma application supported by the TEI, or any other comparable set of stylesheets will use the declarations provided by an ODD to generate appropriate sets of declarations in a specific schema language such as RELAX NG or the XML DTD language. We do not discuss in detail here how this should be done, since the details are schema language-specific; some background information about the methods used for XML DTD and RELAX NG schema generation is however provided in section #STIN (Defining a TEI Schema) . Several example ODD files are also provided as part of the standard TEI release: see further section #MDlite (Examples of Modification) below.",
+                  "String-Length": 941
                 }
               ],
               "CONTAINS-SPECS": "nf:specPuller() coming here",
@@ -2881,8 +2885,8 @@
                   "String-Length": 356
                 },
                 {
-                  "PARA": "A document is TEI-conformant if it: is a well-formed XML document (CFWF (Well-formedness Criterion) ) can be validated against a TEI Schema, that is, a schema derived from the TEI Guidelines (CFVL (Validation Constraint) ) conforms to the TEI Abstract Model (CFAM (Conformance to the TEI Abstract Model) ) uses the TEI namespace (and other namespaces where relevant) correctly (CFNS (Use of the TEI Namespace) ) is documented by means of a TEI-conformant ODD file (CFOD (Documentation Constraint) ) which refers to the TEI Guidelines Each of these criteria is discussed in more detail below.",
-                  "String-Length": 591
+                  "PARA": "A document is TEI-conformant if it: is a well-formed XML document (#CFWF (Well-formedness Criterion) ) can be validated against a TEI Schema, that is, a schema derived from the TEI Guidelines (#CFVL (Validation Constraint) ) conforms to the TEI Abstract Model (#CFAM (Conformance to the TEI Abstract Model) ) uses the TEI namespace (and other namespaces where relevant) correctly (#CFNS (Use of the TEI Namespace) ) is documented by means of a TEI-conformant ODD file (#CFOD (Documentation Constraint) ) which refers to the TEI Guidelines Each of these criteria is discussed in more detail below.",
+                  "String-Length": 596
                 },
                 {
                   "PARA": "A document is said to use a TEI Extension if it is a well-formed XML document which is valid against a TEI Schema which contains additional distinctions, representing concepts not present in the TEI Abstract Model, and therefore not documented in these Guidelines. Such a document cannot necessarily be transformed automatically to a TEI-conformant document without loss of information. However, since one of the goals of the TEI is to support extensions and modifications, it should not be assumed that no TEI document can include extensions: an extension which is expressed by means of the recommended mechanisms is also a TEI-conformant document provided that those parts of it which are not extensions are TEI-conformant.",
@@ -2930,11 +2934,6 @@
           ]
         }
       ]
-    },
-    {
-      "PART": "back",
-      "CONTAINS-CHAPTERS": [  ]
     }
-  ],
-  "P5subset-text": "2025-06-19T13:56:51.559188-04:00"
+  ]
 }

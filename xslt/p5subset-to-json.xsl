@@ -10,6 +10,10 @@
     
     <xsl:output method="json" indent="yes"/>
     
+    <xsl:variable name="currentDateTime" as="xs:string" select="current-dateTime() ! string()"/>
+    <xsl:variable name="P5-subset-version" as="xs:string" select="//edition/ref[2] ! normalize-space()"/>
+    <xsl:variable name="P5-subset-versionDate" as="xs:string" select="//edition/date/@when ! normalize-space()"/>
+    
     <xsl:variable name="P5-chapters" as="document-node()+" select="collection('../p5-chapters/en-2025-06-17/?select=*.xml')"/>
      <!-- 2025-06-17 ebb: The directory path will change with updates to the P5 subset saved to the repo. We are removing the following:
      * BIBL (too much information indirectly related to the elements  
@@ -22,7 +26,7 @@
    
     <xsl:template match="ptr">
         <xsl:variable name="targetMatch" as="xs:string" select="substring-after(@target, '#')"/>
-        <xsl:value-of select="$targetMatch"/>
+        <xsl:value-of select="@target ! normalize-space()"/>
         <xsl:value-of select="' ('||$P5-chapters//div[@xml:id = $targetMatch]/head ! normalize-space()||') '"/>
     </xsl:template>
     
@@ -96,10 +100,8 @@
     </xsl:function>
     
     <xsl:template match="/">
-   
-  
-       <xsl:variable name="partInfo" as="map(*)*"> 
-           <xsl:for-each select="child::TEI[1]/text/*">
+      <xsl:variable name="partInfo" as="map(*)*"> 
+           <xsl:for-each select="child::TEI[1]/text/*[not(name() = 'back')]">
             <xsl:variable name="chapterMaps" as="map(*)*">
                 <xsl:apply-templates select="current()"/>
             </xsl:variable>
@@ -109,12 +111,13 @@
                 }}"/>
         </xsl:for-each>
         </xsl:variable>
-        
         <xsl:sequence select="map {
-            'P5subset-text': current-dateTime(),
+            'DOCUMENT-TITLE' : 'THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH',
+            'TEI_SOURCE-VERSION-NUMBER': $P5-subset-version,
+            'TEI_SOURCE-OUTPUT-DATE' : $P5-subset-versionDate,
+            'THIS-JSON-DATETIME': $currentDateTime,
             'CONTAINS-PARTS' : array { $partInfo }
             }"/>
-       
     </xsl:template>
     
     <xsl:template match="text/*" as="map(*)*">      
