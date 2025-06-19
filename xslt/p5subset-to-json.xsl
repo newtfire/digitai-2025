@@ -28,9 +28,17 @@
         <xsl:value-of select="$targetMatch"/>
         <xsl:value-of select="' ('||$P5-chapters//div[@xml:id = $targetMatch]/head ! normalize-space()||') '"/>
     </xsl:template>
-    
-    
-    
+    <xsl:function name="nf:linkPuller" as="array(*)*">
+        <xsl:param name="targets"/>
+        <xsl:variable name="targetMatch" as="xs:string*" select="for $t in $targets return substring-after($t, '#')"/>
+        <xsl:sequence select="array {
+            for $t in $targetMatch return 
+            map {
+            'RELATES-TO': $t
+            }
+            }"/>
+        
+    </xsl:function>
     <xsl:function name="nf:paraPuller" as="array(*)*">
         <xsl:param name="paras" as="element()*"/>
         
@@ -62,6 +70,7 @@
         <xsl:for-each select="$P5-chapters//div[@type=$whichDiv and @xml:id =$input-id ]/div[@type and @xml:id]">
             <!-- Store my child <p> elements: -->
             <xsl:variable name="paras" as="element()*" select="child::p"/>
+            <xsl:variable name="targets" as="item()*" select="child::p//ptr/@target ! normalize-space()"/>
          <!-- Are you a section with nested subsections? If so, continue processing those subsections. Otherwise, stop here. -->
            <xsl:choose> 
                <xsl:when test="current()[child::div/@type]">
@@ -69,7 +78,8 @@
                        'SECTION' : current()/head ! string(),
                        'ID': current()/@xml:id ! string(),
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') },
-                       'CONTAINS-PARAS': nf:paraPuller($paras)
+                       'CONTAINS-PARAS': nf:paraPuller($paras),
+                       'CONTAINS-LINKS': nf:linkPuller($targets)
                        }"/> 
             </xsl:when>
             <xsl:otherwise>
