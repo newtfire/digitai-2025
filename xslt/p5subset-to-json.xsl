@@ -76,7 +76,7 @@
            <xsl:choose> 
                <xsl:when test="current()[child::div/@type]">
                    <xsl:sequence select="map {
-                       'SECTION' : current()/head ! string(),
+                       'SECTION' : current()/head ! normalize-space(),
                        'ID': current()/@xml:id ! string(),
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') },
                        'CONTAINS-PARAS': nf:paraPuller($paras),
@@ -118,23 +118,29 @@
     </xsl:template>
     
     <xsl:template match="text/*" as="map(*)*">      
-   <xsl:variable name="chapters" as="array(*)*">
+   <xsl:variable name="chapters" as="map(*)*">
        <!--ebb: NOTE: Here we are excluding the P5 Subset file's references to the REF- and Deprecations files we've removed.  -->
        <!-- 2025-06-18 ebb: JUST constraining this to output the AI (Analytic Mechanisms) chapter -->
-            <xsl:sequence select="array {
-                for $chap in child::div[@type='div1'][not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))] return
-                map {
-                  'CHAPTER': $chap/head/text(),
-                  'ID': $chap/@xml:id ! string(),
-                  'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap/@xml:id, 'div1', 'SUBSECTION') }
-                  }
-                }
-               "/> 
+       
+       <xsl:for-each select="child::div[@type='div1'][not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))]">
+           <xsl:variable name="chap" select="current()" as="element()"/>
+            <xsl:variable name="paras" as="element()*" select="$chap/child::p"/>
+       <xsl:variable name="targets" as="item()*" select="$chap/child::p//ptr/@target ! normalize-space()"/>
+           
+           <xsl:sequence select=" map {
+               'CHAPTER': $chap/head ! normalize-space(),
+               'ID': $chap/@xml:id ! string(),
+               'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap/@xml:id, 'div1', 'SUBSECTION') },
+               'CONTAINS-PARAS': nf:paraPuller($paras),
+               'RELATES-TO': nf:linkPuller($targets),
+               'CONTAINS-CITATION' : 'Unpack BIB cites here',
+               'CONTAINS-SPECS' : 'nf:specPuller() coming here'
+               } 
+               "/>
+       </xsl:for-each>
         </xsl:variable>
         
-        <xsl:sequence select="map {
-            'CHAPTERS': $chapters
-            }"/>
+        <xsl:sequence select="$chapters"/>
     </xsl:template>
     
    
