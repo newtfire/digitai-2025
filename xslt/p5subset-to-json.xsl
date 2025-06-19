@@ -49,13 +49,19 @@
          </xsl:variable>
         <xsl:variable name="paraStrings">
             <xsl:for-each select="$paraProcess">
-                <xsl:value-of select="current() ! normalize-space()"/>
+                <xsl:sequence select="current() ! normalize-space()"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="paraStringLength">
+            <xsl:for-each select="$paraProcess">
+                <xsl:value-of select="current() ! normalize-space() ! string-length()"/>
             </xsl:for-each>
         </xsl:variable>
         <xsl:sequence select="array {
-            for $para in $paraStrings ! string() return 
+            for $para in $paraStrings  return 
             map {
-            'PARA': $para
+            'PARA': $para,
+            'String-Length': $paraStringLength
             }
 
             }"/>
