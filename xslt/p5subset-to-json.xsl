@@ -16,37 +16,69 @@
      * file named "DEPRECATION" (contains little explicit information)
      * files with names starting REF- (mostly empty files that represent from the element / attribute / class / module specs)
      -->
+    
+    <!-- COLLECTION OF TEMPLATES THAT PROCESS NUGGETS OF INFO IN PARAGRAPHS -->
+    
+    <xsl:template match="p">
+        <xsl:apply-templates/>
+    </xsl:template>
+   
+    <xsl:template match="ptr">
+        <xsl:variable name="targetMatch" as="xs:string" select="substring-after(@target, '#')"/>
+        <xsl:value-of select="$targetMatch"/>
+        <xsl:value-of select="' ('||$P5-chapters//div[@xml:id = $targetMatch]/head ! normalize-space()||') '"/>
+    </xsl:template>
+    
+    
+    
+    <xsl:function name="nf:paraPuller" as="array(*)*">
+        <xsl:param name="paras" as="element()*"/>
+        
+         <xsl:variable name="paraProcess">  
+             <xsl:for-each select="$paras">
+                <xsl:apply-templates/>
+             </xsl:for-each>
+         </xsl:variable>
+        <xsl:variable name="paraStrings">
+            <xsl:for-each select="$paraProcess">
+                <xsl:value-of select="current() ! normalize-space()"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:sequence select="array {
+            for $para in $paraStrings ! string() return 
+            map {
+            'PARA': $para
+            }
+
+            }"/>
+        
+    </xsl:function>
    
     <xsl:function name="nf:chapterDivPull" as="map(*)*">
         <xsl:param name="input-id" as="xs:string"/>
         <xsl:param name="whichDiv" as="xs:string"/>
         <xsl:param name="sectionLevel" as="xs:string"/>
-      <!--  <xsl:sequence select="array{
-            for $div in ($P5-chapters//div[@type=$whichDiv and @xml:id =$input-id ]/div[@type])
-            return map {
-            $div/@xml:id : $div/head ! string(),
-            'CONTAINS-WHATNOW?' : 'CALL-ANOTHER-FUNCTION, OR THE SAME FUNCTION? HMMM.'
-            }
-            }"/>-->
+
         <xsl:for-each select="$P5-chapters//div[@type=$whichDiv and @xml:id =$input-id ]/div[@type and @xml:id]">
-         
+            <!-- Store my child <p> elements: -->
+            <xsl:variable name="paras" as="element()*" select="child::p"/>
+         <!-- Are you a section with nested subsections? If so, continue processing those subsections. Otherwise, stop here. -->
            <xsl:choose> 
                <xsl:when test="current()[child::div/@type]">
                    <xsl:sequence select="map {
                        'SECTION' : current()/head ! string(),
                        'ID': current()/@xml:id ! string(),
-                       'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') }
-                       }"/>
+                       'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') },
+                       'CONTAINS-PARAS': nf:paraPuller($paras)
+                       }"/> 
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="map {
                     'SECTION' : current()/head ! string(),
                     'ID' : current()/@xml:id ! string()
                     }"/>
-
             </xsl:otherwise>
            </xsl:choose>
-            
         </xsl:for-each>
     </xsl:function>
     
