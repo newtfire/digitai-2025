@@ -1,0 +1,116 @@
+name,description,query,id,parentId,isFolder
+Nodes+Relationships,,"CALL apoc.load.json(""file:///digitai-p5subset.json"") YIELD value AS json_data
+
+WITH json_data.`P5subset-text` AS docTimestamp, json_data.`CONTAINS-PARTS` AS containsParts
+MERGE (doc:Document {filename: ""digitai-p5subset.json""})
+SET doc.timestamp = docTimestamp
+
+WITH doc, containsParts
+UNWIND containsParts AS part_item
+MERGE (p:Part {name: part_item.PART})
+MERGE (doc)-[rel1:HAS_PART]->(p)
+
+WITH doc, p, rel1, part_item
+UNWIND part_item.`CONTAINS-CHAPTERS` AS chapter_group_item
+// MERGE (chapContainer:ChapterContainer {id: coalesce(chapter_group_item.ID, chapterContainerUuid)})
+MERGE (chapContainer:ChapterContainer {id: part_item.PART + '-chapters'})
+// Set the name of the ChapterContainer node based on the part name
+SET chapContainer.name = part_item.PART + '-chapters',
+    chapContainer.type = 'Chapter Group' // Keep this to identify its role
+MERGE (p)-[rel2:CONTAINS_CHAPTER_CONTAINER]->(chapContainer)
+
+WITH doc, p, rel1, chapContainer, rel2, chapter_group_item
+UNWIND (CASE
+            WHEN chapter_group_item.CHAPTER IS NOT NULL THEN [chapter_group_item]
+            WHEN chapter_group_item.CHAPTERS IS NOT NULL THEN chapter_group_item.CHAPTERS
+            ELSE []
+        END) AS chapter_item_actual
+MERGE (c:Chapter {id: chapter_item_actual.ID})
+SET c.name = chapter_item_actual.CHAPTER
+MERGE (chapContainer)-[rel3:CONTAINS_CHAPTER]->(c)
+
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, chapter_item_actual
+UNWIND chapter_item_actual.`CONTAINS-SECTIONS` AS section_item
+
+// --- Start: Extracting PARAS and RELATES-TO content for Section node ---
+// Safely prepare the list of paragraph maps, defaulting to an empty list if NULL.
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, section_item,
+     coalesce(section_item.`CONTAINS-PARAS`, []) AS section_paras_maps_to_unwind,
+     coalesce(section_item.`RELATES-TO`, []) AS section_relates_to_maps_to_unwind
+
+// UNWIND the prepared paragraph maps and COLLECT the 'PARA' values.
+UNWIND section_paras_maps_to_unwind AS section_para_map
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, section_item,
+     COLLECT(section_para_map.PARA) AS section_paras_list,
+     section_relates_to_maps_to_unwind // Pass through for next UNWIND
+
+// UNWIND the prepared relates_to maps and COLLECT the 'ID' values.
+UNWIND section_relates_to_maps_to_unwind AS section_relates_to_map
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, section_item, section_paras_list,
+     COLLECT(section_relates_to_map.ID) AS section_relates_to_list
+// --- End: Extracting PARAS and RELATES-TO content for Section node ---
+
+MERGE (s:Section {id: section_item.ID})
+SET s.name = section_item.SECTION,
+    s.`Paragraphs` = section_paras_list,
+    s.`Specs` = section_item.`CONTAINS-SPECS`,
+    s.`Relates-To` = section_relates_to_list,
+    s.`Citation` = section_item.`CONTAINS-CITATION`
+
+MERGE (c)-[r1:HAS_SECTION]->(s)
+
+// --- Create RELATES_TO relationships for Section nodes (Robust Method) ---
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, s, r1, section_item
+UNWIND s.`Relates-To` AS targetId
+OPTIONAL MATCH (targetNode {id: targetId})
+// Use FOREACH with a conditional list to only attempt MERGE when targetNode exists
+FOREACH (t IN CASE WHEN targetNode IS NOT NULL THEN [targetNode] ELSE [] END |
+    MERGE (s)-[:RELATES_TO]->(t)
+)
+// --- End RELATES_TO relationships for Section nodes ---
+
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, s, r1, section_item
+WHERE section_item.`CONTAINS-SUBSECTION` IS NOT NULL
+UNWIND section_item.`CONTAINS-SUBSECTION` AS subsection_item
+
+// --- Start: Extracting PARAS and RELATES-TO content for Subsection node ---
+// Safely prepare the lists for UNWINDing for subsection_item.
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, s, r1, subsection_item,
+     coalesce(subsection_item.`CONTAINS-PARAS`, []) AS sub_paras_maps_to_unwind,
+     coalesce(subsection_item.`RELATES-TO`, []) AS sub_relates_to_maps_to_unwind
+
+// UNWIND and COLLECT for CONTAINS-PARAS on subsection_item.
+UNWIND sub_paras_maps_to_unwind AS sub_para_map
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, s, r1, subsection_item,
+     COLLECT(sub_para_map.PARA) AS sub_paras_list,
+     sub_relates_to_maps_to_unwind // Pass through for next UNWIND
+
+// UNWIND and COLLECT for RELATES-TO on subsection_item.
+UNWIND sub_relates_to_maps_to_unwind AS sub_relates_to_map
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, s, r1, subsection_item, sub_paras_list,
+     COLLECT(sub_relates_to_map.ID) AS sub_relates_to_list
+// --- End: Extracting PARAS and RELATES-TO content for Subsection node ---
+
+MERGE (sub:Subsection {id: subsection_item.ID})
+SET sub.name = subsection_item.SECTION,
+    sub.`Paragraphs` = sub_paras_list,
+    sub.`Relates-To` = sub_relates_to_list
+MERGE (s)-[r2:HAS_SUBSECTION]->(sub)
+
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, s, sub, r1, r2, subsection_item
+// --- Create RELATES_TO relationships for Subsection nodes (Robust Method) ---
+UNWIND sub.`Relates-To` AS targetId
+OPTIONAL MATCH (targetNode {id: targetId})
+// Use FOREACH with a conditional list to only attempt MERGE when targetNode exists
+FOREACH (t IN CASE WHEN targetNode IS NOT NULL THEN [targetNode] ELSE [] END |
+    MERGE (sub)-[:RELATES_TO]->(t)
+)
+// --- End RELATES_TO relationships for Subsection nodes ---
+
+WITH doc, p, rel1, chapContainer, rel2, rel3, c, s, sub, r1, r2, subsection_item
+WHERE subsection_item.`CONTAINS-NESTED-SUBSECTION` IS NOT NULL
+UNWIND subsection_item.`CONTAINS-NESTED-SUBSECTION` AS nested_subsection_item
+MERGE (nsub:NestedSubsection {id: nested_subsection_item.ID})
+SET nsub.name = nested_subsection_item.SECTION
+MERGE (sub)-[r3:HAS_NESTED_SUBSECTION]->(nsub)
+RETURN doc, rel1, p, rel2, chapContainer, rel3, c, r1, s, r2, sub, r3, nsub",0,1,false

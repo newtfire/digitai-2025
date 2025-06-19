@@ -147,6 +147,290 @@
         <persName ref="#Molly_pet">Molly</persName>.</p>
 </div>
     </body>
+    <back>
+
+        <div type="Mitford_Team">
+            <listPerson sortKey="Mitford_Team">
+                <person xml:id="hjb">
+                  <persName>
+                     <surname>Bills</surname>
+                     <forename>Hadleigh</forename>
+                     <forename>Jae</forename>
+                     <roleName>Research Assistant</roleName>
+                  </persName>
+                  <note resp="#hjb">Hadleigh Jae Bills is a student at Penn State Behrend. Started
+                     working on Mitford’s Journal in October 2023 on transcription and
+                     proof-checking between the typescript and photofacsimile. She is working
+                     towards a B.A. in Digital Media, Arts, and Technology.</note>
+               </person>
+                <person xml:id="TSA">
+                  <persName>
+                     <surname>Akam</surname>
+                     <forename>Tyler</forename>
+                     <forename>S.</forename>
+                     <roleName>Research Assistant</roleName>
+                  </persName>
+                  <occupation type="scholar">
+                     <roleName>
+                        <affiliation>Penn State Erie, The Behrend College</affiliation>
+                     </roleName>
+                  </occupation>
+                  <note resp="#ebb">Tyler Akam is a student filmmmaker and coding research assistant
+                     who started in October 2022 working on Mitford’s Journal of 1819-1823 on
+                     transcription, proof-checking between the typescript and photofacsimile, and
+                     researching Site Index entries to contribute to the project. He is also
+                     contributing ideas for the interface design for the project. He is working on a
+                     B.A. in Digital Media, Arts, and Technology at PPenn State Erie, The Behrend College.</note>
+               </person>
+                <person xml:id="srr">
+                  <persName>
+                     <surname>Ricks</surname>
+                     <forename>Savannah</forename>
+                     <forename>R.</forename>
+                     <roleName>Research Assistant</roleName>
+                  </persName>
+                  <occupation type="scholar">
+                     <roleName>
+                        <affiliation>Penn State Erie, The Behrend College</affiliation>
+                     </roleName>
+                  </occupation>
+                  <note resp="#ebb">Savannah Ricks is a coding research assistant who started in
+                     October 2022 working on Mitford’s Journal of 1819-1823 on transcription,
+                     proof-checking between the typescript and photofacsimile, as well as
+                     researching Site Index entries to contribute to the project. She is also
+                     helping with interface design for the project, designing new stylesheets and
+                     helping with the JavaScript for the Journal. She is working on a B.A. in
+                     Digital Media, Arts, and Technology at Penn State Erie, The Behrend College.</note>
+               </person>
+                <person xml:id="rjp">
+                  <persName>
+                     <surname>Parker</surname>
+                     <forename>Rebecca</forename>
+                     <forename>Jeanne</forename>
+                     <roleName>Editor</roleName>
+                  </persName>
+                  <occupation type="scholar">
+                     <roleName>
+                        <affiliation>Loyola University Chicago</affiliation>
+                     </roleName>
+                  </occupation>
+                  <note>Rebecca Parker completed an M.A. in Digital Humanities at Loyola University in Chicago and a B.A. in English Literature and Social Sciences from the University of Pittsburgh at Greensburg, where she has worked as an assistant for the <ref target="http://www.greensburg.pitt.edu/digital-humanities/center-digital-text">Center for the Digital Text</ref> and taught at Digital Mitford Coding School. She co-edited the 1819-1820 portion of the digital edition of Mary Russell Mitford’s Journal of 1819-1823. Her own digital archive project, <ref target="http://nelson.newtfire.org/">The Restoration of Nell Nelson</ref>, started in spring 2014 as research for her capstone thesis in History. The Nell Nelson archive intends to restore theimportance of a female investigative reporter that exposed the harmful effects of industrialization in Chicago at the turn of the twentieth century. Parker’s interest in Digital Humanities stemmed from her involvement on the Digital Mitford Project working as Dr. Beshero-Bondar’s undergraduate Green Scholar. She is the Marketing and Development Co-Coordinator at Fort Wayne's Center for Nonviolence.</note>
+               </person>
+                <person xml:id="ebb">
+                  <persName>
+                     <surname>Beshero-Bondar</surname>
+                     <forename>Elisa</forename>
+                     <roleName type="lead">Principal Investigator and Technical Coordinator</roleName>
+                     <roleName>Founding Editor</roleName>
+                     <roleName type="sectionEditor">Poetry</roleName>
+                  </persName>
+                  <occupation type="scholar">
+                     <roleName>Program Chair, <ref target="https://behrend.psu.edu/school-of-humanities-social-sciences/academic-programs/digital-media-arts-and-technology">Digital Media, Arts, and Technology (DIGIT)</ref>, Professor of Digital Humanities, and Director of the <ref target="https://newtfire.org">Digital Humanities Lab</ref> at <affiliation>Penn State Erie, The Behrend College</affiliation>
+                     </roleName>
+                  </occupation>
+                  <note>Elisa Beshero-Bondar organized the Digital Mitford project in the spring of 2013. She maintains <ref target="https://digitalmitford.github.io/DM_documentation/">the project’s documentation</ref> and manages the programming involved in storing, checking, and publishing the project’s editions and prosopography data, as well as <ref target="https://digitalmitford.github.io/DM_documentation/MitfordODD/mitfordODD.html">its customization of the TEI Guidelines</ref>. With Gregory Bondar, she has photographed Mitford’s manuscripts at the Reading Central Library and the John Rylands Library. She is involved in preparing and checking editions of letters and plays, and leads the training of editors and assistants in TEI XML and related coding and programming at the Digital Mitford Coding School. Her work on the Digital Mitford project began with research of Mitford for her book about women Romantic poets, <title level="m">Women, Epic, and Transition in British Romanticism</title>, published by the University of Delaware Press in 2011. Her published articles in <title level="j">ELH</title>, <title level="j">Genre</title>, <title level="j">Philological Quarterly</title>, and <title level="j">The Wordsworth Circle</title> investigate the poetry of Robert Southey, Mary Russell Mitford, and Lord Byron in context with 18th- and 19th-century views of revolution, world empires, natural sciences, and theater productions. An active member of the Text Encoding Initiative (TEI), she has served since 2016 on the <ref target="http://www.tei-c.org/Activities/Council/">TEI Technical Council</ref>, an eleven-member international committee that supervises amendments to the <ref target="https://tei-c.org/guidelines/P5/">TEI Guideline</ref>s.</note>
+               </person>
+                <person xml:id="lmw">
+                  <persName>
+                     <surname>Wilson</surname>
+                     <forename>Lisa</forename>
+                     <forename>M.</forename>
+                     <roleName type="lead">Managing Editor</roleName>
+                     <roleName type="sectionEditor">Bibliography and Correspondence</roleName>
+                     <roleName>Founding Editor</roleName>
+                  </persName>
+                  <occupation type="scholar">
+                     <roleName>
+                        <affiliation>State University of New York at Potsdam</affiliation>
+                     </roleName>
+                  </occupation>
+                  <note>Lisa M. Wilson is Professor in the Department of English at SUNY Potsdam, where she has taught since 2005. Her areas of interest include transatlantic Romantic and Victorian era literature, particularly women’s  writing and popular forms such as the Gothic novel and the literary ballad. She is also interested in book history and bibliographical studies, particularly in the study of authorship in the long nineteenth century (1780-1900). She has published in <title level="j">European Romantic Review</title>, <title level="j">Romanticism on the Net</title> (now <title level="j">RaVon</title>), <title level="j">Romantic Circles</title>, <title level="j">Romantic Textualities</title>, and elsewhere. She is currently working on a monograph on Romantic-period authorship and literary celebrity. Her work on Digital Mitford thus far includes editing and coding Mitford’s <title level="a">Introduction</title> to her collected <title level="m">Dramatic Works</title> (1854), a critical memoir that recounts the author’s influences and experiences at Covent Garden and Drury Lane in the 1820s and 30s. It also includes researching Mitford’s publication history for the site’s working bibliography, particularly tracking the migration of Mitford’s stories from their first publication to their later reappearances in collections and periodicals. A Founding Editor of Digital Mitford, she and her teams of student research assistants have been at work since 2013 on transcribing, coding, and researching Mitford’s letters from 1817 to the early 1820s and on Mitford’s early poems, including her 22 sonnets and her long poems, <title level="m">Weston Grove</title> and <title ref="#Antigone_MRM_1827">Antigone: A Portrait in Verse</title>. She is currently teaching a course on digital textual editing for junior and senior undergraduates and directing undergraduate student internships for Digital Mitford.
+                  </note>
+               </person>
+            </listPerson>
+         </div>
+
+        <div type="historical_people">
+
+            <listPerson sortKey="histPersons">
+                <person xml:id="MRM" sex="f">
+                  <persName>
+                     <surname type="paternal">Mitford</surname>
+                     <forename>Mary</forename>
+                     <forename>Russell</forename>
+                  </persName>
+                  <birth when="1787-12-16">
+                     <placeName>New Alresford, Hampshire, England</placeName>
+                  </birth>
+                  <death when="1855-01-10">
+                     <placeName>Swallowfield, Berkshire, England</placeName>
+                  </death>
+                  <occupation type="literary"/>
+                  <occupation type="literary" subtype="playwright"/>
+                  <occupation type="literary" subtype="journalist"/>
+                  <occupation type="literary" subtype="poet"/>
+                  <occupation type="artist" subtype="landscape"/>
+                  <note resp="#lmw #ebb">Poet, playwright, writer of prose fiction
+                     sketches, <persName ref="#MRM">Mary Russell Mitford</persName> is, of course,
+                     the subject of our archive. <persName ref="#MRM">Mary Russell
+                        Mitford</persName> was born on <date when="1787-12-16">December 16,
+                        1787</date> at <placeName>New Alresford, Hampshire</placeName>, the only
+                     child of <persName ref="#Mitford_Geo">George Mitford (or Midford)</persName>
+                     and <persName ref="#Russell_M">Mary Russell</persName>. She was baptized on
+                        <date when="1788-02-29">February 29, 1788</date>. Much of her writing was
+                     devoted to supporting herself and <orgName ref="#Mitfords_Ma_Pa">her
+                        parents</orgName>. She received a civil list pension in <date when="1837">1837</date>. Census records from 1841 indicate that she is living with her
+                     father <persName ref="#Mitford_Geo">George</persName>, three female servants:
+                        <persName ref="#Taylor_K">Kerenhappuch Taylor</persName> (Mary’s ladies
+                     maid), two maids of all work, Mary Bramley and Mary Allaway, and a manservant
+                     (probably serving also as gardener), Benjamin Embury. The 1851 census lists her
+                     occupation as <q>authoress,</q> and lists her as living at <placeName ref="#ThreeMileCross">Three Mile Cross</placeName> with <persName ref="#Taylor_K">Kerenhappuch Taylor</persName> (lady’s maid), Sarah Chernk
+                     (maid-of-all-work), and Samuel Swetman (gardener), after the death of her
+                     father. Mitford’s long life and prolific career ended after injuries from a
+                     carriage accident. She is buried in <placeName ref="#Swallowfield_village">Swallowfield</placeName> churchyard. The executor of her will and her
+                     literary executor was the Rev. <persName ref="#Harness_Wm">William
+                        Harness</persName> and her lady’s maid, <persName ref="#Taylor_K">Kerenhappuch Taylor Sweetman</persName>, was residuary legatee of her
+                     estate. </note>
+                  <note>
+                     <ref target="http://viaf.org/viaf/19709107"/>
+                  </note>
+               </person>
+<person xml:id="deChaboulon" sex="m">
+                  <persName>Pierre Alexandre Edouard Fleury de Chaboulon</persName>
+                  <persName>
+                     <surname>
+                        <nameLink>de</nameLink>Chaboulon</surname>
+                     <forename>Pierre</forename>
+                     <forename>Alexandre</forename>
+                     <forename>Edouard</forename>
+                     <forename>Fleury</forename>
+                  </persName>
+                  <note resp="#lmw">Mitford read his <title ref="#Mems_Napoleon1815">Mémoires pour servir à l'histoire de la vie privée, du retour, et
+                        du règne de Napoléon en 1815</title>.</note>
+               </person>
+<person xml:id="Elliott_John">
+                  <persName>John Elliott</persName>
+                  <persName>
+                     <surname>Elliott</surname>
+                     <forename>John</forename>
+                  </persName>
+                  <note resp="#hjb">Son of <persName ref="#Elliott_Mr">Mr. Elliot</persName>, mentioned by <persName ref="#MRM">Mitford</persName> as coming to look at their home at <placeName ref="#Bertram_house">Bertram House</placeName> in her Journal on <date when="1819-11-25">25 November 1819</date> and <date when="1820-03-17">17 March 1820</date>.</note>
+               </person>
+               <person xml:id="Elliott_Mr">
+                  <persName>Mr. Elliott</persName>
+                  <persName>
+                     <surname>Elliott</surname>
+                  </persName>
+                  <note resp="#hjb">Father of <persName ref="#Elliott_John">John Elliot</persName>, mentioned by <persName ref="#MRM">Mitford</persName> as coming to look at their home at <placeName ref="#Bertram_house">Bertram House</placeName> in her Journal on <date when="1820-03-17">17 March 1820</date>.</note>
+               </person>
+                   <person xml:id="White_Tom" sex="m">
+                  <persName>Tom White</persName>
+                  <persName>
+                     <surname>White</surname>
+                     <forename>Tom</forename>
+                  </persName>
+                  <note resp="#lmw">Mentioned in connection with <persName ref="#Tuppen_Capt">Captain Tuppen</persName>, may be a relation of <persName ref="#White_Mr">Mr. White</persName> of Reading. Dates unknown. Source: Journal.</note>
+               </person>
+                   <person xml:id="Tuppen_Capt" sex="m"><!--check tree-->
+                  <persName>William Tuppen</persName>
+                  <persName>
+                     <forename>William</forename>
+                     <surname>Tuppen</surname>
+                     <roleName>Captain</roleName>
+                  </persName>
+                  <persName>
+                     <addName>Captain Tuppen</addName>
+                  </persName>
+                  <occupation type="military"/>
+                  <occupation type="legal"/>
+                  <occupation type="government"/>
+                  <occupation type="military" subtype="army"/>
+                  <occupation type="legal" subtype="magistrate"/>
+                  <note resp="#lmw">In Mitford's time, a captain retired from the Royal West regiment of the London militia. Later became a magistrate and served as mayor of Reading.</note>
+               </person>
+                   <person xml:id="Webb_Mary_younger" sex="f">
+                  <persName>Mary Webb</persName>
+                  <persName>
+                     <surname type="paternal">Webb</surname>
+                     <forename>Mary</forename>
+                     <forename>Elizabeth</forename>
+                  </persName>
+                  <birth notBefore="1796-04-15">
+                     <placeName>Wokingham, Berkshire, England</placeName>
+                  </birth>
+                  <note resp="#scw #lmw">Close friend and frequent correspondent of <persName ref="#MRM">Mary Russell Mitford</persName>. Mary Webb was the daughter of James Webb. and Jane Elizabeth Ogbourn. Baptized on <date when="1796-04-15">April 15, 1796</date> in Wokingham, Berkshire. Sister of
+                     <persName ref="#Webb_Eliza">Elizabeth</persName> (called Eliza) and <persName ref="#Webb_Jane">Jane
+                        Eleanor Webb</persName> and niece of <persName ref="#Webb_Mary_elder">the elder Mary Webb,
+                        Aunt Mary</persName>. In <bibl corresp="#Needham_PapersRCL">
+                        <persName ref="#Needham_Francis">Needham</persName>’s papers</bibl>, he
+                     notes from the <title level="s">Berkshire Directory</title>that she lived on
+                        <placeName>Broad street</placeName>, presumably in Wokingham, Berkshire. She
+                     was the wife of Thomas Hawkins as she is referred to thus in probate
+                     papers of 1858 regarding the wills of her sister Eliza Webb Walter and her
+                     husband Henry Walter. Date of death unknown. Dates unknown.</note>
+               </person>
+                   <person xml:id="Molly_pet" sex="f">
+                  <persName>Molly</persName>
+                  <note resp="#ebb">Mitford's dog, whom she describes in a letter of 1820-11-27 as a <q>pretty little Spaniel with long curling hair--so white &amp; delicate &amp; ladylike</q>.</note>
+               </person>
+
+            </listPerson>
+         </div>
+        <div type="places">
+            <listPlace sortKey="histPlaces">
+
+              <place xml:id="Bertram_house">
+                  <placeName>Bertram House, Berkshire, England</placeName>
+                  <settlement>Grazeley</settlement>
+                  <region>Berkshire</region>
+                  <country>England</country>
+                  <location>
+                     <geo><!--JMH: NOTE: Need to reserch the exact estate in order to input chords.--></geo>
+                  </location>
+                  <note resp="#ebb #lmw">Mansion built by <persName ref="#Mitford_Geo">George Mitford</persName> for his family residence, begun in <date when="1802-04">April 1802</date> and completed in <date when="1804-06">June 1804</date>,
+                     after tearing down the previous house on the property, Grazeley Court Farm, a
+                     farmhouse about three miles outside of <placeName ref="#Reading_city">Reading</placeName>, in the hamlet of Grazeley. <persName ref="#Mitford_Geo">George Mitford</persName> named his new house after a
+                     knight from the reign of William the Conqueror, Sir Robert de Bertram, who had
+                     married Sibella Mitford, daughter of Sir John de Mitford (source: Vera Watson).
+                     This estate signified <persName ref="#Mitford_Geo">George Mitford</persName>’s
+                     status as a land-owning country gentleman. Prior to this time, <orgName ref="#Mitfords">the Mitford family</orgName> lived in <placeName ref="#Alresford_Hamps">Alresford</placeName> and then in <placeName ref="#Reading_city">Reading</placeName>. The family removed from Bertram
+                     House in <date when="1820-04">April 1820</date>, after financial reverses
+                     forced the family to sell the property.</note>
+               </place>
+                <place xml:id="plantation_BH"><!-- srr: Not found in local SI or in Published SI -->
+                  <placeName>Plantations at Bertram House</placeName>
+                  <district>Shinfield parish</district>
+                  <region>Berkshire</region>
+                  <country>England</country>
+                  <note resp="#lmw">Plantations--planted woodlands--belonging to the <placeName ref="#Bertram_house">Bertram House</placeName> estate. One location where
+                        <persName ref="#MRM">Mitford</persName> went <name ref="#fir">fir</name>topping and fed my <name ref="#robin">robin</name>s in winter <date when="1819">1819</date> and <date when="1820">1820</date>.</note>
+               </place>
+
+            </listPlace>
+         </div>
+        <div type="publications">
+
+            <listBibl sortKey="serial_MRM">
+            <bibl xml:id="Mems_Napoleon1815">
+                  <title level="m">Mémoires pour servir à l'histoire de la vie privée, du retour, et
+                     du règne de Napoléon en 1815</title>
+                  <author>
+                     <persName ref="#de_Chaboulon"/>
+                  </author>
+                  <publisher>John Murray</publisher>
+                  <pubPlace ref="#London_city">London</pubPlace>
+                  <date when="1820"/>
+                  <note resp="#lmw">Mitford rated it <quote>rather dull</quote> but then also called
+                     it <quote>a most interesting book</quote>.</note>
+               </bibl>
+                <bibl xml:id="Vicissitudes">
+                  <title level="m">Vicissitudes</title>
+                  <note resp="#lmw">Author and date unidentified. May be <title level="m">On the Origin and Vicissitudes of Literature, Science and Art,
+                     And Their Influence on the Present State of Society</title> (1817) or <title level="m">Vicissitudes of life</title> (1815).</note>
+               </bibl>
+            </listBibl>
+         </div>
+    </back>
     
 </text>
 </TEI>
