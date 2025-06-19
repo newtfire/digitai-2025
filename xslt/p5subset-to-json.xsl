@@ -34,7 +34,7 @@
         <xsl:sequence select="array {
             for $t in $targetMatch return 
             map {
-            'RELATES-TO': $t
+            'ID': $t
             }
             }"/>
         
@@ -79,7 +79,7 @@
                        'ID': current()/@xml:id ! string(),
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') },
                        'CONTAINS-PARAS': nf:paraPuller($paras),
-                       'CONTAINS-LINKS': nf:linkPuller($targets),
+                       'RELATES-TO': nf:linkPuller($targets),
                        'CONTAINS-CITATION' : 'Unpack BIB cites here',
                        'CONTAINS-SPECS' : 'nf:specPuller() coming here'
                        }"/> 
