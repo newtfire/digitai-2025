@@ -19,15 +19,13 @@
     
     <!-- COLLECTION OF TEMPLATES THAT PROCESS NUGGETS OF INFO IN PARAGRAPHS -->
     
-    <xsl:template match="p">
-        <xsl:apply-templates/>
-    </xsl:template>
    
     <xsl:template match="ptr">
         <xsl:variable name="targetMatch" as="xs:string" select="substring-after(@target, '#')"/>
         <xsl:value-of select="$targetMatch"/>
         <xsl:value-of select="' ('||$P5-chapters//div[@xml:id = $targetMatch]/head ! normalize-space()||') '"/>
     </xsl:template>
+    
     <xsl:function name="nf:linkPuller" as="array(*)*">
         <xsl:param name="targets"/>
         <xsl:variable name="targetMatch" as="xs:string*" select="for $t in $targets return substring-after($t, '#')"/>
@@ -42,28 +40,25 @@
     <xsl:function name="nf:paraPuller" as="array(*)*">
         <xsl:param name="paras" as="element()*"/>
         
-         <xsl:variable name="paraProcess">  
-             <xsl:for-each select="$paras">
-                <xsl:apply-templates/>
-             </xsl:for-each>
-         </xsl:variable>
-        <xsl:variable name="paraStrings">
-            <xsl:for-each select="$paraProcess">
+        
+       <xsl:variable name="paraStrings" as="xs:string*">
+           <xsl:variable name="parasProcessed" as="element()*">
+               <xsl:for-each select="$paras">
+                   <p><xsl:apply-templates/></p>
+               </xsl:for-each>
+           </xsl:variable>
+            <xsl:for-each select="$parasProcessed">
                 <xsl:sequence select="current() ! normalize-space()"/>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:variable name="paraStringLength">
-            <xsl:for-each select="$paraProcess">
-                <xsl:value-of select="current() ! normalize-space() ! string-length()"/>
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:sequence select="array {
-            for $para in $paraStrings  return 
+     
+           <xsl:sequence select="array {
+               for $para in $paraStrings return 
             map {
             'PARA': $para,
-            'String-Length': $paraStringLength
+            'String-Length': $para ! string-length()
             }
-
+ 
             }"/>
         
     </xsl:function>
