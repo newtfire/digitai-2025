@@ -79,7 +79,9 @@
                        'ID': current()/@xml:id ! string(),
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') },
                        'CONTAINS-PARAS': nf:paraPuller($paras),
-                       'CONTAINS-LINKS': nf:linkPuller($targets)
+                       'CONTAINS-LINKS': nf:linkPuller($targets),
+                       'CONTAINS-CITATION' : 'Unpack BIB cites here',
+                       'CONTAINS-SPECS' : 'nf:specPuller() coming here'
                        }"/> 
             </xsl:when>
             <xsl:otherwise>
