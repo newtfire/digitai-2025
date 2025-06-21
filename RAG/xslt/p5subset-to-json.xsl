@@ -41,30 +41,53 @@
             }"/>
         
     </xsl:function>
-    <xsl:function name="nf:paraPuller" as="array(*)*">
+    <xsl:function name="nf:paraPuller" as="map(*)*">
         <xsl:param name="paras" as="element()*"/>
-       
-        
-       <xsl:variable name="paraStrings" as="xs:string*">
-           <xsl:variable name="parasProcessed" as="element()*">
-               <xsl:for-each select="$paras">
-                   <p><xsl:apply-templates/></p>
-               </xsl:for-each>
-           </xsl:variable>
-            <xsl:for-each select="$parasProcessed">
-                <xsl:sequence select="current() ! normalize-space()"/>
-            </xsl:for-each>
-        </xsl:variable>
-     
-           <xsl:sequence select="array {
-               for $para in $paraStrings return 
-            map {
-            'PARA': $para,
-            'String-Length': $para ! string-length()
-            }
- 
-            }"/>
-        
+        <xsl:for-each select="$paras">
+            <xsl:variable name="paraProcessed" as="element()*">
+                <p><xsl:apply-templates/></p>
+            </xsl:variable>
+            <xsl:variable name="paraString" as="xs:string*">
+                <xsl:sequence select="$paraProcessed ! normalize-space()"/>
+            </xsl:variable>
+            <xsl:variable name="elementsMentioned" as="array(*)*">
+                <xsl:sequence select="array {current()//gi ! normalize-space()}"/>
+            </xsl:variable>
+            <xsl:variable name="attsMentioned" as="array(*)*">
+                <xsl:sequence select="array {current()//att ! normalize-space()}"/>
+            </xsl:variable>
+            <xsl:variable name="attClasses" as="array(*)*">
+                <xsl:sequence select="array {current()//ident[@type='class']}"/>
+            </xsl:variable>
+            <xsl:variable name="models" as="array(*)*">
+                <xsl:sequence select="array {current()//ident[@type='model']}"/>
+            </xsl:variable>
+            <xsl:variable name="macros" as="array(*)*">
+                <xsl:sequence select="array {current()//ident[@type='macro']}"/>
+            </xsl:variable>
+            <xsl:variable name="modules" as="array(*)*">
+                <xsl:sequence select="array {current()//ident[@type='module']}"/>
+            </xsl:variable>
+            <xsl:variable name="namespaces" as="array(*)*">
+                <xsl:sequence select="array {current()//ident[@type='ns']}"/>
+            </xsl:variable>
+            <xsl:variable name="exempla" as="array(*)*">
+                <xsl:sequence select="array {current()//eg:egXML}"/>
+            </xsl:variable>
+            <xsl:sequence select="map { 
+                'PARA': $paraString,
+                'Para-String-Length': $paraString ! string-length(),
+                'ELEMENTS MENTIONED':  $elementsMentioned ,
+                'ATTRIBUTES MENTIONED': $attsMentioned ,
+                'ATTRIBUTE CLASSES MENTIONED': $attClasses,
+                'MODELS MENTIONED' : $models,
+                'MACROS MENTIONED': $macros,
+                'MODULES MENTIONED': $modules,
+                'NAMESPACES MENTIONED': $namespaces,
+                'EXAMPLES': $exempla
+                }"/>
+   
+        </xsl:for-each>
     </xsl:function>
    
     <xsl:function name="nf:chapterDivPull" as="map(*)*">
@@ -83,7 +106,7 @@
                        'SECTION' : current()/head ! normalize-space(),
                        'ID': current()/@xml:id ! string(),
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current()/@xml:id, current()/@type, 'NESTED-SUBSECTION') },
-                       'CONTAINS-PARAS': nf:paraPuller($paras),
+                       'CONTAINS-PARAS': array {nf:paraPuller($paras)},
                        'RELATES-TO': nf:linkPuller($targets),
                        'CONTAINS-CITATION' : 'Unpack BIB cites here',
                        'CONTAINS-SPECS' : 'nf:specPuller() coming here'
@@ -137,7 +160,7 @@
                'CHAPTER': $chap/head ! normalize-space(),
                'ID': $chap/@xml:id ! string(),
                'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap/@xml:id, 'div1', 'SUBSECTION') },
-               'CONTAINS-PARAS': nf:paraPuller($paras),
+               'CONTAINS-PARAS': array {nf:paraPuller($paras)},
                'RELATES-TO': nf:linkPuller($targets),
                'CONTAINS-CITATION' : 'Unpack BIB cites here',
                'CONTAINS-SPECS' : 'nf:specPuller() coming here'
