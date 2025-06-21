@@ -43,7 +43,7 @@
     </xsl:function>
     <xsl:function name="nf:paraPuller" as="array(*)*">
         <xsl:param name="paras" as="element()*"/>
-        <xsl:sequence select="array { $paras }"/>
+       
         
        <xsl:variable name="paraStrings" as="xs:string*">
            <xsl:variable name="parasProcessed" as="element()*">
@@ -113,6 +113,7 @@
         </xsl:variable>
         <xsl:sequence select="map {
             'DOCUMENT-TITLE' : 'THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH',
+            'PREPARED-BY' : 'Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher',
             'TEI_SOURCE-VERSION-NUMBER': $P5-subset-version,
             'TEI_SOURCE-OUTPUT-DATE' : $P5-subset-versionDate,
             'THIS-JSON-DATETIME': $currentDateTime,
@@ -125,17 +126,14 @@
        <!--ebb: NOTE: Here we are excluding the P5 Subset file's references to the REF- and Deprecations files we've removed.  -->
        <!-- 2025-06-18 ebb: JUST constraining this to output the AI (Analytic Mechanisms) chapter -->
        
-       <xsl:for-each select="child::div[@type='div1'][not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))][@xml:id='USE']">
+       <xsl:for-each select="child::div[@type='div1'][not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))](:[@xml:id='USE']:)">
            <xsl:variable name="chap" select="current()" as="element()"/>
-            <xsl:variable name="paras" as="element()*" select="current()/child::p"/>
-       <xsl:variable name="targets" as="item()*" select="current()/child::p//ptr/@target ! normalize-space()"/>
-           
+
          <xsl:choose> 
-             <xsl:when test="current()/child::p"> 
-                 <xsl:sequence select=" map {'YES': 'YES! I HAVE MULTIPLE PARAGRAPHS!'}"/>
-                 <!-- 2025-06-19: ISSUE IS: P5SUBSET DOESN'T CONTAIN PARAGRAPHS AND WE WANT TO SET UP THE PARAGRAPH PULL FROM THE COLLECTION OF CHAPTER FILES -->
-                 
-             <!--    <xsl:sequence select=" map {
+             <xsl:when test="$P5-chapters//div[@xml:id = current()/@xml:id]/child::p"> 
+             <xsl:variable name="paras" as="element()*" select="$P5-chapters//div[@xml:id = current()/@xml:id]/child::p"/>
+                 <xsl:variable name="targets" as="item()*" select="$P5-chapters/div[@xml:id = current()/@xml:id]/child::p//ptr/@target ! normalize-space()"/>
+            <xsl:sequence select=" map {
                'CHAPTER': $chap/head ! normalize-space(),
                'ID': $chap/@xml:id ! string(),
                'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap/@xml:id, 'div1', 'SUBSECTION') },
@@ -144,16 +142,16 @@
                'CONTAINS-CITATION' : 'Unpack BIB cites here',
                'CONTAINS-SPECS' : 'nf:specPuller() coming here'
                } 
-               "/>-->
+               "/>
              </xsl:when>
              <xsl:otherwise>
-                 <xsl:sequence select="map {'NO' : (child::comment())[1] ! string() }"/>
-                <!-- <xsl:sequence select=" map {
+                 
+               <xsl:sequence select=" map {
                      'CHAPTER': $chap/head ! normalize-space(),
                      'ID': $chap/@xml:id ! string(),
                      'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap/@xml:id, 'div1', 'SUBSECTION') }
                      } 
-                     "/> -->
+                     "/> 
              </xsl:otherwise>
          
          </xsl:choose>
