@@ -30,6 +30,12 @@
         <xsl:value-of select="' ('||$P5-chapters//div[@xml:id = $targetMatch]/head ! normalize-space()||') '"/>
     </xsl:template>
     
+    <!-- ebb: function just to normalize-space() and take distinct-values() from an XML node. -->
+    <xsl:function name="nf:ndv" as="xs:string+">
+        <xsl:param name="node" as="node()+"/>
+            <xsl:sequence select="$node ! normalize-space() => distinct-values()"/>
+    </xsl:function>
+    
     <xsl:function name="nf:linkPuller" as="array(*)*">
         <xsl:param name="targets"/>
         <xsl:variable name="targetMatch" as="xs:string*" select="for $t in $targets return substring-after($t, '#')"/>
@@ -44,47 +50,44 @@
     <xsl:function name="nf:paraPuller" as="map(*)*">
         <xsl:param name="paras" as="element()*"/>
         <xsl:for-each select="$paras">
+            <xsl:variable name="currentSourcePara" as="element()" select="current()"/>
             <xsl:variable name="paraProcessed" as="element()*">
                 <p><xsl:apply-templates/></p>
             </xsl:variable>
             <xsl:variable name="paraString" as="xs:string*">
                 <xsl:sequence select="$paraProcessed ! normalize-space()"/>
             </xsl:variable>
-            <xsl:variable name="elementsMentioned" as="array(*)*">
-                <xsl:sequence select="array {current()//gi ! normalize-space()}"/>
-            </xsl:variable>
-            <xsl:variable name="attsMentioned" as="array(*)*">
-                <xsl:sequence select="array {current()//att ! normalize-space()}"/>
-            </xsl:variable>
-            <xsl:variable name="attClasses" as="array(*)*">
-                <xsl:sequence select="array {current()//ident[@type='class']}"/>
-            </xsl:variable>
-            <xsl:variable name="models" as="array(*)*">
-                <xsl:sequence select="array {current()//ident[@type='model']}"/>
-            </xsl:variable>
-            <xsl:variable name="macros" as="array(*)*">
-                <xsl:sequence select="array {current()//ident[@type='macro']}"/>
-            </xsl:variable>
-            <xsl:variable name="modules" as="array(*)*">
-                <xsl:sequence select="array {current()//ident[@type='module']}"/>
-            </xsl:variable>
-            <xsl:variable name="namespaces" as="array(*)*">
-                <xsl:sequence select="array {current()//ident[@type='ns']}"/>
-            </xsl:variable>
-            <xsl:variable name="exempla" as="array(*)*">
-                <xsl:sequence select="array {current()//eg:egXML}"/>
+            
+            <xsl:variable name="moreThanText" as="array(*)*">
+                <xsl:if test="current()//*[local-name() = ('gi', 'att', 'ident', 'egXML')]">
+                    <xsl:variable name="elementsMentioned" as="map(*)*">
+                        <xsl:if test="current()//gi"> 
+                            <xsl:sequence select="map {'ELEMENTS MENTIONED': array {current()//gi => nf:ndv()}}"/>
+                        </xsl:if>
+                    </xsl:variable>
+                    <xsl:variable name="attsMentioned" as="map(*)*">
+                        <xsl:if test="current()//att">
+                            <xsl:sequence select="map {'ATTRIBUTES MENTIONED': array {current()//att => nf:ndv()}}"/>
+                        </xsl:if>
+                    </xsl:variable>
+                    <xsl:variable name="identsMentioned" as="map(*)*">
+                        <xsl:for-each select="current()//ident/@type => distinct-values()">
+                            <xsl:sequence select="map { 
+                                upper-case(current())||'s' : array {$currentSourcePara//ident[@type=current()] => nf:ndv()}}"/>
+                        </xsl:for-each>
+                    </xsl:variable>
+                    <xsl:variable name="exempla" as="map(*)*">
+                       <xsl:if test="current()//eg:egXML">
+                       <xsl:sequence select="map {'EXAMPLES': array {current()//eg:egXML}}"/>
+                       </xsl:if> 
+                    </xsl:variable> 
+                    <xsl:sequence select="array{$elementsMentioned, $attsMentioned, $identsMentioned, $exempla }"/>
+                </xsl:if>    
             </xsl:variable>
             <xsl:sequence select="map { 
                 'PARA': $paraString,
                 'Para-String-Length': $paraString ! string-length(),
-                'ELEMENTS MENTIONED':  $elementsMentioned ,
-                'ATTRIBUTES MENTIONED': $attsMentioned ,
-                'ATTRIBUTE CLASSES MENTIONED': $attClasses,
-                'MODELS MENTIONED' : $models,
-                'MACROS MENTIONED': $macros,
-                'MODULES MENTIONED': $modules,
-                'NAMESPACES MENTIONED': $namespaces,
-                'EXAMPLES': $exempla
+                'ENCODING-MENTIONS' : $moreThanText
                 }"/>
    
         </xsl:for-each>
@@ -114,8 +117,8 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="map {
-                    'SECTION' : current()/head ! string(),
-                    'ID' : current()/@xml:id ! string()
+                    'SECTION' : current()/head ! normalize-space(),
+                    'ID' : current()/@xml:id ! normalize-space()
                     }"/>
             </xsl:otherwise>
            </xsl:choose>
