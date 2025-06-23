@@ -21,9 +21,7 @@
      * files with names starting REF- (mostly empty files that represent from the element / attribute / class / module specs)
      -->
     
-    <!-- COLLECTION OF TEMPLATES THAT PROCESS NUGGETS OF INFO IN PARAGRAPHS -->
-    
-   
+    <!-- COLLECTION OF TEMPLATES THAT PROCESS PARAGRAPH-LEVEL CHUNKS --> 
     <xsl:template match="ptr">
         <xsl:variable name="targetMatch" as="xs:string" select="substring-after(@target, '#')"/>
         <xsl:value-of select="@target ! normalize-space()"/>
