@@ -1,0 +1,7 @@
+dataPaths:
+  xmlRoot: "../data/xml/"
+  extractedRoot: "../data/extractedData/"
+  chunkedRoot: "../data/chunkedData/"
+
+xsltPaths:
+  teiExtraction: "../framework/ingestion/teiExtraction.xsl"
