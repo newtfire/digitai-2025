@@ -3,7 +3,7 @@
   "PREPARED-BY": "Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher",
   "TEI_SOURCE-VERSION-NUMBER": "4.10.0a",
   "TEI_SOURCE-OUTPUT-DATE": "2025-06-11",
-  "THIS-JSON-DATETIME": "2025-06-23T16:57:40.442529-04:00",
+  "THIS-JSON-DATETIME": "2025-06-23T18:49:50.07341-04:00",
   "CONTAINS-PARTS": [
     {
       "PART": "front",
@@ -90,7 +90,6 @@
                   "Para-String-Length": 611
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Design Principles", "ID":"ABTEI2" },
@@ -101,7 +100,6 @@
                       "ENCODING-MENTIONS": null,
                       "Para-String-Length": 493
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Use in Text Capture and Text Creation", "ID":"ABAPP1" },
                     { "SECTION":"Use for Interchange", "ID":"ABAPP2" },
@@ -109,10 +107,12 @@
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "ABAPP"
                 }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "ABSTRUNC"
             },
             { "SECTION":"Historical Background", "ID":"ABTEI" },
@@ -167,7 +167,6 @@
                   "Para-String-Length": 514
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Descriptive Markup", "ID":"SG111" },
@@ -175,6 +174,7 @@
                 { "SECTION":"Data Independence", "ID":"SG113" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SG11"
             },
             { "SECTION":"Textual Structures", "ID":"SG12" },
@@ -185,13 +185,13 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 280
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Elements", "ID":"SG131" },
                 { "SECTION":"Content Models: an Example", "ID":"SG132" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SG13"
             },
             {
@@ -213,7 +213,6 @@
                   "Para-String-Length": 1117
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"" },
                 { "ID":"" },
@@ -245,7 +244,6 @@
                       "Para-String-Length": 329
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Generic Identifier", "ID":"SG141x" },
                     { "SECTION":"Content Model", "ID":"SG143" },
@@ -255,9 +253,11 @@
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "SG141bis"
                 } ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SG14"
             },
             { "SECTION":"Complicating the Issue", "ID":"SG152" },
@@ -289,13 +289,13 @@
                   "Para-String-Length": 933
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"SG-id" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Declaring Attributes", "ID":"SG-att" },
                 { "SECTION":"Identifiers and Indicators", "ID":"SG-id" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SG16"
             },
             {
@@ -312,7 +312,6 @@
                   "Para-String-Length": 1008
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"SG-er" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Character References", "ID":"SG-er" },
@@ -367,15 +366,16 @@
                       "Para-String-Length": 439
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [ { "SECTION":"Marked Sections", "ID":"SG-ms" } ],
                   "RELATES-TO": [ { "ID":"" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "SGname"
                 },
                 { "SECTION":"Processing Instructions", "ID":"SG-pi" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SG-oth"
             },
             {
@@ -392,7 +392,6 @@
                   "Para-String-Length": 448
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Associating Entity Definitions with a Document Instance", "ID":"SG-ass1" },
@@ -427,14 +426,15 @@
                       "Para-String-Length": 121
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [ { "SECTION":"Content Validation", "ID":"SG-val" } ],
                   "RELATES-TO": [ { "ID":"" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "SG-style"
                 }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SG18"
             }
           ]
@@ -481,7 +481,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 490
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Historical Considerations", "ID":"D4-41" },
@@ -493,7 +492,6 @@
                 {
                   "SECTION": "Special Aspects of Unicode Character Definitions",
                   "CONTAINS-PARAS": [  ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Compatibility Characters", "ID":"D4-46-1" },
                     { "SECTION":"Precomposed and Combining Characters and Normalization", "ID":"D4-46-2" },
@@ -501,6 +499,7 @@
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "D4-46"
                 },
                 {
@@ -510,14 +509,15 @@
                       "ENCODING-MENTIONS": null,
                       "Para-String-Length": 896
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [ { "SECTION":"Encoding Errors Related to UTF-8", "ID":"D4-48-1" } ],
                   "RELATES-TO": [ { "ID":"" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "D4-48"
                 }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CHCS"
             }
           ]
@@ -591,7 +591,6 @@
                   "Para-String-Length": 982
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"SG" },
                 { "ID":"CF" },
@@ -603,6 +602,7 @@
                 { "SECTION":"A Larger Customization", "ID":"STINlargerExample" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "STIN"
             },
             {
@@ -624,7 +624,6 @@
                   "Para-String-Length": 164
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 {
@@ -666,15 +665,16 @@
                       "Para-String-Length": 359
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [ { "SECTION":"Global Attributes", "ID":"STGA" } ],
                   "RELATES-TO": [ { "ID":"REF-CLASSES-ATTS" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "STECAT"
                 },
                 { "SECTION":"Model Classes", "ID":"STECCM" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "STEC"
             },
             {
@@ -684,7 +684,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 394
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"STECST" },
                 { "ID":"DTYPES" }
@@ -694,6 +693,7 @@
                 { "SECTION":"Datatype Specifications", "ID":"DTYPES" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "STmacros"
             },
             { "SECTION":"The TEI Infrastructure Module", "ID":"STOV" }
@@ -731,13 +731,13 @@
             {
               "SECTION": "Organization of the TEI Header",
               "CONTAINS-PARAS": [  ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"The TEI Header and Its Components", "ID":"HD11" },
                 { "SECTION":"Types of Content in the TEI Header", "ID":"HD12" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "HD1"
             },
             {
@@ -772,7 +772,6 @@
                   "Para-String-Length": 223
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"COBI" },
                 { "ID":"HD8" },
@@ -790,6 +789,67 @@
                 { "SECTION":"TEI documents derived from other TEI documents", "ID":"HD31" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [ {
+                  "CONTAINS-SPECS": [ {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2005-01-14",
+                          "DESC": "contains a full bibliographic description of an electronic file.",
+                          "LANGUAGE": "en"
+                        },
+                        {
+                          "VERSION-DATE": "2009-01-05",
+                          "DESC": "contient une description bibliographique complète du fichier électronique.",
+                          "LANGUAGE": "fr"
+                        },
+                        { "VERSION-DATE":"2007-12-20", "DESC":"전자 파일에 관한 완전한 서지 정보의 기술을 포함한다.", "LANGUAGE":"ko" },
+                        { "VERSION-DATE":"2007-05-02", "DESC":"包含對電子檔案的完整書目敘述。", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2008-04-05", "DESC":"電子ファイルに関する完全な書誌情報を示す。", "LANGUAGE":"ja" },
+                        {
+                          "VERSION-DATE": "2016-11-17",
+                          "DESC": "enthält die vollständige bibliografische Beschreibung einer elektronischen Datei.",
+                          "LANGUAGE": "de"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "DESC": "contiene una descripción bibliográfica completa del archivo electrónico.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "DESC": "contiene una descrizione bibliografica completa di un file elettronico.",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "header",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [
+                        { "VERSION-DATE":"2007-07-05", "GLOSS":"file description", "LANGUAGE":"en" },
+                        {
+                          "VERSION-DATE": "2009-01-05",
+                          "GLOSS": "description bibliographique du fichier",
+                          "LANGUAGE": "fr"
+                        },
+                        { "VERSION-DATE":"2007-12-20", "GLOSS":"파일 기술", "LANGUAGE":"ko" },
+                        { "VERSION-DATE":"2007-05-02", "GLOSS":"檔案描述", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2006-10-18", "GLOSS":"Dateibeschreibung", "LANGUAGE":"de" },
+                        { "VERSION-DATE":"2021-10-15", "GLOSS":"Descripción del archivo", "LANGUAGE":"es" },
+                        { "VERSION-DATE":"2007-01-21", "GLOSS":"descrizione del file", "LANGUAGE":"it" }
+                      ],
+                      "SPEC-NAME": "fileDesc"
+                    } ],
+                  "MODULE-NAME": "The file description",
+                  "RELATES-TO": [ [
+                      { "ID":"D2221" },
+                      { "ID":"D2222" },
+                      { "ID":"D2223" },
+                      { "ID":"D2224" },
+                      { "ID":"D2225" },
+                      { "ID":"D2226" }
+                    ] ],
+                  "MODULE-ID": "D222"
+                } ],
               "ID": "HD2"
             },
             {
@@ -802,7 +862,6 @@
                   ],
                   "Para-String-Length": 792
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"HDENCOTH" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"The Project Description", "ID":"HD51" },
@@ -828,7 +887,6 @@
                       "Para-String-Length": 205
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Prose Method", "ID":"HD54P" },
                     { "SECTION":"Search-and-Replace Method", "ID":"HD54S" },
@@ -836,6 +894,7 @@
                   ],
                   "RELATES-TO": [ { "ID":"CORS" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "HD54"
                 },
                 { "SECTION":"The Classification Declaration", "ID":"HD55" },
@@ -845,6 +904,83 @@
                 { "SECTION":"The Application Information Element", "ID":"HDAPP" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [ {
+                  "CONTAINS-SPECS": [
+                    {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2005-01-14",
+                          "DESC": "documents the relationship between an electronic text and the source or sources from which it was derived.",
+                          "LANGUAGE": "en"
+                        },
+                        {
+                          "VERSION-DATE": "2009-01-05",
+                          "DESC": "documente la relation d'un texte électronique avec sa ou ses sources.",
+                          "LANGUAGE": "fr"
+                        },
+                        {
+                          "VERSION-DATE": "2007-12-20",
+                          "DESC": "전자 텍스트와 그것의 원전 텍스트 혹은 텍스트들 사이의 관련성을 기록한다.",
+                          "LANGUAGE": "ko"
+                        },
+                        { "VERSION-DATE":"2007-05-02", "DESC":"記錄電子文件和其ㄧ個或多個文件來源之間的關係。", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2008-04-05", "DESC":"電子テキストとその元資料との関係を示す。", "LANGUAGE":"ja" },
+                        {
+                          "VERSION-DATE": "2016-11-17",
+                          "DESC": "dokumentiert das Verhältnis zwischen dem elektronischen Text und seiner Quelle oder den Quellen, von denen er sich ableitet.",
+                          "LANGUAGE": "de"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "DESC": "documenta la relación entre un texto electrónico y la fuente o fuentes de las que este deriva.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "DESC": "documenta la relazione fra un documento elettronico e la o le fonti da cui è derivato.",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "header",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [
+                        { "VERSION-DATE":"2007-07-04", "GLOSS":"encoding description", "LANGUAGE":"en" },
+                        { "VERSION-DATE":"2009-01-05", "GLOSS":"description de l'encodage", "LANGUAGE":"fr" },
+                        { "VERSION-DATE":"2007-12-20", "GLOSS":"부호화 기술", "LANGUAGE":"ko" },
+                        { "VERSION-DATE":"2007-05-02", "GLOSS":"編碼描述", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2006-10-18", "GLOSS":"Beschreibung der Kodierung", "LANGUAGE":"de" },
+                        { "VERSION-DATE":"2007-05-04", "GLOSS":"Descripción de la codificación", "LANGUAGE":"es" },
+                        { "VERSION-DATE":"2007-01-21", "GLOSS":"descrizione della codifica", "LANGUAGE":"it" }
+                      ],
+                      "SPEC-NAME": "encodingDesc"
+                    },
+                    {
+                      "DESCRIBED-BY": [ {
+                          "VERSION-DATE": "2016-11-24",
+                          "DESC": "describes or points to a related customization or schema file.",
+                          "LANGUAGE": "en"
+                        } ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "header",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [ { "VERSION-DATE":"2016-11-24", "GLOSS":"schema reference", "LANGUAGE":"en" } ],
+                      "SPEC-NAME": "schemaRef"
+                    }
+                  ],
+                  "MODULE-NAME": null,
+                  "RELATES-TO": [ [
+                      { "ID":"D2251" },
+                      { "ID":"D2252" },
+                      { "ID":"D2253" },
+                      { "ID":"DHD57" },
+                      { "ID":"D2254" },
+                      { "ID":"D2255" },
+                      { "ID":"D2256" },
+                      { "ID":"DHDAPP" }
+                    ] ],
+                  "MODULE-ID": "D225"
+                } ],
               "ID": "HD5"
             },
             {
@@ -885,7 +1021,6 @@
                   "Para-String-Length": 87
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"CC" },
                 { "ID":"CCAH" },
@@ -904,6 +1039,156 @@
                 { "SECTION":"Correspondence Description", "ID":"HD44CD" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [ {
+                  "CONTAINS-SPECS": [
+                    {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2005-01-14",
+                          "DESC": "provides a detailed description of non-bibliographic aspects of a text, specifically the languages and sublanguages used, the situation in which it was produced, the participants and their setting.",
+                          "LANGUAGE": "en"
+                        },
+                        {
+                          "VERSION-DATE": "2009-01-05",
+                          "DESC": "fournit une description détaillée des aspects non bibliographiques du texte, notamment les langues utilisées et leurs variantes, les circonstances de sa production, les collaborateurs et leur statut.",
+                          "LANGUAGE": "fr"
+                        },
+                        {
+                          "VERSION-DATE": "2007-12-20",
+                          "DESC": "분명하게 언어와 특수 언어가 사용된 텍스트, 텍스트가 생산된 상황, 참여자, 배경에 관한 비서지적 측면을 상세히 기술한다.",
+                          "LANGUAGE": "ko"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-02",
+                          "DESC": "提供文件非書目性方面的細節描述，特別是所使用的語言及次要語言、在何種情況下製作、參與人員及其環境背景。",
+                          "LANGUAGE": "zh-TW"
+                        },
+                        {
+                          "VERSION-DATE": "2008-04-05",
+                          "DESC": "書誌情報的ではない詳細な解説を示す。例えば、言語や特殊言語、生成され たときの状況、参加者など。",
+                          "LANGUAGE": "ja"
+                        },
+                        {
+                          "VERSION-DATE": "2016-11-17",
+                          "DESC": "enthält eine detaillierte Beschreibung der nicht-bibliografischen Merkmale des Textes, besonders der verwendeten Sprachen und Subsprachen, der Entstehungsbedingungen eines Textes sowie der Beteiligten und deren Umfeld.",
+                          "LANGUAGE": "de"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "DESC": "proporciona una descripción detallada de los aspectos no bibliográficos de un texto, especialmente las lenguas y jergas usadas, la situación en que se aparecen, los participantes que intervienen, etc.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "DESC": "fornisce una descrizione dettagliata degli aspetti non bibliografici di un testo, in modo particolare le lingue e i linguaggi secondari utilizzati, la situazione in cui è stato prodotto il testo, i partecipanti e la relativa ambientazione",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "header",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [
+                        { "VERSION-DATE":"2005-01-14", "GLOSS":"text-profile description", "LANGUAGE":"en" },
+                        { "VERSION-DATE":"2009-01-05", "GLOSS":"description du profil", "LANGUAGE":"fr" },
+                        { "VERSION-DATE":"2007-12-20", "GLOSS":"텍스트-개요 기술", "LANGUAGE":"ko" },
+                        { "VERSION-DATE":"2007-05-02", "GLOSS":"文件背景描述", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2006-10-18", "GLOSS":"Beschreibung des Textprofils", "LANGUAGE":"de" },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "GLOSS": "descripción del perfil del texto.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "GLOSS": "descrizione del profilo del testo",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-NAME": "profileDesc"
+                    },
+                    {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2005-01-14",
+                          "DESC": "describes a particular style or hand distinguished within a manuscript.",
+                          "LANGUAGE": "en"
+                        },
+                        { "VERSION-DATE":"2007-12-20", "DESC":"원고 내에서 구분되는 특별한 문체 또는 기법을 기술한다.", "LANGUAGE":"ko" },
+                        { "VERSION-DATE":"2007-05-02", "DESC":"描述在手稿中可明顯辨識出的特殊風格或書寫手法。", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2008-04-05", "DESC":"手書き資料中にある特定のスタイルまたは筆致を示す。", "LANGUAGE":"ja" },
+                        {
+                          "VERSION-DATE": "2007-06-12",
+                          "DESC": "décrit un style d'écriture ou une main qui sont reconnus dans un manuscrit.",
+                          "LANGUAGE": "fr"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "DESC": "describe un determinado estilo o una determinada mano al interno de un manuscrito.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "DESC": "descrive un determinato stile o una determinata mano all'interno di un manoscritto",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "header",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [
+                        { "VERSION-DATE":"2005-01-14", "GLOSS":"note on hand", "LANGUAGE":"en" },
+                        { "VERSION-DATE":"2007-12-20", "GLOSS":"기법에 관한 설명", "LANGUAGE":"ko" },
+                        { "VERSION-DATE":"2007-05-02", "GLOSS":"書寫特徵", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"note sur une main", "LANGUAGE":"fr" },
+                        { "VERSION-DATE":"2007-05-04", "GLOSS":"notas sobre la mano", "LANGUAGE":"es" },
+                        { "VERSION-DATE":"2007-01-21", "GLOSS":"nota sulla mano", "LANGUAGE":"it" }
+                      ],
+                      "SPEC-NAME": "handNote"
+                    },
+                    {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2012-12-27",
+                          "DESC": "contains a summary or formal abstract prefixed to an existing source document by the encoder.",
+                          "LANGUAGE": "en"
+                        },
+                        {
+                          "VERSION-DATE": "2018-09-08",
+                          "DESC": "Contiene un resumen o abstract formal prefijado a una fuente documental por el codificador.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2021-10-21",
+                          "DESC": "contiene un riepilogo o abstract formale aggiunto, in testa a un dato documento di origine, da chi codifica.",
+                          "LANGUAGE": "it"
+                        },
+                        {
+                          "VERSION-DATE": "2021-10-20",
+                          "DESC": "enthält eine (formale) Zusammenfassung, die einem bestehenden Quelldokument vorangestellt wird.",
+                          "LANGUAGE": "de"
+                        },
+                        {
+                          "VERSION-DATE": "2018-12-18",
+                          "DESC": "符号化する人によって既存の元文書の前に付加された要約または正式な要約を含む。",
+                          "LANGUAGE": "ja"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "header",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [  ],
+                      "SPEC-NAME": "abstract"
+                    }
+                  ],
+                  "MODULE-NAME": "The profile description",
+                  "RELATES-TO": [ [
+                      { "ID":"D224C" },
+                      { "ID":"D2241" },
+                      { "ID":"D2243" },
+                      { "ID":"D2242" }
+                    ] ],
+                  "MODULE-ID": "D224"
+                } ],
               "ID": "HD4"
             },
             { "SECTION":"Non-TEI Metadata", "ID":"HD9" },
@@ -990,7 +1275,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 673
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"What Is Highlighting?", "ID":"COHQW" },
@@ -1001,7 +1285,6 @@
                       "ENCODING-MENTIONS": [ { "CLASSs":[ "model.emphLike" ] } ],
                       "Para-String-Length": 109
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Foreign Words or Expressions", "ID":"COHQHF" },
                     { "SECTION":"Emphatic Words and Phrases", "ID":"COHQHE" },
@@ -1009,11 +1292,13 @@
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "COHQH"
                 },
                 { "SECTION":"Quotation", "ID":"COHQQ" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "COHQ"
             },
             {
@@ -1023,7 +1308,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 138
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 {
@@ -1072,19 +1356,164 @@
                       "Para-String-Length": 485
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [ { "SECTION":"Some Further Examples", "ID":"COHTGEG" } ],
                   "RELATES-TO": [
                     { "ID":"SAXP" },
                     { "ID":"CONARS" }
                   ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [ {
+                      "CONTAINS-SPECS": [
+                        {
+                          "DESCRIBED-BY": [
+                            {
+                              "VERSION-DATE": "2021-03-15",
+                              "DESC": "contains a short description of the purpose, function, or use of its parent element, or when the parent is a documentation element, describes or defines the object being documented.",
+                              "LANGUAGE": "en"
+                            },
+                            {
+                              "VERSION-DATE": "2007-12-20",
+                              "DESC": "요소, 속성, 또는 속성 값의 목적과 적용에 대한 간단한 기술을 포함한다.",
+                              "LANGUAGE": "ko"
+                            },
+                            { "VERSION-DATE":"2007-05-02", "DESC":"包含一段簡短描述，說明一元素、屬性、或屬性值的應用與目的。", "LANGUAGE":"zh-TW" },
+                            {
+                              "VERSION-DATE": "2024-09-05",
+                              "DESC": "この要素の親要素（典型的には記述的要素やエンティティ）によって記述されるオブジェクトの簡単な説明（を含む）",
+                              "LANGUAGE": "ja"
+                            },
+                            {
+                              "VERSION-DATE": "2007-06-12",
+                              "DESC": "contient une courte description de l'objet documenté par son élément parent, qui comprend son utilisation prévue, son but, ou son application là où c'est approprié.",
+                              "LANGUAGE": "fr"
+                            },
+                            {
+                              "VERSION-DATE": "2007-05-04",
+                              "DESC": "contiene una breve descripción del objetivo y la aplicación de un elemento, atributo o valor de un atributo.",
+                              "LANGUAGE": "es"
+                            },
+                            {
+                              "VERSION-DATE": "2007-01-21",
+                              "DESC": "contiene una breve descrizione dello scopo o dell'applicazione di un elemento, attributo, o valore di attributo.",
+                              "LANGUAGE": "it"
+                            },
+                            {
+                              "VERSION-DATE": "2017-06-04",
+                              "DESC": "enthält eine kurze Beschreibung des Objekts, das von seinem übergeordneten Element annotiert wird, üblicherweise einem Dokumentationselement oder einer Einheit.",
+                              "LANGUAGE": "de"
+                            }
+                          ],
+                          "SPEC-TYPE": "elementSpec",
+                          "PART-OF": "core",
+                          "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                          "GLOSSED-BY": [
+                            { "VERSION-DATE":"2005-01-14", "GLOSS":"description", "LANGUAGE":"en" },
+                            { "VERSION-DATE":"2007-12-20", "GLOSS":"기술", "LANGUAGE":"ko" },
+                            { "VERSION-DATE":"2007-05-02", "GLOSS":"描述", "LANGUAGE":"zh-TW" },
+                            { "VERSION-DATE":"2024-09-05", "GLOSS":"説明", "LANGUAGE":"ja" },
+                            { "VERSION-DATE":"2007-05-04", "GLOSS":"descripción", "LANGUAGE":"es" },
+                            { "VERSION-DATE":"2007-01-21", "GLOSS":"descrizione", "LANGUAGE":"it" },
+                            { "VERSION-DATE":"2008-12-09", "GLOSS":"description", "LANGUAGE":"fr" },
+                            { "VERSION-DATE":"2017-06-04", "GLOSS":"Beschreibung", "LANGUAGE":"de" }
+                          ],
+                          "SPEC-NAME": "desc"
+                        },
+                        {
+                          "DESCRIBED-BY": [
+                            {
+                              "VERSION-DATE": "2005-01-14",
+                              "DESC": "identifies a phrase or word used to provide a gloss or definition for some other word or phrase.",
+                              "LANGUAGE": "en"
+                            },
+                            {
+                              "VERSION-DATE": "2007-12-20",
+                              "DESC": "다른 단어나 구에 대한 해설 또는 정의를 제공할 때 사용되는 구나 단어를 표시한다.",
+                              "LANGUAGE": "ko"
+                            },
+                            { "VERSION-DATE":"2007-05-02", "DESC":"標明用來為另一個字詞下定義或提供註解的字詞。", "LANGUAGE":"zh-TW" },
+                            { "VERSION-DATE":"2008-04-05", "DESC":"語句の説明や定義を示す。", "LANGUAGE":"ja" },
+                            {
+                              "VERSION-DATE": "2009-01-06",
+                              "DESC": "identifie une expression ou un mot utilisé pour fournir une glose ou une définition à quelque autre mot ou expression.",
+                              "LANGUAGE": "fr"
+                            },
+                            {
+                              "VERSION-DATE": "2007-05-04",
+                              "DESC": "identifica una locución o palabra usada para proporcionar una glosa o definición sobre otra palabra o frase.",
+                              "LANGUAGE": "es"
+                            },
+                            {
+                              "VERSION-DATE": "2007-01-21",
+                              "DESC": "identifica un sintagma o una parola che fornisce una glossa o definizione per qualche altra parola o sintagma.",
+                              "LANGUAGE": "it"
+                            }
+                          ],
+                          "SPEC-TYPE": "elementSpec",
+                          "PART-OF": "core",
+                          "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                          "GLOSSED-BY": [
+                            { "VERSION-DATE":"2009-01-06", "GLOSS":"gloss", "LANGUAGE":"en" },
+                            { "VERSION-DATE":"2009-01-06", "GLOSS":"glose", "LANGUAGE":"fr" }
+                          ],
+                          "SPEC-NAME": "gloss"
+                        },
+                        {
+                          "DESCRIBED-BY": [
+                            {
+                              "VERSION-DATE": "2005-01-14",
+                              "DESC": "contains a single-word, multi-word, or symbolic designation which is regarded as a technical term.",
+                              "LANGUAGE": "en"
+                            },
+                            {
+                              "VERSION-DATE": "2007-12-20",
+                              "DESC": "전문용어로 간주되는 단일어, 복합어, 기호적 명칭을 포함한다.",
+                              "LANGUAGE": "ko"
+                            },
+                            { "VERSION-DATE":"2007-05-02", "DESC":"包含作為專有名詞的一個單字、詞彙、或是表示符號。", "LANGUAGE":"zh-TW" },
+                            { "VERSION-DATE":"2008-04-05", "DESC":"技術用語とされる単一語、複数語、記号表示を示す。", "LANGUAGE":"ja" },
+                            {
+                              "VERSION-DATE": "2009-01-06",
+                              "DESC": "contient un mot simple, un mot composé ou un symbole, qui est considéré comme un terme technique.",
+                              "LANGUAGE": "fr"
+                            },
+                            {
+                              "VERSION-DATE": "2007-05-04",
+                              "DESC": "contiene una palabra simple, multipalabra o designación simbólica que se considera como un término técnico.",
+                              "LANGUAGE": "es"
+                            },
+                            {
+                              "VERSION-DATE": "2007-01-21",
+                              "DESC": "contiene una parola singola, un'unità formata da più parole, o una designazione simbolica che è considerata come un termine tecnico",
+                              "LANGUAGE": "it"
+                            },
+                            {
+                              "VERSION-DATE": "2016-11-24",
+                              "DESC": "enthält ein einzelnes Wort, Mehrworttermini oder symbolische Bezeichnungen, die als Fachbegriffe verstanden werden.",
+                              "LANGUAGE": "de"
+                            }
+                          ],
+                          "SPEC-TYPE": "elementSpec",
+                          "PART-OF": "core",
+                          "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                          "GLOSSED-BY": [
+                            { "VERSION-DATE":"2009-01-06", "GLOSS":"term", "LANGUAGE":"en" },
+                            { "VERSION-DATE":"2009-01-06", "GLOSS":"terme", "LANGUAGE":"fr" },
+                            { "VERSION-DATE":"2016-11-25", "GLOSS":"Fachbegriff", "LANGUAGE":"de" }
+                          ],
+                          "SPEC-NAME": "term"
+                        }
+                      ],
+                      "MODULE-NAME": null,
+                      "RELATES-TO": [ [  ] ],
+                      "MODULE-ID": "DCOHTG"
+                    } ],
                   "ID": "COHTG"
                 },
                 { "SECTION":"Ruby Annotations", "ID":"COHTGRB" },
                 { "SECTION":"Equivalents and Descriptions", "ID":"COHTGED" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "COHTGEDR"
             },
             {
@@ -1129,7 +1558,6 @@
                   "Para-String-Length": 150
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"CONO" },
                 { "ID":"SA" },
@@ -1143,6 +1571,7 @@
                 { "SECTION":"Additions, Deletions, and Omissions", "ID":"COEDADD" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "COED"
             },
             {
@@ -1159,7 +1588,6 @@
                   "Para-String-Length": 375
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"ND" },
                 { "ID":"PHAB" }
@@ -1172,6 +1600,7 @@
                 { "SECTION":"Abbreviations and Their Expansions", "ID":"CONAAB" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CONA"
             },
             { "SECTION":"Simple Links and Cross-References", "ID":"COXR" },
@@ -1179,7 +1608,6 @@
             {
               "SECTION": "Notes, Annotation, and Indexing",
               "CONTAINS-PARAS": [  ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 {
@@ -1273,7 +1701,6 @@
                       "Para-String-Length": 352
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [ { "SECTION":"Encoding Grouped Notes", "ID":"CONONOGR" } ],
                   "RELATES-TO": [
                     { "ID":"COXR" },
@@ -1281,6 +1708,7 @@
                     { "ID":"AISP" }
                   ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "CONONO"
                 },
                 {
@@ -1290,17 +1718,18 @@
                       "ENCODING-MENTIONS": null,
                       "Para-String-Length": 528
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Pre-existing Indexes", "ID":"CONOIXpre" },
                     { "SECTION":"Auto-generated Indexes", "ID":"CONOIXgen" }
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "CONOIX"
                 }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CONO"
             },
             { "SECTION":"Graphics and Other Non-textual Components", "ID":"COGR" },
@@ -1326,7 +1755,6 @@
                   "Para-String-Length": 633
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"CORS1" },
                 { "ID":"CORS2" },
@@ -1361,19 +1789,20 @@
                       "Para-String-Length": 162
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Referencing system derived from markup", "ID":"CORS2-1" },
                     { "SECTION":"Referencing systems based on project conventions", "ID":"CORS2-2" }
                   ],
                   "RELATES-TO": [ { "ID":"HD54" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "CORS2"
                 },
                 { "SECTION":"Milestone Elements", "ID":"CORS5" },
                 { "SECTION":"Declaring Reference Systems", "ID":"CORS6" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CORS"
             },
             {
@@ -1416,7 +1845,6 @@
                   "Para-String-Length": 1470
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"HD3" },
                 { "ID":"COBIOT" },
@@ -1439,7 +1867,6 @@
                       ],
                       "Para-String-Length": 1047
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Analytic, Monographic, and Series Levels", "ID":"COBICOL" },
                     { "SECTION":"Titles, Authors, and Editors", "ID":"COBICOR" },
@@ -1453,12 +1880,14 @@
                   ],
                   "RELATES-TO": [ { "ID":"COBICOO" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "COBICO"
                 },
                 { "SECTION":"Bibliographic Pointers", "ID":"COBIXR" },
                 { "SECTION":"Relationship to Other Bibliographic Schemes", "ID":"COBIOT" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "COBI"
             },
             {
@@ -1475,7 +1904,6 @@
                   "Para-String-Length": 498
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"VE" },
                 { "ID":"DR" }
@@ -1485,6 +1913,7 @@
                 { "SECTION":"Core Tags for Drama", "ID":"CODR" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CODV"
             },
             { "SECTION":"Overview of the Core Module", "ID":"COOV" }
@@ -1620,7 +2049,6 @@
                   "Para-String-Length": 799
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"STEC" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Un-numbered Divisions", "ID":"DSDIV1" },
@@ -1629,6 +2057,7 @@
                 { "SECTION":"Partial and Composite Divisions", "ID":"DSDIV3X" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "DSDIV"
             },
             {
@@ -1645,7 +2074,6 @@
                   "Para-String-Length": 116
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Headings and Trailers", "ID":"DSHD" },
@@ -1654,6 +2082,7 @@
                 { "SECTION":"Content of Textual Divisions", "ID":"DSCO" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "DSDTB"
             },
             {
@@ -1663,13 +2092,13 @@
                   "ENCODING-MENTIONS": [ { "ELEMENTS MENTIONED":[ "group", "floatingText" ] } ],
                   "Para-String-Length": 399
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"DSGRP" },
                 { "ID":"DSFLT" }
               ],
               "CONTAINS-SUBSECTION": [ { "SECTION":"Grouped Texts", "ID":"DSGRP" } ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "DSGRPF"
             },
             { "SECTION":"Front Matter", "ID":"DSFRONT" },
@@ -1788,7 +2217,6 @@
                   "Para-String-Length": 210
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"D25-30" },
                 { "ID":"D25-40" },
@@ -1797,6 +2225,7 @@
               ],
               "CONTAINS-SUBSECTION": [ { "SECTION":"Character Properties", "ID":"ucsprops" } ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "D25-20"
             },
             { "SECTION":"Annotating Characters", "ID":"D25-30" },
@@ -1810,7 +2239,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 549
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Vertical Writing Modes", "ID":"WDWMEG1" },
@@ -1820,6 +2248,7 @@
                 { "SECTION":"Mixed Horizontal Directionality", "ID":"WDWMEG5" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "WDWMEG"
             },
             { "SECTION":"Formal Definition", "ID":"WSD-DEF" }
@@ -1874,7 +2303,6 @@
                   "Para-String-Length": 393
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"VERH" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Sample Metrical Analyses", "ID":"VEMEsamp" },
@@ -1882,6 +2310,7 @@
                 { "SECTION":"Metrical Analysis of Stanzaic Verse", "ID":"VEMEana" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "VEME"
             },
             { "SECTION":"Rhyme", "ID":"VERH" },
@@ -1942,7 +2371,6 @@
                   "Para-String-Length": 372
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"DS" },
                 { "ID":"DSFRONT" },
@@ -1955,6 +2383,17 @@
                 { "SECTION":"Cast Lists", "ID":"DRCAST" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [ {
+                  "CONTAINS-SPECS": [  ],
+                  "MODULE-NAME": "Specialized front and back matter for performance texts",
+                  "RELATES-TO": [ [
+                      { "ID":"DDRSET" },
+                      { "ID":"DDRPRO" },
+                      { "ID":"DDRPERF" },
+                      { "ID":"DDRCAST" }
+                    ] ],
+                  "MODULE-ID": "DDRFAB"
+                } ],
               "ID": "DRFAB"
             },
             {
@@ -1971,7 +2410,6 @@
                   "Para-String-Length": 421
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"DRDIV" },
                 { "ID":"DRSP" },
@@ -1991,6 +2429,7 @@
                 { "SECTION":"Simultaneous Action", "ID":"DRSIM" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "DRBOD"
             },
             {
@@ -2040,13 +2479,13 @@
                   "Para-String-Length": 924
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"DRTEC" },
                 { "ID":"DRSTA" }
               ],
               "CONTAINS-SUBSECTION": [ { "SECTION":"Technical Information", "ID":"DRTEC" } ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "DROTH"
             }
           ]
@@ -2129,7 +2568,6 @@
                   "Para-String-Length": 437
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"TSBAUT" },
                 { "ID":"TSBAWR" },
@@ -2151,6 +2589,7 @@
                 { "SECTION":"Shifts", "ID":"TSSASH" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "TSBA"
             },
             {
@@ -2160,7 +2599,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 566
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"STIN" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Segmentation", "ID":"TSSASE" },
@@ -2171,6 +2609,7 @@
                 { "SECTION":"Analytic Coding", "ID":"TSTPAC" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "TSSA"
             }
           ]
@@ -2246,7 +2685,6 @@
                   "Para-String-Length": 677
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"DIENGP" },
                 { "ID":"DITP" },
@@ -2257,6 +2695,7 @@
                 { "SECTION":"Groups and Constituents", "ID":"DIENGP" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "DIEN"
             },
             {
@@ -2266,7 +2705,6 @@
                   "ENCODING-MENTIONS": [ { "ELEMENTS MENTIONED":[ "form", "gramGrp", "def", "etym", "cit", "usg", "lbl", "xr", "note", "re" ] } ],
                   "Para-String-Length": 1009
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"DITPFO" },
                 { "ID":"DITPGR" },
@@ -2294,7 +2732,6 @@
                       "Para-String-Length": 370
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Definitions", "ID":"DITPDE" },
                     { "SECTION":"Translation Equivalents", "ID":"DITPTR" }
@@ -2304,13 +2741,13 @@
                     { "ID":"DITPTR" }
                   ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "DITPSE"
                 },
                 { "SECTION":"Etymological Information", "ID":"DITPET" },
                 {
                   "SECTION": "Other Information",
                   "CONTAINS-PARAS": [  ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Examples", "ID":"DITPEG" },
                     { "SECTION":"Usage Information and Other Labels", "ID":"DITPUS" },
@@ -2319,11 +2756,13 @@
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "DITPMI"
                 },
                 { "SECTION":"Related Entries", "ID":"DITPRE" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "DITP"
             },
             { "SECTION":"Headword and Pronunciation References", "ID":"DIHW" },
@@ -2356,7 +2795,6 @@
                   "Para-String-Length": 930
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"PH" },
                 { "ID":"FS" },
@@ -2372,17 +2810,18 @@
                       "ENCODING-MENTIONS": null,
                       "Para-String-Length": 286
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Using Attribute Values to Capture Alternate Views", "ID":"DIMVAV" },
                     { "SECTION":"Recording Original Locations of Transposed Elements", "ID":"DIMVOL" }
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "DIMVBO"
                 }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "DIMV"
             },
             { "SECTION":"Unstructured Entries", "ID":"DIFR" }
@@ -2408,7 +2847,6 @@
                   "Para-String-Length": 369
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"CO" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Origination", "ID":"msdates" },
@@ -2421,6 +2859,7 @@
                 { "SECTION":"Heraldry", "ID":"mshera" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "msphrase"
             },
             { "SECTION":"The Manuscript Identifier", "ID":"msid" },
@@ -2456,7 +2895,6 @@
                   "Para-String-Length": 295
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"The msItem and msItemStruct Elements", "ID":"mscoit" },
@@ -2470,6 +2908,7 @@
                 { "SECTION":"Languages and Writing Systems", "ID":"mslangs" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "msco"
             },
             {
@@ -2512,7 +2951,6 @@
                   "Para-String-Length": 854
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"msph1" },
                 { "ID":"msph2" },
@@ -2551,7 +2989,6 @@
                       "Para-String-Length": 157
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Support", "ID":"msph1sup" },
                     { "SECTION":"Extent", "ID":"msph1ext" },
@@ -2562,6 +2999,7 @@
                   ],
                   "RELATES-TO": [ { "ID":"msphrase" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "msph1"
                 },
                 {
@@ -2571,7 +3009,6 @@
                       "ENCODING-MENTIONS": null,
                       "Para-String-Length": 263
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Writing", "ID":"msphwr" },
                     { "SECTION":"Decoration", "ID":"msphdec" },
@@ -2580,6 +3017,7 @@
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "msph2"
                 },
                 {
@@ -2589,7 +3027,6 @@
                       "ENCODING-MENTIONS": null,
                       "Para-String-Length": 224
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Binding Descriptions", "ID":"msphbi" },
                     { "SECTION":"Seals", "ID":"msphse" },
@@ -2597,10 +3034,12 @@
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "msph3"
                 }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "msph"
             },
             { "SECTION":"History", "ID":"mshy" },
@@ -2618,7 +3057,6 @@
                   "Para-String-Length": 353
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 {
@@ -2628,18 +3066,75 @@
                       "ENCODING-MENTIONS": [ { "ELEMENTS MENTIONED":[ "adminInfo", "note" ] } ],
                       "Para-String-Length": 296
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Record History", "ID":"msrh" },
                     { "SECTION":"Availability and Custodial History", "ID":"msadch" }
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "msadad"
                 },
                 { "SECTION":"Surrogates", "ID":"msadsu" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [ {
+                  "CONTAINS-SPECS": [ {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2019-01-17",
+                          "DESC": "groups additional information, combining bibliographic information about a manuscript or other object, or surrogate copies of it, with curatorial or administrative information.",
+                          "LANGUAGE": "en"
+                        },
+                        {
+                          "VERSION-DATE": "2007-12-20",
+                          "DESC": "원고 또는 원고의 사본에 관한 서지 정보와 관리 정보를 결합한 부가적 정보를 모아 놓는다.",
+                          "LANGUAGE": "ko"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-02",
+                          "DESC": "匯集附加資訊，結合手稿的書目資訊、或是手稿的代替副本，包含管理或行政資訊。",
+                          "LANGUAGE": "zh-TW"
+                        },
+                        {
+                          "VERSION-DATE": "2008-04-05",
+                          "DESC": "当該手書き資料に関する書誌情報などの付随情報まとめる。または当該資料 の複製に関する管理情報をまとめる。",
+                          "LANGUAGE": "ja"
+                        },
+                        {
+                          "VERSION-DATE": "2007-06-12",
+                          "DESC": "regroupe les informations complémentaires sur le manuscrit, incluant une bibliographie, des indications sur ses reproductions, ou des informations sur sa conservation et sur sa gestion.",
+                          "LANGUAGE": "fr"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "DESC": "agrupa información adicional, combinando informaciones bibliográficas relativas al manuscrito o a copias adicionales del mismo con informaciones de carácter conservacional o administrativo.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "DESC": "raggruppa ulteriori informazioni combinando informazioni bibliografiche relative al manoscritto o a copie surrogate dello stesso con informazioni di carattere curatoriale o amministrativo",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "msdescription",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"additional", "LANGUAGE":"en" },
+                        {
+                          "VERSION-DATE": "2022-04-18",
+                          "GLOSS": "当該手書き資料等に関する書誌情報などの付随情報をまとめる。または当該資料の複製に関するキュレーション情報や管理情報をまとめる。",
+                          "LANGUAGE": "ja"
+                        },
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"informations complémentaires", "LANGUAGE":"fr" }
+                      ],
+                      "SPEC-NAME": "additional"
+                    } ],
+                  "MODULE-NAME": null,
+                  "RELATES-TO": [ [  ] ],
+                  "MODULE-ID": "additional.def"
+                } ],
               "ID": "msad"
             },
             { "SECTION":"Manuscript Parts", "ID":"mspt" },
@@ -2765,7 +3260,6 @@
                   "Para-String-Length": 401
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"TCAPEN" },
                 { "ID":"TCAPLR" },
@@ -2788,7 +3282,6 @@
                       ],
                       "Para-String-Length": 601
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Witness Detail Information", "ID":"TCAPWD" },
                     { "SECTION":"Witness Information in the Source", "ID":"TCSCWL" },
@@ -2800,11 +3293,13 @@
                     { "ID":"TCAPWL" }
                   ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "TCAPLW"
                 },
                 { "SECTION":"Fragmentary Witnesses", "ID":"TCAPMI" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "TCAPLL"
             },
             {
@@ -2831,7 +3326,6 @@
                   "Para-String-Length": 128
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"The Location-referenced Method", "ID":"TCAPLO" },
@@ -2840,6 +3334,7 @@
                 { "SECTION":"Other Linking Methods", "ID":"TCAPLN" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "TCAPLK"
             },
             { "SECTION":"Using Apparatus Elements in Transcriptions", "ID":"TCTR" }
@@ -2882,7 +3377,6 @@
                   "Para-String-Length": 675
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"NDPERSE" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Basic Principles", "ID":"NDPERSbp" },
@@ -2945,7 +3439,6 @@
                       "Para-String-Length": 197
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Personal Characteristics", "ID":"NDPERSEpc" },
                     { "SECTION":"Personal Events", "ID":"NDPERSEpe" },
@@ -2958,12 +3451,14 @@
                     { "ID":"NDATTS" }
                   ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "NDPERSE"
                 },
                 { "SECTION":"Places", "ID":"NDGEOG" },
                 { "SECTION":"Events", "ID":"NDEVNT" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "NDPERS"
             } ]
         },
@@ -3030,13 +3525,13 @@
                   "Para-String-Length": 774
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"FTTAB2" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"TEI Tables", "ID":"FTTAB1" },
                 { "SECTION":"Other Table Schemas", "ID":"FTTAB2" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "FTTAB"
             },
             { "SECTION":"Formulæ and Mathematical Expressions", "ID":"FTFOR" },
@@ -3062,7 +3557,6 @@
                   "Para-String-Length": 434
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Vector Graphic Formats", "ID":"FTGRAVGF" },
@@ -3070,6 +3564,7 @@
                 { "SECTION":"Photographic and Motion Video Formats", "ID":"FTGRAMPEG" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "FTGRNO"
             }
           ]
@@ -3152,7 +3647,6 @@
                   "Para-String-Length": 4368
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"HD" },
                 { "ID":"CCAS" },
@@ -3174,6 +3668,7 @@
                 { "SECTION":"The Setting Description", "ID":"CCAHSE" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CCAH"
             },
             {
@@ -3195,7 +3690,6 @@
                   "Para-String-Length": 134
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"HD" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Combining Corpus and Text Headers", "ID":"CCAS1" },
@@ -3203,6 +3697,7 @@
                 { "SECTION":"Summary", "ID":"CCAS3" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CCAS"
             },
             {
@@ -3212,7 +3707,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 834
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"SA" },
                 { "ID":"AI" },
@@ -3220,6 +3714,7 @@
               ],
               "CONTAINS-SUBSECTION": [ { "SECTION":"Levels of Analysis", "ID":"CCAN1" } ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CCAN"
             },
             { "SECTION":"Recommendations for the Encoding of Large Corpora", "ID":"CCREC" }
@@ -3258,7 +3753,6 @@
                   ],
                   "Para-String-Length": 798
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Pointers and Links", "ID":"SAPTL" },
@@ -3267,6 +3761,7 @@
                 { "SECTION":"Intermediate Pointers", "ID":"SAPTIP" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SAPT"
             },
             {
@@ -3291,7 +3786,6 @@
                   "Para-String-Length": 216
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Pointing Elsewhere", "ID":"SAUR" },
@@ -3311,7 +3805,6 @@
                       "Para-String-Length": 555
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Introduction to TEI Pointers", "ID":"SATSin" },
                     { "SECTION":"xpath()", "ID":"SATSXP" },
@@ -3328,6 +3821,7 @@
                     { "ID":"SATSMA" }
                   ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "SATS"
                 },
                 {
@@ -3372,7 +3866,6 @@
                       "Para-String-Length": 1057
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Worked Example", "ID":"SACRWE" },
                     { "SECTION":"Complete and Partial URI Examples", "ID":"SACRex" },
@@ -3386,10 +3879,12 @@
                     { "ID":"CCAS3" }
                   ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "SACR"
                 }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SAXP"
             },
             { "SECTION":"Blocks, Segments, and Anchors", "ID":"SASE" },
@@ -3400,13 +3895,13 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 650
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Aligning Synchronous Events", "ID":"SASYNC" },
                 { "SECTION":"Placing Synchronous Events in Time", "ID":"SASYMP" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SASY"
             },
             {
@@ -3419,7 +3914,6 @@
                   ],
                   "Para-String-Length": 463
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"SAPT" },
                 { "ID":"SASY" }
@@ -3430,6 +3924,7 @@
                 { "SECTION":"A Three-way Alignment", "ID":"SACSXA" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SACS"
             },
             { "SECTION":"Identical Elements and Virtual Copies", "ID":"SAIE" },
@@ -3438,7 +3933,6 @@
             {
               "SECTION": "Stand-off Markup",
               "CONTAINS-PARAS": [  ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Introduction", "ID":"SASOin" },
@@ -3448,6 +3942,7 @@
                 { "SECTION":"Including Text or XML Fragments", "ID":"SASOfr" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "SASO"
             },
             { "SECTION":"The standOff Container", "ID":"SASOstdf" },
@@ -3492,10 +3987,10 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 258
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [ { "SECTION":"Words and Above", "ID":"AILCW" } ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "AILC"
             },
             { "SECTION":"Global Attributes for Simple Analyses", "ID":"AIATTS" },
@@ -3522,7 +4017,6 @@
                   "Para-String-Length": 670
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"CO" },
                 { "ID":"DS" },
@@ -3542,6 +4036,7 @@
                 { "SECTION":"Spoken Text", "ID":"AILASP" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "AILA"
             }
           ]
@@ -3572,7 +4067,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 324
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Alternation", "ID":"FVALT" },
@@ -3580,6 +4074,7 @@
                 { "SECTION":"Collection of Values", "ID":"FVCOLL" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "FVE"
             },
             { "SECTION":"Default Values", "ID":"FSBO" },
@@ -3613,7 +4108,6 @@
                   "Para-String-Length": 404
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"FS" },
                 { "ID":"FS-BIBL-01" }
@@ -3626,6 +4120,7 @@
                 { "SECTION":"A Complete Example", "ID":"FDEG" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "FD"
             },
             { "SECTION":"Formal Definition and Implementation", "ID":"FSDEF" }
@@ -3742,7 +4237,6 @@
                   "Para-String-Length": 241
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Transition Networks", "ID":"GDTN" },
@@ -3750,6 +4244,126 @@
                 { "SECTION":"Historical Interpretation", "ID":"GDHI" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [ {
+                  "CONTAINS-SPECS": [
+                    {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2005-01-14",
+                          "DESC": "encodes a graph, which is a collection of nodes, and arcs which connect the nodes.",
+                          "LANGUAGE": "en"
+                        },
+                        {
+                          "VERSION-DATE": "2007-12-20",
+                          "DESC": "노드와 이 노드를 연결하는 호로 구성된 그래프를 부호화한다.",
+                          "LANGUAGE": "ko"
+                        },
+                        { "VERSION-DATE":"2007-05-02", "DESC":"標記一個圖形，內含節點與節點之間的連線。", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2008-04-05", "DESC":"グラフを示す。ノードと矢(無向の場合は辺)の集合。", "LANGUAGE":"ja" },
+                        {
+                          "VERSION-DATE": "2009-11-17",
+                          "DESC": "encode un graphe, c'est-à-dire un ensemble constitué de nœuds et d'arcs qui les relient entre eux.",
+                          "LANGUAGE": "fr"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "DESC": "codifica un gráfico, es decir un conjunto de nodos y arcos que conectan los nodos.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "DESC": "codifica un grafo, cioè una raccolta di nodi e archi che collegano i nodi",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "nets",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"graph", "LANGUAGE":"en" },
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"graphe", "LANGUAGE":"fr" }
+                      ],
+                      "SPEC-NAME": "graph"
+                    },
+                    {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2005-01-14",
+                          "DESC": "encodes a node, a possibly labeled point in a graph.",
+                          "LANGUAGE": "en"
+                        },
+                        {
+                          "VERSION-DATE": "2007-12-20",
+                          "DESC": "그래프에서 (표지가 붙는 지점일 수도 있는) 노드를 부호화한다.",
+                          "LANGUAGE": "ko"
+                        },
+                        { "VERSION-DATE":"2007-05-02", "DESC":"標記一個節點，一個圖形中可能帶有標籤的點。", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2008-04-05", "DESC":"グラフのラベル付きノードを示す。", "LANGUAGE":"ja" },
+                        {
+                          "VERSION-DATE": "2007-06-12",
+                          "DESC": "encode un nœud, c'est-à-dire un sommet, étiqueté ou non, dans un graphe.",
+                          "LANGUAGE": "fr"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "DESC": "codifica un nodo, un punto en un gráfico al que se le puede proporiconar una etiqueta.",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "DESC": "codifica un nodo, un punto in un grafo a cui può essere assegnata un'etichetta",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "nets",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"node", "LANGUAGE":"en" },
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"nœud", "LANGUAGE":"fr" }
+                      ],
+                      "SPEC-NAME": "node"
+                    },
+                    {
+                      "DESCRIBED-BY": [
+                        {
+                          "VERSION-DATE": "2005-01-14",
+                          "DESC": "encodes an arc, the connection from one node to another in a graph.",
+                          "LANGUAGE": "en"
+                        },
+                        { "VERSION-DATE":"2007-12-20", "DESC":"그래프에서 노드 사이를 연결하는 호를 부호화한다.", "LANGUAGE":"ko" },
+                        { "VERSION-DATE":"2007-05-02", "DESC":"標記一條弧線，即為圖形中節點與節點之間的連線。", "LANGUAGE":"zh-TW" },
+                        { "VERSION-DATE":"2008-04-05", "DESC":"グラフを構成するノード間の辺を示す。", "LANGUAGE":"ja" },
+                        {
+                          "VERSION-DATE": "2007-06-12",
+                          "DESC": "encode un arc, la connexion entre deux noeuds dans un graphe.",
+                          "LANGUAGE": "fr"
+                        },
+                        {
+                          "VERSION-DATE": "2007-05-04",
+                          "DESC": "codifica un arco, es decir, la conexión entre un nodo y otro al interno de un gráfico",
+                          "LANGUAGE": "es"
+                        },
+                        {
+                          "VERSION-DATE": "2007-01-21",
+                          "DESC": "codifica un arco, cioè il collegamento tra un nodo e l'altro all'interno di un grafo",
+                          "LANGUAGE": "it"
+                        }
+                      ],
+                      "SPEC-TYPE": "elementSpec",
+                      "PART-OF": "nets",
+                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "GLOSSED-BY": [
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"arc", "LANGUAGE":"en" },
+                        { "VERSION-DATE":"2007-06-12", "GLOSS":"arc", "LANGUAGE":"fr" }
+                      ],
+                      "SPEC-NAME": "arc"
+                    }
+                  ],
+                  "MODULE-NAME": "Graphs",
+                  "RELATES-TO": [ [  ] ],
+                  "MODULE-ID": "DGDGR"
+                } ],
               "ID": "GDGR"
             },
             { "SECTION":"Trees", "ID":"GDTR" },
@@ -3847,7 +4461,6 @@
                   "Para-String-Length": 692
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"CEPREC" },
                 { "ID":"PH" },
@@ -3859,6 +4472,7 @@
                 { "SECTION":"Structured Indications of Uncertainty", "ID":"CECECE" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CECERT"
             },
             { "SECTION":"Indications of Precision", "ID":"CEPREC" },
@@ -3907,13 +4521,13 @@
             {
               "SECTION": "Phrase Level Documentary Elements",
               "CONTAINS-PARAS": [  ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Phrase Level Terms", "ID":"TDphraseTE" },
                 { "SECTION":"Element and Attribute Descriptions", "ID":"TDphraseEA" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "TDphrase"
             },
             { "SECTION":"Modules and Schemas", "ID":"TDmodules" },
@@ -3925,7 +4539,6 @@
                   "ENCODING-MENTIONS": null,
                   "Para-String-Length": 295
                 } ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [ { "ID":"COHTG" } ],
               "CONTAINS-SUBSECTION": [
                 { "SECTION":"Description of Components", "ID":"TDcrystalsCEdc" },
@@ -3933,6 +4546,7 @@
                 { "SECTION":"Classification of Components", "ID":"TDcrystalsCEcl" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "TDcrystalsCE"
             },
             {
@@ -3949,7 +4563,6 @@
                   "Para-String-Length": 60
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [  ],
               "CONTAINS-SUBSECTION": [ {
                   "SECTION": "Attribute List Specification",
@@ -3979,16 +4592,17 @@
                       "Para-String-Length": 446
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Datatypes", "ID":"TD-datatypes" },
                     { "SECTION":"Value Specification", "ID":"TDATTvs" }
                   ],
                   "RELATES-TO": [ { "ID":"TDCLA" } ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "TDATT"
                 } ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "TDTAG"
             },
             { "SECTION":"Class Specifications", "ID":"TDCLA" },
@@ -4057,7 +4671,6 @@
                   "Para-String-Length": 941
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"TD" },
                 { "ID":"DTYPES" },
@@ -4082,7 +4695,6 @@
                       "Para-String-Length": 1256
                     }
                   ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Deletion of Elements", "ID":"MDMDSU" },
                     { "SECTION":"Modification of Content Models", "ID":"MDMDCM" },
@@ -4093,6 +4705,7 @@
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "MDMD"
                 },
                 { "SECTION":"Modification and Namespaces", "ID":"MDNS" },
@@ -4100,6 +4713,7 @@
                 { "SECTION":"Examples of Modification", "ID":"MDlite" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "MD"
             },
             {
@@ -4131,7 +4745,6 @@
                   "Para-String-Length": 171
                 }
               ],
-              "CONTAINS-SPECS": "nf:specPuller() coming here",
               "RELATES-TO": [
                 { "ID":"CFWF" },
                 { "ID":"CFVL" },
@@ -4149,13 +4762,13 @@
                       "ENCODING-MENTIONS": null,
                       "Para-String-Length": 741
                     } ],
-                  "CONTAINS-SPECS": "nf:specPuller() coming here",
                   "CONTAINS-NESTED-SUBSECTION": [
                     { "SECTION":"Semantic Constraints", "ID":"CFAMsc" },
                     { "SECTION":"Mandatory Components of a TEI Document", "ID":"CFAMmc" }
                   ],
                   "RELATES-TO": [  ],
                   "CONTAINS-CITATION": "Unpack BIB cites here",
+                  "CONTAINS-MODULE": [  ],
                   "ID": "CFAM"
                 },
                 { "SECTION":"Use of the TEI Namespace", "ID":"CFNS" },
@@ -4163,6 +4776,7 @@
                 { "SECTION":"Varieties of TEI Conformance", "ID":"CFCATSCH" }
               ],
               "CONTAINS-CITATION": "Unpack BIB cites here",
+              "CONTAINS-MODULE": [  ],
               "ID": "CF"
             },
             { "SECTION":"Implementation of an ODD System", "ID":"IM" }

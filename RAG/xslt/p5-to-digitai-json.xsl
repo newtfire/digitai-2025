@@ -15,12 +15,91 @@
     <xsl:variable name="P5-subset-version" as="xs:string" select="$P5//edition/ref[2] ! normalize-space()"/>
     <xsl:variable name="P5-subset-versionDate" as="xs:string" select="$P5//edition/date/@when ! normalize-space()"/>
     
-   <!-- <xsl:variable name="P5-chapters" as="document-node()+" select="collection('../p5-chapters/en-2025-06-17/?select=*.xml')"/>-->
-     <!-- 2025-06-17 ebb: The directory path will change with updates to the P5 subset saved to the repo. We are removing the following:
-     * BIBL (too much information indirectly related to the elements  
-     * file named "DEPRECATION" (contains little explicit information)
-     * files with names starting REF- (mostly empty files that represent from the element / attribute / class / module specs)
-     -->
+    <!-- MODULE AND SPEC PULLING FUNCTIONS AND TEMPLATES -->
+    
+    <xsl:function name="nf:modulePuller" as="array(*)*">
+        <xsl:param name="modules"/>
+       <xsl:variable name="moduleMaps" as="map(*)*">
+           <xsl:for-each select="$modules">
+               <xsl:variable name="specGrpRefs" as="xs:string*" select="current()/specGrpRef/@target ! normalize-space()"/>     
+               <xsl:variable name="specs" as="element()*" select="current()/*[name() ! ends-with(., 'Spec')]"/>
+               <xsl:sequence select="map {
+                  'MODULE-ID' : current()/@xml:id ! normalize-space(),
+                  'MODULE-NAME' : current()/@n ! normalize-space(),
+                  'RELATES-TO' : array { nf:linkPuller($specGrpRefs)},
+                  'CONTAINS-SPECS': array {nf:specPuller($specs)}
+          
+                   }"/>
+           </xsl:for-each>
+       </xsl:variable> 
+        <xsl:sequence select="array{ $moduleMaps
+            }"/>
+    </xsl:function>
+    
+    <xsl:function name="nf:specPuller" as="map(*)*">
+        <xsl:param name="specs" as="element()*"/>
+        <xsl:for-each select="$specs">
+            <xsl:variable name="glosses" as="element()*" select="current()/gloss"/>
+            <xsl:variable name="descs" as="element()*" select="current()/desc"/>
+            <!--<xsl:variable name="contentModel" as="map(*)*">
+                <xsl:apply-templates select="descendant::content"/>
+            </xsl:variable>-->
+            <xsl:sequence select="map{
+                'SPEC-TYPE' : current()/name(),
+                'PART-OF': current()/@module ! normalize-space(), 
+                'SPEC-NAME': current()/@ident ! normalize-space(),
+                'GLOSSED-BY': array { nf:glossDescPuller($glosses)},
+                'DESCRIBED-BY': array{ nf:glossDescPuller($descs)},
+                'CONTENT-MODEL' : 'THIS WILL BE THE CONTENT MODEL'
+                }"/>
+        </xsl:for-each>         
+    </xsl:function>
+    
+    <xsl:function name="nf:attUnpacker" as="map(*)*">
+        <xsl:param name="atts" as="attribute()*"/>
+         <xsl:for-each select="$atts">
+             <xsl:sequence select="map{
+                  current()/name() : current() ! normalize-space()
+                 }"/>
+         </xsl:for-each>
+    </xsl:function>
+    
+    <!-- 2025-06-23 ebb: STUCK HERE: "CANNOT ADD A MAP"
+    ERROR MESSAGE: Cannot add a map (map{"sequence":[]}) to an XDM node tree (currently writing element p) 
+    -->
+   <!-- <xsl:template match="content">
+        <xsl:variable name="onlyChild" as="element()" select="child::*"/>
+        <xsl:variable name="contentIndicators" as="map(*)*" select="nf:attUnpacker($onlyChild/@*)"/>
+        <xsl:variable name="contentModelParts" as="map(*)*">
+            <xsl:for-each select="$onlyChild/*">
+                <xsl:variable name="cmpAtts" as="map(*)*" select="nf:attUnpacker(current()/@*)"/>      
+                <xsl:sequence select="map{ 
+                    current()/name() : array {$cmpAtts}
+                    }"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:sequence select="map{
+            $onlyChild ! name() : array {$contentIndicators}
+              
+            } "/>
+        <!-\-   'CONTAINS' : array {$contentModelParts}         -\->
+        
+    </xsl:template>-->
+    
+    <xsl:function name="nf:glossDescPuller" as="map(*)*">
+        <xsl:param name="glosses-or-descs"/>
+        <xsl:for-each select="$glosses-or-descs">
+            <xsl:sequence select="map{
+            current() ! upper-case(name()) : current() ! normalize-space(),
+            'LANGUAGE' : current()/@xml:lang ! normalize-space(),
+            'VERSION-DATE': current()/@versionDate ! xs:date(.)
+                }"/>
+        </xsl:for-each>
+        
+    </xsl:function>
+    
+
+   
     
     <!-- COLLECTION OF TEMPLATES THAT PROCESS PARAGRAPH-LEVEL CHUNKS --> 
     <xsl:template match="ptr">
@@ -101,6 +180,7 @@
             <!-- Store my child <p> elements: -->
             <xsl:variable name="paras" as="element()*" select="child::p"/>
             <xsl:variable name="targets" as="item()*" select="child::p//ptr/@target ! normalize-space()"/>
+            <xsl:variable name="modules" as="element()*" select="child::specGrp"/>
          <!-- Are you a section with nested subsections? If so, continue processing those subsections. Otherwise, stop here. -->
            <xsl:choose> 
                <xsl:when test="current()[child::div/@type]">
@@ -111,7 +191,7 @@
                        'CONTAINS-PARAS': array {nf:paraPuller($paras)},
                        'RELATES-TO': nf:linkPuller($targets),
                        'CONTAINS-CITATION' : 'Unpack BIB cites here',
-                       'CONTAINS-SPECS' : 'nf:specPuller() coming here'
+                       'CONTAINS-MODULE' : nf:modulePuller($modules)
                        }"/> 
             </xsl:when>
             <xsl:otherwise>
