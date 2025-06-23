@@ -19,3 +19,4 @@ etc/
 pyvenv.cfg
 share/
 .ipynb_checkpoints/
+models/
