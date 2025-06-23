@@ -1469,7 +1469,7 @@ xmlns="http://www.tei-c.org/ns/Examples"><attList>
             <!-- Here is an example of a processing model for table elements using <att>cssClass</att>. The
           intent is that if there are informations on source formatting preserved in
             <att>rendition</att> attributes on table rows or cells, these should be applied, but
-          otherwise classes from Bootstrap framework should be used to provide pretty formatting for
+          otherwise classes from Bootstrap digitaiCore should be used to provide pretty formatting for
           tables. <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <elementSpec mode="change" ident="table">
               <!-\- Preserve original rendition for tables which contain @rendition hints -\->
