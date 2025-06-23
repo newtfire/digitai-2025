@@ -11,6 +11,7 @@
     <xsl:output method="json" indent="yes"/>
     
     <xsl:variable name="currentDateTime" as="xs:string" select="current-dateTime() ! string()"/>
+    <xsl:variable name="P5"as="document-node()" select="doc('')"
     <xsl:variable name="P5-subset-version" as="xs:string" select="//edition/ref[2] ! normalize-space()"/>
     <xsl:variable name="P5-subset-versionDate" as="xs:string" select="//edition/date/@when ! normalize-space()"/>
     
