@@ -3,7 +3,7 @@
   "PREPARED-BY": "Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher",
   "TEI_SOURCE-VERSION-NUMBER": "4.10.0a",
   "TEI_SOURCE-OUTPUT-DATE": "2025-06-11",
-  "THIS-JSON-DATETIME": "2025-06-23T18:49:50.07341-04:00",
+  "THIS-JSON-DATETIME": "2025-06-24T08:39:11.544877-04:00",
   "CONTAINS-PARTS": [
     {
       "PART": "front",
@@ -823,7 +823,17 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "header",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "sequence": [  ],
+                          "CONTAINS": [
+                            { "sequence":[  ] },
+                            { "elementRef":[
+                                { "key":"sourceDesc" },
+                                { "minOccurs":"1" },
+                                { "maxOccurs":"unbounded" }
+                              ] }
+                          ]
+                        } ],
                       "GLOSSED-BY": [
                         { "VERSION-DATE":"2007-07-05", "GLOSS":"file description", "LANGUAGE":"en" },
                         {
@@ -943,7 +953,16 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "header",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "alternate": [
+                            { "minOccurs":"1" },
+                            { "maxOccurs":"unbounded" }
+                          ],
+                          "CONTAINS": [
+                            { "classRef":[ { "key":"model.encodingDescPart" } ] },
+                            { "classRef":[ { "key":"model.pLike" } ] }
+                          ]
+                        } ],
                       "GLOSSED-BY": [
                         { "VERSION-DATE":"2007-07-04", "GLOSS":"encoding description", "LANGUAGE":"en" },
                         { "VERSION-DATE":"2009-01-05", "GLOSS":"description de l'encodage", "LANGUAGE":"fr" },
@@ -963,7 +982,13 @@
                         } ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "header",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "classRef": [
+                            { "key":"model.descLike" },
+                            { "minOccurs":"0" }
+                          ],
+                          "CONTAINS": [  ]
+                        } ],
                       "GLOSSED-BY": [ { "VERSION-DATE":"2016-11-24", "GLOSS":"schema reference", "LANGUAGE":"en" } ],
                       "SPEC-NAME": "schemaRef"
                     }
@@ -1086,7 +1111,14 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "header",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "classRef": [
+                            { "key":"model.profileDescPart" },
+                            { "minOccurs":"0" },
+                            { "maxOccurs":"unbounded" }
+                          ],
+                          "CONTAINS": [  ]
+                        } ],
                       "GLOSSED-BY": [
                         { "VERSION-DATE":"2005-01-14", "GLOSS":"text-profile description", "LANGUAGE":"en" },
                         { "VERSION-DATE":"2009-01-05", "GLOSS":"description du profil", "LANGUAGE":"fr" },
@@ -1134,7 +1166,10 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "header",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "macroRef": [ { "key":"macro.specialPara" } ],
+                          "CONTAINS": [  ]
+                        } ],
                       "GLOSSED-BY": [
                         { "VERSION-DATE":"2005-01-14", "GLOSS":"note on hand", "LANGUAGE":"en" },
                         { "VERSION-DATE":"2007-12-20", "GLOSS":"기법에 관한 설명", "LANGUAGE":"ko" },
@@ -1175,7 +1210,17 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "header",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "alternate": [
+                            { "minOccurs":"1" },
+                            { "maxOccurs":"unbounded" }
+                          ],
+                          "CONTAINS": [
+                            { "classRef":[ { "key":"model.pLike" } ] },
+                            { "classRef":[ { "key":"model.listLike" } ] },
+                            { "elementRef":[ { "key":"listBibl" } ] }
+                          ]
+                        } ],
                       "GLOSSED-BY": [  ],
                       "SPEC-NAME": "abstract"
                     }
@@ -1405,7 +1450,10 @@
                           ],
                           "SPEC-TYPE": "elementSpec",
                           "PART-OF": "core",
-                          "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                          "CONTENT-MODEL": [ {
+                              "macroRef": [ { "key":"macro.limitedContent" } ],
+                              "CONTAINS": [  ]
+                            } ],
                           "GLOSSED-BY": [
                             { "VERSION-DATE":"2005-01-14", "GLOSS":"description", "LANGUAGE":"en" },
                             { "VERSION-DATE":"2007-12-20", "GLOSS":"기술", "LANGUAGE":"ko" },
@@ -1450,7 +1498,10 @@
                           ],
                           "SPEC-TYPE": "elementSpec",
                           "PART-OF": "core",
-                          "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                          "CONTENT-MODEL": [ {
+                              "macroRef": [ { "key":"macro.phraseSeq" } ],
+                              "CONTAINS": [  ]
+                            } ],
                           "GLOSSED-BY": [
                             { "VERSION-DATE":"2009-01-06", "GLOSS":"gloss", "LANGUAGE":"en" },
                             { "VERSION-DATE":"2009-01-06", "GLOSS":"glose", "LANGUAGE":"fr" }
@@ -1494,7 +1545,10 @@
                           ],
                           "SPEC-TYPE": "elementSpec",
                           "PART-OF": "core",
-                          "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                          "CONTENT-MODEL": [ {
+                              "macroRef": [ { "key":"macro.phraseSeq" } ],
+                              "CONTAINS": [  ]
+                            } ],
                           "GLOSSED-BY": [
                             { "VERSION-DATE":"2009-01-06", "GLOSS":"term", "LANGUAGE":"en" },
                             { "VERSION-DATE":"2009-01-06", "GLOSS":"terme", "LANGUAGE":"fr" },
@@ -3119,7 +3173,17 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "msdescription",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "alternate": [  ],
+                          "CONTAINS": [
+                            { "sequence":[  ] },
+                            { "classRef":[
+                                { "key":"model.pLike" },
+                                { "minOccurs":"1" },
+                                { "maxOccurs":"unbounded" }
+                              ] }
+                          ]
+                        } ],
                       "GLOSSED-BY": [
                         { "VERSION-DATE":"2007-06-12", "GLOSS":"additional", "LANGUAGE":"en" },
                         {
@@ -4278,7 +4342,13 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "nets",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "sequence": [  ],
+                          "CONTAINS": [
+                            { "sequence":[ { "minOccurs":"0" } ] },
+                            { "alternate":[  ] }
+                          ]
+                        } ],
                       "GLOSSED-BY": [
                         { "VERSION-DATE":"2007-06-12", "GLOSS":"graph", "LANGUAGE":"en" },
                         { "VERSION-DATE":"2007-06-12", "GLOSS":"graphe", "LANGUAGE":"fr" }
@@ -4317,7 +4387,16 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "nets",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "sequence": [ { "minOccurs":"0" } ],
+                          "CONTAINS": [
+                            { "elementRef":[ { "key":"label" } ] },
+                            { "elementRef":[
+                                { "key":"label" },
+                                { "minOccurs":"0" }
+                              ] }
+                          ]
+                        } ],
                       "GLOSSED-BY": [
                         { "VERSION-DATE":"2007-06-12", "GLOSS":"node", "LANGUAGE":"en" },
                         { "VERSION-DATE":"2007-06-12", "GLOSS":"nœud", "LANGUAGE":"fr" }
@@ -4352,7 +4431,16 @@
                       ],
                       "SPEC-TYPE": "elementSpec",
                       "PART-OF": "nets",
-                      "CONTENT-MODEL": "THIS WILL BE THE CONTENT MODEL",
+                      "CONTENT-MODEL": [ {
+                          "sequence": [ { "minOccurs":"0" } ],
+                          "CONTAINS": [
+                            { "elementRef":[ { "key":"label" } ] },
+                            { "elementRef":[
+                                { "key":"label" },
+                                { "minOccurs":"0" }
+                              ] }
+                          ]
+                        } ],
                       "GLOSSED-BY": [
                         { "VERSION-DATE":"2007-06-12", "GLOSS":"arc", "LANGUAGE":"en" },
                         { "VERSION-DATE":"2007-06-12", "GLOSS":"arc", "LANGUAGE":"fr" }

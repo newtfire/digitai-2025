@@ -41,16 +41,18 @@
         <xsl:for-each select="$specs">
             <xsl:variable name="glosses" as="element()*" select="current()/gloss"/>
             <xsl:variable name="descs" as="element()*" select="current()/desc"/>
-            <!--<xsl:variable name="contentModel" as="map(*)*">
-                <xsl:apply-templates select="descendant::content"/>
-            </xsl:variable>-->
+            <xsl:variable name="contentModel" as="map(*)*">
+                <xsl:call-template name="content">
+                    <xsl:with-param name="content" as="element(content)" select="current()/content"/>
+                </xsl:call-template>
+            </xsl:variable>
             <xsl:sequence select="map{
                 'SPEC-TYPE' : current()/name(),
                 'PART-OF': current()/@module ! normalize-space(), 
                 'SPEC-NAME': current()/@ident ! normalize-space(),
                 'GLOSSED-BY': array { nf:glossDescPuller($glosses)},
                 'DESCRIBED-BY': array{ nf:glossDescPuller($descs)},
-                'CONTENT-MODEL' : 'THIS WILL BE THE CONTENT MODEL'
+                'CONTENT-MODEL' : array { $contentModel }
                 }"/>
         </xsl:for-each>         
     </xsl:function>
@@ -67,11 +69,12 @@
     <!-- 2025-06-23 ebb: STUCK HERE: "CANNOT ADD A MAP"
     ERROR MESSAGE: Cannot add a map (map{"sequence":[]}) to an XDM node tree (currently writing element p) 
     -->
-   <!-- <xsl:template match="content">
-        <xsl:variable name="onlyChild" as="element()" select="child::*"/>
-        <xsl:variable name="contentIndicators" as="map(*)*" select="nf:attUnpacker($onlyChild/@*)"/>
+     <xsl:template name="content">
+         <xsl:param name="content" as="element()"/>
+       
+        <xsl:variable name="contentIndicators" as="map(*)*" select="nf:attUnpacker($content/*/@*)"/>
         <xsl:variable name="contentModelParts" as="map(*)*">
-            <xsl:for-each select="$onlyChild/*">
+            <xsl:for-each select="$content/*/*">
                 <xsl:variable name="cmpAtts" as="map(*)*" select="nf:attUnpacker(current()/@*)"/>      
                 <xsl:sequence select="map{ 
                     current()/name() : array {$cmpAtts}
@@ -79,12 +82,13 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:sequence select="map{
-            $onlyChild ! name() : array {$contentIndicators}
+            $content/* ! name() : array {$contentIndicators},
+            'CONTAINS' : array {$contentModelParts}  
               
             } "/>
-        <!-\-   'CONTAINS' : array {$contentModelParts}         -\->
+               
         
-    </xsl:template>-->
+    </xsl:template>
     
     <xsl:function name="nf:glossDescPuller" as="map(*)*">
         <xsl:param name="glosses-or-descs"/>
