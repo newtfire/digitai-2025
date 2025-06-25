@@ -41,6 +41,7 @@
         <xsl:for-each select="$specs[not(self::paramSpec)]">
             <xsl:variable name="glosses" as="element()*" select="current()/gloss"/>
             <xsl:variable name="descs" as="element()*" select="current()/desc"/>
+            <xsl:variable name="remarks" as="element()*" select="current()/remarks"/>
             <xsl:variable name="contentModel" as="map(*)*">
                 <xsl:if test="current()/content"><xsl:call-template name="content">
                     <xsl:with-param name="content" as="element(content)" select="current()/content"/>
@@ -52,8 +53,10 @@
                 'SPEC-NAME': current()/@ident ! normalize-space(),
                 'GLOSSED-BY': array { nf:glossDescPuller($glosses)},
                 'DESCRIBED-BY': array{ nf:glossDescPuller($descs)},
-                'CONTENT-MODEL' : array { $contentModel }
-                }"/>
+                'CONTENT-MODEL' : array { $contentModel },
+                'REMARKS-ON': array { nf:glossDescPuller($remarks) }
+                }"/>   
+            
         </xsl:for-each>         
     </xsl:function>
     
@@ -86,10 +89,21 @@
     </xsl:template>
     
     <xsl:function name="nf:glossDescPuller" as="map(*)*">
-        <xsl:param name="glosses-or-descs"/>
-        <xsl:for-each select="$glosses-or-descs">
-            <xsl:sequence select="map{
-            current() ! upper-case(name()) : current() ! normalize-space(),
+        <xsl:param name="glossies"/>
+        <xsl:for-each select="$glossies">
+            <xsl:variable name="remarkInnards" as="array(*)*">
+                <xsl:choose>
+                    <xsl:when test="current()[not(p)]">
+                        <xsl:sequence select="array{ current() ! normalize-space()}"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="paras" as="element()+" select="current()//p"/>
+                        <xsl:sequence select="array{nf:paraPuller($paras)}"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+                    <xsl:sequence select="map{
+            current() ! upper-case(name()) : $remarkInnards,
             'LANGUAGE' : current()/@xml:lang ! normalize-space(),
             'VERSION-DATE': current()/@versionDate ! xs:date(.)
                 }"/>
@@ -132,7 +146,7 @@
             </xsl:variable>
             
             <xsl:variable name="moreThanText" as="array(*)*">
-                <xsl:if test="current()//*[local-name() = ( 'moduleSpec', 'gi', 'att', 'ident', 'egXML')]">
+                <xsl:if test="current()//*[local-name() = ( 'moduleSpec', 'gi', 'att', 'ident', 'egXML', 'specGrp')]">
                     <xsl:variable name="moduleSpec" as="map(*)*">
                         <xsl:if test="current()//moduleSpec">
                             <xsl:sequence select="map{
@@ -164,15 +178,21 @@
                        <xsl:sequence select="map {'EXAMPLES': array {current()//eg:egXML}}"/>
                        </xsl:if> 
                     </xsl:variable> 
-                    <xsl:sequence select="array{$moduleSpec, $elementsMentioned, $attsMentioned, $identsMentioned, $exempla }"/>
+                    <xsl:variable name="specGrps" as="map(*)*">
+                        <xsl:if test ="current()//specGrp">
+                            <xsl:sequence select="map{'CONTAINS-SPECGRPS' : nf:spcGrpPuller(current()//specGrp)}"/>
+                        </xsl:if>
+                        
+                    </xsl:variable>
+                    
+                    <xsl:sequence select="array{$moduleSpec, $elementsMentioned, $attsMentioned, $identsMentioned, $exempla, $specGrps }"/>
                 </xsl:if>    
             </xsl:variable>
-            <xsl:variable name="specGrps" as="element()*" select="child::specGrp"/>
+           
             <xsl:sequence select="map { 
                 'PARA': $paraString,
                 'Para-String-Length': $paraString ! string-length(),
-                'ENCODING-MENTIONS' : $moreThanText,
-                'CONTAINS-SPECGRPS' : nf:spcGrpPuller($specGrps)
+                'ENCODING-MENTIONS' : $moreThanText
                 }"/>
    
         </xsl:for-each>
