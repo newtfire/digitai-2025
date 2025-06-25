@@ -1,0 +1,8 @@
+# Add this to your local .gitignore
+# local.yaml
+
+dataPaths:
+  p5GraphExport: "/var/lib/neo4j/import/neo4jExport/p5Graph.json"
+
+neo4j:
+  pass: "your-local-password"

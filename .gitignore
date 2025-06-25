@@ -20,3 +20,4 @@ pyvenv.cfg
 share/
 .ipynb_checkpoints/
 models/
+local.yaml
