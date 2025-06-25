@@ -1,9 +1,6 @@
 dataPaths:
-  xmlRoot: "../data/xml/"
-  extractedRoot: "../data/extractedData/"
-  chunkedRoot: "../data/chunkedData/"
-  embeddingRoot: "../data/embeddingData/"
-  finetuneRoot: "../data/finetuneData"
+  p5Root: "../data/p5/p5.xml"
+  p5Extracted: "../data/p5/p5.json"
 
 xsltPaths:
   teiExtraction: "../digitaiCore/ingestion/teiExtraction.xsl"
@@ -11,15 +8,10 @@ xsltPaths:
 neo4j:
   uri: "bolt://localhost:7687"
   user: "neo4j"
-  password: "neo4jim!"
+  password: ""
 
 modelProfiles:
   qwen2_8b:
     modelPath: "./models/Qwen2-8B"
     tokenizer: "Qwen/Qwen2-8B"
     contextLength: 32768
-
-  llama3_7b:
-    modelPath: "./models/LLaMA3-7B"
-    tokenizer: "meta-llama/Meta-Llama-3-7B"
-    contextLength: 8192
