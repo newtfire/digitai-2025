@@ -1,14 +1,15 @@
 dataPaths:
-  p5Root: "../data/p5/p5.xml"
-  p5Extracted: "../data/p5/p5.json"
+  p5Root: "data/p5/p5.xml"
+  p5Extracted: "data/p5/p5.json"
+  p5GraphLocal: "data/p5/p5Graph.json"         # final graph copy inside your repo
 
 xsltPaths:
-  teiExtraction: "../digitaiCore/ingestion/teiExtraction.xsl"
+  teiExtraction: "digitaiCore/ingestion/teiExtraction.xsl"
 
 neo4j:
   uri: "bolt://localhost:7687"
   user: "neo4j"
-  password: ""
+  pass: ""
 
 modelProfiles:
   qwen2_8b:
