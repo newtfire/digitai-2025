@@ -51,16 +51,132 @@
                 'SPEC-TYPE' : current()/name(),
                 'PART-OF': current()/@module ! normalize-space(), 
                 'SPEC-NAME': current()/@ident ! normalize-space(),
+                'EQUIVALENT-NAME' : current()/equiv ! normalize-space(),
                 'GLOSSED-BY': array { nf:glossDescPuller($glosses)},
                 'DESCRIBED-BY': array{ nf:glossDescPuller($descs)},
                 'CONTENT-MODEL' : array { $contentModel },
+                'LISTS-ATTRIBUTES' : array { nf:attListPuller(current()/attList) },
                 'REMARKS-ON': array { nf:glossDescPuller($remarks) }
                 }"/>   
-            
         </xsl:for-each>         
     </xsl:function>
     
+    <xsl:function name="nf:attListPuller" as="map(*)*">
+        <xsl:param name="attList" as="element(attList)*" />
+
+        <xsl:variable name="attDefs" as="element(attDef)*" select="$attList/attDef"/>
+       <xsl:variable name="attDefMaps" as="map(*)*">
+           <xsl:for-each select="$attDefs">
+           <xsl:variable name="glosses" as="element()*" select="current()/gloss"/>
+           <xsl:variable name="descs" as="element()*" select="current()/desc"/>
+           <xsl:variable name="remarks" as="element()*" select="current()/remark"/>
+           <xsl:variable name="defaultVal" as="xs:string?" select="current()/defaultVal ! normalize-space()"/>
+          <xsl:variable name="exempla" as="element()*" select="current()/exemplum"/>
+           <xsl:variable name="datatype" as="map(*)*"> 
+              <xsl:if test="current()/datatype">
+                 <xsl:variable name="valDescs" as="array(*)*">
+                     <xsl:if test="current()/valDesc">
+                           <xsl:variable name="valDescInfo" as="map(*)*">
+                               <xsl:for-each select="current()/valDesc">
+                                   <xsl:sequence select="map{
+                                       'LANGUAGE' : (current()/@xml:lang ! normalize-space(), 'en')[1],
+                                       'VALDESC' : current() ! normalize-space()
+                                       }"/>
+                               </xsl:for-each>
+                           </xsl:variable>
+                           <xsl:sequence select="array{ $valDescInfo}"/>
+                     </xsl:if>
+                       </xsl:variable>
+               
+                   <xsl:sequence select="map {
+                       'DATATYPE': current()/datatype/dataRef/@key ! normalize-space(),
+                       'DATATYPE-DESCRIBED-BY': $valDescs
+                       }"/> 
+               </xsl:if>               
+        </xsl:variable>
+
+          <xsl:sequence select="map{
+              'ATTRIBUTE-DEFINITION' : current()/@ident ! normalize-space(),
+              'USAGE': current()/@usage ! normalize-space(),
+              'GLOSSED-BY': array { nf:glossDescPuller($glosses) },
+              'DESCRIBED-BY': array { nf:glossDescPuller($descs)},
+               'TAKES-DEFAULT-VALUE': $defaultVal,
+               'TAKES-DATATYPE': array {$datatype},
+               'CONTAINS-EXAMPLES': array{ nf:exemplumPuller($exempla)},
+               'REMARKS-ON': array{ nf:glossDescPuller($remarks)},
+               'CONTAINS-VALUE-LIST': array { nf:valListPuller(current()/valList) }
+              }"/>
+       </xsl:for-each> 
+       </xsl:variable>
+        <xsl:choose>
+           <xsl:when test="$attList/attList">
+               <xsl:sequence select="map{
+               'DEFINES-ATTRIBUTES' : array{ $attDefMaps},
+               'LISTS-ATTRIBUTES' : array { nf:attListPuller($attList/attList) }   
+               }"/>
+           </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="map{
+                    'DEFINES-ATTRIBUTES' : array{ $attDefMaps}
+                    }"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:function>
+    <xsl:function name="nf:valListPuller" as="map(*)*">
+        <xsl:param name="valList" as="element()*"/>
+        <xsl:variable name="valItems" as="element()*"/>
+        <xsl:variable name="valItemsUnpacked" as="map(*)*">
+            <xsl:for-each select="$valItems">
+                <xsl:variable name="descs" as="element()*" select="current()/desc"/>
+                <xsl:variable name="glosses" as="element()*" select="current()/gloss"/>
+                <xsl:variable name="paramList" as="element()*" select="current()/paramList"/>
+                <xsl:sequence select="map{
+                    'VALUE' : current()/ident ! normalize-space(),
+                    'EQUIVALENT-NAME' : current()/equiv ! normalize-space(),
+                    'GLOSSED-BY' : array {nf:glossDescPuller($glosses) },
+                    'DESCRIBED-BY': array {nf:glossDescPuller($descs) },
+                    'HAS-PARAM-LIST': array {nf:paramListPuller($paramList)}
+                    }"/>                                
+            </xsl:for-each>
+        </xsl:variable>        
+        <xsl:sequence select="map{ 
+            'VAL-LIST-TYPE': $valList/@type ! normalize-space(),
+            'VALUE-OPTIONS': array{ }
+            }"/>
+    </xsl:function>
+    <xsl:function name="nf:paramListPuller" as="map(*)*">
+        <xsl:param name="paramList" as="element()*"/>
+          <xsl:variable name="paramSpecs" as="element()*" select="$paramList/paramSpec"/>
+        <xsl:for-each select="$paramSpecs">
+            <xsl:variable name="paramDescs" as="element()*" select="current()/desc"/>
+            <xsl:sequence select="map{
+                'PARAMETER' : current()/@ident ! normalize-space(),
+                'DESCRIBED-BY' : array{nf:glossDescPuller($paramDescs) }
+                }"/>
+        </xsl:for-each>        
+        
+    </xsl:function>
+    <xsl:function name="nf:exemplumPuller" as="map(*)*">
+        <xsl:param name="exempla" as="element()*"/>
+        <xsl:for-each select="$exempla">
+            <xsl:variable name="paras" select="current()/p"/>
+           <xsl:variable name="egXMLs" as="array(*)*">
+                    <xsl:if test="current()/eg:egXML">
+                        <xsl:sequence select="array {current()//eg:egXML}"/>
+                    </xsl:if> 
+                </xsl:variable> 
+            <xsl:sequence select="map{
+                'LANGUAGE' : (current()/@xml:lang ! normalize-space(), 'en')[1],
+                'CONTAINS-PARAS' :  array {nf:paraPuller($paras)},
+                'EXAMPLE': $egXMLs
+            }"/>
+        </xsl:for-each>
+        
+    </xsl:function>
+    
     <xsl:function name="nf:attUnpacker" as="map(*)*">
+        <!-- ebb: This is for attribute nodes to unpack names and values. -->
         <xsl:param name="atts" as="attribute()*"/>
          <xsl:for-each select="$atts">
              <xsl:sequence select="map{
@@ -89,7 +205,7 @@
     </xsl:template>
     
     <xsl:function name="nf:glossDescPuller" as="map(*)*">
-        <xsl:param name="glossies"/>
+        <xsl:param name="glossies" as="element()*"/>
         <xsl:for-each select="$glossies">
             <xsl:variable name="remarkInnards" as="array(*)*">
                 <xsl:choose>
