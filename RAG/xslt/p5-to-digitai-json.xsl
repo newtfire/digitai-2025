@@ -298,7 +298,6 @@
                         <xsl:if test ="current()//specGrp">
                             <xsl:sequence select="map{'CONTAINS-SPECGRPS' : nf:spcGrpPuller(current()//specGrp)}"/>
                         </xsl:if>
-                        
                     </xsl:variable>
                     
                     <xsl:sequence select="array{$moduleSpec, $elementsMentioned, $attsMentioned, $identsMentioned, $exempla, $specGrps }"/>
@@ -308,7 +307,7 @@
             <xsl:sequence select="map { 
                 'PARA': $paraString,
                 'Para-String-Length': $paraString ! string-length(),
-                'ENCODING-MENTIONS' : $moreThanText
+                'TEI-ENCODING-DISCUSSED' : $moreThanText
                 }"/>
    
         </xsl:for-each>
@@ -322,7 +321,9 @@
         <xsl:for-each select="$div/div[head]">
             <!-- Store my child <p> elements: -->
             <xsl:variable name="paras" as="element()*" select="child::p"/>
-            <xsl:variable name="targets" as="item()*" select="child::p//ptr/@target ! normalize-space()"/>
+            <xsl:variable name="targets" as="item()*" select="child::p//*[self::ptr or self::ref or self::specGrpRef]
+                [not(@target ! substring-after(., '#') = //back//*/@xml:id)]/@target ! normalize-space()"/>
+              <!--ebb: Above the second predicate excludes pointers to the bibliography. -->
             <xsl:variable name="specGrps" as="element()*" select="child::specGrp"/>
             <xsl:variable name="specs" as="element()*" select="current()/*[name() ! ends-with(., 'Spec')]"/>
          <!-- Are you a section with nested subsections? If so, continue processing those subsections. Otherwise, stop here. -->
@@ -355,7 +356,7 @@
     <xsl:template match="/">
         <xsl:result-document href="../digitai-p5.json" method="json" indent="yes"> 
          <xsl:variable name="partInfo" as="map(*)*"> 
-           <xsl:for-each select="child::TEI[1]/text/*[not(name() = 'back')]">
+           <xsl:for-each select="$P5/TEI/text/*[not(name() = 'back')]">
             <xsl:variable name="chapterMaps" as="map(*)*">
                 <xsl:apply-templates select="current()"/>
             </xsl:variable>
@@ -384,7 +385,9 @@
        
        <xsl:for-each select="child::div[not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))]">
            <xsl:variable name="chap" select="current()" as="element()"/>
-           <xsl:variable name="targets" as="item()*" select="$P5/div[@xml:id = current()/@xml:id]/child::p//ptr/@target ! normalize-space()"/>
+           <xsl:variable name="targets" as="item()*" select="child::p//*[self::ptr or self::ref or self::specGrpRef]
+               [not(@target ! substring-after(., '#') = //back//*/@xml:id)]/@target ! normalize-space()"/>
+           <!--ebb: Above the second predicate excludes pointers to the bibliography. -->
            <xsl:variable name="specGrps" as="element()*" select="current()/specGrp"/>
            <xsl:variable name="specs" as="element()*" select="current()/*[name() ! ends-with(., 'Spec')]"/>
 
@@ -422,8 +425,5 @@
         
         <xsl:sequence select=" $chapters "/>
     </xsl:template>
-    
-   
-  
     
 </xsl:stylesheet>
