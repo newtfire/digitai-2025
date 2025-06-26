@@ -334,7 +334,6 @@
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current(), (current()/@type ! normalize-space(), '')[1], 'NESTED-SUBSECTION') },
                        'CONTAINS-PARAS': array {nf:paraPuller($paras)},
                        'RELATES-TO': nf:linkPuller($targets),
-                       'CONTAINS-CITATION' : 'Unpack BIB cites here',
                        'CONTAINS-SPECGRPS' : nf:spcGrpPuller($specGrps),
                        'CONTAINS-SPECS': array {nf:specPuller($specs)}
                        }"/> 
@@ -345,7 +344,6 @@
                     'ID' : current()/@xml:id ! normalize-space(),
                     'CONTAINS-PARAS': array {nf:paraPuller($paras)},
                     'RELATES-TO': nf:linkPuller($targets),
-                    'CONTAINS-CITATION' : 'Unpack BIB cites here',
                     'CONTAINS-SPECGRPS' : nf:spcGrpPuller($specGrps),
                     'CONTAINS-SPECS': array {nf:specPuller($specs)}
                     }"/>

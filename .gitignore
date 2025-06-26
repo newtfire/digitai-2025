@@ -21,3 +21,5 @@ share/
 .ipynb_checkpoints/
 models/
 local.yaml
+index.js
+package.json
