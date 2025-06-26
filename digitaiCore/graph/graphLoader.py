@@ -1,10 +1,13 @@
 import os
 import subprocess
 import shutil
-from digitaiCore.utils.configLoader import Configloader
+from digitaiCore.utils.configLoader import ConfigLoader
 
-def load_graph(): # Loads P5 JSON into neo4j using Hadleighs prewritten Cypher
-    config = Configloader("digitaiCore/config.yaml")
+def load_graph():  # Loads P5 JSON into Neo4j using a prewritten Cypher script
+    # Dynamically find the path to config.yaml relative to this script
+    root_dir = os.path.dirname(os.path.dirname(__file__))  # one level up from /graph
+    config_path = os.path.join(root_dir, "config.yaml")
+    config = ConfigLoader(config_path)
 
     extracted = config.get("dataPaths.p5Extracted")
     neo4jExport = config.get("dataPaths.p5GraphExport")
