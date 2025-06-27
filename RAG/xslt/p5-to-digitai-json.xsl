@@ -379,7 +379,7 @@
            <xsl:choose> 
                <xsl:when test="current()[child::div[head]]">
                    <xsl:sequence select="map {
-                       'SECTION-LEVEL-'||(current()/@type ! normalize-space(),'unmarked')[1] ! string() : current()/head ! normalize-space(),
+                       'NAME': current()/head ! normalize-space(),
                        'ID': current()/@xml:id ! normalize-space(),
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current(), (current()/@type ! normalize-space(), '')[1], 'NESTED-SUBSECTION') },
                        'CONTAINS-PARAS': array {nf:paraPuller($paras)},
