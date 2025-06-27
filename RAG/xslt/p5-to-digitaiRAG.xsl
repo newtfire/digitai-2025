@@ -30,8 +30,25 @@
          </xsl:for-each>
     </xsl:function>
     
+    <xsl:template match="/" mode="json-schema">
+        <xsl:result-document href="../digitai-RAG-json.schema">
+            
+            
+            
+        </xsl:result-document>
+    </xsl:template>
     
-    <xsl:template match="/">
+    <xsl:template match="/" mode="cypher">
+        <xsl:result-document href="../digitai-RAG-cypher.cypher" method="text" indent="yes"> 
+            
+            
+            
+            
+        </xsl:result-document>
+    </xsl:template>
+    
+    
+    <xsl:template match="/" mode="json-data">
         <xsl:result-document href="../digitai-RAG-data.json" method="json" indent="yes"> 
             <xsl:map>
                 <xsl:map-entry key="'DOCUMENT-TITLE'">THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH</xsl:map-entry> 
@@ -44,7 +61,11 @@
                     <xsl:sequence select="array { for $part in $P5/TEI/text/*[not(self::back)] return
                         $part ! name() ! normalize-space()}"/>
                 </xsl:map-entry> -->
-                <xsl:map-entry key="'CONTAINS-PARTS'"><xsl:sequence select="array { nf:chapterMapper($P5/TEI/text/*[not(self::back)])}"/></xsl:map-entry>
+               <xsl:if test=""> 
+                   <xsl:map-entry key="'CONTAINS-PARTS'">
+                    <xsl:sequence select="array { nf:chapterMapper($P5/TEI/text/*[not(self::back)])}"/>
+                </xsl:map-entry>
+               </xsl:if>
 
             </xsl:map>
         </xsl:result-document>
