@@ -18,21 +18,20 @@
     <!-- MODULE AND SPEC PULLING FUNCTIONS AND TEMPLATES -->
     
     <xsl:function name="nf:spcGrpPuller" as="array(*)*">
-        <xsl:param name="modules"/>
-       <xsl:variable name="moduleMaps" as="map(*)*">
-           <xsl:for-each select="$modules">
+        <xsl:param name="spcGrps" as="element(specGrp)*"/>
+       <xsl:variable name="specGrpMaps" as="map(*)*">
+           <xsl:for-each select="$spcGrps">
                <xsl:variable name="specGrpRefs" as="xs:string*" select="current()/specGrpRef/@target ! normalize-space()"/>     
-               <xsl:variable name="specs" as="element()*" select="current()//*[name() ! ends-with(., 'Spec')]"/>
+               <xsl:variable name="specs" as="element()*" select="current()/*[name() ! ends-with(., 'Spec')]"/>
                <xsl:sequence select="map {
                   'SPECGRP-ID' : current()/@xml:id ! normalize-space(),
                   'SPECGRP-NAME' : current()/@n ! normalize-space(),
                   'RELATES-TO' : array { nf:linkPuller($specGrpRefs)},
                   'CONTAINS-SPECS': array {nf:specPuller($specs)}
-          
                    }"/>
            </xsl:for-each>
        </xsl:variable> 
-        <xsl:sequence select="array{ $moduleMaps
+        <xsl:sequence select="array{ $specGrpMaps
             }"/>
     </xsl:function>
     
@@ -42,6 +41,7 @@
             <xsl:variable name="glosses" as="element()*" select="current()/gloss"/>
             <xsl:variable name="descs" as="element()*" select="current()/desc"/>
             <xsl:variable name="remarks" as="element()*" select="current()/remarks"/>
+            <xsl:variable name="exempla" as="element()*" select="current()/exemplum"/>
             <xsl:variable name="contentModel" as="map(*)*">
                 <xsl:if test="current()/content"><xsl:call-template name="content">
                     <xsl:with-param name="content" as="element(content)" select="current()/content"/>
@@ -49,13 +49,14 @@
             </xsl:variable>
             <xsl:sequence select="map{
                 'SPEC-TYPE' : current()/name(),
-                'PART-OF': current()/@module ! normalize-space(), 
                 'SPEC-NAME': current()/@ident ! normalize-space(),
+                'PART-OF': current()/@module ! normalize-space(), 
                 'EQUIVALENT-NAME' : current()/equiv ! normalize-space(),
                 'GLOSSED-BY': array { nf:glossDescPuller($glosses)},
                 'DESCRIBED-BY': array{ nf:glossDescPuller($descs)},
                 'CONTENT-MODEL' : array { $contentModel },
                 'LISTS-ATTRIBUTES' : array { nf:attListPuller(current()/attList) },
+                'CONTAINS-EXAMPLES': array{ nf:exemplumPuller($exempla)},
                 'REMARKS-ON': array { nf:glossDescPuller($remarks) }
                 }"/>   
         </xsl:for-each>         
@@ -160,7 +161,7 @@
     <xsl:function name="nf:exemplumPuller" as="map(*)*">
         <xsl:param name="exempla" as="element()*"/>
         <xsl:for-each select="$exempla">
-            <xsl:variable name="paras" select="current()/p"/>
+            <xsl:variable name="paras" select="current()/child::*[local-name() = 'p']"/>
            <xsl:variable name="egXMLs" as="array(*)*">
                     <xsl:if test="current()/eg:egXML">
                         <xsl:sequence select="array {current()//eg:egXML}"/>
@@ -295,8 +296,8 @@
                        </xsl:if> 
                     </xsl:variable> 
                     <xsl:variable name="specGrps" as="map(*)*">
-                        <xsl:if test ="current()//specGrp">
-                            <xsl:sequence select="map{'CONTAINS-SPECGRPS' : nf:spcGrpPuller(current()//specGrp)}"/>
+                        <xsl:if test ="current()/specGrp">
+                            <xsl:sequence select="map{'CONTAINS-SPECGRPS' : nf:spcGrpPuller(current()/specGrp)}"/>
                         </xsl:if>
                     </xsl:variable>
                     
@@ -325,7 +326,7 @@
                 [not(@target ! substring-after(., '#') = //back//*/@xml:id)]/@target ! normalize-space()"/>
               <!--ebb: Above the second predicate excludes pointers to the bibliography. -->
             <xsl:variable name="specGrps" as="element()*" select="child::specGrp"/>
-            <xsl:variable name="specs" as="element()*" select="current()/*[name() ! ends-with(., 'Spec')]"/>
+            <xsl:variable name="specs" as="element()*" select="child::*[name() ! ends-with(., 'Spec')]"/>
          <!-- Are you a section with nested subsections? If so, continue processing those subsections. Otherwise, stop here. -->
            <xsl:choose> 
                <xsl:when test="current()[child::div[head]]">
@@ -356,9 +357,11 @@
     <xsl:template match="/">
         <xsl:result-document href="../digitai-p5.json" method="json" indent="yes"> 
          <xsl:variable name="partInfo" as="map(*)*"> 
-           <xsl:for-each select="$P5/TEI/text/*[not(name() = 'back')]">
+           <xsl:for-each select="$P5/TEI/text/*[not(self::* = 'back')]">
             <xsl:variable name="chapterMaps" as="map(*)*">
-                <xsl:apply-templates select="current()"/>
+                <xsl:call-template name="front-or-body">
+                    <xsl:with-param name="front-or-body" as="element()" select="current()"/>
+                </xsl:call-template>
             </xsl:variable>
             <xsl:sequence select="map {
                 'PART' : current()/name(),
@@ -378,7 +381,8 @@
      </xsl:result-document>
     </xsl:template>
     
-    <xsl:template match="text/*" as="map(*)*">      
+    <xsl:template name="front-or-body" as="map(*)*">  
+        <xsl:param name="front-or-body"/>
    <xsl:variable name="chapters" as="map(*)*">
        <!--ebb: NOTE: Here we are excluding the P5 Subset file's references to the REF- and Deprecations files we've removed.  -->
        <!-- 2025-06-18 ebb: JUST constraining this to output the AI (Analytic Mechanisms) chapter -->
@@ -388,11 +392,10 @@
            <xsl:variable name="targets" as="item()*" select="child::p//*[self::ptr or self::ref or self::specGrpRef]
                [not(@target ! substring-after(., '#') = //back//*/@xml:id)]/@target ! normalize-space()"/>
            <!--ebb: Above the second predicate excludes pointers to the bibliography. -->
-           <xsl:variable name="specGrps" as="element()*" select="current()/specGrp"/>
-           <xsl:variable name="specs" as="element()*" select="current()/*[name() ! ends-with(., 'Spec')]"/>
+          
 
          <xsl:choose> 
-             <xsl:when test="current()/p">
+             <xsl:when test="current()[p]">
              <xsl:variable name="paras" as="element()*" select="$P5//div[@xml:id = current()/@xml:id]/child::p"/>
              
             <xsl:sequence select=" map {
@@ -400,10 +403,7 @@
                'ID': $chap/@xml:id ! string(),
                'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap, 'div1', 'SUBSECTION') },
                'CONTAINS-PARAS': array {nf:paraPuller($paras)},
-               'RELATES-TO': nf:linkPuller($targets),
-               'CONTAINS-CITATION' : 'Unpack BIB cites here',
-               'CONTAINS-MODULE' : nf:spcGrpPuller($specGrps),
-               'CONTAINS-SPECS' : array {nf:specPuller($specs)}
+               'RELATES-TO': nf:linkPuller($targets)
                } 
                "/>
              </xsl:when>
@@ -412,9 +412,7 @@
                <xsl:sequence select=" map {
                      'CHAPTER': $chap/head ! normalize-space(),
                      'ID': $chap/@xml:id ! string(),
-                     'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap, 'div1', 'SUBSECTION') },
-                     'CONTAINS-SPECGRPS' : nf:spcGrpPuller($specGrps),
-                     'CONTAINS-SPECS' : array {nf:specPuller($specs)}
+                     'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap, 'div1', 'SUBSECTION') }
                      } 
                      "/> 
              </xsl:otherwise>
