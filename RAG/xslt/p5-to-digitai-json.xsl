@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xpath-default-namespace="http://www.tei-c.org/ns/1.0"
     xmlns:eg ="http://www.tei-c.org/ns/Examples"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:nf="http://newtfire.org"
@@ -41,21 +42,25 @@
             <xsl:variable name="glosses" as="element()*" select="current()/gloss"/>
             <xsl:variable name="descs" as="element()*" select="current()/desc"/>
             <xsl:variable name="remarks" as="element()*" select="current()/remarks"/>
+            <xsl:variable name="constraints" as="element()*" select="current()/constraintSpec[not(descendant::sch:pattern)]"/>
             <xsl:variable name="exempla" as="element()*" select="current()/exemplum"/>
             <xsl:variable name="contentModel" as="map(*)*">
-                <xsl:if test="current()/content"><xsl:call-template name="content">
+                <xsl:if test="current()/content">
+                    <xsl:call-template name="content">
                     <xsl:with-param name="content" as="element(content)" select="current()/content"/>
                 </xsl:call-template></xsl:if>
             </xsl:variable>
             <xsl:sequence select="map{
                 'SPEC-TYPE' : current()/name(),
                 'SPEC-NAME': current()/@ident ! normalize-space(),
-                'PART-OF': current()/@module ! normalize-space(), 
+                'PART-OF-MODULE': current()/@module ! normalize-space(), 
+                'MEMBER-OF-CLASS' : array {current()/classes/memberOf/@key ! normalize-space()},
                 'EQUIVALENT-NAME' : current()/equiv ! normalize-space(),
                 'GLOSSED-BY': array { nf:glossDescPuller($glosses)},
                 'DESCRIBED-BY': array{ nf:glossDescPuller($descs)},
                 'CONTENT-MODEL' : array { $contentModel },
                 'LISTS-ATTRIBUTES' : array { nf:attListPuller(current()/attList) },
+                'CONSTRAINED-BY': array {nf:constraintPuller($constraints)},
                 'CONTAINS-EXAMPLES': array{ nf:exemplumPuller($exempla)},
                 'REMARKS-ON': array { nf:glossDescPuller($remarks) }
                 }"/>   
@@ -72,6 +77,7 @@
            <xsl:variable name="descs" as="element()*" select="current()/desc"/>
            <xsl:variable name="remarks" as="element()*" select="current()/remark"/>
            <xsl:variable name="defaultVal" as="xs:string?" select="current()/defaultVal ! normalize-space()"/>
+           <xsl:variable name="constraints" as="element()*" select="current()/constraintSpec[not(descendant::sch:pattern)]"/>
           <xsl:variable name="exempla" as="element()*" select="current()/exemplum"/>
            <xsl:variable name="datatype" as="map(*)*"> 
               <xsl:if test="current()/datatype">
@@ -95,7 +101,6 @@
                        }"/> 
                </xsl:if>               
         </xsl:variable>
-
           <xsl:sequence select="map{
               'ATTRIBUTE-DEFINITION' : current()/@ident ! normalize-space(),
               'USAGE': current()/@usage ! normalize-space(),
@@ -103,6 +108,7 @@
               'DESCRIBED-BY': array { nf:glossDescPuller($descs)},
                'TAKES-DEFAULT-VALUE': $defaultVal,
                'TAKES-DATATYPE': array {$datatype},
+               'CONSTRAINED-BY': array {nf:constraintPuller($constraints)},
                'CONTAINS-EXAMPLES': array{ nf:exemplumPuller($exempla)},
                'REMARKS-ON': array{ nf:glossDescPuller($remarks)},
                'CONTAINS-VALUE-LIST': array { nf:valListPuller(current()/valList) }
@@ -122,7 +128,6 @@
                     }"/>
             </xsl:otherwise>
         </xsl:choose>
-        
     </xsl:function>
     <xsl:function name="nf:valListPuller" as="map(*)*">
         <xsl:param name="valList" as="element()*"/>
@@ -156,7 +161,43 @@
                 'DESCRIBED-BY' : array{nf:glossDescPuller($paramDescs) }
                 }"/>
         </xsl:for-each>        
-        
+    </xsl:function>
+    <xsl:function name="nf:constraintPuller" as="map(*)*">
+        <xsl:param name="constraintSpecs" as="element(constraintSpec)*"/>
+        <xsl:for-each select="$constraintSpecs">
+            <xsl:variable name="rules" as="element()*" select="current()//sch:rule"/>
+            <xsl:variable name="constraint" as="map(*)*">
+                <xsl:for-each select="$rules">
+                <xsl:variable name="tests" as="map(*)*">
+                    <xsl:for-each select="current()/(sch:assert, sch:report)">
+                       <xsl:choose>
+                           <xsl:when test="current() ! local-name() = 'assert'">
+                               <xsl:sequence select="map{ 
+                           'ASSERT_MUST-BE-TRUE' : current()/@test ! string(),
+                           'TEST' : normalize-space(.)
+                           }"/></xsl:when>
+                           <xsl:otherwise>
+                             <xsl:sequence select="map{ 
+                            'REPORT_MUST-BE-FALSE' : current()/@test ! string(),
+                             'TEST' : normalize-space(.)
+                                   }"/>
+                               
+                           </xsl:otherwise>
+     
+                       </xsl:choose>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:sequence select="map{
+                    'CONTEXT' : current()/@context ! string(),
+                    'TESTED-BY': array{$tests}
+                    }"/>
+            </xsl:for-each></xsl:variable>
+            <xsl:sequence select="map{ 
+                'ID' : current()/@ident ! normalize-space(),
+                'DESCRIBED-BY': array{nf:glossDescPuller(current()/desc) },
+                'RULES' : array{ $constraint }
+                }"/>
+        </xsl:for-each>
     </xsl:function>
     <xsl:function name="nf:exemplumPuller" as="map(*)*">
         <xsl:param name="exempla" as="element()*"/>
