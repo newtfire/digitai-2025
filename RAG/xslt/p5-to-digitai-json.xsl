@@ -138,7 +138,7 @@
                 <xsl:variable name="glosses" as="element()*" select="current()/gloss"/>
                 <xsl:variable name="paramList" as="element()*" select="current()/paramList"/>
                 <xsl:sequence select="map{
-                    'VALUE' : current()/ident ! normalize-space(),
+                    'VALUE' : current()/@ident ! normalize-space(),
                     'EQUIVALENT-NAME' : current()/equiv ! normalize-space(),
                     'GLOSSED-BY' : array {nf:glossDescPuller($glosses) },
                     'DESCRIBED-BY': array {nf:glossDescPuller($descs) },

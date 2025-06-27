@@ -1,12 +1,12 @@
 {
-  "DOCUMENT-TITLE": "THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH",
-  "PREPARED-BY": "Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher",
-  "TEI_SOURCE-VERSION-NUMBER": "4.10.0a",
-  "TEI_SOURCE-OUTPUT-DATE": "2025-06-24",
-  "THIS-JSON-DATETIME": "2025-06-27T14:03:52.584611-04:00",
-  "CONTAINS-PARTS": [
+  "CONTAINS_PARTS": [
     { "PART":"front" },
     { "PART":"body" }
   ],
-  "SUPPORTING-INSTITUTION": "Penn State Erie, The Behrend College"
+  "SUPPORTING_INSTITUTION": "Penn State Erie, The Behrend College",
+  "TEI_SOURCE_VERSION_NUMBER": "4.10.0a",
+  "TEI_SOURCE_OUTPUT_DATE": "2025-06-24",
+  "THIS_JSON_DATETIME": "2025-06-27T16:30:16.232401-04:00",
+  "DOCUMENT_TITLE": "THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH",
+  "PREPARED_BY": "Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher"
 }
