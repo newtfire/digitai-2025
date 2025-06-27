@@ -3,7 +3,10 @@
   "PREPARED-BY": "Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher",
   "TEI_SOURCE-VERSION-NUMBER": "4.10.0a",
   "TEI_SOURCE-OUTPUT-DATE": "2025-06-24",
-  "THIS-JSON-DATETIME": "2025-06-27T13:53:48.407706-04:00",
-  "CONTAINS-PARTS": [ "front", "body", "back" ],
+  "THIS-JSON-DATETIME": "2025-06-27T14:03:52.584611-04:00",
+  "CONTAINS-PARTS": [
+    { "PART":"front" },
+    { "PART":"body" }
+  ],
   "SUPPORTING-INSTITUTION": "Penn State Erie, The Behrend College"
 }

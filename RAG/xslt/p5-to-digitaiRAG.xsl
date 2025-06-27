@@ -40,11 +40,12 @@
                 <xsl:map-entry key="'TEI_SOURCE-VERSION-NUMBER'"><xsl:value-of select="$P5-version"/></xsl:map-entry>
                 <xsl:map-entry key="'TEI_SOURCE-OUTPUT-DATE'"><xsl:value-of select="$P5-versionDate"/></xsl:map-entry>
                 <xsl:map-entry key="'THIS-JSON-DATETIME'"><xsl:value-of select="$currentDateTime"/></xsl:map-entry>
-                <xsl:map-entry key="'CONTAINS-PARTS'">
-                    <xsl:sequence select="array { for $part in $P5/TEI/text/*[not(self::* = 'back')] return
+                <!--<xsl:map-entry key="'CONTAINS-PARTS'">
+                    <xsl:sequence select="array { for $part in $P5/TEI/text/*[not(self::back)] return
                         $part ! name() ! normalize-space()}"/>
-  
-                </xsl:map-entry> 
+                </xsl:map-entry> -->
+                <xsl:map-entry key="'CONTAINS-PARTS'"><xsl:sequence select="array { nf:chapterMapper($P5/TEI/text/*[not(self::back)])}"/></xsl:map-entry>
+
             </xsl:map>
         </xsl:result-document>
     </xsl:template>
