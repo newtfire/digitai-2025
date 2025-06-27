@@ -169,8 +169,15 @@
             <xsl:variable name="constraint" as="map(*)*">
                 <xsl:for-each select="$rules">
                 <xsl:variable name="tests" as="map(*)*">
-                    <xsl:for-each select="current()/(sch:assert, sch:report)">
+                    <xsl:for-each select="current()/(sch:let, sch:assert, sch:report)">
                        <xsl:choose>
+                           <xsl:when test="current()/local-name() ='let'">
+                               <xsl:sequence select="map{ 
+                                   'VARIABLE-FOR-TEST' : map{ 
+                                       'VARIABLE-NAME' : current()/@name ! normalize-space(),
+                                       'VARIABLE-VALUE': current()/@value ! normalize-space()
+                                   }}"/>
+                           </xsl:when>
                            <xsl:when test="current() ! local-name() = 'assert'">
                                <xsl:sequence select="map{ 
                            'ASSERT_MUST-BE-TRUE' : current()/@test ! string(),
