@@ -29,11 +29,15 @@
     <xsl:variable name="THIS_JSON_DATETIME" as="xs:string" select="'THIS_JSON_DATETIME'"/>
     <xsl:variable name="PART" as="xs:string" select="'PART'"/>
     <xsl:variable name="CHAPTER" as="xs:string" select="'CHAPTER'"/>
+    <xsl:variable name="SUBSECTION" as="xs:string" select="'SUBSECTION'"/>
+    <xsl:variable name="NAME" as="xs:string" select="'NAME'"/>
     <xsl:variable name="ID" as="xs:string" select="'ID'"/>
     
     <!-- GRAPH RELATIONSHIP KEYS -->
     <xsl:variable name="CONTAINS_PARTS" as="xs:string" select="'CONTAINS_PARTS'"/>
+    <xsl:variable name="CONTAINS_CHAPTERS" as="xs:string" select="'CONTAINS_CHAPTERS'"/>
     <xsl:variable name="CONTAINS_SECTIONS" as="xs:string" select="'CONTAINS_SECTIONS'"/>
+    <xsl:variable name="CONTAINS_SUBSECTIONS" as="xs:string" select="'CONTAINS_SUBSECTIONS'"/>
     <xsl:variable name="CONTAINS_PARAS" as="xs:string" select="'CONTAINS_PARAS'"/>
         
     
@@ -52,32 +56,43 @@
         <xsl:param name="part" as="element()+"/>
          <xsl:for-each select="$part">
              <xsl:map>
-                 <xsl:map-entry key="$PART"><xsl:sequence select="current()/name() ! normalize-space()"/></xsl:map-entry>
-                 <xsl:map-entry key="$CHAPTER">
-                     <xsl:for-each select="current()/div[not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))]">
-                        <xsl:choose>
-                            <xsl:when test="current()[p]">
-                                <xsl:variable name="paras" as="element()*" select="$P5//div[@xml:id = current()/@xml:id]/child::p"/>
-                                <xsl:map>
-                                    <xsl:map-entry key="$CHAPTER"><xsl:value-of select="current()/head ! normalize-space()"/></xsl:map-entry>
-                                    <xsl:map-entry key="$ID"><xsl:value-of select="current()/@xml:id ! normalize-space()"/></xsl:map-entry>
-                                    <xsl:map-entry key=""
-                                    
-                                    
-                                </xsl:map>
-                    =
-                            </xsl:when>
-                            <xsl:otherwise>
-                                
-                            
-                            </xsl:otherwise>
-                        </xsl:choose>       
-                     </xsl:for-each>
-                     
-                 </xsl:map-entry>
+                 <xsl:map-entry key="$PART"><xsl:sequence select="current() ! name() ! normalize-space()"/></xsl:map-entry>
+                <xsl:variable name="chapterMaps" as="map(*)*"> 
+                    <xsl:for-each select="current()/div[not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))]">
+                     <xsl:variable name="chap" as="element(div)" select="current()"/>
+                     <xsl:map>
+                         <xsl:map-entry key="$CHAPTER"><xsl:value-of select="$chap/head ! normalize-space()"/></xsl:map-entry>
+                         <xsl:map-entry key="$ID"><xsl:value-of select="$chap/@xml:id ! normalize-space()"/></xsl:map-entry>
+      
+                         <!--</xsl:map-entry>-->
+                         <!--   <xsl:if test="current()[p]">
+                                        <xsl:map-entry key="$CONTAINS_PARAS"><xsl:sequence select="array{nf:paraPuller(current()/p) }"/></xsl:map-entry>
+                                    </xsl:if>-->
+                      </xsl:map>
+                    </xsl:for-each>
+                 </xsl:variable> 
+                 <xsl:map-entry key="$CONTAINS_CHAPTERS"><xsl:sequence select="array{ $chapterMaps}"/></xsl:map-entry>
              </xsl:map>
-             
          </xsl:for-each>
+    </xsl:function>
+    <xsl:function name="nf:DivPuller" as="map(*)*">
+        <xsl:param name="div" as="element()"/>
+        <xsl:param name="sectionLevel" as="xs:string"/>
+        <xsl:map>
+            <xsl:map-entry key="$NAME"><xsl:value-of select="$div/head ! normalize-space()"/></xsl:map-entry>
+            <xsl:map-entry key="$ID"><xsl:value-of select="$div/@xml:id ! normalize-space()"/></xsl:map-entry>
+            
+
+
+           <!-- Are you a section with nested subsections? If so, continue processing those subsections. -->
+            <xsl:if test="$div/div[head]">
+                <xsl:map-entry key="'CONTAINS-'||$sectionLevel||'S'">
+              
+                       <xsl:sequence select="array { for $subd in $div/div[head] return nf:DivPuller($subd, 'NESTED-SUBSECTION')} "/>
+                </xsl:map-entry>
+           </xsl:if>
+         
+       </xsl:map>
     </xsl:function>
     
 <!--    <xsl:template match="/" mode="json-schema">
@@ -93,10 +108,10 @@
             
              CALL apoc.load.json("file:///digitai-p5.json") YIELD value AS json_data
              title: json_data. ,
-             preparedBy: json_data.<xsl:value-of select="$PREPARED-BY"/>,
-            teiSourceVersion: json_data.<xsl:value-of select="$TEI_SOURCE-VERSION-NUMBER"/>,
-             teiSourceOutputDate: json_data.<xsl:value-of select="$TEI_SOURCE-OUTPUT-DATE"/>,
-             thisJsonDatetime: json_data.<xsl:value-of select="$THIS-JSON-DATETIME"/>
+             preparedBy: json_data.<xsl:value-of select="$PREPARED_BY"/>,
+            teiSourceVersion: json_data.<xsl:value-of select="$TEI_SOURCE_VERSION_NUMBER"/>,
+             teiSourceOutputDate: json_data.<xsl:value-of select="$TEI_SOURCE_OUTPUT_DATE"/>,
+             thisJsonDatetime: json_data.<xsl:value-of select="$THIS_JSON_DATETIME"/>
              FOREACH (chapter_data IN 
             
             
@@ -115,7 +130,7 @@
                 <xsl:map-entry key="$DOCUMENT_TITLE">THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH</xsl:map-entry> 
                 <xsl:map-entry key="$PREPARED_BY">Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher</xsl:map-entry>
                 <xsl:map-entry key="$SUPPORTING_INSTITUTION">Penn State Erie, The Behrend College</xsl:map-entry>
-                <xsl:map-entry key="$TEI_SOURCE_VERSION-NUMBER"><xsl:value-of select="$P5-version"/></xsl:map-entry>
+                <xsl:map-entry key="$TEI_SOURCE_VERSION_NUMBER"><xsl:value-of select="$P5-version"/></xsl:map-entry>
                 <xsl:map-entry key="$TEI_SOURCE_OUTPUT_DATE"><xsl:value-of select="$P5-versionDate"/></xsl:map-entry>
                 <xsl:map-entry key="$THIS_JSON_DATETIME"><xsl:value-of select="$currentDateTime"/></xsl:map-entry>
                    <xsl:map-entry key="$CONTAINS_PARTS">

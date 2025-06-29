@@ -1,12 +1,140 @@
 {
   "CONTAINS_PARTS": [
-    { "PART":"front" },
-    { "PART":"body" }
+    {
+      "CONTAINS_CHAPTERS": [
+        {
+          "CHAPTER": "Releases of the TEI Guidelines",
+          "ID": "TitlePageVerso"
+        },
+        {
+          "CHAPTER": "Dedication",
+          "ID": "dedication"
+        },
+        {
+          "CHAPTER": "Preface and Acknowledgments",
+          "ID": "FM1"
+        },
+        {
+          "CHAPTER": "About These Guidelines",
+          "ID": "AB"
+        },
+        {
+          "CHAPTER": "A Gentle Introduction to XML",
+          "ID": "SG"
+        },
+        {
+          "CHAPTER": "Languages and Character Sets",
+          "ID": "CH"
+        }
+      ],
+      "PART": "front"
+    },
+    {
+      "CONTAINS_CHAPTERS": [
+        {
+          "CHAPTER": "The TEI Infrastructure",
+          "ID": "ST"
+        },
+        {
+          "CHAPTER": "The TEI Header",
+          "ID": "HD"
+        },
+        {
+          "CHAPTER": "Elements Available in All TEI Documents",
+          "ID": "CO"
+        },
+        {
+          "CHAPTER": "Default Text Structure",
+          "ID": "DS"
+        },
+        {
+          "CHAPTER": "Characters, Glyphs, and Writing Modes",
+          "ID": "WD"
+        },
+        {
+          "CHAPTER": "Verse",
+          "ID": "VE"
+        },
+        {
+          "CHAPTER": "Performance Texts",
+          "ID": "DR"
+        },
+        {
+          "CHAPTER": "Transcriptions of Speech",
+          "ID": "TS"
+        },
+        {
+          "CHAPTER": "Computer-mediated Communication",
+          "ID": "CMC"
+        },
+        {
+          "CHAPTER": "Dictionaries",
+          "ID": "DI"
+        },
+        {
+          "CHAPTER": "Manuscript Description",
+          "ID": "MS"
+        },
+        {
+          "CHAPTER": "Representation of Primary Sources",
+          "ID": "PH"
+        },
+        {
+          "CHAPTER": "Critical Apparatus",
+          "ID": "TC"
+        },
+        {
+          "CHAPTER": "Names, Dates, People, and Places",
+          "ID": "ND"
+        },
+        {
+          "CHAPTER": "Tables, Formulæ, Graphics, and Notated Music",
+          "ID": "FT"
+        },
+        {
+          "CHAPTER": "Language Corpora",
+          "ID": "CC"
+        },
+        {
+          "CHAPTER": "Linking, Segmentation, and Alignment",
+          "ID": "SA"
+        },
+        {
+          "CHAPTER": "Simple Analytic Mechanisms",
+          "ID": "AI"
+        },
+        {
+          "CHAPTER": "Feature Structures",
+          "ID": "FS"
+        },
+        {
+          "CHAPTER": "Graphs, Networks, and Trees",
+          "ID": "GD"
+        },
+        {
+          "CHAPTER": "Non-hierarchical Structures",
+          "ID": "NH"
+        },
+        {
+          "CHAPTER": "Certainty, Precision, and Responsibility",
+          "ID": "CE"
+        },
+        {
+          "CHAPTER": "Documentation Elements",
+          "ID": "TD"
+        },
+        {
+          "CHAPTER": "Using the TEI",
+          "ID": "USE"
+        }
+      ],
+      "PART": "body"
+    }
   ],
   "SUPPORTING_INSTITUTION": "Penn State Erie, The Behrend College",
   "TEI_SOURCE_VERSION_NUMBER": "4.10.0a",
   "TEI_SOURCE_OUTPUT_DATE": "2025-06-24",
-  "THIS_JSON_DATETIME": "2025-06-27T16:30:16.232401-04:00",
+  "THIS_JSON_DATETIME": "2025-06-29T18:40:01.619393-04:00",
   "DOCUMENT_TITLE": "THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH",
   "PREPARED_BY": "Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher"
 }
