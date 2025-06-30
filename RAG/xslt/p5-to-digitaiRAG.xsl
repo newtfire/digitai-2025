@@ -33,7 +33,7 @@
     <xsl:variable name="NAME" as="xs:string" select="'NAME'"/>
     <xsl:variable name="ID" as="xs:string" select="'ID'"/>
     
-    <!-- GRAPH RELATIONSHIP KEYS -->
+    <!-- SEQUENCE INDICATORS -->
     <xsl:variable name="CONTAINS_PARTS" as="xs:string" select="'CONTAINS_PARTS'"/>
     <xsl:variable name="CONTAINS_CHAPTERS" as="xs:string" select="'CONTAINS_CHAPTERS'"/>
     <xsl:variable name="CONTAINS_SECTIONS" as="xs:string" select="'CONTAINS_SECTIONS'"/>

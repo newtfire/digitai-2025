@@ -6,6 +6,9 @@
     version="3.0">
 
     <xsl:variable name="sourceDoc" as="document-node()" select="doc('sandboxTest.xml')"/>
+    <xsl:variable name="newline" as="xs:string" select="'&#10;'"/>
+    <xsl:variable name="tab" as="xs:string" select="'&#x9;'"/>
+    <xsl:variable name="nltab" as="xs:string" select="$newline||$tab"/>
     
    <!-- FUNCTIONS AND TEMPLATES FOR GENERATING JSON DATA FROM SOURCE XML -->
 
@@ -144,7 +147,7 @@
                     <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
                     <xsl:map-entry key="'jsonKeyForPK'">DOC_TITLE</xsl:map-entry>
                     <xsl:map-entry key="'parent'" select="'value'"/>
-                    <!-- (the value of the JSON document on import) -->
+                    <!-- (Literally the value of the JSON document on import) -->
                     <xsl:map-entry key="'relationship'" select="'HAS_PART'"/>
                 </xsl:map>
             </xsl:map-entry>
@@ -203,16 +206,13 @@
     <xsl:function name="my:generate-relationship-merge" as="xs:string">
         <xsl:param name="map-entity-type" as="xs:string"/>
         <xsl:variable name="model" select="$my:graph-model($map-entity-type)"/>
-        <xsl:variable name="parent-model" select="$my:graph-model($model('parent'))"/>
-        
-        <xsl:sequence select="'MERGE ('||$parent-model('cypherVar')||')-[:'||$model('relationship')||']->('||$model('cypherVar')||')'"/>
+        <xsl:variable name="parent-model" select="$my:graph-model($model('parent'))"/>        
+        <xsl:sequence select="
+        'MERGE ('||$parent-model('cypherVar')||')-[:'||$model('relationship')||']->('||$model('cypherVar')||')'"/>
     </xsl:function>
-    
-    
-
-    
+   
 <xsl:template match="/" mode="cypher">
-    <xsl:result-document href="sandbox-cypher-import.cypher">
+    <xsl:result-document href="sandbox-cypher-import.cypher" method="text">
         <xsl:text>
         // =================================================================
         // 1. SETUP: Create Constraints for Performance and Data Integrity
@@ -228,23 +228,21 @@
       
       CALL apoc.load.json("file:///sandboxTest.json") YIELD value
       
-      // Create the single root Document node
-      MERGE (doc:Document {title: value.DOC_TITLE})</xsl:text>
-      <xsl:value-of select="my:generate-node-merge('document', 'document_data')"/>
-   
+      // Create the single root Document node</xsl:text>
+        <xsl:value-of select="$nltab"/>
+      <xsl:value-of select="my:generate-node-merge('document', 'value')"/>
+        <xsl:value-of select="$nltab"/>
       <xsl:text>
           // Process each Part (front, body)
       FOREACH (part_data in value.CONTAINS_PARTS |
         </xsl:text>
-      
       <xsl:value-of select="my:generate-node-merge('part', 'part_data')"/>
-        <xsl:text>
-            
-        </xsl:text>
+       <xsl:value-of select="$newline"/>
         <xsl:value-of select="my:generate-relationship-merge('part')"/>
        
       
       <xsl:text>
+     // OLD WRITTEN OUT FOR COMPARISON BELOW
      // FOREACH (part_data IN value.CONTAINS_PARTS |
      //   MERGE (part:Part {name: part_data.PART})
      //   MERGE (doc)-[:HAS_PART]->(part)
