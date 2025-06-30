@@ -155,7 +155,7 @@
                     <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
                     <xsl:map-entry key="'jsonKeyForPK'">PART</xsl:map-entry>
                     <xsl:map-entry key="'parent'" select="'document'"/>
-                    <xsl:map-entry key="'relationship'" select="'HAS_CHAPTER'"/>
+                    <xsl:map-entry key="'relationship'" select="'HAS_PART'"/>
                     
                 </xsl:map>
             </xsl:map-entry>
@@ -229,12 +229,20 @@
       CALL apoc.load.json("file:///sandboxTest.json") YIELD value
       
       // Create the single root Document node
-      MERGE (doc:Document {title: value.DOC_TITLE})
+      MERGE (doc:Document {title: value.DOC_TITLE})</xsl:text>
+      <xsl:value-of select="my:generate-node-merge('document', 'document_data')"/>
    
-      // Process each Part (front, body)
+      <xsl:text>
+          // Process each Part (front, body)
       FOREACH (part_data in value.CONTAINS_PARTS |
         </xsl:text>
+      
       <xsl:value-of select="my:generate-node-merge('part', 'part_data')"/>
+        <xsl:text>
+            
+        </xsl:text>
+        <xsl:value-of select="my:generate-relationship-merge('part')"/>
+       
       
       <xsl:text>
      // FOREACH (part_data IN value.CONTAINS_PARTS |

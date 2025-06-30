@@ -14,11 +14,12 @@
       CALL apoc.load.json("file:///sandboxTest.json") YIELD value
       
       // Create the single root Document node
-      MERGE (doc:Document {title: value.DOC_TITLE})
-   
-      // Process each Part (front, body)
+      MERGE (doc:Document {title: value.DOC_TITLE})MERGE (doc:Document {name: document_data.DOC_TITLE})
+          // Process each Part (front, body)
       FOREACH (part_data in value.CONTAINS_PARTS |
         MERGE (part:Part {name: part_data.PART})
+            
+        MERGE (doc)-[:HAS_PART]-&gt;(part)
      // FOREACH (part_data IN value.CONTAINS_PARTS |
      //   MERGE (part:Part {name: part_data.PART})
      //   MERGE (doc)-[:HAS_PART]-&gt;(part)
