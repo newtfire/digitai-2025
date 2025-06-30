@@ -5,9 +5,9 @@
     xmlns:my="https://my.namespace/for/function-definitions" exclude-result-prefixes="xs math"
     version="3.0">
 
-    <xsl:output method="json" indent="yes"/>
-
     <xsl:variable name="sourceDoc" as="document-node()" select="doc('sandboxTest.xml')"/>
+    
+   <!-- FUNCTIONS AND TEMPLATES FOR GENERATING JSON DATA FROM SOURCE XML -->
 
     <xsl:function name="my:sectionMapper" as="map(*)*">
         <xsl:param name="section" as="element()+"/>
@@ -107,10 +107,9 @@
     </xsl:function>
 
     <xsl:template match="/">
-        <xsl:result-document href="sandboxTest.json">
+        <xsl:result-document href="sandboxTest.json" method="json" indent="yes">
             <xsl:map>
-                <xsl:map-entry key="'DOC_TITLE'">SOURCE XML AS BASIS FOR A KNOWLEDGE
-                    GRAPH</xsl:map-entry>
+                <xsl:map-entry key="'DOC_TITLE'">SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH</xsl:map-entry>
                 <xsl:variable name="parts" as="map(*)*">
                     <xsl:for-each select="$sourceDoc/*/*">
                         <xsl:map>
@@ -129,9 +128,126 @@
 
             </xsl:map>
         </xsl:result-document>
-
-
+        <xsl:apply-templates select="/" mode="cypher"/>
     </xsl:template>
+    
+<!-- CYPHER MAP, FUNCTIONS AND TEMPLATES FOR IMPORTING THE JSON AND BUILDING THE GRAPH -->
+    
+    <!-- MAP FOR THE GRAPH MODEL -->
+    
+    <xsl:variable name="my:graph-model" as="map(xs:string, map(*))">
+        <xsl:map>
+            <xsl:map-entry key="'document'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'">Document</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'">doc</xsl:map-entry>
+                    <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
+                    <xsl:map-entry key="'jsonKeyForPK'">DOC_TITLE</xsl:map-entry>
+                    <xsl:map-entry key="'parent'" select="'value'"/>
+                    <!-- (the value of the JSON document on import) -->
+                    <xsl:map-entry key="'relationship'" select="'HAS_PART'"/>
+                </xsl:map>
+            </xsl:map-entry>
+            <xsl:map-entry key="'part'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'">Part</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'">part</xsl:map-entry>
+                    <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
+                    <xsl:map-entry key="'jsonKeyForPK'">PART</xsl:map-entry>
+                    <xsl:map-entry key="'parent'" select="'document'"/>
+                    <xsl:map-entry key="'relationship'" select="'HAS_CHAPTER'"/>
+                    
+                </xsl:map>
+            </xsl:map-entry>
+            <xsl:map-entry key="'chapter'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'Section'"/>
+                    <xsl:map-entry key="'cypherVar'" select="'chapter'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'id'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'title'">CHAPTER</xsl:map-entry>
+                            <xsl:map-entry key="'type'">xs:string</xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry>
+                    <xsl:map-entry key="'parent'" select="'part'"/>
+                    <xsl:map-entry key="'relationship'" select="'HAS_SECTION'"/>
+                </xsl:map>
+            </xsl:map-entry>
+            
+            <xsl:map-entry key="'section'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'Section'"/>
+                    <xsl:map-entry key="'cypherVar'" select="'section'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'id'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
+                    <xsl:map-entry key="'properties'" select="map{'title': 'SECTION', 'type': 'xs:string'}"/>
+                    <xsl:map-entry key="'parent'" select="'chapter'"/>
+                    <xsl:map-entry key="'relationship'" select="'HAS_SECTION'"/>
+                </xsl:map>
+            </xsl:map-entry>
+        </xsl:map>
+    </xsl:variable>
+    
+    <!-- FUNCTION TO MERGE NODES -->
+    <xsl:function name="my:generate-node-merge" as="xs:string">
+        <xsl:param name="map-entity-type" as="xs:string"/> 
+        <xsl:param name="json-variable" as="xs:string"/> 
+        <xsl:variable name="model" select="$my:graph-model($map-entity-type)"/>
+        <xsl:sequence select="'MERGE ('||$model('cypherVar')||':'||$model('label')||
+            ' {'||$model('primaryKey')||': '||$json-variable||'.'||$model('jsonKeyForPK')|| '})'"/>
+    </xsl:function>
+    
+    <!-- FUNCTION TO ESTABLISH EDGES (RELATIONSHIP CONNECTIONS)-->
+    <xsl:function name="my:generate-relationship-merge" as="xs:string">
+        <xsl:param name="map-entity-type" as="xs:string"/>
+        <xsl:variable name="model" select="$my:graph-model($map-entity-type)"/>
+        <xsl:variable name="parent-model" select="$my:graph-model($model('parent'))"/>
+        
+        <xsl:sequence select="'MERGE ('||$parent-model('cypherVar')||')-[:'||$model('relationship')||']->('||$model('cypherVar')||')'"/>
+    </xsl:function>
+    
+    
+
+    
+<xsl:template match="/" mode="cypher">
+    <xsl:result-document href="sandbox-cypher-import.cypher">
+        <xsl:text>
+        // =================================================================
+        // 1. SETUP: Create Constraints for Performance and Data Integrity
+        // =================================================================
+        CREATE CONSTRAINT IF NOT EXISTS FOR (d:Document) REQUIRE d.title IS UNIQUE;
+        CREATE CONSTRAINT IF NOT EXISTS FOR (s:Section) REQUIRE s.id IS UNIQUE;
+        CREATE CONSTRAINT IF NOT EXISTS FOR (spec:Specification) REQUIRE spec.name IS UNIQUE;
+        
+        
+        // =================================================================
+        // 2. LOAD AND PROCESS: Load the JSON and iterate through it
+        // =================================================================
+      
+      CALL apoc.load.json("file:///sandboxTest.json") YIELD value
+      
+      // Create the single root Document node
+      MERGE (doc:Document {title: value.DOC_TITLE})
+   
+      // Process each Part (front, body)
+      FOREACH (part_data in value.CONTAINS_PARTS |
+        </xsl:text>
+      <xsl:value-of select="my:generate-node-merge('part', 'part_data')"/>
+      
+      <xsl:text>
+     // FOREACH (part_data IN value.CONTAINS_PARTS |
+     //   MERGE (part:Part {name: part_data.PART})
+     //   MERGE (doc)-[:HAS_PART]->(part)
+        
+        </xsl:text>  
+        
+        
+        
+        
+    </xsl:result-document>
+</xsl:template>
 
 
 </xsl:stylesheet>
