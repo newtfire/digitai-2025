@@ -1,0 +1,463 @@
+name,description,query,id,parentId,isFolder
+temp3,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+// Create Document Node
+MERGE (doc:Document {
+    title: json_data.DOCUMENT_TITLE,
+    preparedBy: json_data.PREPARED_BY,
+    teiSourceVersion: json_data.TEI_SOURCE_VERSION_NUMBER,
+    teiSourceOutputDate: json_data.TEI_SOURCE_OUTPUT_DATE,
+    thisJsonDatetime: json_data.THIS_JSON_DATETIME
+})
+
+// Iterate through CONTAINS_PARTS to create Part nodes
+FOREACH (part_data IN json_data.CONTAINS_PARTS |
+    MERGE (part:Part {name: part_data.PART})
+    MERGE (doc)-[:CONTAINS_PART]->(part)
+
+    // Iterate through CONTAINS_CHAPTERS to create Chapter nodes
+    FOREACH (chapter_data IN part_data.CONTAINS_CHAPTERS |
+        MERGE (chapter:Chapter {id: chapter_data.ID})
+        ON CREATE SET
+            chapter.chapter = chapter_data.CHAPTER,
+            chapter.containsSpecs = apoc.convert.toJson(chapter_data.CONTAINS_SPECS),
+            chapter.relatesTo = CASE
+                                    WHEN chapter_data.RELATES_TO IS NOT NULL AND size(chapter_data.RELATES_TO) > 0
+                                    THEN REDUCE(ids = [], rel IN chapter_data.RELATES_TO | ids + rel.ID)
+                                    ELSE []
+                                END,
+            chapter.containsCitation = apoc.convert.toJson(chapter_data.CONTAINS_CITATION),
+            chapter.containsModule = apoc.convert.toJson(chapter_data.CONTAINS_MODULE)
+        ON MATCH SET
+            chapter.chapter = chapter_data.CHAPTER,
+            chapter.containsSpecs = apoc.convert.toJson(chapter_data.CONTAINS_SPECS),
+            chapter.relatesTo = CASE
+                                    WHEN chapter_data.RELATES_TO IS NOT NULL AND size(chapter_data.RELATES_TO) > 0
+                                    THEN REDUCE(ids = [], rel IN chapter_data.RELATES_TO | ids + rel.ID)
+                                    ELSE []
+                                END,
+            chapter.containsCitation = apoc.convert.toJson(chapter_data.CONTAINS_CITATION),
+            chapter.containsModule = apoc.convert.toJson(chapter_data.CONTAINS_MODULE)
+
+        MERGE (part)-[:CONTAINS_CHAPTER]->(chapter)
+
+        // Create PARA nodes directly under Chapter and relate them
+        FOREACH (para_data IN CASE WHEN chapter_data.CONTAINS_PARAS IS NOT NULL THEN chapter_data.CONTAINS_PARAS ELSE [] END |
+            CREATE (para:PARA {
+                text: para_data.PARA,
+                paraStringLength: para_data.`Para-String-Length`
+            })
+            // Collect and set elements, attributes, and classes mentioned from PARA as lists
+            SET
+                para.elementsMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                    REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                        acc + CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END
+                    )
+                )),
+                para.attributesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                    REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                        acc + CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END
+                    )
+                )),
+                para.classesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                    REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                        acc + CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END
+                    )
+                )),
+                para.examples = apoc.coll.toSet(apoc.coll.flatten(
+                    REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                        acc + CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END
+                    )
+                )),
+                para.modulesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                    REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                        acc + CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END
+                    )
+                )),
+                para.macrosMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                    REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                        acc + CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END
+                    )
+                )),
+                para.generalEntitiesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                    REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                        acc + CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END
+                    )
+                ))
+            MERGE (chapter)-[:CONTAINS_PARA]->(para)
+
+            // Create Element, Attribute, Class, Example, Module, Macro, GeneralEntity nodes and relationships from PARA
+            FOREACH (mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                FOREACH (elementName IN CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END |
+                    MERGE (element:Element {name: elementName})
+                    MERGE (para)-[:MENTIONS_ELEMENT]->(element)
+                )
+                FOREACH (attributeName IN CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END |
+                    MERGE (attribute:Attribute {name: attributeName})
+                    MERGE (para)-[:MENTIONS_ATTRIBUTE]->(attribute)
+                )
+                FOREACH (className IN CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END |
+                    MERGE (class:Class {name: className})
+                    MERGE (para)-[:MENTIONS_CLASS]->(class)
+                )
+                FOREACH (exampleData IN CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END |
+                    CREATE (example:Example {content: exampleData})
+                    MERGE (para)-[:MENTIONS_EXAMPLE]->(example)
+                )
+                 FOREACH (moduleName IN CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END |
+                    MERGE (module:Module {name: moduleName})
+                    MERGE (para)-[:MENTIONS_MODULE]->(module)
+                )
+                FOREACH (macroName IN CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END |
+                    MERGE (macro:Macro {name: macroName})
+                    MERGE (para)-[:MENTIONS_MACRO]->(macro)
+                )
+                FOREACH (geName IN CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END |
+                    MERGE (generalEntity:GeneralEntity {name: geName})
+                    MERGE (para)-[:MENTIONS_GENERAL_ENTITY]->(generalEntity)
+                )
+            )
+        )
+
+        // Iterate through CONTAINS_SECTIONS to create Section nodes
+        FOREACH (section_data IN chapter_data.CONTAINS_SECTIONS |
+            CREATE (section:Section)
+            SET
+                section.id = section_data.ID,
+                section.name = section_data.NAME,
+                section.containsSpecs = apoc.convert.toJson(section_data.CONTAINS_SPECS),
+                section.sectionLevel = section_data.NAME,
+                section.relatesTo = CASE
+                                        WHEN section_data.RELATES_TO IS NOT NULL AND size(section_data.RELATES_TO) > 0
+                                        THEN REDUCE(ids = [], rel IN section_data.RELATES_TO | ids + rel.ID)
+                                        ELSE []
+                                    END,
+                section.containsCitation = apoc.convert.toJson(section_data.CONTAINS_CITATION),
+                section.containsSpecGrps = apoc.convert.toJson(section_data.CONTAINS_SPECGRPS)
+            MERGE (chapter)-[:CONTAINS_SECTION]->(section)
+
+            // Create PARA nodes directly under Section and relate them
+            FOREACH (para_data IN CASE WHEN section_data.CONTAINS_PARAS IS NOT NULL THEN section_data.CONTAINS_PARAS ELSE [] END |
+                CREATE (para:PARA {
+                    text: para_data.PARA,
+                    paraStringLength: para_data.`Para-String-Length`
+                })
+                // Collect and set elements, attributes, and classes mentioned from PARA as lists
+                SET
+                    para.elementsMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                        REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                            acc + CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END
+                        )
+                    )),
+                    para.attributesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                        REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                            acc + CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END
+                        )
+                    )),
+                    para.classesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                        REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                            acc + CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END
+                        )
+                    )),
+                    para.examples = apoc.coll.toSet(apoc.coll.flatten(
+                        REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                            acc + CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END
+                        )
+                    )),
+                    para.modulesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                        REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                            acc + CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END
+                        )
+                    )),
+                    para.macrosMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                        REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                            acc + CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END
+                        )
+                    )),
+                    para.generalEntitiesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                        REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                            acc + CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END
+                        )
+                    ))
+                MERGE (section)-[:CONTAINS_PARA]->(para)
+
+                // Create Element, Attribute, Class, Example, Module, Macro, GeneralEntity nodes and relationships from PARA
+                FOREACH (mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                    FOREACH (elementName IN CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END |
+                        MERGE (element:Element {name: elementName})
+                        MERGE (para)-[:MENTIONS_ELEMENT]->(element)
+                    )
+                    FOREACH (attributeName IN CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END |
+                        MERGE (attribute:Attribute {name: attributeName})
+                        MERGE (para)-[:MENTIONS_ATTRIBUTE]->(attribute)
+                    )
+                    FOREACH (className IN CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END |
+                        MERGE (class:Class {name: className})
+                        MERGE (para)-[:MENTIONS_CLASS]->(class)
+                    )
+                    FOREACH (exampleData IN CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END |
+                        CREATE (example:Example {content: exampleData})
+                        MERGE (para)-[:MENTIONS_EXAMPLE]->(example)
+                    )
+                    FOREACH (moduleName IN CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END |
+                        MERGE (module:Module {name: moduleName})
+                        MERGE (para)-[:MENTIONS_MODULE]->(module)
+                    )
+                    FOREACH (macroName IN CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END |
+                        MERGE (macro:Macro {name: macroName})
+                        MERGE (para)-[:MENTIONS_MACRO]->(macro)
+                    )
+                    FOREACH (geName IN CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END |
+                        MERGE (generalEntity:GeneralEntity {name: geName})
+                        MERGE (para)-[:MENTIONS_GENERAL_ENTITY]->(generalEntity)
+                    )
+                )
+            )
+
+            // Iterate through CONTAINS_SUBSECTION to create Subsection nodes
+            FOREACH (subsection_data IN section_data.CONTAINS_SUBSECTION |
+                CREATE (subsection:Subsection)
+                SET
+                    subsection.id = subsection_data.ID,
+                    subsection.name = subsection_data.NAME,
+                    subsection.containsSpecs = apoc.convert.toJson(subsection_data.CONTAINS_SPECS),
+                    subsection.sectionLevel = subsection_data.NAME,
+                    subsection.relatesTo = CASE
+                                            WHEN subsection_data.RELATES_TO IS NOT NULL AND size(subsection_data.RELATES_TO) > 0
+                                            THEN REDUCE(ids = [], rel IN subsection_data.RELATES_TO | ids + rel.ID)
+                                            ELSE []
+                                        END,
+                    subsection.containsCitation = apoc.convert.toJson(subsection_data.CONTAINS_CITATION),
+                    subsection.containsSpecGrps = apoc.convert.toJson(subsection_data.CONTAINS_SPECGRPS)
+                MERGE (section)-[:CONTAINS_SUBSECTION]->(subsection)
+
+                // Create PARA nodes directly under Subsection and relate them
+                FOREACH (para_data IN CASE WHEN subsection_data.CONTAINS_PARAS IS NOT NULL THEN subsection_data.CONTAINS_PARAS ELSE [] END |
+                    CREATE (para:PARA {
+                        text: para_data.PARA,
+                        paraStringLength: para_data.`Para-String-Length`
+                    })
+                    // Collect and set elements, attributes, and classes mentioned from PARA as lists
+                    SET
+                        para.elementsMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                            REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                acc + CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END
+                            )
+                        )),
+                        para.attributesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                            REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                acc + CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END
+                            )
+                        )),
+                        para.classesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                            REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                acc + CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END
+                            )
+                        )),
+                        para.examples = apoc.coll.toSet(apoc.coll.flatten(
+                            REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                acc + CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END
+                            )
+                        )),
+                        para.modulesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                            REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                acc + CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END
+                            )
+                        )),
+                        para.macrosMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                            REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                acc + CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END
+                            )
+                        )),
+                        para.generalEntitiesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                            REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                acc + CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END
+                            )
+                        ))
+                    MERGE (subsection)-[:CONTAINS_PARA]->(para)
+
+                    // Create Element, Attribute, Class, Example, Module, Macro, GeneralEntity nodes and relationships from PARA
+                    FOREACH (mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                        FOREACH (elementName IN CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END |
+                            MERGE (element:Element {name: elementName})
+                            MERGE (para)-[:MENTIONS_ELEMENT]->(element)
+                        )
+                        FOREACH (attributeName IN CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END |
+                            MERGE (attribute:Attribute {name: attributeName})
+                            MERGE (para)-[:MENTIONS_ATTRIBUTE]->(attribute)
+                        )
+                        FOREACH (className IN CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END |
+                            MERGE (class:Class {name: className})
+                            MERGE (para)-[:MENTIONS_CLASS]->(class)
+                        )
+                        FOREACH (exampleData IN CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END |
+                            CREATE (example:Example {content: exampleData})
+                            MERGE (para)-[:MENTIONS_EXAMPLE]->(example)
+                        )
+                        FOREACH (moduleName IN CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END |
+                            MERGE (module:Module {name: moduleName})
+                            MERGE (para)-[:MENTIONS_MODULE]->(module)
+                        )
+                        FOREACH (macroName IN CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END |
+                            MERGE (macro:Macro {name: macroName})
+                            MERGE (para)-[:MENTIONS_MACRO]->(macro)
+                        )
+                        FOREACH (geName IN CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END |
+                            MERGE (generalEntity:GeneralEntity {name: geName})
+                            MERGE (para)-[:MENTIONS_GENERAL_ENTITY]->(generalEntity)
+                        )
+                    )
+                )
+
+                // Iterate through CONTAINS_NESTED_SUBSECTION to create NestedSubsection nodes
+                FOREACH (nested_subsection_data IN subsection_data.CONTAINS_NESTED_SUBSECTION |
+                    CREATE (nestedSubsection:NestedSubsection)
+                    SET
+                        nestedSubsection.id = nested_subsection_data.ID,
+                        nestedSubsection.name = nested_subsection_data.NAME,
+                        nestedSubsection.containsSpecs = apoc.convert.toJson(nested_subsection_data.CONTAINS_SPECS),
+                        nestedSubsection.sectionLevel = nested_subsection_data.NAME,
+                        nestedSubsection.relatesTo = CASE
+                                                        WHEN nested_subsection_data.RELATES_TO IS NOT NULL AND size(nested_subsection_data.RELATES_TO) > 0
+                                                        THEN REDUCE(ids = [], rel IN nested_subsection_data.RELATES_TO | ids + rel.ID)
+                                                        ELSE []
+                                                    END,
+                        nestedSubsection.containsCitation = apoc.convert.toJson(nested_subsection_data.CONTAINS_CITATION),
+                        nestedSubsection.containsSpecGrps = apoc.convert.toJson(nested_subsection_data.CONTAINS_SPECGRPS)
+                    MERGE (subsection)-[:CONTAINS_NESTED_SUBSECTION]->(nestedSubsection)
+
+                    // Create PARA nodes directly under NestedSubsection and relate them
+                    FOREACH (para_data IN CASE WHEN nested_subsection_data.CONTAINS_PARAS IS NOT NULL THEN nested_subsection_data.CONTAINS_PARAS ELSE [] END |
+                        CREATE (para:PARA {
+                            text: para_data.PARA,
+                            paraStringLength: para_data.`Para-String-Length`
+                        })
+                        // Collect and set elements, attributes, and classes mentioned from PARA as lists
+                        SET
+                            para.elementsMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                                REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                    acc + CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END
+                                )
+                            )),
+                            para.attributesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                                REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                    acc + CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END
+                                )
+                            )),
+                            para.classesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                                REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                    acc + CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END
+                                )
+                            )),
+                            para.examples = apoc.coll.toSet(apoc.coll.flatten(
+                                REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                    acc + CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END
+                                )
+                            )),
+                            para.modulesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                                REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                    acc + CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END
+                                )
+                            )),
+                            para.macrosMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                                REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                    acc + CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END
+                                )
+                            )),
+                            para.generalEntitiesMentioned = apoc.coll.toSet(apoc.coll.flatten(
+                                REDUCE(acc = [], mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                                    acc + CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END
+                                )
+                            ))
+                        MERGE (nestedSubsection)-[:CONTAINS_PARA]->(para)
+
+                        // Create Element, Attribute, Class, Example, Module, Macro, GeneralEntity nodes and relationships from PARA
+                        FOREACH (mention IN CASE WHEN para_data.TEI_ENCODING_DISCUSSED IS NOT NULL THEN para_data.TEI_ENCODING_DISCUSSED ELSE [] END |
+                            FOREACH (elementName IN CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END |
+                                MERGE (element:Element {name: elementName})
+                                MERGE (para)-[:MENTIONS_ELEMENT]->(element)
+                            )
+                            FOREACH (attributeName IN CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END |
+                                MERGE (attribute:Attribute {name: attributeName})
+                                MERGE (para)-[:MENTIONS_ATTRIBUTE]->(attribute)
+                            )
+                            FOREACH (className IN CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END |
+                                MERGE (class:Class {name: className})
+                                MERGE (para)-[:MENTIONS_CLASS]->(class)
+                            )
+                            FOREACH (exampleData IN CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END |
+                                CREATE (example:Example {content: exampleData})
+                                MERGE (para)-[:MENTIONS_EXAMPLE]->(example)
+                            )
+                            FOREACH (moduleName IN CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END |
+                                MERGE (module:Module {name: moduleName})
+                                MERGE (para)-[:MENTIONS_MODULE]->(module)
+                            )
+                            FOREACH (macroName IN CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END |
+                                MERGE (macro:Macro {name: macroName})
+                                MERGE (para)-[:MENTIONS_MACRO]->(macro)
+                            )
+                            FOREACH (geName IN CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END |
+                                MERGE (generalEntity:GeneralEntity {name: geName})
+                                MERGE (para)-[:MENTIONS_GENERAL_ENTITY]->(generalEntity)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
+
+// After all nodes and relationships are created, use WITH to pass 'doc' into the next clause,
+// then match the entire graph for visualization.
+WITH doc
+MATCH (d:Document)-[r_part:CONTAINS_PART]->(p:Part)-[r_chapter:CONTAINS_CHAPTER]->(ch:Chapter)
+OPTIONAL MATCH (ch)-[r_para_ch:CONTAINS_PARA]->(para_ch:PARA)
+OPTIONAL MATCH (ch)-[r_section:CONTAINS_SECTION]->(s:Section)
+OPTIONAL MATCH (s)-[r_para_s:CONTAINS_PARA]->(para_s:PARA)
+OPTIONAL MATCH (s)-[r_subsection:CONTAINS_SUBSECTION]->(sub:Subsection)
+OPTIONAL MATCH (sub)-[r_para_sub:CONTAINS_PARA]->(para_sub:PARA)
+OPTIONAL MATCH (sub)-[r_nested:CONTAINS_NESTED_SUBSECTION]->(nsub:NestedSubsection)
+OPTIONAL MATCH (nsub)-[r_para_nsub:CONTAINS_PARA]->(para_nsub:PARA)
+
+OPTIONAL MATCH (para_ch)-[:MENTIONS_ELEMENT]->(para_ch_e:Element)
+OPTIONAL MATCH (para_ch)-[:MENTIONS_ATTRIBUTE]->(para_ch_a:Attribute)
+OPTIONAL MATCH (para_ch)-[:MENTIONS_CLASS]->(para_ch_c:Class)
+OPTIONAL MATCH (para_ch)-[:MENTIONS_EXAMPLE]->(para_ch_ex:Example)
+OPTIONAL MATCH (para_ch)-[:MENTIONS_MODULE]->(para_ch_mod:Module)
+OPTIONAL MATCH (para_ch)-[:MENTIONS_MACRO]->(para_ch_macro:Macro)
+OPTIONAL MATCH (para_ch)-[:MENTIONS_GENERAL_ENTITY]->(para_ch_ge:GeneralEntity)
+
+OPTIONAL MATCH (para_s)-[:MENTIONS_ELEMENT]->(para_s_e:Element)
+OPTIONAL MATCH (para_s)-[:MENTIONS_ATTRIBUTE]->(para_s_a:Attribute)
+OPTIONAL MATCH (para_s)-[:MENTIONS_CLASS]->(para_s_c:Class)
+OPTIONAL MATCH (para_s)-[:MENTIONS_EXAMPLE]->(para_s_ex:Example)
+OPTIONAL MATCH (para_s)-[:MENTIONS_MODULE]->(para_s_mod:Module)
+OPTIONAL MATCH (para_s)-[:MENTIONS_MACRO]->(para_s_macro:Macro)
+OPTIONAL MATCH (para_s)-[:MENTIONS_GENERAL_ENTITY]->(para_s_ge:GeneralEntity)
+
+OPTIONAL MATCH (para_sub)-[:MENTIONS_ELEMENT]->(para_sub_e:Element)
+OPTIONAL MATCH (para_sub)-[:MENTIONS_ATTRIBUTE]->(para_sub_a:Attribute)
+OPTIONAL MATCH (para_sub)-[:MENTIONS_CLASS]->(para_sub_c:Class)
+OPTIONAL MATCH (para_sub)-[:MENTIONS_EXAMPLE]->(para_sub_ex:Example)
+OPTIONAL MATCH (para_sub)-[:MENTIONS_MODULE]->(para_sub_mod:Module)
+OPTIONAL MATCH (para_sub)-[:MENTIONS_MACRO]->(para_sub_macro:Macro)
+OPTIONAL MATCH (para_sub)-[:MENTIONS_GENERAL_ENTITY]->(para_sub_ge:GeneralEntity)
+
+OPTIONAL MATCH (para_nsub)-[:MENTIONS_ELEMENT]->(para_nsub_e:Element)
+OPTIONAL MATCH (para_nsub)-[:MENTIONS_ATTRIBUTE]->(para_nsub_a:Attribute)
+OPTIONAL MATCH (para_nsub)-[:MENTIONS_CLASS]->(para_nsub_c:Class)
+OPTIONAL MATCH (para_nsub)-[:MENTIONS_EXAMPLE]->(para_nsub_ex:Example)
+OPTIONAL MATCH (para_nsub)-[:MENTIONS_MODULE]->(para_nsub_mod:Module)
+OPTIONAL MATCH (para_nsub)-[:MENTIONS_MACRO]->(para_nsub_macro:Macro)
+OPTIONAL MATCH (para_nsub)-[:MENTIONS_GENERAL_ENTITY]->(para_nsub_ge:GeneralEntity)
+
+RETURN d, r_part, p, r_chapter, ch, r_para_ch, para_ch,
+       r_section, s, r_para_s, para_s,
+       r_subsection, sub, r_para_sub, para_sub,
+       r_nested, nsub, r_para_nsub, para_nsub,
+       para_ch_e, para_ch_a, para_ch_c, para_ch_ex, para_ch_mod, para_ch_macro, para_ch_ge,
+       para_s_e, para_s_a, para_s_c, para_s_ex, para_s_mod, para_s_macro, para_s_ge,
+       para_sub_e, para_sub_a, para_sub_c, para_sub_ex, para_sub_mod, para_sub_macro, para_sub_ge,
+       para_nsub_e, para_nsub_a, para_nsub_c, para_nsub_ex, para_nsub_mod, para_nsub_macro, para_nsub_ge",0,,false
