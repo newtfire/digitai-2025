@@ -19,5 +19,5 @@ etc/
 pyvenv.cfg
 share/
 .ipynb_checkpoints/
-models/
-local.yaml
+digitaiCore/models/
+digitaiCore/local.yaml
