@@ -1,0 +1,90 @@
+{ "$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "http://newtfire.org.schema.json",
+"title": "DIGIT AI JSON SCHEMA",
+"description": "A JSON SCHEMA FOR PREPARATION OF THE TEI GUIDELINES AS A KNOWLEDGE GRAPH",
+"type": "object",
+"properties": {
+     "DOCUMENT-TITLE" :{
+       "type": "string",
+       "description": "Title for the whole JSON file"
+     },
+  "PREPARED-BY" :{
+    "type": "string",
+    "description": "Indicates who prepared the file"
+  },
+  "SUPPORTING-INSTITUTION" :{
+    "type": "string",
+    "description": "includes the institutions who are helping support this project."
+  }
+},
+  "TEI_SOURCE-VERSION_NUMBER" : {
+    "type":"string"
+  },
+  "TEI_SOURCE-OUTPUT-DATE" : {
+    "type": "string"
+  },
+"THIS-JSON-DATETIME" : {
+  "type": "string"
+},
+"CONTAINS-PARTS": {
+  "type": "object",
+  "properties": {
+    "PART" : { "type": "string"},
+    "CONTAINS-CHAPTERS" : {
+      "type": "object",
+      "properties": {
+        "CHAPTER" : { "type": "string" },
+        "ID" : { "type": "string" },
+        "CONTAINS-SECTIONS" : {"type":  "object",
+           "properties": {
+             "EXPAND ME PLEEEEEZ": "NOT REAL YET"
+           },
+          "CONTAINS-PARAS" : {"type":  "object",
+            "properties": {
+              "EXPAND ME PLEEEEEZ": "NOT REAL YET"
+            },
+            "RELATES-TO" : {"type": "object",
+            "properties": {
+               "ID" : {"type": "string"}
+            },
+            "CONTAINS-SPECGRPS": {
+              "type": "object",
+              "properties" : {
+              "SPEC-TYPE": {"type":  "string"},
+                "PART-OF": {"type":  "string"},
+                "SPEC-NAME": {"type":  "string"},
+                "EQUIVALENT-NAME": {"type": "string"},
+                "GLOSSED-BY": {"type": "object",
+                  "EXPAND ME PLEEEEEZ": "NOT REAL YET"
+                },
+                "BUT_WAIT_THERE'S_MORE!" : {"type": "stuff"}
+              }
+            }
+            }
+          }
+
+
+        },
+
+
+     "CONTAINS-PARAS": {"type":  "object",
+       "properties": {
+        "UNPACK-ME" : {"type": "object"
+
+        },
+       },
+     },,
+'RELATES-TO': nf:linkPuller($targets),
+'CONTAINS-CITATION' : 'Unpack BIB cites here',
+'CONTAINS-MODULE' : nf:spcGrpPuller($specGrps),
+'CONTAINS-SPECS' : array {nf:specPuller($specs)}
+
+      }
+    }
+
+
+}
+
+},
+  "required": [ "DOCUMENT-TITLE", "PREPARED-BY", "SUPPORTING-INSTITUTION" ]
+}
