@@ -1,77 +1,66 @@
-import json
-from neo4j import GraphDatabase
+import os
+import logging
+import time
 from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
-import os
 
-# === Config ===
-NEO4J_URI = "bolt://localhost:7687"
-NEO4J_USER = "neo4j"
-NEO4J_PASSWORD = "d1g1tai!"
-OUTPUT_PATH = "data/embeddings.jsonl"
-EMBEDDING_MODEL = "BAAI/bge-m3"
+# Limit CPU threads to avoid overheating / crashing
+os.environ["OMP_NUM_THREADS"] = "4"
+os.environ["MKL_NUM_THREADS"] = "4"
 
-# === Connect to Neo4j ===
-driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+# Set up logging
+logging.basicConfig(
+    filename="embedding.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
-# === Load Embedding Model ===
-model = SentenceTransformer(EMBEDDING_MODEL)
+logging.info("Starting embedding script...")
 
-# === Build Context String for Each Node ===
-def build_context(tx):
-    query = """
-    MATCH (n)
-    OPTIONAL MATCH (n)-[r]->(m)
-    OPTIONAL MATCH (m2)-[r2]->(n)
-    RETURN n, collect(DISTINCT [type(r), m]) + collect(DISTINCT [type(r2), m2]) AS rels
-    """
-    results = tx.run(query)
-    output = []
+# Load model
+try:
+    logging.info("Loading BGE-M3 model...")
+    model = SentenceTransformer("BAAI/bge-m3")
+except Exception as e:
+    logging.error(f"Failed to load model: {e}")
+    raise SystemExit(f"[FATAL] Could not load model: {e}")
 
-    for record in results:
-        node = record["n"]
-        rels = record["rels"]
+# Replace this with your own node data loading logic
+# Example: nodes = [{"id": "001", "text": "example sentence"}, ...]
+nodes = [...]  # ← load your actual list here
 
-        node_id = node.id
-        labels = list(node.labels)
-        props = dict(node)
+BATCH_SIZE = 32
+embeddings = []
 
-        # 1. Base description
-        prop_str = ", ".join(f"{k}: {v}" for k, v in props.items())
-        context = f"{' / '.join(labels)}: {prop_str}"
+for i in tqdm(range(0, len(nodes), BATCH_SIZE), desc="Embedding nodes"):
+    batch = nodes[i:i + BATCH_SIZE]
+    texts = [n["text"] for n in batch]
+    ids = [n["id"] for n in batch]
 
-        # 2. Add relationship context
-        for rel in rels:
-            if rel and len(rel) == 2 and rel[1] is not None:
-                rel_type = rel[0]
-                other = rel[1]
-                other_label = list(other.labels)
-                other_props = dict(other)
-                summary = other_props.get("name") or other_props.get("title") or str(other_props)
-                context += f" | {rel_type} → {summary} ({' / '.join(other_label)})"
+    try:
+        batch_embeddings = model.encode(
+            texts,
+            batch_size=BATCH_SIZE,
+            convert_to_tensor=False,
+            show_progress_bar=False,
+            normalize_embeddings=True
+        )
+    except Exception as e:
+        logging.error(f"Failed to embed batch {i}–{i + BATCH_SIZE}: {e}")
+        continue
 
-        output.append({
-            "node_id": node_id,
-            "labels": labels,
-            "text": context
+    for node_id, emb in zip(ids, batch_embeddings):
+        embeddings.append({
+            "id": node_id,
+            "embedding": emb
         })
-    return output
 
-# === Run Query and Build Contexts ===
-with driver.session() as session:
-    print("Querying Neo4j and building context strings...")
-    node_data = session.execute_read(build_context)
+    logging.info(f"Embedded batch {i}–{i + BATCH_SIZE}")
+    time.sleep(0.1)  # throttle CPU slightly
 
-# === Generate Embeddings ===
-print("Generating embeddings with BGE-M3...")
-with open(OUTPUT_PATH, "w") as f:
-    for item in tqdm(node_data):
-        embedding = model.encode(item["text"], normalize_embeddings=True).tolist()
-        f.write(json.dumps({
-            "node_id": item["node_id"],
-            "labels": item["labels"],
-            "text": item["text"],
-            "embedding": embedding
-        }) + "\n")
+logging.info(f"Embedding complete. Total nodes embedded: {len(embeddings)}")
 
-print(f"\n✅ Embeddings saved to: {OUTPUT_PATH}")
+# Save or return embeddings
+# Example:
+# with open("bge_embeddings.json", "w") as f:
+#     json.dump(embeddings, f)
