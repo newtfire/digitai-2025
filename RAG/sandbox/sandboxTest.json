@@ -1,0 +1,83 @@
+{
+  "CONTAINS_PARTS": [
+    {
+      "CONTAINS_CHAPTERS": [
+        {
+          "CHAPTER": "Frontmatter 1",
+          "CONTAINS_PARAS": [
+            { "PARASTRING":"......" },
+            { "PARASTRING":"......" },
+            { "PARASTRING":"......" }
+          ],
+          "ID": "intro-1"
+        },
+        {
+          "CHAPTER": "Frontmatter 2",
+          "CONTAINS_PARAS": [
+            { "PARASTRING":"......" },
+            { "PARASTRING":"......" }
+          ],
+          "ID": "intro-2"
+        }
+      ],
+      "PART": "front"
+    },
+    {
+      "CONTAINS_CHAPTERS": [
+        {
+          "CHAPTER": "title abc-1",
+          "CONTAINS_SECTIONS": [ {
+              "SECTION": "title abc-1-sub1",
+              "CONTAINS_SECTIONS": [ {
+                  "CONTAINS_PARAS": [ {
+                      "CONTAINS_SPECGRP": [ {
+                          "CONTAINS-PARAS": { "PARASTRING":"...." },
+                          "CONTENT": "contentModel",
+                          "SPEC": "MYSPEC1"
+                        } ],
+                      "PARASTRING": "...... ...."
+                    } ],
+                  "NESTEDSUBSECTION": "title abc-1-sub-nest1"
+                } ],
+              "CONTAINS_PARAS": [ {
+                  "PARASTRING": "......",
+                  "CONTAINS_SPECLIST": [
+                    { "LINK_TO_SPEC":"MYSPEC1" },
+                    { "LINK_TO_SPEC":"MYSPEC2" }
+                  ]
+                } ]
+            } ],
+          "CONTAINS_PARAS": [ { "PARASTRING":"......" } ],
+          "ID": "abc-1"
+        },
+        {
+          "CHAPTER": "title abc-2",
+          "CONTAINS_SECTIONS": [ {
+              "SECTION": "section abc-2-sub1",
+              "CONTAINS_SECTIONS": [ {
+                  "CONTAINS_PARAS": [ { "PARASTRING":"......" } ],
+                  "NESTEDSUBSECTION": "section abc2-sub1-nest1"
+                } ],
+              "CONTAINS_PARAS": [ {
+                  "CONTAINS_SPECGRP": [ {
+                      "CONTAINS-PARAS": { "PARASTRING":"...." },
+                      "CONTENT": "contentModel",
+                      "SPEC": "MYSPEC2"
+                    } ],
+                  "PARASTRING": "..... ...."
+                } ]
+            } ],
+          "CONTAINS_PARAS": [ { "PARASTRING":"......" } ],
+          "ID": "abc-2"
+        },
+        {
+          "CHAPTER": "title abc-3",
+          "CONTAINS_PARAS": [ { "PARASTRING":"......" } ],
+          "ID": "abc-3"
+        }
+      ],
+      "PART": "body"
+    }
+  ],
+  "DOC_TITLE": "SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH"
+}

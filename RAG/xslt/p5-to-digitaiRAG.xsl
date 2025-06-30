@@ -106,14 +106,28 @@
     <xsl:template match="/" mode="cypher">
         <xsl:result-document href="../digitai-RAG-cypher.cypher" method="text" indent="yes"> 
             
-             CALL apoc.load.json("file:///digitai-p5.json") YIELD value AS json_data
-             title: json_data. ,
-             preparedBy: json_data.<xsl:value-of select="$PREPARED_BY"/>,
-            teiSourceVersion: json_data.<xsl:value-of select="$TEI_SOURCE_VERSION_NUMBER"/>,
-             teiSourceOutputDate: json_data.<xsl:value-of select="$TEI_SOURCE_OUTPUT_DATE"/>,
-             thisJsonDatetime: json_data.<xsl:value-of select="$THIS_JSON_DATETIME"/>
-             FOREACH (chapter_data IN 
+            CALL apoc.load.json("file:///digitai-RAG-data.json") YIELD value AS json_data
+             <!-- Create the document node -->
+            MERGE (doc:Document {
+                title: json_data.<xsl:value-of select="$DOCUMENT_TITLE"/>,
+                preparedBy: json_data.<xsl:value-of select="$PREPARED_BY"/>,
+                teiSourceVersion: json_data.<xsl:value-of select="$TEI_SOURCE_VERSION_NUMBER"/>,
+                teiSourceOutputDate: json_data.<xsl:value-of select="$TEI_SOURCE_OUTPUT_DATE"/>,
+                thisJsonDatetime: json_data.<xsl:value-of select="$THIS_JSON_DATETIME"/>
+            <!-- Create the Part nodes -->
+             FOREACH (<xsl:value-of select="$PART"/>_data IN json_data.<xsl:value-of select="$CONTAINS_PARTS"/> |
+                MERGE (part:Part {name: data.<xsl:value-of select="$PART"/>)
+                MERGE (doc)-[:CONTAINS_PART]->(part)
+           
+           <!-- Go through the CONTAINS_CHAPTERS array to create Chapter nodes -->
+            FOREACH (<xsl:value-of select="$CHAPTER"/>_data IN json_data.<xsl:value-of select="$CONTAINS_CHAPTERS"/> |
+                MERGE (chapter:Chapter {id: chatper_data.ID})
+                ON CREATE SET
+                    chapter.chapter = chapter_data.CHAPTER
             
+           
+             
+                
             
             <!-- CONNECT ELEMENTS and ATTRIBUTES MENTIONED to their SPECS -->
            

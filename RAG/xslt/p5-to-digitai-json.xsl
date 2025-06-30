@@ -383,14 +383,14 @@
                        'ID': current()/@xml:id ! normalize-space(),
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current(), (current()/@type ! normalize-space(), '')[1], 'NESTED-SUBSECTION') },
                        'CONTAINS-PARAS': array {nf:paraPuller($paras)},
-                       'RELATES-TO': nf:linkPuller($targets),
+                       (:'RELATES-TO': nf:linkPuller($targets),:) (: ebb: MOVE this to the PARA-PULLER function, since these are all inside paragraphs anyway. :)
                        'CONTAINS-SPECGRPS' : nf:spcGrpPuller($specGrps),
                        'CONTAINS-SPECS': array {nf:specPuller($specs)}
                        }"/> 
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="map {
-                    'SECTION-LEVEL-'||(current()/@type ! normalize-space(),'unmarked')[1] : current()/head ! normalize-space(),
+                    'NAME' : current()/head ! normalize-space(),
                     'ID' : current()/@xml:id ! normalize-space(),
                     'CONTAINS-PARAS': array {nf:paraPuller($paras)},
                     'RELATES-TO': nf:linkPuller($targets),
