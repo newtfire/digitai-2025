@@ -3,7 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:my="https://my.namespace/for/function-definitions" exclude-result-prefixes="xs math"
-    version="3.0">
+    version="4.0">
 
     <xsl:variable name="sourceDoc" as="document-node()" select="doc('sandboxTest.xml')"/>
     <xsl:variable name="newline" as="xs:string" select="'&#10;'"/>
@@ -30,7 +30,8 @@
                                map{
                                'jsonChildrenKey': 'CONTAINS_PARTS',
                                'childEntityType': 'part',
-                               'relationship': 'HAS_PART'
+                               'relationship': 'HAS_PART',
+                               'isSequence': 'true()'
                                }
                                
                                }"/>
@@ -43,12 +44,18 @@
                     <xsl:map-entry key="'cypherVar'">part</xsl:map-entry>
                     <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
                     <xsl:map-entry key="'jsonKeyForPK'">PART</xsl:map-entry>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map{
                             'jsonChildrenKey': 'CONTAINS_CHAPTERS',
                             'childEntityType': 'chapter', 
-                            'relationship': 'HAS_CHAPTER'
+                            'relationship': 'HAS_CHAPTER',
+                            'isSequence': 'true()'
                             } 
                             }"/>
                     </xsl:map-entry>
@@ -63,7 +70,7 @@
                     <xsl:map-entry key="'properties'">
                         <xsl:map>
                             <xsl:map-entry key="'title'">CHAPTER</xsl:map-entry>
-                            <xsl:map-entry key="'type'">xs:string</xsl:map-entry>
+                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
                     <xsl:map-entry key="'children'">
@@ -71,12 +78,14 @@
                             map{
                             'jsonChildrenKey': 'CONTAINS_SECTIONS',
                             'childEntityType': 'section',
-                            'relationship': 'HAS_SECTION'
+                            'relationship': 'HAS_SECTION',
+                            'isSequence': 'true()'
                             },
                             map{
                             'jsonChildrenKey': 'CONTAINS_PARAS',
                             'childEntityType': 'paragraphs',
-                            'relationship': 'HAS_PARAGRAPH'
+                            'relationship': 'HAS_PARAGRAPH',
+                            'isSequence': 'true()'
                             }                            
                             }"/>
                     </xsl:map-entry>
@@ -105,7 +114,8 @@
                             map{
                             'jsonChildrenKey': 'CONTAINS_PARAS',
                             'childEntityType': 'paragraphs',
-                            'relationship': 'HAS_PARAGRAPH'
+                            'relationship': 'HAS_PARAGRAPH',
+                            'isSequence': 'true()'
                             }                            
                             }"/>
                     </xsl:map-entry>
@@ -117,16 +127,25 @@
                     <xsl:map-entry key="'cypherVar'" select="'nestedsubsection'"/>
                     <xsl:map-entry key="'primaryKey'" select="'id'"/>
                     <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
-                    <xsl:map-entry key="'properties'" select="map{'title': 'SECTION', 'type': 'xs:string'}"/>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'title'">SECTION</xsl:map-entry>
+                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry> 
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map{
                             'jsonChildrenKey': 'CONTAINS_SECTIONS',
-                            'childEntityType': 'section' 
+                            'childEntityType': 'section',
+                            'relationship': 'HAS_SECTION',
+                            'isSequence': 'true()'
                             },
                             map{
                             'jsonChildrenKey': 'CONTAINS_PARAS',
-                            'childEntityType': 'paragraphs'
+                            'childEntityType': 'paragraphs',
+                            'relationship': 'HAS_PARAGRAPH',
+                            'isSequence': 'true()'
                             }                            
                             }"/>
                     </xsl:map-entry>
@@ -137,11 +156,10 @@
                         <xsl:map>
                              <xsl:map-entry key="'label'" select="'Para'"/>
                              <xsl:map-entry key="'cypherVar'" select="'paragraph'"/>
-                            <xsl:map-entry key="'primaryKey'" select="'num'"/>
-                            <xsl:map-entry key="'jsonKeyForPK'" select="'NUM'"/>
                             <xsl:map-entry key="'properties'">
                                 <xsl:map>
-                                    <xsl:map-entry key="'contents'">PARASTRING</xsl:map-entry>
+                                    <xsl:map-entry key="'text'">PARASTRING</xsl:map-entry>
+                                    <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
                                 </xsl:map>
                             </xsl:map-entry>
                             <xsl:map-entry key="'children'">
@@ -217,6 +235,9 @@
                 <xsl:map-entry key="$section/@type ! upper-case(.)">
                     <xsl:value-of select="$section/head ! normalize-space()"/>
                 </xsl:map-entry>
+                <xsl:map-entry key="'SEQUENCE'">
+                    <xsl:value-of select="count($section/preceding-sibling::div) + 1"/>           
+                </xsl:map-entry>
                 <xsl:if test="$section[@xml:id]">
                     <xsl:map-entry key="'ID'">
                         <xsl:value-of select="$section/@xml:id ! normalize-space()"/>
@@ -251,6 +272,9 @@
         <xsl:map>
             <xsl:map-entry key="'PARASTRING'">
                 <xsl:value-of select="$para ! normalize-space()"/>
+            </xsl:map-entry>
+            <xsl:map-entry key="'SEQUENCE'">
+                <xsl:value-of select="count($para/preceding-sibling::p) + 1"/>
             </xsl:map-entry>
             <xsl:if test="$para/*">
                 <xsl:choose>
@@ -315,6 +339,16 @@
                         <xsl:map>
                             <xsl:map-entry key="'PART'">
                                 <xsl:sequence select="current() ! name() ! normalize-space()"/>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'SEQUENCE'">
+                                <xsl:choose>
+                                    <xsl:when test="current() ! name() = 'front'">
+                                        <xsl:value-of select="1"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="2"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:map-entry>
                             <xsl:map-entry key="'CONTAINS_CHAPTERS'">
                                 <xsl:sequence select="array {my:sectionMapper(current()/div)}"/>
@@ -401,7 +435,7 @@
         </xsl:text>
       <xsl:value-of select="my:generate-node-merge('part', 'part_data')"/>
        <xsl:value-of select="$newline"/>
-        <xsl:value-of select="my:generate-relationship-merge('part')"/>
+        <xsl:value-of select="my:generate-relationship-merge('part', 'document')"/>
         <!--ebb: NOTE: second param of my:generate-relationship-merge() is not required. We want
             it when we have nodes that could have multiple different options for parents!
        -->

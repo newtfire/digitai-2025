@@ -19,7 +19,9 @@
           // Process each Part (front, body)
       FOREACH (part_data in value.CONTAINS_PARTS |
         MERGE (part:Part {name: part_data.PART})
-MERGE (doc)-[:HAS_PART]->(part)
+MERGE (doc)-[:]->(part)
+          
+          
      // OLD WRITTEN OUT FOR COMPARISON BELOW
      // FOREACH (part_data IN value.CONTAINS_PARTS |
      //   MERGE (part:Part {name: part_data.PART})

@@ -63,6 +63,9 @@
                      <xsl:map>
                          <xsl:map-entry key="$CHAPTER"><xsl:value-of select="$chap/head ! normalize-space()"/></xsl:map-entry>
                          <xsl:map-entry key="$ID"><xsl:value-of select="$chap/@xml:id ! normalize-space()"/></xsl:map-entry>
+                         <xsl:map-entry key="'SEQUENCE'">
+                             <xsl:value-of select="count($chap/preceding::sibling) + 1"/>
+                         </xsl:map-entry>
       
                          <!--</xsl:map-entry>-->
                          <!--   <xsl:if test="current()[p]">
@@ -81,8 +84,7 @@
         <xsl:map>
             <xsl:map-entry key="$NAME"><xsl:value-of select="$div/head ! normalize-space()"/></xsl:map-entry>
             <xsl:map-entry key="$ID"><xsl:value-of select="$div/@xml:id ! normalize-space()"/></xsl:map-entry>
-            
-
+            <xsl:map-entry key="'SEQUENCE'"><xsl:value-of select="count($div/preceding-sibling::div + 1)"/></xsl:map-entry>
 
            <!-- Are you a section with nested subsections? If so, continue processing those subsections. -->
             <xsl:if test="$div/div[head]">

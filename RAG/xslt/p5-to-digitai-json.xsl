@@ -309,6 +309,9 @@
             <xsl:variable name="paraString" as="xs:string*">
                 <xsl:sequence select="$paraProcessed ! normalize-space()"/>
             </xsl:variable>
+            <xsl:variable name="sequence" as="xs:integer">
+                <xsl:value-of select="count(current()/preceding-sibling::p) + 1"/>
+            </xsl:variable>
             
             <xsl:variable name="moreThanText" as="array(*)*">
                 <xsl:if test="current()//*[local-name() = ( 'moduleSpec', 'gi', 'att', 'ident', 'egXML', 'specGrp')]">
@@ -355,6 +358,7 @@
            
             <xsl:sequence select="map { 
                 'PARA': $paraString,
+                'SEQUENCE': $sequence,
                 'Para-String-Length': $paraString ! string-length(),
                 'TEI-ENCODING-DISCUSSED' : $moreThanText
                 }"/>
@@ -381,6 +385,7 @@
                    <xsl:sequence select="map {
                        'NAME': current()/head ! normalize-space(),
                        'ID': current()/@xml:id ! normalize-space(),
+                       'SEQUENCE': count(current()/preceding-sibling::div) + 1, 
                        'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current(), (current()/@type ! normalize-space(), '')[1], 'NESTED-SUBSECTION') },
                        'CONTAINS-PARAS': array {nf:paraPuller($paras)},
                        (:'RELATES-TO': nf:linkPuller($targets),:) (: ebb: MOVE this to the PARA-PULLER function, since these are all inside paragraphs anyway. :)
@@ -392,6 +397,7 @@
                 <xsl:sequence select="map {
                     'NAME' : current()/head ! normalize-space(),
                     'ID' : current()/@xml:id ! normalize-space(),
+                    'SEQUENCE': count(current()/preceding-sibling::div) + 1, 
                     'CONTAINS-PARAS': array {nf:paraPuller($paras)},
                     'RELATES-TO': nf:linkPuller($targets),
                     'CONTAINS-SPECGRPS' : nf:spcGrpPuller($specGrps),
@@ -411,8 +417,19 @@
                     <xsl:with-param name="front-or-body" as="element()" select="current()"/>
                 </xsl:call-template>
             </xsl:variable>
+               <xsl:variable name="sequence">
+                   <xsl:choose>
+                       <xsl:when test="current() ! name() = 'front'">
+                           <xsl:value-of select="1"/>
+                       </xsl:when>
+                       <xsl:otherwise>
+                           <xsl:value-of select="2"/>
+                       </xsl:otherwise>
+                   </xsl:choose>
+               </xsl:variable>
             <xsl:sequence select="map {
                 'PART' : current()/name(),
+                'SEQUENCE': $sequence,
                 'CONTAINS-CHAPTERS': array { $chapterMaps
                 }}"/>
         </xsl:for-each>
