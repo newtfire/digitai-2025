@@ -25,12 +25,12 @@
                   <!-- The document node doesn't really have a parent, so we're not going to use this
                       <xsl:map-entry key="'parent'" select="'value'"/>-->
                     <!-- (Literally the value of the JSON document on import) -->
-                    <xsl:map-entry key="'relationship'" select="'HAS_PART'"/>
                     <xsl:map-entry key="'children'">
                            <xsl:sequence select="array{ 
                                map{
                                'jsonChildrenKey': 'CONTAINS_PARTS',
-                               'childEntityType': 'part' 
+                               'childEntityType': 'part',
+                               'relationship': 'HAS_PART'
                                }
                                
                                }"/>
@@ -43,12 +43,12 @@
                     <xsl:map-entry key="'cypherVar'">part</xsl:map-entry>
                     <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
                     <xsl:map-entry key="'jsonKeyForPK'">PART</xsl:map-entry>
-                    <xsl:map-entry key="'relationship'" select="'HAS_PART'"/>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map{
                             'jsonChildrenKey': 'CONTAINS_CHAPTERS',
-                            'childEntityType': 'chapter' 
+                            'childEntityType': 'chapter', 
+                            'relationship': 'HAS_CHAPTER'
                             } 
                             }"/>
                     </xsl:map-entry>
@@ -66,16 +66,17 @@
                             <xsl:map-entry key="'type'">xs:string</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
-                    <xsl:map-entry key="'relationship'" select="'HAS_SECTION'"/>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map{
                             'jsonChildrenKey': 'CONTAINS_SECTIONS',
-                            'childEntityType': 'section' 
+                            'childEntityType': 'section',
+                            'relationship': 'HAS_SECTION'
                             },
                             map{
                             'jsonChildrenKey': 'CONTAINS_PARAS',
-                            'childEntityType': 'paragraphs'
+                            'childEntityType': 'paragraphs',
+                            'relationship': 'HAS_PARAGRAPH'
                             }                            
                             }"/>
                     </xsl:map-entry>
@@ -89,20 +90,22 @@
                     <xsl:map-entry key="'primaryKey'" select="'id'"/>
                     <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
                     <xsl:map-entry key="'properties'" select="map{'title': 'SECTION', 'type': 'xs:string'}"/>
-                    <xsl:map-entry key="'relationship'" select="'HAS_SECTION'"/>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map{
                             'jsonChildrenKey': 'CONTAINS_SECTIONS',
-                            'childEntityType': 'section' 
+                            'childEntityType': 'section', 
+                            'relationship': 'HAS_SECTION'
                             },
                             map{
                             'jsonChildrenKey': 'CONTAINS_SECTIONS',
-                            'childEntityType': 'nestedsubsection' 
+                            'childEntityType': 'nestedsubsection',
+                            'relationship': 'HAS_SECTION'
                             },
                             map{
                             'jsonChildrenKey': 'CONTAINS_PARAS',
-                            'childEntityType': 'paragraphs'
+                            'childEntityType': 'paragraphs',
+                            'relationship': 'HAS_PARAGRAPH'
                             }                            
                             }"/>
                     </xsl:map-entry>
@@ -115,7 +118,6 @@
                     <xsl:map-entry key="'primaryKey'" select="'id'"/>
                     <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
                     <xsl:map-entry key="'properties'" select="map{'title': 'SECTION', 'type': 'xs:string'}"/>
-                    <xsl:map-entry key="'relationship'" select="'HAS_SECTION'"/>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map{
@@ -146,11 +148,13 @@
                                 <xsl:sequence select="array{ 
                                     map{
                                     'jsonChildrenKey': 'CONTAINS_SPECLIST',
-                                    'childEntityType': 'speclist'
+                                    'childEntityType': 'speclist',
+                                    'relationship': 'HAS_SPECLIST'
                                     },
                                     map{ 
                                     'jsonChildrenKey': 'CONTAINS_SPECGRP',
-                                    'childEntityType': 'specgrp'
+                                    'childEntityType': 'specgrp',
+                                    'relationship': 'HAS_SPECGRP'
                                     }
                                     }"/>
                             </xsl:map-entry>
@@ -164,6 +168,7 @@
                                 <xsl:map>
                                     <xsl:map-entry key="'jsonChildrenKey'">LINK_TO_SPEC</xsl:map-entry>
                                     <xsl:map-entry key="'childEntityType'">link_to_spec</xsl:map-entry>
+                                    <xsl:map-entry key="'relationship'">REFERS_TO_SPECIFICATION</xsl:map-entry>
                                 </xsl:map>
                              </xsl:map-entry>
                         </xsl:map>
@@ -177,16 +182,27 @@
                             <xsl:map-entry key="'properties'">
                                 <xsl:map>
                                     <xsl:map-entry key="'contentModel'">CONTENT</xsl:map-entry>
+                                    <xsl:map-entry key="'childEntityType'">contentmodel</xsl:map-entry>
+                                    <xsl:map-entry key="'relationship'">DEFINES_CONTENT_MODEL</xsl:map-entry>
                                 </xsl:map>
                             </xsl:map-entry>
                             <xsl:map-entry key="'children'">
                                 <xsl:map>
                                     <xsl:map-entry key="'jsonChildrenKey'">CONTAINS_PARAS</xsl:map-entry>
                                     <xsl:map-entry key="'childEntityType'">paragraph</xsl:map-entry>
+                                    <xsl:map-entry key="'relationship'">HAS_PARAGRAPH</xsl:map-entry>
                                 </xsl:map>
                             </xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
+            <xsl:map-entry key="'contentmodel'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'Content'"/>
+                    <xsl:map-entry key="'cypherVar'" select="'contentmodel'"/>
+                    <xsl:map-entry key="'properties'" select="'STRING'"/>
+         
+                </xsl:map>
+            </xsl:map-entry>
                 </xsl:map>
     </xsl:variable>
     
@@ -329,7 +345,7 @@
     <!-- FUNCTION TO ESTABLISH EDGES (RELATIONSHIP CONNECTIONS)-->
     <xsl:function name="my:generate-relationship-merge" as="xs:string">
         <xsl:param name="map-entity-type" as="xs:string"/>
-        <xsl:param name="parent-entity-type" as="xs:string?" required="no"/>
+        <xsl:param name="parent-entity-type" as="xs:string?"/>
         <xsl:variable name="model" select="$my:graph-model($map-entity-type)"/>
         <xsl:variable name="parentModel" select="$my:graph-model($parent-entity-type)"/>
      <!-- ebb: This (below) may be too limited since we will have multiple possible parents for some node types
