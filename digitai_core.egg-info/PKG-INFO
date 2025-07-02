@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: digitai-core
+Version: 0.1.0
+Summary: DigitAI Core AI Fine-tuning Framework
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyyaml
+Requires-Dist: sentence-transformers
+Requires-Dist: neo4j
+Requires-Dist: tqdm
+Dynamic: license-file
+Dynamic: requires-python
+
+# digitai
+repo for experimenting with small language models and xai (explainable AI)

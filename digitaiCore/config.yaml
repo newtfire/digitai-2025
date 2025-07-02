@@ -1,0 +1,25 @@
+dataPaths:
+  outputFile: "neo4jNodeEmbeddings.json"
+
+neo4j:
+  uri: "bolt://localhost:7687"
+  user: "neo4j"
+  password: "d1g1tAI!"
+  cypher: "MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, id(n) AS node_id"
+
+embedding:
+  model: "BAAI/bge-m3"
+  batch_size: 32
+  normalize: true
+  throttle: 0.1
+
+performance:
+  num_threads: 4
+  interop_threads: 1
+  tokenizers_parallelism: false
+
+logging:
+  enabled: true
+  file: "embedding.log"
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"

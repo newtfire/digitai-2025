@@ -1,0 +1,4 @@
+pyyaml
+sentence-transformers
+neo4j
+tqdm
