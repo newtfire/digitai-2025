@@ -4,18 +4,18 @@ dataPaths:
 neo4j:
   uri: "bolt://localhost:7687"
   user: "neo4j"
-  password: "d1g1tAI!"
-  cypher: "MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, id(n) AS node_id"
+  password: "D1g1tAI!"
+  cypher: "MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, elementId(n) AS node_id"
 
 embedding:
   model: "BAAI/bge-m3"
-  batch_size: 32
+  batch_size: 64
   normalize: true
-  throttle: 0.1
+  throttle: 0.01
 
 performance:
-  num_threads: 4
-  interop_threads: 1
+  num_threads: 20
+  interop_threads: 4
   tokenizers_parallelism: false
 
 logging:

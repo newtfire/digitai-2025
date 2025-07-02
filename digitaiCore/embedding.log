@@ -203,3 +203,200 @@ neo4j.exceptions.AuthError: {code: Neo.ClientError.Security.Unauthorized} {messa
 2025-07-01 12:05:19,048 - INFO - Loaded model: BAAI/bge-m3
 2025-07-01 12:05:19,186 - WARNING - Received notification from DBMS server: {severity: WARNING} {code: Neo.ClientNotification.Statement.FeatureDeprecationWarning} {category: DEPRECATION} {title: This feature is deprecated and will be removed in future versions.} {description: The query used a deprecated function. ('id' has been replaced by 'elementId or an application-generated id')} {position: line: 1, column: 59, offset: 58} for query: 'MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, id(n) AS node_id'
 2025-07-01 12:05:19,188 - INFO - Fetched 3324 nodes from Neo4j
+2025-07-02 16:30:32,077 - INFO - === Embedding Script Start ===
+2025-07-02 16:30:32,125 - INFO - Use pytorch device_name: mps
+2025-07-02 16:30:32,129 - INFO - Load pretrained SentenceTransformer: BAAI/bge-m3
+2025-07-02 16:30:58,155 - INFO - Loaded model: BAAI/bge-m3
+2025-07-02 16:30:58,161 - ERROR - Error fetching nodes from Neo4j
+Traceback (most recent call last):
+  File "/Users/digitopenlab/github/digitai/digitaiCore/embed_bge_m3.py", line 53, in <module>
+    nodes = session.execute_read(fetch_nodes)
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 697, in execute_read
+    return self._run_transaction(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        READ_ACCESS,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        kwargs,
+        ^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 572, in _run_transaction
+    self._open_transaction(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        tx_cls=ManagedTransaction,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        api_success_cb=api_success_cb,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 441, in _open_transaction
+    self._connect(access_mode=access_mode)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 136, in _connect
+    super()._connect(
+    ~~~~~~~~~~~~~~~~^
+        access_mode, auth=self._config.auth, **acquire_kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/workspace.py", line 199, in _connect
+    self._connection = self._pool.acquire(**acquire_kwargs_)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_pool.py", line 662, in acquire
+    return self._acquire(
+           ~~~~~~~~~~~~~^
+        self.address, auth, deadline, liveness_check_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_pool.py", line 408, in _acquire
+    return connection_creator()
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_pool.py", line 230, in connection_creator
+    connection = self.opener(
+        address, auth or self.pool_config.auth, deadline
+    )
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_pool.py", line 624, in opener
+    return Bolt.open(
+           ~~~~~~~~~^
+        addr,
+        ^^^^^
+    ...<3 lines>...
+        pool_config=pool_config,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt.py", line 430, in open
+    connection.hello()
+    ~~~~~~~~~~~~~~~~^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt5.py", line 740, in hello
+    self.fetch_all()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt.py", line 879, in fetch_all
+    detail_delta, summary_delta = self.fetch_message()
+                                  ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt.py", line 864, in fetch_message
+    res = self._process_message(tag, fields)
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt5.py", line 1208, in _process_message
+    response.on_failure(summary_metadata or {})
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_common.py", line 295, in on_failure
+    raise self._hydrate_error(metadata)
+neo4j.exceptions.AuthError: {code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.}
+2025-07-02 16:33:55,451 - INFO - === Embedding Script Start ===
+2025-07-02 16:33:55,584 - INFO - Use pytorch device_name: mps
+2025-07-02 16:33:55,585 - INFO - Load pretrained SentenceTransformer: BAAI/bge-m3
+2025-07-02 16:34:02,140 - INFO - Loaded model: BAAI/bge-m3
+2025-07-02 16:34:02,144 - ERROR - Error fetching nodes from Neo4j
+Traceback (most recent call last):
+  File "/Users/digitopenlab/github/digitai/digitaiCore/embed_bge_m3.py", line 53, in <module>
+    nodes = session.execute_read(fetch_nodes)
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 697, in execute_read
+    return self._run_transaction(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        READ_ACCESS,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        kwargs,
+        ^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 572, in _run_transaction
+    self._open_transaction(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        tx_cls=ManagedTransaction,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        api_success_cb=api_success_cb,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 441, in _open_transaction
+    self._connect(access_mode=access_mode)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 136, in _connect
+    super()._connect(
+    ~~~~~~~~~~~~~~~~^
+        access_mode, auth=self._config.auth, **acquire_kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/workspace.py", line 199, in _connect
+    self._connection = self._pool.acquire(**acquire_kwargs_)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_pool.py", line 662, in acquire
+    return self._acquire(
+           ~~~~~~~~~~~~~^
+        self.address, auth, deadline, liveness_check_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_pool.py", line 408, in _acquire
+    return connection_creator()
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_pool.py", line 230, in connection_creator
+    connection = self.opener(
+        address, auth or self.pool_config.auth, deadline
+    )
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_pool.py", line 624, in opener
+    return Bolt.open(
+           ~~~~~~~~~^
+        addr,
+        ^^^^^
+    ...<3 lines>...
+        pool_config=pool_config,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt.py", line 430, in open
+    connection.hello()
+    ~~~~~~~~~~~~~~~~^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt5.py", line 740, in hello
+    self.fetch_all()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt.py", line 879, in fetch_all
+    detail_delta, summary_delta = self.fetch_message()
+                                  ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt.py", line 864, in fetch_message
+    res = self._process_message(tag, fields)
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt5.py", line 1208, in _process_message
+    response.on_failure(summary_metadata or {})
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_common.py", line 295, in on_failure
+    raise self._hydrate_error(metadata)
+neo4j.exceptions.AuthError: {code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.}
+2025-07-02 16:51:11,143 - INFO - === Embedding Script Start ===
+2025-07-02 16:51:11,276 - INFO - Use pytorch device_name: mps
+2025-07-02 16:51:11,276 - INFO - Load pretrained SentenceTransformer: BAAI/bge-m3
+2025-07-02 16:51:18,702 - INFO - Loaded model: BAAI/bge-m3
+2025-07-02 16:51:18,772 - WARNING - Received notification from DBMS server: {severity: WARNING} {code: Neo.ClientNotification.Statement.FeatureDeprecationWarning} {category: DEPRECATION} {title: This feature is deprecated and will be removed in future versions.} {description: The query used a deprecated function. ('id' has been replaced by 'elementId or consider using an application-generated id')} {position: line: 1, column: 59, offset: 58} for query: 'MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, id(n) AS node_id'
+2025-07-02 16:51:18,772 - INFO - Fetched 3368 nodes from Neo4j
+2025-07-02 16:51:20,613 - ERROR - Embedding failed for batch 0 to 128: Invalid buffer size: 106.60 GB
+2025-07-02 16:51:27,300 - INFO - Successfully embedded batch 128 to 256
+2025-07-02 16:51:31,385 - INFO - Successfully embedded batch 256 to 384
+2025-07-02 16:51:34,762 - INFO - Successfully embedded batch 384 to 512
+2025-07-02 16:51:40,595 - INFO - Successfully embedded batch 512 to 640
+2025-07-02 16:51:54,833 - INFO - Successfully embedded batch 640 to 768
+2025-07-02 16:54:59,453 - INFO - Successfully embedded batch 768 to 896
+2025-07-02 16:55:00,288 - ERROR - Embedding failed for batch 896 to 1024: masked_fill not supported for tensors of more than 2**32 elements
+2025-07-02 16:55:07,353 - INFO - Successfully embedded batch 1024 to 1152
+2025-07-02 16:55:13,697 - INFO - Successfully embedded batch 1152 to 1280
+2025-07-02 16:55:21,357 - INFO - Successfully embedded batch 1280 to 1408
+2025-07-02 16:55:25,741 - INFO - Successfully embedded batch 1408 to 1536
+2025-07-02 16:55:38,976 - INFO - Successfully embedded batch 1536 to 1664
+2025-07-02 16:55:42,696 - INFO - Successfully embedded batch 1664 to 1792
+2025-07-02 16:55:55,974 - ERROR - Embedding failed for batch 1792 to 1920: MPS backend out of memory (MPS allocated: 51.43 GB, other allocations: 125.69 GB, max allowed: 163.20 GB). Tried to allocate 1.40 GB on private pool. Use PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0 to disable upper limit for memory allocations (may cause system failure).
+2025-07-02 16:55:59,655 - INFO - Successfully embedded batch 1920 to 2048
+2025-07-02 16:59:31,116 - INFO - Successfully embedded batch 2048 to 2176
+2025-07-02 16:59:43,455 - INFO - Successfully embedded batch 2176 to 2304
+2025-07-02 16:59:47,193 - INFO - Successfully embedded batch 2304 to 2432
+2025-07-02 16:59:50,413 - INFO - Successfully embedded batch 2432 to 2560
+2025-07-02 17:00:02,142 - INFO - Successfully embedded batch 2560 to 2688
+2025-07-02 17:09:12,538 - INFO - Successfully embedded batch 2688 to 2816
+2025-07-02 17:09:19,479 - INFO - Successfully embedded batch 2816 to 2944
+2025-07-02 17:09:26,022 - INFO - Successfully embedded batch 2944 to 3072
+2025-07-02 17:12:02,606 - INFO - Successfully embedded batch 3072 to 3200
+2025-07-02 17:12:08,741 - INFO - Successfully embedded batch 3200 to 3328
+2025-07-02 17:12:09,647 - INFO - Successfully embedded batch 3328 to 3368
+2025-07-02 17:12:09,661 - INFO - Saved embeddings to /Users/digitopenlab/github/data/p5/neo4jNodeEmbeddings.json
+2025-07-02 17:12:09,661 - INFO - === Embedding Script End ===
