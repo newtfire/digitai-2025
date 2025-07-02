@@ -1,0 +1,3 @@
+2025-07-02 17:50:07,108 - INFO - === Embedding Script Start ===
+2025-07-02 17:50:07,149 - INFO - Use pytorch device_name: mps
+2025-07-02 17:50:07,149 - INFO - Load pretrained SentenceTransformer: BAAI/bge-m3

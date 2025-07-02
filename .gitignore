@@ -24,4 +24,4 @@ local.yaml
 index.js
 package.json
 *.iml
-
+data/p5/neo4jNodeEmbeddings.jsonl
