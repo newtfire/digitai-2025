@@ -1,5 +1,5 @@
 dataPaths:
-  outputFile: "neo4jNodeEmbeddings.json"
+  outputFile: "neo4jNodeEmbeddings.jsonl"
 
 neo4j:
   uri: "bolt://localhost:7687"
