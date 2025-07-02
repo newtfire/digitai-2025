@@ -8,8 +8,8 @@ from digitaiCore.config_loader import ConfigLoader
 from neo4j import GraphDatabase
 
 # Load config
-repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-config_path = os.path.join(repo_root, "digitai", "digitaiCore", "config.yaml")
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+config_path = os.path.join(repo_root, "digitaiCore", "config.yaml")
 config = ConfigLoader(config_path)
 
 # Set torch thread limits
@@ -67,10 +67,14 @@ batch_size = config.get("embedding.batch_size")
 normalize = config.get("embedding.normalize")
 throttle = config.get("embedding.throttle")
 
-output_dir = os.path.join(repo_root, "data", "p5")
-os.makedirs(output_dir, exist_ok=True)
-print(f"[DEBUG] Writing to: {os.path.join(output_dir, config.get('dataPaths.outputFile'))}")
-output_file = os.path.join(output_dir, config.get("dataPaths.outputFile"))
+# Correctly resolve full output path from config (relative to repo root)
+relative_output_path = config.get("dataPaths.outputFile")
+output_file = os.path.join(repo_root, relative_output_path)
+
+# Make sure the directory exists
+os.makedirs(os.path.dirname(output_file), exist_ok=True)
+
+print(f"[DEBUG] Writing to: {output_file}")
 
 with open(output_file, "w") as f:
     for i in range(0, len(nodes), batch_size):
@@ -85,8 +89,9 @@ with open(output_file, "w") as f:
                 show_progress_bar=True
             )
             for node_id, emb in zip(ids, batch_embeddings):
-                record = {"id": node_id, "embedding": emb.tolist()}
-                f.write(json.dumps(record) + "\n")
+                embedding_entry = {"id": node_id, "embedding": emb.tolist()}
+                f.write(json.dumps(embedding_entry) + "\n")
+                f.flush()
             if config.get("logging.enabled"):
                 logging.info(f"Successfully embedded batch {i} to {i + len(batch)}")
         except Exception as e:

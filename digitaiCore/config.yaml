@@ -1,5 +1,5 @@
 dataPaths:
-  outputFile: "neo4jNodeEmbeddings.jsonl"
+  outputFile: "data/p5/neo4jNodeEmbeddings.jsonl"
 
 neo4j:
   uri: "bolt://localhost:7687"
@@ -9,7 +9,7 @@ neo4j:
 
 embedding:
   model: "BAAI/bge-m3"
-  batch_size: 64
+  batch_size: 32
   normalize: true
   throttle: 0.01
 
@@ -20,6 +20,6 @@ performance:
 
 logging:
   enabled: true
-  file: "embedding.log"
+  file: "digitaiCore/embedding.log"
   level: "INFO"
   format: "%(asctime)s - %(levelname)s - %(message)s"
