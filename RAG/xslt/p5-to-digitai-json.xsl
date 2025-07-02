@@ -25,10 +25,10 @@
                <xsl:variable name="specGrpRefs" as="xs:string*" select="current()/specGrpRef/@target ! normalize-space()"/>     
                <xsl:variable name="specs" as="element()*" select="current()/*[name() ! ends-with(., 'Spec')]"/>
                <xsl:sequence select="map {
-                  'SPECGRP-ID' : current()/@xml:id ! normalize-space(),
-                  'SPECGRP-NAME' : current()/@n ! normalize-space(),
-                  'RELATES-TO' : array { nf:linkPuller($specGrpRefs)},
-                  'CONTAINS-SPECS': array {nf:specPuller($specs)}
+                  'SPECGRP_ID' : current()/@xml:id ! normalize-space(),
+                  'SPECGRP_NAME' : current()/@n ! normalize-space(),
+                  'RELATES_TO' : array { nf:linkPuller($specGrpRefs)},
+                  'CONTAINS_SPECS': array {nf:specPuller($specs)}
                    }"/>
            </xsl:for-each>
        </xsl:variable> 
@@ -51,18 +51,18 @@
                 </xsl:call-template></xsl:if>
             </xsl:variable>
             <xsl:sequence select="map{
-                'SPEC-TYPE' : current()/name(),
-                'SPEC-NAME': current()/@ident ! normalize-space(),
-                'PART-OF-MODULE': current()/@module ! normalize-space(), 
-                'MEMBER-OF-CLASS' : array {current()/classes/memberOf/@key ! normalize-space()},
-                'EQUIVALENT-NAME' : current()/equiv ! normalize-space(),
-                'GLOSSED-BY': array { nf:glossDescPuller($glosses)},
-                'DESCRIBED-BY': array{ nf:glossDescPuller($descs)},
-                'CONTENT-MODEL' : array { $contentModel },
-                'LISTS-ATTRIBUTES' : array { nf:attListPuller(current()/attList) },
-                'CONSTRAINED-BY': array {nf:constraintPuller($constraints)},
-                'CONTAINS-EXAMPLES': array{ nf:exemplumPuller($exempla)},
-                'REMARKS-ON': array { nf:glossDescPuller($remarks) }
+                'SPEC_TYPE' : current()/name(),
+                'SPEC_NAME': current()/@ident ! normalize-space(),
+                'PART_OF_MODULE': current()/@module ! normalize-space(), 
+                'MEMBER_OF_CLASS' : array {current()/classes/memberOf/@key ! normalize-space()},
+                'EQUIVALENT_NAME' : current()/equiv ! normalize-space(),
+                'GLOSSED_BY': array { nf:glossDescPuller($glosses)},
+                'DESCRIBED_BY': array{ nf:glossDescPuller($descs)},
+                'CONTENT_MODEL' : array { $contentModel },
+                'LISTS_ATTRIBUTES' : array { nf:attListPuller(current()/attList) },
+                'CONSTRAINED_BY': array {nf:constraintPuller($constraints)},
+                'CONTAINS_EXAMPLES': array{ nf:exemplumPuller($exempla)},
+                'REMARKS_ON': array { nf:glossDescPuller($remarks) }
                 }"/>   
         </xsl:for-each>         
     </xsl:function>
@@ -97,34 +97,34 @@
                
                    <xsl:sequence select="map {
                        'DATATYPE': current()/datatype/dataRef/@key ! normalize-space(),
-                       'DATATYPE-DESCRIBED-BY': $valDescs
+                       'DATATYPE_DESCRIBED_BY': $valDescs
                        }"/> 
                </xsl:if>               
         </xsl:variable>
           <xsl:sequence select="map{
-              'ATTRIBUTE-DEFINITION' : current()/@ident ! normalize-space(),
+              'ATTRIBUTE_DEFINITION' : current()/@ident ! normalize-space(),
               'USAGE': current()/@usage ! normalize-space(),
-              'GLOSSED-BY': array { nf:glossDescPuller($glosses) },
-              'DESCRIBED-BY': array { nf:glossDescPuller($descs)},
-               'TAKES-DEFAULT-VALUE': $defaultVal,
-               'TAKES-DATATYPE': array {$datatype},
-               'CONSTRAINED-BY': array {nf:constraintPuller($constraints)},
-               'CONTAINS-EXAMPLES': array{ nf:exemplumPuller($exempla)},
-               'REMARKS-ON': array{ nf:glossDescPuller($remarks)},
-               'CONTAINS-VALUE-LIST': array { nf:valListPuller(current()/valList) }
+              'GLOSSED_BY': array { nf:glossDescPuller($glosses) },
+              'DESCRIBED_BY': array { nf:glossDescPuller($descs)},
+               'TAKES_DEFAULT_VALUE': $defaultVal,
+               'TAKES_DATATYPE': array {$datatype},
+               'CONSTRAINED_BY': array {nf:constraintPuller($constraints)},
+               'CONTAINS_EXAMPLES': array{ nf:exemplumPuller($exempla)},
+               'REMARKS_ON': array{ nf:glossDescPuller($remarks)},
+               'CONTAINS_VALUE_LIST': array { nf:valListPuller(current()/valList) }
               }"/>
        </xsl:for-each> 
        </xsl:variable>
         <xsl:choose>
            <xsl:when test="$attList/attList">
                <xsl:sequence select="map{
-               'DEFINES-ATTRIBUTES' : array{ $attDefMaps},
-               'LISTS-ATTRIBUTES' : array { nf:attListPuller($attList/attList) }   
+               'DEFINES_ATTRIBUTES' : array{ $attDefMaps},
+               'LISTS_ATTRIBUTES' : array { nf:attListPuller($attList/attList) }   
                }"/>
            </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="map{
-                    'DEFINES-ATTRIBUTES' : array{ $attDefMaps}
+                    'DEFINES_ATTRIBUTES' : array{ $attDefMaps}
                     }"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -139,16 +139,16 @@
                 <xsl:variable name="paramList" as="element()*" select="current()/paramList"/>
                 <xsl:sequence select="map{
                     'VALUE' : current()/@ident ! normalize-space(),
-                    'EQUIVALENT-NAME' : current()/equiv ! normalize-space(),
-                    'GLOSSED-BY' : array {nf:glossDescPuller($glosses) },
-                    'DESCRIBED-BY': array {nf:glossDescPuller($descs) },
-                    'HAS-PARAM-LIST': array {nf:paramListPuller($paramList)}
+                    'EQUIVALENT_NAME' : current()/equiv ! normalize-space(),
+                    'GLOSSED_BY' : array {nf:glossDescPuller($glosses) },
+                    'DESCRIBED_BY': array {nf:glossDescPuller($descs) },
+                    'HAS_PARAM_LIST': array {nf:paramListPuller($paramList)}
                     }"/>                                
             </xsl:for-each>
         </xsl:variable>        
         <xsl:sequence select="map{ 
-            'VAL-LIST-TYPE': $valList/@type ! normalize-space(),
-            'VALUE-OPTIONS': array{ }
+            'VAL_LIST_TYPE': $valList/@type ! normalize-space(),
+            'VALUE_OPTIONS': array{ }
             }"/>
     </xsl:function>
     <xsl:function name="nf:paramListPuller" as="map(*)*">
@@ -158,7 +158,7 @@
             <xsl:variable name="paramDescs" as="element()*" select="current()/desc"/>
             <xsl:sequence select="map{
                 'PARAMETER' : current()/@ident ! normalize-space(),
-                'DESCRIBED-BY' : array{nf:glossDescPuller($paramDescs) }
+                'DESCRIBED_BY' : array{nf:glossDescPuller($paramDescs) }
                 }"/>
         </xsl:for-each>        
     </xsl:function>
@@ -173,19 +173,19 @@
                        <xsl:choose>
                            <xsl:when test="current()/local-name() ='let'">
                                <xsl:sequence select="map{ 
-                                   'VARIABLE-FOR-TEST' : map{ 
-                                       'VARIABLE-NAME' : current()/@name ! normalize-space(),
-                                       'VARIABLE-VALUE': current()/@value ! normalize-space()
+                                   'VARIABLE_FOR_TEST' : map{ 
+                                       'VARIABLE_NAME' : current()/@name ! normalize-space(),
+                                       'VARIABLE_VALUE': current()/@value ! normalize-space()
                                    }}"/>
                            </xsl:when>
                            <xsl:when test="current() ! local-name() = 'assert'">
                                <xsl:sequence select="map{ 
-                           'ASSERT_MUST-BE-TRUE' : current()/@test ! string(),
+                           'ASSERT_MUST_BE_TRUE' : current()/@test ! string(),
                            'TEST' : normalize-space(.)
                            }"/></xsl:when>
                            <xsl:otherwise>
                              <xsl:sequence select="map{ 
-                            'REPORT_MUST-BE-FALSE' : current()/@test ! string(),
+                            'REPORT_MUST_BE_FALSE' : current()/@test ! string(),
                              'TEST' : normalize-space(.)
                                    }"/>
                                
@@ -196,12 +196,12 @@
                 </xsl:variable>
                 <xsl:sequence select="map{
                     'CONTEXT' : current()/@context ! string(),
-                    'TESTED-BY': array{$tests}
+                    'TESTED_BY': array{$tests}
                     }"/>
             </xsl:for-each></xsl:variable>
             <xsl:sequence select="map{ 
                 'ID' : current()/@ident ! normalize-space(),
-                'DESCRIBED-BY': array{nf:glossDescPuller(current()/desc) },
+                'DESCRIBED_BY': array{nf:glossDescPuller(current()/desc) },
                 'RULES' : array{ $constraint }
                 }"/>
         </xsl:for-each>
@@ -217,7 +217,7 @@
                 </xsl:variable> 
             <xsl:sequence select="map{
                 'LANGUAGE' : (current()/@xml:lang ! normalize-space(), 'en')[1],
-                'CONTAINS-PARAS' :  array {nf:paraPuller($paras)},
+                'CONTAINS_PARAS' :  array {nf:paraPuller($paras)},
                 'EXAMPLE': $egXMLs
             }"/>
         </xsl:for-each>
@@ -270,12 +270,12 @@
                     <xsl:sequence select="map{
             current() ! upper-case(name()) : $remarkInnards,
             'LANGUAGE' : current()/@xml:lang ! normalize-space(),
-            'VERSION-DATE': current()/@versionDate ! xs:date(.)
+            'VERSION_DATE': current()/@versionDate ! xs:date(.)
                 }"/>
         </xsl:for-each>      
     </xsl:function>
     
-    <!-- COLLECTION OF TEMPLATES THAT PROCESS PARAGRAPH-LEVEL CHUNKS --> 
+    <!-- COLLECTION OF TEMPLATES THAT PROCESS PARAGRAPH_LEVEL CHUNKS --> 
     <xsl:template match="ptr">
         <xsl:variable name="targetMatch" as="xs:string" select="substring-after(@target, '#')"/>
         <xsl:value-of select="@target ! normalize-space()"/>
@@ -319,7 +319,7 @@
                         <xsl:if test="current()//moduleSpec">
                             <xsl:sequence select="map{
                                 'MODULE' : current()//moduleSpec/idno ! normalize-space(),
-                                'DESCRIBED-BY': array{ nf:glossDescPuller(current()/moduleSpec/desc)}
+                                'DESCRIBED_BY': array{ nf:glossDescPuller(current()/moduleSpec/desc)}
                                 }"/>
                         </xsl:if>
                         
@@ -327,12 +327,12 @@
                     
                     <xsl:variable name="elementsMentioned" as="map(*)*">
                         <xsl:if test="current()//gi"> 
-                            <xsl:sequence select="map {'ELEMENTS MENTIONED': array {current()//gi => nf:ndv()}}"/>
+                            <xsl:sequence select="map {'ELEMENTS_MENTIONED': array {current()//gi => nf:ndv()}}"/>
                         </xsl:if>
                     </xsl:variable>
                     <xsl:variable name="attsMentioned" as="map(*)*">
                         <xsl:if test="current()//att">
-                            <xsl:sequence select="map {'ATTRIBUTES MENTIONED': array {current()//att => nf:ndv()}}"/>
+                            <xsl:sequence select="map {'ATTRIBUTES_MENTIONED': array {current()//att => nf:ndv()}}"/>
                         </xsl:if>
                     </xsl:variable>
                     <xsl:variable name="identsMentioned" as="map(*)*">
@@ -348,7 +348,7 @@
                     </xsl:variable> 
                     <xsl:variable name="specGrps" as="map(*)*">
                         <xsl:if test ="current()/specGrp">
-                            <xsl:sequence select="map{'CONTAINS-SPECGRPS' : nf:spcGrpPuller(current()/specGrp)}"/>
+                            <xsl:sequence select="map{'CONTAINS_SPECGRPS' : nf:spcGrpPuller(current()/specGrp)}"/>
                         </xsl:if>
                     </xsl:variable>
                     
@@ -359,134 +359,68 @@
             <xsl:sequence select="map { 
                 'PARA': $paraString,
                 'SEQUENCE': $sequence,
-                'Para-String-Length': $paraString ! string-length(),
-                'TEI-ENCODING-DISCUSSED' : $moreThanText
+                'TEI_ENCODING_DISCUSSED' : $moreThanText
                 }"/>
    
         </xsl:for-each>
     </xsl:function>
    
-    <xsl:function name="nf:chapterDivPull" as="map(*)*">
-        <xsl:param name="div" as="element()"/>
-        <xsl:param name="whichDiv" as="xs:string?"/>
-        <xsl:param name="sectionLevel" as="xs:string"/>
-
-        <xsl:for-each select="$div/div[head]">
-            <!-- Store my child <p> elements: -->
-            <xsl:variable name="paras" as="element()*" select="child::p"/>
-            <xsl:variable name="targets" as="item()*" select="child::p//*[self::ptr or self::ref or self::specGrpRef]
-                [not(@target ! substring-after(., '#') = //back//*/@xml:id)]/@target ! normalize-space()"/>
-              <!--ebb: Above the second predicate excludes pointers to the bibliography. -->
-            <xsl:variable name="specGrps" as="element()*" select="child::specGrp"/>
-            <xsl:variable name="specs" as="element()*" select="child::*[name() ! ends-with(., 'Spec')]"/>
-         <!-- Are you a section with nested subsections? If so, continue processing those subsections. Otherwise, stop here. -->
-           <xsl:choose> 
-               <xsl:when test="current()[child::div[head]]">
-                   <xsl:sequence select="map {
-                       'NAME': current()/head ! normalize-space(),
-                       'ID': current()/@xml:id ! normalize-space(),
-                       'SEQUENCE': count(current()/preceding-sibling::div) + 1, 
-                       'CONTAINS-'||$sectionLevel : array { nf:chapterDivPull(current(), (current()/@type ! normalize-space(), '')[1], 'NESTED-SUBSECTION') },
-                       'CONTAINS-PARAS': array {nf:paraPuller($paras)},
-                       (:'RELATES-TO': nf:linkPuller($targets),:) (: ebb: MOVE this to the PARA-PULLER function, since these are all inside paragraphs anyway. :)
-                       'CONTAINS-SPECGRPS' : nf:spcGrpPuller($specGrps),
-                       'CONTAINS-SPECS': array {nf:specPuller($specs)}
-                       }"/> 
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:sequence select="map {
-                    'NAME' : current()/head ! normalize-space(),
-                    'ID' : current()/@xml:id ! normalize-space(),
-                    'SEQUENCE': count(current()/preceding-sibling::div) + 1, 
-                    'CONTAINS-PARAS': array {nf:paraPuller($paras)},
-                    'RELATES-TO': nf:linkPuller($targets),
-                    'CONTAINS-SPECGRPS' : nf:spcGrpPuller($specGrps),
-                    'CONTAINS-SPECS': array {nf:specPuller($specs)}
-                    }"/>
-            </xsl:otherwise>
-           </xsl:choose>
+    <xsl:function name="nf:chapterMapper" as="map(*)*">
+        <xsl:param name="part" as="element()+"/>
+        <xsl:for-each select="$part">
+            <xsl:map>
+                <xsl:map-entry key="'PART'"><xsl:sequence select="current() ! name() ! normalize-space()"/></xsl:map-entry>
+                <xsl:map-entry key="'SEQUENCE'"><xsl:value-of select="current()/preceding-sibling::* => count() + 1"/></xsl:map-entry>
+                <xsl:variable name="chapterMaps" as="map(*)*"> 
+                    <xsl:for-each select="current()/div[not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))]">
+                        <xsl:variable name="chap" as="element(div)" select="current()"/>
+                        <xsl:variable name="targets" as="item()*" select="child::p//*[self::ptr or self::ref or self::specGrpRef]
+                            [not(@target ! substring-after(., '#') = //back//*/@xml:id)]/@target ! normalize-space()"/>
+                        <xsl:map>
+                            <xsl:map-entry key="'CHAPTER'"><xsl:value-of select="$chap/head ! normalize-space()"/></xsl:map-entry>
+                            <xsl:map-entry key="'ID'"><xsl:value-of select="$chap/@xml:id ! normalize-space()"/></xsl:map-entry>
+                            <xsl:map-entry key="'SEQUENCE'">
+                                <xsl:value-of select="count($chap/preceding-sibling::*) + 1"/>
+                            </xsl:map-entry>
+                             <xsl:if test="current()[p]">
+                                        <xsl:map-entry key="'CONTAINS_PARAS'"><xsl:sequence select="array{nf:paraPuller(current()/p) }"/></xsl:map-entry>
+                                    </xsl:if>
+                            <xsl:if test="current()[specGrp]">
+                                <xsl:map-entry key="'CONTAINS_SPECGRPS'"><xsl:sequence select="nf:spcGrpPuller(current()/specGrp)"/></xsl:map-entry>
+                            </xsl:if>
+                            <xsl:if test="current()/child::*[name() ! ends-with(., 'Spec')]">
+                                <xsl:map-entry key="'CONTAINS_SPECS'"><xsl:sequence 
+                                        select="array{nf:specPuller(current()/child::*[name() ! ends-with(., 'Spec')])}"/>
+                                </xsl:map-entry>
+                            </xsl:if>
+                            <xsl:if test="count($targets) gt 0">
+                                <xsl:map-entry key="'RELATES_TO'"><xsl:sequence select="nf:linkPuller($targets)"/></xsl:map-entry>
+                            </xsl:if>
+                        </xsl:map>
+                    </xsl:for-each>
+                </xsl:variable> 
+                <xsl:map-entry key="'CONTAINS_CHAPTERS'"><xsl:sequence select="array{ $chapterMaps}"/></xsl:map-entry>
+            </xsl:map>
         </xsl:for-each>
     </xsl:function>
-    
     <xsl:template match="/">
         <xsl:result-document href="../digitai-p5.json" method="json" indent="yes"> 
-         <xsl:variable name="partInfo" as="map(*)*"> 
-           <xsl:for-each select="$P5/TEI/text/*[not(self::* = 'back')]">
-            <xsl:variable name="chapterMaps" as="map(*)*">
-                <xsl:call-template name="front-or-body">
-                    <xsl:with-param name="front-or-body" as="element()" select="current()"/>
-                </xsl:call-template>
-            </xsl:variable>
-               <xsl:variable name="sequence">
-                   <xsl:choose>
-                       <xsl:when test="current() ! name() = 'front'">
-                           <xsl:value-of select="1"/>
-                       </xsl:when>
-                       <xsl:otherwise>
-                           <xsl:value-of select="2"/>
-                       </xsl:otherwise>
-                   </xsl:choose>
-               </xsl:variable>
-            <xsl:sequence select="map {
-                'PART' : current()/name(),
-                'SEQUENCE': $sequence,
-                'CONTAINS-CHAPTERS': array { $chapterMaps
-                }}"/>
-        </xsl:for-each>
-        </xsl:variable>
-        <xsl:sequence select="map {
-            'DOCUMENT-TITLE' : 'THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH',
-            'PREPARED-BY' : 'Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher',
-            'SUPPORTING-INSTITUTION': 'Penn State Erie, The Behrend College',
-            'TEI_SOURCE-VERSION-NUMBER': $P5-version,
-            'TEI_SOURCE-OUTPUT-DATE' : $P5-versionDate,
-            'THIS-JSON-DATETIME': $currentDateTime,
-            'CONTAINS-PARTS' : array { $partInfo }
-            }"/>
-     </xsl:result-document>
+            <xsl:map>
+                <xsl:map-entry key="'DOCUMENT_TITLE'">THE TEI GUIDELINES AS BASIS FOR A KNOWLEDGE GRAPH</xsl:map-entry> 
+                <xsl:map-entry key="'PREPARED_BY'">Digit-AI team: Elisa Beshero-Bondar, Hadleigh Jae Bills, and Alexander Charles Fisher</xsl:map-entry>
+                <xsl:map-entry key="'SUPPORTING_INSTITUTION'">Penn State Erie, The Behrend College</xsl:map-entry>
+                <xsl:map-entry key="'TEI_SOURCE_VERSION_NUMBER'"><xsl:value-of select="$P5-version"/></xsl:map-entry>
+                <xsl:map-entry key="'TEI_SOURCE_OUTPUT_DATE'"><xsl:value-of select="$P5-versionDate"/></xsl:map-entry>
+                <xsl:map-entry key="'THIS_JSON_DATETIME'"><xsl:value-of select="$currentDateTime"/></xsl:map-entry>
+                <xsl:map-entry key="'CONTAINS_PARTS'">
+                    <xsl:sequence select="array { nf:chapterMapper($P5/TEI/text/*[not(self::back)])}"/>
+                </xsl:map-entry>
+                
+            </xsl:map>
+        </xsl:result-document>
     </xsl:template>
     
-    <xsl:template name="front-or-body" as="map(*)*">  
-        <xsl:param name="front-or-body"/>
-   <xsl:variable name="chapters" as="map(*)*">
-       <!--ebb: NOTE: Here we are excluding the P5 Subset file's references to the REF- and Deprecations files we've removed.  -->
-       <!-- 2025-06-18 ebb: JUST constraining this to output the AI (Analytic Mechanisms) chapter -->
-       
-       <xsl:for-each select="child::div[not(@xml:id='DEPRECATIONS') and not(starts-with(@xml:id, 'REF-'))]">
-           <xsl:variable name="chap" select="current()" as="element()"/>
-           <xsl:variable name="targets" as="item()*" select="child::p//*[self::ptr or self::ref or self::specGrpRef]
-               [not(@target ! substring-after(., '#') = //back//*/@xml:id)]/@target ! normalize-space()"/>
-           <!--ebb: Above the second predicate excludes pointers to the bibliography. -->
-          
-
-         <xsl:choose> 
-             <xsl:when test="current()[p]">
-             <xsl:variable name="paras" as="element()*" select="$P5//div[@xml:id = current()/@xml:id]/child::p"/>
-             
-            <xsl:sequence select=" map {
-               'CHAPTER': $chap/head ! normalize-space(),
-               'ID': $chap/@xml:id ! string(),
-               'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap, 'div1', 'SUBSECTION') },
-               'CONTAINS-PARAS': array {nf:paraPuller($paras)},
-               'RELATES-TO': nf:linkPuller($targets)
-               } 
-               "/>
-             </xsl:when>
-             <xsl:otherwise>
-                 
-               <xsl:sequence select=" map {
-                     'CHAPTER': $chap/head ! normalize-space(),
-                     'ID': $chap/@xml:id ! string(),
-                     'CONTAINS-SECTIONS': array { nf:chapterDivPull($chap, 'div1', 'SUBSECTION') }
-                     } 
-                     "/> 
-             </xsl:otherwise>
-         
-         </xsl:choose>
-       </xsl:for-each>
-        </xsl:variable>
-        
-        <xsl:sequence select=" $chapters "/>
-    </xsl:template>
+    
+   
     
 </xsl:stylesheet>
