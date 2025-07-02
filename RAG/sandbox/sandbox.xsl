@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:array="http://www.w3.org/2005/xpath-functions/array"
+    xmlns:map="http://www.w3.org/2005/xpath-functions/map"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:my="https://my.namespace/for/function-definitions" exclude-result-prefixes="xs math"
     version="4.0">
@@ -193,23 +195,39 @@
                     </xsl:map-entry>
                     <xsl:map-entry key="'specgrp'">
                         <xsl:map>
-                           <xsl:map-entry key="'label'" select="'Specgrp'"/>
+                            <xsl:map-entry key="'label'" select="'Specgrp'"/>
                             <xsl:map-entry key="'cypherVar'" select="'specgrp'"/>
-                            <xsl:map-entry key="'primaryKey'" select="'id'"/>
-                            <xsl:map-entry key="'jsonKeyForPK'" select="'SPEC'"/>
                             <xsl:map-entry key="'properties'">
                                 <xsl:map>
-                                    <xsl:map-entry key="'contentModel'">CONTENT</xsl:map-entry>
-                                    <xsl:map-entry key="'childEntityType'">contentmodel</xsl:map-entry>
-                                    <xsl:map-entry key="'relationship'">DEFINES_CONTENT_MODEL</xsl:map-entry>
+                                    <xsl:map-entry key="'properties'" select="map{'title': 'SPECGRP', 'type': 'xs:string'}"/>
                                 </xsl:map>
                             </xsl:map-entry>
                             <xsl:map-entry key="'children'">
                                 <xsl:map>
-                                    <xsl:map-entry key="'jsonChildrenKey'">CONTAINS_PARAS</xsl:map-entry>
-                                    <xsl:map-entry key="'childEntityType'">paragraph</xsl:map-entry>
-                                    <xsl:map-entry key="'relationship'">HAS_PARAGRAPH</xsl:map-entry>
+                                    <xsl:map-entry key="'jsonChildrenKey'">CONTAINS_SPECS</xsl:map-entry>
+                                    <xsl:map-entry key="'childEntityType'">specification</xsl:map-entry>
+                                    <xsl:map-entry key="'relationship'">'HAS_SPEC'</xsl:map-entry>
                                 </xsl:map>
+                            </xsl:map-entry>
+                            
+                        </xsl:map>
+                    </xsl:map-entry>
+                    <xsl:map-entry key="'specification'">
+                        <xsl:map>
+                            <xsl:map-entry key="'label'" select="'Spec'"/>
+                            <xsl:map-entry key="'cypherVar'" select="'specification'"/>
+                            <xsl:map-entry key="'primaryKey'" select="'id'"/>
+                            <xsl:map-entry key="'jsonKeyForPK'" select="'SPEC'"/>
+                            <xsl:map-entry key="'children'">
+                                <xsl:sequence select="array{
+                                    map{'contentModel': 'CONTENT',
+                                        'childEntityType': 'contentmodel',
+                                        'relationship': 'DEFINES_CONTENT_MODEL'},
+                                    map{'jsonChildrenKey': 'CONTAINS_PARAS',
+                                        'childEntityType': 'paragraph',
+                                        'relationship': 'HAS_PARAGRAPH'
+                                    }
+                                    }"/>
                             </xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
@@ -217,7 +235,7 @@
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Content'"/>
                     <xsl:map-entry key="'cypherVar'" select="'contentmodel'"/>
-                    <xsl:map-entry key="'properties'" select="'STRING'"/>
+                    <xsl:map-entry key="'properties'" select="'RULE'"/>
          
                 </xsl:map>
             </xsl:map-entry>
@@ -367,93 +385,152 @@
     
 <!-- CYPHER MAP, FUNCTIONS AND TEMPLATES FOR IMPORTING THE JSON AND BUILDING THE GRAPH -->
 
-    <!-- FUNCTION TO MERGE NODES -->
-    <xsl:function name="my:generate-node-merge" as="xs:string">
-        <xsl:param name="map-entity-type" as="xs:string"/> 
-        <xsl:param name="json-variable" as="xs:string"/> 
-        <xsl:variable name="model" select="$my:graph-model($map-entity-type)"/>
-        <xsl:sequence select="'MERGE ('||$model('cypherVar')||':'||$model('label')||
-            ' {'||$model('primaryKey')||': '||$json-variable||'.'||$model('jsonKeyForPK')|| '})'"/>
-    </xsl:function>
-    
-    <!-- FUNCTION TO ESTABLISH EDGES (RELATIONSHIP CONNECTIONS)-->
-    <xsl:function name="my:generate-relationship-merge" as="xs:string">
-        <xsl:param name="map-entity-type" as="xs:string"/>
-        <xsl:param name="parent-entity-type" as="xs:string?"/>
-        <xsl:variable name="model" select="$my:graph-model($map-entity-type)"/>
-        <xsl:variable name="parentModel" select="$my:graph-model($parent-entity-type)"/>
-     <!-- ebb: This (below) may be too limited since we will have multiple possible parents for some node types
-         <xsl:variable name="parent-model" select="$my:graph-model($model('parent'))"/>   -->     
+    <!-- FUNCTION TO CREATE GRAPH NODES -->
+    <xsl:function name="my:generate-node-statement" as="xs:string">
+        <xsl:param name="current-entity-type" as="xs:string"/>
+        <xsl:param name="current-json-var" as="xs:string"/>
+        
+        <xsl:variable name="model" select="$my:graph-model($current-entity-type)"/>
+        <xsl:variable name="cypher-var" select="$model('cypherVar')"/>
+        
+        <xsl:variable name="node-clause" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="map:contains($model, 'primaryKey')">
+                    <xsl:sequence select="
+                        'MERGE ('||$cypher-var||':'||$model('label')|| 
+                        ' {'||$model('primaryKey')||': '||$current-json-var||'.'||$model('jsonKeyForPK')||'})'
+                        "/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="
+                        'CREATE ('||$cypher-var||':'||$model('label')||')'
+                        "/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="set-clauses" as="xs:string*">
+            <xsl:if test="map:contains($model, 'properties')">
+                <xsl:variable name="properties-map" select="$model('properties')"/>
+                <xsl:for-each select="map:keys($properties-map)">
+                    <xsl:variable name="prop-key" select="."/>
+                    <xsl:variable name="json-key" select="$properties-map($prop-key)"/>
+                    <xsl:sequence select="$cypher-var||'.'||$prop-key||' = '||$current-json-var||'.'||$json-key"/>
+                </xsl:for-each>
+            </xsl:if>
+        </xsl:variable>
+        <xsl:variable name="full-set-statement" as="xs:string" select="string-join($set-clauses, ', ')"/>
         <xsl:sequence select="
-        'MERGE ('||$parentModel('cypherVar')||')-[:'||$model('relationship')||']->('||$model('cypherVar')||')'"/>
+            if (exists($set-clauses))
+            then $node-clause||' SET '||$full-set-statement
+            else $node-clause
+            "/>
+    </xsl:function>
+        
+    
+    <!-- FUNCTION TO ESTABLISH GRAPH EDGES (RELATIONSHIP CONNECTIONS)-->
+    <xsl:function name="my:generate-relationship-merge" as="xs:string">
+        <xsl:param name="child-cypher-var" as="xs:string"/>
+        <xsl:param name="parent-cypher-var" as="xs:string"/>
+        <xsl:param name="relationship-name" as="xs:string"/>
+        
+        <xsl:sequence select="
+            'MERGE ('||$parent-cypher-var||')-[:'||$relationship-name||']->('||$child-cypher-var||')'
+            "/>
     </xsl:function>
     
-    <!-- FUNCTION FOR PROCESSING SEQUENCES (FOREACH) -->
-    <xsl:function name="my:generate-foreach-block" as="xs:string">
+    <!-- FUNCTIONS FOR PROCESSING SEQUENCES  -->
+    <xsl:function name="my:generate-sequence-block" as="xs:string">
+        <xsl:param name="parent-cypher-var" as="xs:string"/>
+        <xsl:param name="child-info-map" as="map(*)"/>
+        
+        <xsl:variable name="child-entity-type" select="$child-info-map('childEntityType')"/>
+        <xsl:variable name="child-model" select="$my:graph-model($child-entity-type)"/>
+        <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')"/>
+        <xsl:variable name="child-json-var" select="$child-cypher-var || '_data'"/>
+        <xsl:variable name="json-children-key" select="$child-info-map('jsonChildrenKey')"/>
+        <xsl:variable name="relationship-to-parent" select="$child-info-map('relationship')"/>
+        <xsl:variable name="collection-var" select="$child-cypher-var || 's'"/> 
+        
+        <xsl:variable name="pass1" as="xs:string" select="
+            '// Pass 1: Create all '||$child-entity-type||' nodes and connect to parent'||$nltab||
+            'WITH '||$parent-cypher-var||$nltab||
+            'UNWIND '||$parent-cypher-var||'.'||$json-children-key||' AS '||$child-json-var||$nltab||
+            my:generate-node-statement($child-entity-type, $child-json-var)||$nltab||
+            my:generate-relationship-merge($child-cypher-var, $parent-cypher-var, $relationship-to-parent)||$nltab||
+            'WITH '||$parent-cypher-var||', collect('||$child-cypher-var||') AS '||$collection-var||$nltab
+            "/>
+        
+        <xsl:variable name="pass2" as="xs:string" select="
+            $nltab||'// Pass 2: Create :NEXT relationships between sequential nodes'||$nltab||
+            'UNWIND range(0, size('||$collection-var||') - 2) AS i'||$nltab||
+            'WITH '||$parent-cypher-var||', '||$collection-var||', '||$collection-var||'[i] AS n1, '||$collection-var||'[i+1] AS n2'||$nltab||
+            'MERGE (n1)-[:NEXT]->(n2)'||$nltab
+            "/>
+        
+        <xsl:variable name="pass3" as="xs:string" select="
+            $nltab||'// Pass 3: Recursively process children of each node in the sequence'||$nltab||
+            'WITH '||$parent-cypher-var||', '||$collection-var||$nltab||
+            'UNWIND '||$collection-var||' AS '||$child-cypher-var||$nltab||
+            string-join(my:generate-foreach-block($child-entity-type, $child-cypher-var), '&#10;')
+            "/>
+        
+        <xsl:sequence select="concat($pass1, $pass2, $pass3)"/>
+    </xsl:function>
+    
+    <!-- SETS FOREACH IN MOTION AND RECURSES -->
+    <xsl:function name="my:generate-foreach-block" as="xs:string*">
         <xsl:param name="current-entity-type" as="xs:string"/>
         <xsl:param name="current-json-var" as="xs:string"/>
         
         <xsl:variable name="current-model" select="$my:graph-model($current-entity-type)"/>
         
         <xsl:for-each select="$current-model?children?*">
-            <xsl:variable name="child-info" select="current()" as="map(*)"/>
-            <xsl:variable name="child-entity-type" select="$child-info('childEntityType')"/>
-            <xsl:variable name="child-model" select="$my:graph-model($child-entity-type)"/>
-            <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')"/>
-            <xsl:variable name="child-json-var" select="$child-cypher-var || '_data'"/>
+            <xsl:variable name="child-info" select="." as="map(*)"/>
             
-            <xsl:sequence select="'FOREACH ('||$child-json-var|| ' IN '||$current-json-var||'.'||$child-info('jsonChildrenKey')||' |'||
-                $nltab||my:generate-node-merge($child-entity-type, $child-json-var)||$nltab||
-                my:generate-relationship-merge($child-entity-type, $current-entity-type)||$nltab"/>  
+            <xsl:choose>
+                <xsl:when test="map:contains($child-info, 'isSequence') and $child-info?isSequence = 'true()'">
+                    <xsl:sequence select="my:generate-sequence-block($current-json-var, $child-info)"/>
+                </xsl:when>
+                
+                <xsl:otherwise>
+                    <xsl:variable name="child-entity-type" select="$child-info('childEntityType')"/>
+                    <xsl:variable name="child-model" select="$my:graph-model($child-entity-type)"/>
+                    <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')"/>
+                    <xsl:variable name="child-json-var" select="$child-cypher-var || '_data'"/>
+                    
+                    <xsl:variable name="simple-foreach-block" as="xs:string" select="
+                        'FOREACH ('||$child-json-var||' IN '||$current-json-var||'.'||$child-info('jsonChildrenKey')||' |'||$nltab||
+                        my:generate-node-statement($child-entity-type, $child-json-var)||$nltab||
+                        my:generate-relationship-merge($child-cypher-var, $current-json-var, $child-info('relationship'))||$nltab||
+                        string-join(my:generate-foreach-block($child-entity-type, $child-json-var), '&#10;    ')||$nltab||
+                        ')'
+                        "/>
+                    <xsl:sequence select="$simple-foreach-block"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:function>
-   
-<xsl:template match="/" mode="cypher">
-    <xsl:result-document href="sandbox-cypher-import.cypher" method="text">
-        <xsl:text>
-        // =================================================================
-        // 1. SETUP: Create Constraints for Performance and Data Integrity
-        // =================================================================
-        CREATE CONSTRAINT IF NOT EXISTS FOR (d:Document) REQUIRE d.title IS UNIQUE;
-        CREATE CONSTRAINT IF NOT EXISTS FOR (s:Section) REQUIRE s.id IS UNIQUE;
-        CREATE CONSTRAINT IF NOT EXISTS FOR (spec:Specification) REQUIRE spec.name IS UNIQUE;
-        
-        
-        // =================================================================
-        // 2. LOAD AND PROCESS: Load the JSON and iterate through it
-        // =================================================================
-      
-      CALL apoc.load.json("file:///sandboxTest.json") YIELD value
-      
-      // Create the single root Document node</xsl:text>
-        <xsl:value-of select="$nltab"/>
-      <xsl:value-of select="my:generate-node-merge('document', 'value')"/>
-        <xsl:value-of select="$nltab"/>
-      <xsl:text>
-          // Process each Part (front, body)
-      FOREACH (part_data in value.CONTAINS_PARTS |
-        </xsl:text>
-      <xsl:value-of select="my:generate-node-merge('part', 'part_data')"/>
-       <xsl:value-of select="$newline"/>
-        <xsl:value-of select="my:generate-relationship-merge('part', 'document')"/>
-        <!--ebb: NOTE: second param of my:generate-relationship-merge() is not required. We want
-            it when we have nodes that could have multiple different options for parents!
-       -->
-      <xsl:text>
-          
-          
-     // OLD WRITTEN OUT FOR COMPARISON BELOW
-     // FOREACH (part_data IN value.CONTAINS_PARTS |
-     //   MERGE (part:Part {name: part_data.PART})
-     //   MERGE (doc)-[:HAS_PART]->(part)
-        
-        </xsl:text>  
-        
-        
-        
-        
-    </xsl:result-document>
-</xsl:template>
+    <xsl:template match="/" mode="cypher">
+        <xsl:result-document href="sandbox-cypher-import.cypher" method="text">
+            <xsl:text>
+// ==== Generated by XSLT Transformation ====
+
+// 1. SETUP: Create Constraints for Performance and Data Integrity
+ CREATE CONSTRAINT IF NOT EXISTS FOR (d:Document) REQUIRE d.title IS UNIQUE;
+ CREATE CONSTRAINT IF NOT EXISTS FOR (s:Section) REQUIRE s.id IS UNIQUE;
+ CREATE CONSTRAINT IF NOT EXISTS FOR (spec:Specification) REQUIRE spec.name IS UNIQUE;
+
+// 2. LOAD AND PROCESS: Load the JSON and start the recursive import
+CALL apoc.load.json("file:///sandboxTest.json") YIELD value
+
+// Create the root Document node
+MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
+
+</xsl:text>
+            <xsl:value-of select="my:generate-foreach-block('document', 'doc')"/>
+            
+        </xsl:result-document>
+    </xsl:template>
 
 
 </xsl:stylesheet>
