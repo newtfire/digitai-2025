@@ -364,6 +364,38 @@
    
         </xsl:for-each>
     </xsl:function>
+    <xsl:function name="nf:chapterDivPull" as="map(*)*">
+        <xsl:param name="div" as="element()"/>
+        <xsl:param name="sectionLevel" as="xs:string"/>
+        
+                 <xsl:for-each select="$div/div[head]">
+                     <xsl:message>WHAT IS MY NAME? <xsl:value-of select="$div/div/head"/></xsl:message>
+            <!-- Store my child <p> elements: -->
+            <xsl:variable name="paras" as="element()*" select="current()/child::p"/>
+            <xsl:variable name="targets" as="item()*" select="current()/child::p//*[self::ptr or self::ref or self::specGrpRef]
+                [not(@target ! substring-after(., '#') = //back//*/@xml:id)]/@target ! normalize-space()"/>
+            <!--ebb: Above the second predicate excludes pointers to the bibliography. -->
+            <xsl:variable name="specGrps" as="element()*" select="current()/child::specGrp"/>
+            <xsl:variable name="specs" as="element()*" select="current()/child::*[name() ! ends-with(., 'Spec')]"/>
+            <!-- Are you a section with nested subsections? If so, continue processing those subsections. Otherwise, stop here. -->
+            <xsl:map>
+                <xsl:map-entry key="'SECTION'"><xsl:value-of select="current()/head ! normalize-space()"/></xsl:map-entry>
+                <xsl:map-entry key="'ID'"><xsl:value-of select="current()/@xml:id ! normalize-space()"/></xsl:map-entry>
+               <xsl:if test="exists(current()/child::div[head])"> 
+                   <xsl:message>HEYYYY THERE'S A CHILD SECTION. WHAT IS <xsl:value-of select="current()"/>?</xsl:message>
+                   <xsl:map-entry key="'CONTAINS_SECTION'">
+                       <xsl:sequence select="array{nf:chapterDivPull(current(), 'SECTION')}"/>
+                </xsl:map-entry>
+               </xsl:if>
+                <xsl:map-entry key="'CONTAINS_PARAS'"><xsl:sequence select="array {nf:paraPuller($paras)}"/></xsl:map-entry>
+                <xsl:if test="exists($targets)">
+                    <xsl:map-entry key="'RELATES_TO'"><xsl:sequence select="nf:linkPuller($targets)"/></xsl:map-entry>
+                </xsl:if>
+                
+            </xsl:map>
+        </xsl:for-each>
+
+    </xsl:function>
    
     <xsl:function name="nf:chapterMapper" as="map(*)*">
         <xsl:param name="part" as="element()+"/>
@@ -382,6 +414,7 @@
                             <xsl:map-entry key="'SEQUENCE'">
                                 <xsl:value-of select="count($chap/preceding-sibling::*) + 1"/>
                             </xsl:map-entry>
+                        <xsl:map-entry key="'CONTAINS_SECTIONS'"><xsl:sequence select="array{nf:chapterDivPull($chap, 'SECTION')}"/></xsl:map-entry>
                              <xsl:if test="current()[p]">
                                         <xsl:map-entry key="'CONTAINS_PARAS'"><xsl:sequence select="array{nf:paraPuller(current()/p) }"/></xsl:map-entry>
                                     </xsl:if>
