@@ -23,3 +23,13 @@ logging:
   file: "digitaiCore/embedding.log"
   level: "INFO"
   format: "%(asctime)s - %(levelname)s - %(message)s"
+
+
+vectorIndex:
+  name: "embedding-index"
+  property: "embedding"
+  dimension: 1024
+
+llm:  # ✅ Now correctly top-level
+  provider: "ollama"
+  model: "qwen:7b"
