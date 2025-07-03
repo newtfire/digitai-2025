@@ -383,7 +383,7 @@
                 <xsl:map-entry key="'ID'"><xsl:value-of select="current()/@xml:id ! normalize-space()"/></xsl:map-entry>
                <xsl:if test="exists(current()/child::div[head])"> 
                    <xsl:message>HEYYYY THERE'S A CHILD SECTION. WHAT IS <xsl:value-of select="current()"/>?</xsl:message>
-                   <xsl:map-entry key="'CONTAINS_SECTION'">
+                   <xsl:map-entry key="'CONTAINS_SECTIONS'">
                        <xsl:sequence select="array{nf:chapterDivPull(current(), 'SECTION')}"/>
                 </xsl:map-entry>
                </xsl:if>
