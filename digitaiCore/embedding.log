@@ -1,0 +1,150 @@
+2025-07-02 19:18:36,655 - INFO - === Embedding Script Start ===
+2025-07-02 19:18:36,796 - INFO - Use pytorch device_name: mps
+2025-07-02 19:18:36,796 - INFO - Load pretrained SentenceTransformer: BAAI/bge-m3
+2025-07-02 19:18:43,851 - INFO - Loaded model: BAAI/bge-m3
+2025-07-02 19:18:43,904 - INFO - Fetched 3368 nodes from Neo4j
+2025-07-02 19:18:48,591 - INFO - Successfully embedded batch 0 to 32
+2025-07-02 19:19:10,349 - INFO - Successfully embedded batch 32 to 64
+2025-07-02 19:19:11,075 - INFO - Successfully embedded batch 64 to 96
+2025-07-02 19:19:12,758 - INFO - Successfully embedded batch 96 to 128
+2025-07-02 19:19:13,405 - INFO - Successfully embedded batch 128 to 160
+2025-07-02 19:19:14,195 - INFO - Successfully embedded batch 160 to 192
+2025-07-02 19:19:15,231 - INFO - Successfully embedded batch 192 to 224
+2025-07-02 19:19:16,755 - INFO - Successfully embedded batch 224 to 256
+2025-07-02 19:19:17,769 - INFO - Successfully embedded batch 256 to 288
+2025-07-02 19:19:18,819 - INFO - Successfully embedded batch 288 to 320
+2025-07-02 19:19:19,614 - INFO - Successfully embedded batch 320 to 352
+2025-07-02 19:19:20,448 - INFO - Successfully embedded batch 352 to 384
+2025-07-02 19:19:21,016 - INFO - Successfully embedded batch 384 to 416
+2025-07-02 19:19:21,674 - INFO - Successfully embedded batch 416 to 448
+2025-07-02 19:19:22,539 - INFO - Successfully embedded batch 448 to 480
+2025-07-02 19:19:23,418 - INFO - Successfully embedded batch 480 to 512
+2025-07-02 19:19:24,926 - INFO - Successfully embedded batch 512 to 544
+2025-07-02 19:19:25,932 - INFO - Successfully embedded batch 544 to 576
+2025-07-02 19:19:26,773 - INFO - Successfully embedded batch 576 to 608
+2025-07-02 19:19:27,510 - INFO - Successfully embedded batch 608 to 640
+2025-07-02 19:19:28,158 - INFO - Successfully embedded batch 640 to 672
+2025-07-02 19:19:28,865 - INFO - Successfully embedded batch 672 to 704
+2025-07-02 19:19:32,902 - INFO - Successfully embedded batch 704 to 736
+2025-07-02 19:19:33,518 - INFO - Successfully embedded batch 736 to 768
+2025-07-02 19:19:34,168 - INFO - Successfully embedded batch 768 to 800
+2025-07-02 19:19:43,054 - INFO - Successfully embedded batch 800 to 832
+2025-07-02 19:19:44,103 - INFO - Successfully embedded batch 832 to 864
+2025-07-02 19:19:44,538 - INFO - Successfully embedded batch 864 to 896
+2025-07-02 19:26:09,926 - INFO - Successfully embedded batch 896 to 928
+2025-07-02 19:26:11,417 - INFO - Successfully embedded batch 928 to 960
+2025-07-02 19:26:12,567 - INFO - Successfully embedded batch 960 to 992
+2025-07-02 19:26:13,231 - INFO - Successfully embedded batch 992 to 1024
+2025-07-02 19:26:14,342 - INFO - Successfully embedded batch 1024 to 1056
+2025-07-02 19:26:14,840 - INFO - Successfully embedded batch 1056 to 1088
+2025-07-02 19:26:15,743 - INFO - Successfully embedded batch 1088 to 1120
+2025-07-02 19:26:16,946 - INFO - Successfully embedded batch 1120 to 1152
+2025-07-02 19:26:17,576 - INFO - Successfully embedded batch 1152 to 1184
+2025-07-02 19:26:18,211 - INFO - Successfully embedded batch 1184 to 1216
+2025-07-02 19:26:19,872 - INFO - Successfully embedded batch 1216 to 1248
+2025-07-02 19:26:20,325 - INFO - Successfully embedded batch 1248 to 1280
+2025-07-02 19:26:22,187 - INFO - Successfully embedded batch 1280 to 1312
+2025-07-02 19:26:22,987 - INFO - Successfully embedded batch 1312 to 1344
+2025-07-02 19:26:23,635 - INFO - Successfully embedded batch 1344 to 1376
+2025-07-02 19:26:24,392 - INFO - Successfully embedded batch 1376 to 1408
+2025-07-02 19:26:25,557 - INFO - Successfully embedded batch 1408 to 1440
+2025-07-02 19:26:26,099 - INFO - Successfully embedded batch 1440 to 1472
+2025-07-02 19:26:26,651 - INFO - Successfully embedded batch 1472 to 1504
+2025-07-02 19:26:27,213 - INFO - Successfully embedded batch 1504 to 1536
+2025-07-02 19:26:28,010 - INFO - Successfully embedded batch 1536 to 1568
+2025-07-02 19:26:29,288 - INFO - Successfully embedded batch 1568 to 1600
+2025-07-02 19:26:30,044 - INFO - Successfully embedded batch 1600 to 1632
+2025-07-02 19:26:33,366 - INFO - Successfully embedded batch 1632 to 1664
+2025-07-02 19:26:34,346 - INFO - Successfully embedded batch 1664 to 1696
+2025-07-02 19:26:35,012 - INFO - Successfully embedded batch 1696 to 1728
+2025-07-02 19:26:35,611 - INFO - Successfully embedded batch 1728 to 1760
+2025-07-02 19:26:36,510 - INFO - Successfully embedded batch 1760 to 1792
+2025-07-02 19:26:36,982 - INFO - Successfully embedded batch 1792 to 1824
+2025-07-02 19:26:38,321 - INFO - Successfully embedded batch 1824 to 1856
+2025-07-02 19:26:38,967 - INFO - Successfully embedded batch 1856 to 1888
+2025-07-02 19:26:52,789 - INFO - Successfully embedded batch 1888 to 1920
+2025-07-02 19:26:53,561 - INFO - Successfully embedded batch 1920 to 1952
+2025-07-02 19:26:54,195 - INFO - Successfully embedded batch 1952 to 1984
+2025-07-02 19:26:54,840 - INFO - Successfully embedded batch 1984 to 2016
+2025-07-02 19:26:55,386 - INFO - Successfully embedded batch 2016 to 2048
+2025-07-02 19:26:56,022 - INFO - Successfully embedded batch 2048 to 2080
+2025-07-02 19:26:56,908 - INFO - Successfully embedded batch 2080 to 2112
+2025-07-02 19:27:05,782 - INFO - Successfully embedded batch 2112 to 2144
+2025-07-02 19:27:06,619 - INFO - Successfully embedded batch 2144 to 2176
+2025-07-02 19:27:09,425 - INFO - Successfully embedded batch 2176 to 2208
+2025-07-02 19:27:10,307 - INFO - Successfully embedded batch 2208 to 2240
+2025-07-02 19:27:12,299 - INFO - Successfully embedded batch 2240 to 2272
+2025-07-02 19:27:13,170 - INFO - Successfully embedded batch 2272 to 2304
+2025-07-02 19:27:13,950 - INFO - Successfully embedded batch 2304 to 2336
+2025-07-02 19:27:14,936 - INFO - Successfully embedded batch 2336 to 2368
+2025-07-02 19:27:15,773 - INFO - Successfully embedded batch 2368 to 2400
+2025-07-02 19:27:16,688 - INFO - Successfully embedded batch 2400 to 2432
+2025-07-02 19:27:17,469 - INFO - Successfully embedded batch 2432 to 2464
+2025-07-02 19:27:18,285 - INFO - Successfully embedded batch 2464 to 2496
+2025-07-02 19:27:18,839 - INFO - Successfully embedded batch 2496 to 2528
+2025-07-02 19:27:19,473 - INFO - Successfully embedded batch 2528 to 2560
+2025-07-02 19:27:20,118 - INFO - Successfully embedded batch 2560 to 2592
+2025-07-02 19:27:21,757 - INFO - Successfully embedded batch 2592 to 2624
+2025-07-02 19:27:24,730 - INFO - Successfully embedded batch 2624 to 2656
+2025-07-02 19:27:25,564 - INFO - Successfully embedded batch 2656 to 2688
+2025-07-02 19:27:34,476 - INFO - Successfully embedded batch 2688 to 2720
+2025-07-02 19:27:35,408 - INFO - Successfully embedded batch 2720 to 2752
+2025-07-02 19:27:36,025 - INFO - Successfully embedded batch 2752 to 2784
+2025-07-02 19:27:36,571 - INFO - Successfully embedded batch 2784 to 2816
+2025-07-02 19:27:38,098 - INFO - Successfully embedded batch 2816 to 2848
+2025-07-02 19:27:38,893 - INFO - Successfully embedded batch 2848 to 2880
+2025-07-02 19:27:39,705 - INFO - Successfully embedded batch 2880 to 2912
+2025-07-02 19:27:41,441 - INFO - Successfully embedded batch 2912 to 2944
+2025-07-02 19:27:42,410 - INFO - Successfully embedded batch 2944 to 2976
+2025-07-02 19:27:43,133 - INFO - Successfully embedded batch 2976 to 3008
+2025-07-02 19:27:45,132 - INFO - Successfully embedded batch 3008 to 3040
+2025-07-02 19:27:46,246 - INFO - Successfully embedded batch 3040 to 3072
+2025-07-02 19:27:54,660 - INFO - Successfully embedded batch 3072 to 3104
+2025-07-02 19:27:55,720 - INFO - Successfully embedded batch 3104 to 3136
+2025-07-02 19:27:56,671 - INFO - Successfully embedded batch 3136 to 3168
+2025-07-02 19:27:58,123 - INFO - Successfully embedded batch 3168 to 3200
+2025-07-02 19:27:58,752 - INFO - Successfully embedded batch 3200 to 3232
+2025-07-02 19:28:00,107 - INFO - Successfully embedded batch 3232 to 3264
+2025-07-02 19:28:00,700 - INFO - Successfully embedded batch 3264 to 3296
+2025-07-02 19:28:01,478 - INFO - Successfully embedded batch 3296 to 3328
+2025-07-02 19:28:02,091 - INFO - Successfully embedded batch 3328 to 3360
+2025-07-02 19:28:02,375 - INFO - Successfully embedded batch 3360 to 3368
+2025-07-02 19:28:02,391 - INFO - Saved embeddings to /Users/digitopenlab/github/digitai/data/p5/neo4jNodeEmbeddings.jsonl
+2025-07-02 19:28:02,391 - INFO - === Embedding Script End ===
+2025-07-02 20:07:50,958 - INFO - === Starting Vector Index Overwrite ===
+2025-07-02 20:07:50,997 - ERROR - ❌ Error during index recreation.
+neo4j.exceptions.GqlError: {gql_status: 42N08} {gql_status_description: error: syntax error or access rule violation - no such procedure. The procedure db.indexes() was not found. Verify that the spelling is correct.} {message: 42N08: The procedure db.indexes() was not found. Verify that the spelling is correct.} {diagnostic_record: {'_classification': 'CLIENT_ERROR', 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}} {raw_classification: CLIENT_ERROR}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/digitopenlab/github/digitai/digitaiCore/vector_index_neo4j.py", line 40, in drop_and_create_index
+    existing = session.run("CALL db.indexes() YIELD name RETURN name").value()
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/session.py", line 328, in run
+    self._auto_result._run(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        query,
+        ^^^^^^
+    ...<6 lines>...
+        self._config.notifications_disabled_classifications,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/result.py", line 236, in _run
+    self._attach()
+    ~~~~~~~~~~~~^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/work/result.py", line 430, in _attach
+    self._connection.fetch_message()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_common.py", line 184, in inner
+    func(*args, **kwargs)
+    ~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt.py", line 864, in fetch_message
+    res = self._process_message(tag, fields)
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_bolt5.py", line 1208, in _process_message
+    response.on_failure(summary_metadata or {})
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/digitopenlab/github/digitai/.venv/lib/python3.13/site-packages/neo4j/_sync/io/_common.py", line 254, in on_failure
+    raise self._hydrate_error(metadata)
+neo4j.exceptions.ClientError: {code: Neo.ClientError.Procedure.ProcedureNotFound} {message: There is no procedure with the name `db.indexes` registered for this database instance. Please ensure you've spelled the procedure name correctly and that the procedure is properly deployed.}
