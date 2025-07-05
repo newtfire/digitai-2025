@@ -51,6 +51,7 @@
               "SECTION": "title abc-1-sub1",
               "CONTAINS_SECTIONS": [ {
                   "SEQUENCE": "1",
+                  "SECTION": "title abc-1-sub-nest1",
                   "CONTAINS_PARAS": [ {
                       "SEQUENCE": "1",
                       "CONTAINS_SPECGRP": [ {
@@ -62,8 +63,7 @@
                           "SPEC": "MYSPEC1"
                         } ],
                       "PARASTRING": "...... ...."
-                    } ],
-                  "NESTEDSUBSECTION": "title abc-1-sub-nest1"
+                    } ]
                 } ],
               "CONTAINS_PARAS": [ {
                   "SEQUENCE": "1",
@@ -88,11 +88,11 @@
               "SECTION": "section abc-2-sub1",
               "CONTAINS_SECTIONS": [ {
                   "SEQUENCE": "1",
+                  "SECTION": "section abc2-sub1-nest1",
                   "CONTAINS_PARAS": [ {
                       "SEQUENCE": "1",
                       "PARASTRING": "......"
-                    } ],
-                  "NESTEDSUBSECTION": "section abc2-sub1-nest1"
+                    } ]
                 } ],
               "CONTAINS_PARAS": [ {
                   "SEQUENCE": "1",
@@ -126,5 +126,5 @@
       "PART": "body"
     }
   ],
-  "DOC_TITLE": "SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH"
+  "DOC_TITLE": "SOURCE XML AS BASIS FOR A KNOWLEDGE\n                    GRAPH"
 }
