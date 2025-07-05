@@ -14,3 +14,12 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
 
 MERGE (doc:Document {title: value.DOC_TITLE}) 
  
+ 
+	FOREACH (part IN CONTAINS_PARTS.HAS_PART |
+	
+    
+       NOW PROCESSING front which has a parent cypher variable of doc
+        AND WE NEED TO PROCESS: part
+    
+       NOW PROCESSING body which has a parent cypher variable of doc
+        AND WE NEED TO PROCESS: part
