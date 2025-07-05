@@ -12,14 +12,9 @@ CALL apoc.load.json("file:///sandboxTest.json") YIELD value
 // Create the root Document node
 MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
 
-MERGE (doc:Document {title: value.DOC_TITLE}) 
- 
- 
-	FOREACH (part IN CONTAINS_PARTS.HAS_PART |
+
+	FOREACH (part_data IN value.CONTAINS_PARTS |
+	 MERGE (part:Part {name: part_data.PART}) 
+	 
+	 MERGE (doc)-[:HAS_PART]->(part) 
 	
-    
-       NOW PROCESSING front which has a parent cypher variable of doc
-        AND WE NEED TO PROCESS: part
-    
-       NOW PROCESSING body which has a parent cypher variable of doc
-        AND WE NEED TO PROCESS: part
