@@ -25,7 +25,7 @@
                     </specList>
                 </p>
 
-                <div type="nestedSubsection">
+                <div type="section">
                     <head>title abc-1-sub-nest1</head>
                     <p>...... <specGrp>
                             <spec ident="MYSPEC1">
@@ -53,7 +53,7 @@
                         </spec>
                     </specGrp>
                 </p>
-                <div type="nestedSubsection">
+                <div type="section">
                     <head>section abc2-sub1-nest1</head>
                     <p>......</p>
                 </div>
