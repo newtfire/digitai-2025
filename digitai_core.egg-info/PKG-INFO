@@ -12,16 +12,6 @@ Requires-Dist: numpy==2.3.1
 Requires-Dist: PyYAML==6.0.2
 Requires-Dist: sentence-transformers==5.0.0
 Requires-Dist: torch==2.7.1
-Provides-Extra: dev
-Requires-Dist: black==24.4.2; extra == "dev"
-Requires-Dist: isort==5.13.2; extra == "dev"
-Requires-Dist: flake8==7.0.0; extra == "dev"
-Requires-Dist: mypy==1.10.0; extra == "dev"
-Requires-Dist: pipreqs==0.4.13; extra == "dev"
-Requires-Dist: pytest==8.2.2; extra == "dev"
-Requires-Dist: ipython==8.25.0; extra == "dev"
-Requires-Dist: types-PyYAML; extra == "dev"
-Requires-Dist: lxml-stubs; extra == "dev"
 Dynamic: license-file
 Dynamic: requires-python
 
