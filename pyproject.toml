@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "digitai-core"
-version = "0.1.0"
-description = "DigitAI Core AI Fine-tuning Framework"
+version = "0.2.0b1"
+description = "DigitAI Core: A TEI-aware RAG system using Neo4j, FAISS, and BGE-M3 to assist scholars in applying the TEI Guidelines."
 readme = "README.md"
 requires-python = ">=3.13"
 

@@ -1,5 +1,6 @@
-# OS generated files #
-######################
+# -----------------------
+# OS/system files (macOS & Windows)
+# -----------------------
 .DS_Store
 .DS_Store?
 ._*
@@ -7,21 +8,41 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-.idea/workspace.xml
-.env/
+
+# -----------------------
+# IDE/editor metadata
+# -----------------------
 .idea/
-.venv
-venv/
+*.iml
+
+# -----------------------
+# Python cache & environments
+# -----------------------
 __pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
 Lib/
 Scripts/
-etc/
 pyvenv.cfg
+etc/
 share/
+
+# -----------------------
+# Notebooks
+# -----------------------
 .ipynb_checkpoints/
-models/
+
+# -----------------------
+# Local config files
+# -----------------------
+.env/
 local.yaml
-index.js
-package.json
-*.iml
-data/p5/neo4jNodeEmbeddings.jsonl
+
+# -----------------------
+# Logs and generated data
+# -----------------------
+*.log
+logs/
+data/
