@@ -371,7 +371,7 @@
                                 -->
                                 <xsl:map>
                                     <xsl:map-entry key="'isListComprehension'" select="true()"/>
-                                    <xsl:map-entry key="'sourceArrayPath'" select="'CONTAINS_SPECLISTS.SPECLIST'"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST'"/>
                                     <xsl:map-entry key="'sourcePropertyKey'" select="'ID'"/>
                                 </xsl:map>
                             </xsl:map-entry>
@@ -424,7 +424,97 @@
                     </xsl:map-entry>
                 </xsl:map>  
             </xsl:map-entry>
-    
+            <xsl:map-entry key="'specgrp'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'Specgrp'"/>
+                    <xsl:map-entry key="'xpathPattern'">specGrp</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'" select="'specgrp'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'specgrp_id'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'SPECGRP_ID'"/>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'name'">SPECGRP_NAME</xsl:map-entry>
+                            <xsl:map-entry key="'links'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'RELATES_TO'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'ID'"/>
+                                </xsl:map>
+                            </xsl:map-entry>
+                            </xsl:map>
+                        </xsl:map-entry>
+                    <xsl:map-entry key="'children'">
+                        <xsl:sequence select="array{
+                            map{
+                                'jsonChildrenKey': 'CONTAINS_SPECS',
+                                'childEntityType': 'spec',
+                                'relationship': 'HAS_SPEC'
+                            }
+                            }"/>
+                    </xsl:map-entry>                
+                </xsl:map>
+            </xsl:map-entry>
+            <xsl:map-entry key="'spec'">
+                <xsl:map-entry key="'label'" select="'Spec'"/>
+                <xsl:map-entry key="'xpathPattern'">specGrp</xsl:map-entry>
+                <xsl:map-entry key="'cypherVar'" select="'spec'"/>
+                <xsl:map-entry key="'primaryKey'" select="'spec_id'"/>
+                <xsl:map-entry key="'jsonKeyForPK'" select="'SPEC_ID'"/>
+                <xsl:map-entry key="'properties'">
+                    <xsl:map>
+                        <xsl:map-entry key="'spec_type'">SPEC_TYPE</xsl:map-entry>
+                        <xsl:map-entry key="'module'">PART_OF_MODULE</xsl:map-entry>
+                        <xsl:map-entry key="'class'">MEMBER_OF_CLASS</xsl:map-entry>
+                        <xsl:map-entry key="'equiv_name'">EQUIVALENT_NAME</xsl:map-entry>
+                        <xsl:map-entry key="'glosses'">
+                            <xsl:map>
+                                <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                <xsl:map-entry key="'sourceArrayPath'" select="'GLOSSED_BY'"/>
+                                <xsl:map-entry key="'sourcePropertyKey'" select="'GLOSS'"/>
+                            </xsl:map>
+                        </xsl:map-entry>
+                        <xsl:map-entry key="'descriptions'">
+                            <xsl:map>
+                                <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                <xsl:map-entry key="'sourceArrayPath'" select="'DESCRIBED_BY'"/>
+                                <xsl:map-entry key="'sourcePropertyKey'" select="'DESC'"/>
+                            </xsl:map>
+                        </xsl:map-entry>
+                        <xsl:map-entry key="'remarks'">
+                            <xsl:map>
+                                <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                <xsl:map-entry key="'sourceArrayPath'" select="'REMARKS_ON'"/>
+                                <xsl:map-entry key="'sourcePropertyKey'" select="'REMARK'"/>
+                            </xsl:map>
+                        </xsl:map-entry>
+                    </xsl:map>
+                </xsl:map-entry>
+                <xsl:map-entry key="'children'">
+                    <xsl:sequence select="array{ 
+                        map{ 
+                        'jsonChildrenKey': 'CONTAINS_CONTENT_MODEL',
+                        'childEntityType': 'content_model',
+                        'relationship': 'CONTENT_MODEL'
+                         },
+                         map{ 
+                         'jsonChildrenKey': 'LISTS_ATTRIBUTES',
+                         'childEntityType': 'attribute',
+                         'relationship': 'HAS_ATTRIBUTE'
+                         },
+                         map{ 
+                         'jsonChildrenKey': 'CONSTRAINED_BY',
+                         'childEntityType': 'constraint',
+                         'relationship': 'HAS_CONSTRAINT'
+                         },
+                         map{ 
+                         'jsonChildrenKey': 'CONTAINS_EXAMPLES',
+                         'childEntityType': 'example',
+                         'relationship': 'HAS_EXAMPLE'
+                         }
+                        }"/>
+                </xsl:map-entry>
+                                    
+            </xsl:map-entry>
         </xsl:map>
     </xsl:variable>
 
