@@ -605,7 +605,7 @@
  CREATE CONSTRAINT IF NOT EXISTS FOR (spec:Specification) REQUIRE spec.name IS UNIQUE;
 
 // 2. LOAD AND PROCESS: Load the JSON and start the recursive import
-CALL apoc.load.json("file:///sandboxTest.json") YIELD value as doc_data
+CALL apoc.load.json("https://raw.githubusercontent.com/newtfire/digitai/refs/heads/ebb-json/RAG/sandbox/sandboxTest.json") YIELD value as doc_data
 
 // Create the root Document node
 MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
@@ -663,6 +663,7 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
             <xsl:variable name="child-type" select="$child-info('childEntityType')"/>
             <xsl:variable name="child-model" select="$my:graph-model($child-type)"/>
             
+          <xsl:if test="$child-type != 'specgrp'">  
             <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')||'_'||$depth"/>
             <xsl:variable name="child-json-var" select="$child-cypher-var||'_data_'||$depth"/>
             <xsl:variable name="relationship" select="$child-info('relationship')"/>
@@ -684,6 +685,40 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
             </xsl:if>
             
             <xsl:sequence select="$newline, $indent, ')'"/>
+          </xsl:if>
+            <xsl:if test="$child-type = 'specgrp'"> 
+                <xsl:variable name="specgrp_model" select="$my:graph-model('specgrp')"/>
+                <xsl:variable name="specgrp_cypher_var" select="concat($specgrp_model('cypherVar'), '_', $depth)"/>
+                <xsl:variable name="specgrp_json_var" select="concat($specgrp_model('cypherVar'), '_data_', $depth)"/>
+                
+                <xsl:variable name="spec_model" select="$my:graph-model('specification')"/>
+                <xsl:variable name="spec_cypher_var" select="concat($spec_model('cypherVar'), '_', $depth)"/>
+                <xsl:variable name="spec_json_var" select="concat($spec_model('cypherVar'), '_item_', $depth)"/>
+                
+                <xsl:variable name="cypher-block">
+                    <xsl:sequence select="$newline, $indent, 'FOREACH (', $specgrp_json_var, ' IN ', $parent_json_var, '.CONTAINS_SPECGRPS |'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, 'CREATE (', $specgrp_cypher_var, ':', $specgrp_model('label'), ')'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, 'MERGE (', $parent_cypher_var, ')-[:HAS_SPECGRP]->(', $specgrp_cypher_var, ')'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, 'FOREACH (', $spec_json_var, ' IN ', $specgrp_json_var, '.SPECGRP |'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, $tab, 'MERGE (', $spec_cypher_var, ':', $spec_model('label'), ' {name: ', $spec_json_var, '.SPEC})'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, $tab, 'MERGE (', $specgrp_cypher_var, ')-[:HAS_SPEC]->(', $spec_cypher_var, ')'"/>
+                    
+                    <xsl:if test="exists($spec_model?children)">
+                        <xsl:call-template name="my:process-children">
+                            <xsl:with-param name="parent_cypher_var" select="$spec_cypher_var"/>
+                            <xsl:with-param name="parent_json_var" select="$spec_json_var"/>
+                            <xsl:with-param name="children_to_process" select="$spec_model?children?*"/>
+                            <xsl:with-param name="indent" select="concat($indent, $tab, $tab)"/>
+                            <xsl:with-param name="depth" select="$depth + 1"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                    
+                    <xsl:sequence select="$newline, $indent, $tab, ')'"/>
+                    <xsl:sequence select="$newline, $indent, ')'"/>
+                </xsl:variable>
+                <xsl:sequence select="$cypher-block"/>
+                
+            </xsl:if>
         </xsl:for-each>
         
      
