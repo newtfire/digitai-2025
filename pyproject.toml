@@ -45,14 +45,14 @@ exclude = '''
 
 [tool.isort]
 profile = "black"
-skip = ["hadleigh", "prelimAlpha", ".venv"]
+#skip = ["hadleigh", "prelimAlpha", ".venv"]
 
 [tool.flake8]
-exclude = ["hadleigh", "prelimAlpha", ".venv"]
+#exclude = ["hadleigh", "prelimAlpha", ".venv"]
 max-line-length = 88
 
 [tool.mypy]
-exclude = "(hadleigh|prelimAlpha|\\.venv)"
+#exclude = "(hadleigh|prelimAlpha|\\.venv)"
 install_types = true
 non_interactive = true
 strict = true
