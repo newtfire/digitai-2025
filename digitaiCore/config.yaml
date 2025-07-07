@@ -5,7 +5,10 @@ neo4j:
   uri: "bolt://localhost:7687"
   user: "neo4j"
   password: "D1g1tAI!"
-  cypher: "MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, elementId(n) AS node_id"
+
+cypher:
+  export_all: "MATCH (n) RETURN elementId(n) AS node_id, n.text AS text, labels(n) AS labels"
+  text_only: "MATCH (n) WHERE n.text IS NOT NULL RETURN elementId(n) AS node_id, n.text AS text"
 
 embedding:
   model: "BAAI/bge-m3"

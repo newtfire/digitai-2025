@@ -8,9 +8,51 @@ version = "0.1.0"
 description = "DigitAI Core AI Fine-tuning Framework"
 readme = "README.md"
 requires-python = ">=3.13"
+
 dependencies = [
-    "pyyaml",
-    "sentence-transformers",
-    "neo4j",
-    "tqdm"
+    "faiss-cpu==1.11.0",
+    "filelock==3.18.0",
+    "neo4j==5.28.1",
+    "numpy==2.3.1",
+    "PyYAML==6.0.2",
+    "sentence-transformers==5.0.0",
+    "torch==2.7.1"
 ]
+
+[project.optional-dependencies]
+dev = [
+    "black==24.4.2",
+    "isort==5.13.2",
+    "flake8==7.0.0",
+    "mypy==1.10.0",
+    "pipreqs==0.4.13",
+    "pytest==8.2.2",
+    "ipython==8.25.0",
+    "types-PyYAML",
+    "lxml-stubs"
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+exclude = '''
+/(
+    \.venv
+  | hadleigh
+  | prelimAlpha
+)/
+'''
+
+[tool.isort]
+profile = "black"
+skip = ["hadleigh", "prelimAlpha", ".venv"]
+
+[tool.flake8]
+exclude = ["hadleigh", "prelimAlpha", ".venv"]
+max-line-length = 88
+
+[tool.mypy]
+exclude = "(hadleigh|prelimAlpha|\\.venv)"
+install_types = true
+non_interactive = true
+strict = true

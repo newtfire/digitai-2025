@@ -5,31 +5,33 @@ import torch
 import logging
 from sentence_transformers import SentenceTransformer
 from digitaiCore.config_loader import ConfigLoader
-from neo4j import GraphDatabase
 
 """
-This script loads a text embedding model, fetches text data from a Neo4j graph database,
-computes embeddings for the text in batches, and saves these embeddings to a file.
-It uses configurations from an external YAML file to control behavior such as model choice,
-batch size, logging, and database connection details.
+This script loads a text embedding model, reads node data from a JSONL export (rather than querying Neo4j directly),
+computes vector embeddings in batches, and writes the output to a JSONL file for use in retrieval-augmented generation (RAG).
+
+The JSONL file is typically generated using `neo4j_exporter.py` and contains pre-extracted node data (ID, text, and labels)
+from a Neo4j graph. This offline-first approach avoids the need for a live Neo4j connection at embedding time.
+
+All configuration values such as model type, batch size, normalization, output file path, and logging are read from 
+`digitaiCore/config.yaml`. Logging and parallelism settings can be tuned for optimal performance on different hardware setups.
 """
 
-# Load configuration settings from an external YAML file.
-# These settings include parameters for performance, logging, embedding, and database access.
+# === Load Configuration ===
 repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 config_path = os.path.join(repo_root, "digitaiCore", "config.yaml")
 config = ConfigLoader(config_path)
 
-# Set the number of threads used by PyTorch for parallel CPU operations.
-# This can help optimize performance depending on the hardware.
+# === Set Performance Parameters ===
+# Controls the number of threads used by PyTorch and Hugging Face tokenizer internals.
+# Proper configuration helps prevent CPU overcommitment or stalls during parallel batch encoding.
 torch.set_num_threads(config.get("performance.num_threads"))
-# Set the number of threads used for inter-op parallelism in PyTorch.
 torch.set_num_interop_threads(config.get("performance.interop_threads"))
-# Control parallelism in tokenizers library to avoid excessive CPU usage.
 os.environ["TOKENIZERS_PARALLELISM"] = str(config.get("performance.tokenizers_parallelism")).lower()
 
-# Setup logging to record events, errors, and progress.
-# This is useful for debugging and tracking the script's execution.
+# === Setup Logging ===
+# Logging behavior is controlled via config.yaml and writes to a specified file in digitaiCore.
+# This helps track batch-level progress and catch embedding failures during long runs.
 if config.get("logging.enabled"):
     logging.basicConfig(
         filename=config.get("logging.file"),
@@ -38,75 +40,65 @@ if config.get("logging.enabled"):
     )
     logging.info("=== Embedding Script Start ===")
 
-# Load the SentenceTransformer model specified in the config.
-# Logging here helps confirm successful model loading or capture errors.
+# === Load SentenceTransformer Model ===
+# The embedding model specified in the config will be used to convert natural language into numerical vectors.
+# Model names can include "BAAI/bge-m3", "all-MiniLM-L6-v2", etc., depending on your use case and system resources.
 model_name = config.get("embedding.model")
 try:
     model = SentenceTransformer(model_name)
     if config.get("logging.enabled"):
         logging.info(f"Loaded model: {model_name}")
 except Exception as e:
-    # Log the exception details to help diagnose why the model failed to load.
     logging.exception("Model load failed")
     raise SystemExit(f"[FATAL] Could not load model: {e}")
 
-# Setup Neo4j driver for connecting to the graph database.
-# This driver allows running Cypher queries to fetch nodes and their text.
-driver = GraphDatabase.driver(
-    config.get("neo4j.uri"),
-    auth=(config.get("neo4j.user"), config.get("neo4j.password"))
-)
+# === Load Node Texts from JSONL File ===
+# This replaces Neo4j queries by loading a static file created by neo4j_exporter.py.
+# Each line in the file should be a JSON object with 'id', 'text', and optional 'labels'.
+input_path = os.path.join(repo_root, config.get("dataPaths.outputFile"))
+if not os.path.exists(input_path):
+    raise SystemExit(f"[FATAL] Input file not found: {input_path}")
 
-# Function to fetch nodes from Neo4j using a Cypher query.
-# The query retrieves node IDs and associated text for embedding.
-def fetch_nodes(tx):
-    cypher_query = config.get("neo4j.cypher")
-    # Run the Cypher query and extract node_id and text from each record.
-    result = tx.run(cypher_query)
-    return [(record["node_id"], record["text"]) for record in result if record["node_id"] and record["text"]]
+nodes = []
+with open(input_path, "r", encoding="utf-8") as f:
+    for line in f:
+        record = json.loads(line)
+        # Only embed nodes that contain actual body text; structure-only nodes are skipped
+        if record.get("text"):
+            nodes.append((record["id"], record["text"]))
 
-# Open a session with the Neo4j driver to execute the fetch_nodes function.
-# If fetching fails, log the error and raise an exception.
-with driver.session() as session:
-    try:
-        nodes = session.execute_read(fetch_nodes)
-        if config.get("logging.enabled"):
-            logging.info(f"Fetched {len(nodes)} nodes from Neo4j")
-    except Exception as e:
-        logging.exception("Error fetching nodes from Neo4j")
-        raise
+if config.get("logging.enabled"):
+    logging.info(f"Loaded {len(nodes)} nodes with text from {input_path}")
 
-driver.close()
-
-# Check if any nodes were fetched. If none, this is a critical failure
-# because there is no data to embed, so the script cannot continue.
+# === Fail Early if No Embeddable Nodes Exist ===
+# This prevents wasting GPU/CPU resources or generating an empty output file.
 if not nodes:
-    raise ValueError("No nodes fetched from Neo4j. Check your query and database state.")
+    if config.get("logging.enabled"):
+        logging.error("No text nodes found in the input file. Cannot proceed.")
+    raise SystemExit("[FATAL] No text nodes found in the input JSONL file. Check your export or path.")
 
-# Retrieve embedding parameters from config.
-batch_size = config.get("embedding.batch_size")  # Number of texts to embed in one batch
-normalize = config.get("embedding.normalize")    # Whether to normalize embeddings
-throttle = config.get("embedding.throttle")      # Seconds to wait between batches
+# === Read Embedding Settings ===
+# These are controlled through config.yaml and affect batching, normalization, and resource pacing.
+batch_size = config.get("embedding.batch_size")     # Number of documents per batch
+normalize = config.get("embedding.normalize")       # If True, performs L2 normalization (cosine similarity prep)
+throttle = config.get("embedding.throttle")         # Optional pause between batches (in seconds)
 
-# Resolve the full output file path relative to the repo root.
-relative_output_path = config.get("dataPaths.outputFile")
-output_file = os.path.join(repo_root, relative_output_path)
+# === Resolve Output File Path ===
+# Embedding results are written to the same path as input, unless separated in config.
+output_path = os.path.join(repo_root, config.get("dataPaths.outputFile"))
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
+print(f"[DEBUG] Writing embeddings to: {output_path}")
 
-# Ensure the directory for the output file exists.
-os.makedirs(os.path.dirname(output_file), exist_ok=True)
-
-print(f"[DEBUG] Writing to: {output_file}")
-
-# Loop over the nodes in batches, embed their texts, and write embeddings to file.
-with open(output_file, "w") as f:
+# === Embed Texts in Batches ===
+# For each batch of node texts, compute sentence embeddings and write each result to a new JSONL line.
+with open(output_path, "w", encoding="utf-8") as f:
     for i in range(0, len(nodes), batch_size):
         batch = nodes[i:i + batch_size]
         ids, texts = zip(*batch)
+
         try:
-            # Encode the batch of texts using the model to get embeddings.
-            # convert_to_numpy=True returns numpy arrays for easier handling.
-            # normalize_embeddings applies normalization if specified.
-            # show_progress_bar gives visual feedback during encoding.
+            # Generate embeddings using the SentenceTransformer model.
+            # Returns a NumPy array which we convert to lists for JSON serialization.
             batch_embeddings = model.encode(
                 list(texts),
                 batch_size=batch_size,
@@ -114,23 +106,25 @@ with open(output_file, "w") as f:
                 normalize_embeddings=normalize,
                 show_progress_bar=True
             )
-            # Write each embedding as a JSON line with its corresponding node ID.
+
+            # Write each node ID and its embedding to disk immediately to avoid memory buildup.
             for node_id, emb in zip(ids, batch_embeddings):
-                embedding_entry = {"id": node_id, "embedding": emb.tolist()}
-                f.write(json.dumps(embedding_entry) + "\n")
-                f.flush()  # Flush to ensure data is written to disk promptly.
+                json.dump({"id": node_id, "embedding": emb.tolist()}, f)
+                f.write("\n")
+
             if config.get("logging.enabled"):
-                logging.info(f"Successfully embedded batch {i} to {i + len(batch)}")
+                logging.info(f"Embedded batch {i} to {i + len(batch)}")
         except Exception as e:
-            # Log errors for this batch but continue processing subsequent batches.
+            # Catch errors without halting the script; logs the batch that failed.
             if config.get("logging.enabled"):
                 logging.error(f"Embedding failed for batch {i} to {i + len(batch)}: {e}")
             continue
 
-        # Sleep between batches to throttle resource usage as configured.
+        # Optional throttle between batches to manage memory or shared system load.
         time.sleep(throttle)
 
-# Final logging indicating where embeddings have been saved and script completion.
+# === Final Status ===
+# Log the script completion and file path to confirm success in automated pipelines.
 if config.get("logging.enabled"):
-    logging.info(f"Saved embeddings to {output_file}")
+    logging.info(f"Saved embeddings to {output_path}")
     logging.info("=== Embedding Script End ===")

@@ -20,7 +20,7 @@ A simple Python tool to create consistent versioned files for the DigitAI projec
     * Optional: -r1, -r2: Eg. `a1.1-r1` to `a1.1-r2`: Apply "r numbers" if the change is relatively small, but worth documenting.
 * Always add a description of your **intended change** so it is added to the Changelog.
   * This is similar to making a meaningful git commit and will help us track the history of our thinking.
-  * Go back and edit the previous version decription in [CHANGELOG.md](CHANGELOG.md) to update its description as needed.
+  * Go back and edit the previous version decription in [CHANGELOG.md](../CHANGELOG.md) to update its description as needed.
 
 ---
 
