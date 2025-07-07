@@ -1,0 +1,35 @@
+dataPaths:
+  outputFile: "data/p5/neo4jNodeEmbeddings.jsonl"
+
+neo4j:
+  uri: "bolt://localhost:7687"
+  user: "neo4j"
+  password: "D1g1tAI!"
+  cypher: "MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, elementId(n) AS node_id"
+
+embedding:
+  model: "BAAI/bge-m3"
+  batch_size: 32
+  normalize: true
+  throttle: 0.01
+
+performance:
+  num_threads: 20
+  interop_threads: 4
+  tokenizers_parallelism: false
+
+logging:
+  enabled: true
+  file: "digitaiCore/embedding.log"
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+
+
+vectorIndex:
+  name: "embedding-index"
+  property: "embedding"
+  dimension: 1024
+
+llm:  # ✅ Now correctly top-level
+  provider: "ollama"
+  model: "qwen:7b"

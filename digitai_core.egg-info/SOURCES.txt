@@ -1,0 +1,9 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+digitai_core.egg-info/PKG-INFO
+digitai_core.egg-info/SOURCES.txt
+digitai_core.egg-info/dependency_links.txt
+digitai_core.egg-info/requires.txt
+digitai_core.egg-info/top_level.txt
