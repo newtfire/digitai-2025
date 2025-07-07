@@ -1,2 +1,179 @@
-# digitai
-repo for experimenting with small language models and xai (explainable AI)
+# 🧠 DigitAI: A Localized RAG Framework for Archival Data
+
+DigitAI is a research-driven pipeline designed to perform retrieval-augmented generation (RAG) over highly structured XML-derived corpora (e.g., the P5 Build). It uses a hybrid of graph-based and vector-based retrieval to power accurate local language models for digital humanities and archival work.
+
+---
+
+## 🚀 Features
+
+- 🔎 **Hybrid Retrieval**: Combines semantic embeddings (FAISS + BGE-M3) with graph-based lookup (Neo4j)
+- 🧠 **Local LLM-Compatible**: Designed to integrate with local models like Mistral or LLaMA via Ollama
+- ⚙️ **Configurable Pipeline**: Driven by `digitaiCore/config.yaml` for easy control over indexing, logging, and Neo4j settings
+- 📄 **XSLT-Compatible**: Works with JSON output from an XSLT transformation of XML documents (e.g., TEI-based corpora)
+- 🧪 **Research-Ready**: Supports embedding visualization, document analysis, and RAG-based exploration
+
+---
+
+## 📂 Project Structure
+
+```
+digitai/
+├── digitaiCore/
+│   ├── config.yaml
+│   ├── config_loader.py
+│   ├── embed_bge_m3.py
+│   ├── neo4j_exporter.py
+│   ├── faiss_index_builder.py    # [TODO] Build and save FAISS index
+│   └── rag_pipeline.py           # [TODO] Hybrid FAISS + Neo4j search
+├── data/
+│   └── p5/
+├── requirements.txt
+├── dev-requirements.txt
+└── README.md
+```
+
+---
+
+## ⚙️ Setup
+
+### 1. Clone the Repo
+
+```bash
+git clone https://github.com/newtfire/digitai.git
+cd digitai
+```
+
+### 2. Create & Activate Virtual Environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+```
+
+### 3. Install Core Dependencies
+
+```bash
+pip install -e .
+```
+
+### 4. Install Dev Tools (Optional but Recommended)
+
+```bash
+pip install -r dev-requirements.txt
+```
+
+---
+
+## 🔧 Configuration
+
+All settings are controlled via `digitaiCore/config.yaml`. Here’s an example:
+
+```yaml
+dataPaths:
+  outputFile: "data/p5/neo4jNodeEmbeddings.jsonl"
+
+neo4j:
+  uri: "bolt://localhost:7687"
+  user: "neo4j"
+  password: "d1g1tAI!"
+  cypher: "MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, id(n) AS node_id"
+
+embedding:
+  model: "BAAI/bge-m3"
+  batch_size: 32
+  normalize: true
+  throttle: 0.1
+
+vectorIndex:
+  dimension: 1024
+
+logging:
+  enabled: true
+  file: "data/embedding.log"
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+```
+
+---
+
+## 🧠 Usage
+
+### Export Nodes from Neo4j
+
+```bash
+python digitaiCore/neo4j_exporter.py
+```
+
+### Embed with BGE-M3 and Save to JSONL
+
+```bash
+python digitaiCore/embed_bge_m3.py
+```
+
+> Output: `data/p5/neo4jNodeEmbeddings.jsonl` (and FAISS index if configured)
+
+### (Coming Soon) Run Full RAG Retrieval
+
+```bash
+python digitaiCore/rag_pipeline.py
+```
+
+---
+
+## 🧪 Dev Tools (Optional)
+
+To maintain clean and stable code, install and use:
+
+| Tool     | Purpose                      |
+|----------|------------------------------|
+| `black`  | Auto-formatting               |
+| `flake8` | Linting / syntax issues       |
+| `pytest` | Testing framework             |
+| `mypy`   | Type checking (if typed)      |
+
+Install them via:
+
+```bash
+pip install -r dev-requirements.txt
+```
+
+---
+
+## 🔮 Future Additions
+
+- [ ] Unified `rag_pipeline.py` combining FAISS + Neo4j search
+- [ ] FAISS index visualizer with Cytoscape-exported edge data
+- [ ] Optional local LLM prompt interface (via Ollama or LM Studio)
+- [ ] Dockerfile for containerized deployments
+- [ ] Jupyter notebooks for exploratory search + visualization
+
+---
+
+## 🛠 Current Maintainers & Contributors
+
+### **Alexander C. Fisher** — *Student Researcher, Project Initiator & Pipeline Developer*  
+Digital Media, Arts, and Technology  
+Penn State Behrend  
+GitHub: [@afish2003](https://github.com/afish2003)  
+**Role:** Initiated the DigitAI project and leads the development of its retrieval-augmented pipeline. Responsible for system architecture, configuration design, embedding integration (BGE-M3), FAISS indexing, and Neo4j orchestration. Collaborates with Hadleigh Bills to align retrieval mechanics with the underlying data structure.
+
+---
+
+### **Hadleigh Jae Bills** — *Student Researcher, Data Architect & Knowledge Graph Engineer*  
+Digital Media, Arts, and Technology  
+Penn State Behrend  
+GitHub: [@HadleighJae](https://github.com/HadleighJae)  
+**Role:** Designs and prepares the training dataset for semantic retrieval. Developed Cypher scripts and logic to construct the Neo4j graph from XSLT-derived JSON exports. Works closely with Alexander Fisher to structure and transform data for effective vector and graph-based retrieval.
+
+---
+
+### **Dr. Elisa Beshero-Bondar** — *Faculty Advisor, Project Sponsor & XSLT Architect*  
+Digital Media, Arts, and Technology  
+Penn State Behrend  
+GitHub: [@ebeshero](https://github.com/ebeshero)  
+**Role:** Provides mentorship and academic guidance on the project. Developed the XSLT transformation framework that converts archival TEI/XML into structured JSON. Advises on semantic modeling, digital preservation practices, and the broader scholarly context of the project.
+
+---
+
+> This project is part of an ongoing digital humanities research initiative at Penn State Behrend and is being presented at DH2025. Please cite responsibly.
+---
