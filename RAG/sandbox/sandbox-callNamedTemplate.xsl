@@ -539,13 +539,13 @@
     
     <!-- FUNCTION TO ESTABLISH A SINGLE FOREACH STATEMENT (ONE FOR EACH CHILDTYPE OF A NODE) -->
     <!-- ebb: Fire this function while looking down at the children while processing the current node. -->
-    <xsl:function name="my:generate-foreach-statement" as="xs:string">
+  <!--  <xsl:function name="my:generate-foreach-statement" as="xs:string">
         <xsl:param name="child-type" as="xs:string"/>
         <xsl:param name="parent-cypher-var" as="xs:string"/>
-        <xsl:param name="json-children-key" as="xs:string"/><!-- ebb: for example: "CONTAINS_PARTS"  -->
+        <xsl:param name="json-children-key" as="xs:string"/><!-\- ebb: for example: "CONTAINS_PARTS"  -\->
         <xsl:value-of select="$nltab||'FOREACH ('||$child-type||'_data'||' IN '||$parent-cypher-var||'_data.'||$json-children-key||' |'||$nltab"/>
     </xsl:function>
-
+-->
 
     <!-- FUNCTION TO ESTABLISH EACH GRAPH EDGES (RELATIONSHIP CONNECTIONS)-->
     <xsl:function name="my:generate-relationship-merge" as="xs:string+">
