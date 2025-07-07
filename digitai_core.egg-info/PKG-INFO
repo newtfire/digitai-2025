@@ -5,13 +5,14 @@ Summary: DigitAI Core AI Fine-tuning Framework
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE
-Requires-Dist: faiss-cpu==1.11.0
-Requires-Dist: filelock==3.18.0
-Requires-Dist: neo4j==5.28.1
-Requires-Dist: numpy==2.3.1
-Requires-Dist: PyYAML==6.0.2
-Requires-Dist: sentence-transformers==5.0.0
-Requires-Dist: torch==2.7.1
+Requires-Dist: numpy~=2.3.1
+Requires-Dist: faiss-cpu~=1.11.0
+Requires-Dist: torch~=2.7.1
+Requires-Dist: sentence-transformers~=5.0.0
+Requires-Dist: neo4j~=5.28.1
+Requires-Dist: requests~=2.32.4
+Requires-Dist: PyYAML~=6.0.2
+Requires-Dist: scikit-learn~=1.7.0
 Dynamic: license-file
 Dynamic: requires-python
 

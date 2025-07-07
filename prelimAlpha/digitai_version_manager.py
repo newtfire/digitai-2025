@@ -42,7 +42,7 @@ def append_to_changelog(file_path, phase, major, minor, description):
 - **Description:** {description_str}
 """
 
-    changelog_path = "../CHANGELOG.md"
+    changelog_path = "CHANGELOG.md"
     if not os.path.exists(changelog_path):
         with open(changelog_path, 'w') as changelog_file:
             changelog_file.write(f"# DigitAI Changelog\n\n{section_header}\n\n{log_entry.strip()}\n")
@@ -70,7 +70,7 @@ def git_commit_version(file_path, commit_message):
         print("⚠️ Git commit failed. Are you in a Git repo?")
 
 def get_latest_version(phase):
-    changelog_path = "../CHANGELOG.md"
+    changelog_path = "CHANGELOG.md"
     if not os.path.exists(changelog_path):
         return None
 

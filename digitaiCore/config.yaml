@@ -1,5 +1,8 @@
 dataPaths:
-  outputFile: "data/p5/neo4jNodeEmbeddings.jsonl"
+  neo4jExport: "data/p5/p5Neo4j.jsonl"            # Output from neo4j_exporter.py (raw node data)
+  bgem3Embeddings: "data/p5/p5Embeddings.jsonl"   # Output from embed_bge_m3.py (vector embeddings)
+  faissIndex: "data/p5/p5Index.faiss"             # Output from build_faiss_index.py (FAISS binary index)
+  faissIdMap: "data/p5/p5IdMap.json"              # Output from build_faiss_index.py (FAISS index ID map)
 
 neo4j:
   uri: "bolt://localhost:7687"
@@ -12,9 +15,9 @@ cypher:
 
 embedding:
   model: "BAAI/bge-m3"
-  batch_size: 32
+  batch_size: 16
   normalize: true
-  throttle: 0.01
+  throttle: 0.0
 
 performance:
   num_threads: 20
@@ -23,7 +26,9 @@ performance:
 
 logging:
   enabled: true
-  file: "digitaiCore/embedding.log"
+  bgem3Log: "data/logs/bgem3.log"
+  faissLog: "data/logs/faiss.log"
+  ragLog: "data/logs/rag.log"
   level: "INFO"
   format: "%(asctime)s - %(levelname)s - %(message)s"
 
@@ -33,6 +38,6 @@ vectorIndex:
   property: "embedding"
   dimension: 1024
 
-llm:  # ✅ Now correctly top-level
+llm:
   provider: "ollama"
   model: "qwen:7b"

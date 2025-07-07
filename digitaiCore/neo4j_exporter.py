@@ -11,7 +11,7 @@ config_path = os.path.join(repo_root, "digitaiCore", "config.yaml")
 config = ConfigLoader(config_path)
 
 # Load config values
-output_path = os.path.join(repo_root, config.get("dataPaths.outputFile"))
+output_path = os.path.join(repo_root, config.get("dataPaths.neo4jExport"))
 neo4j_uri = config.get("neo4j.uri")
 neo4j_user = config.get("neo4j.user")
 neo4j_password = config.get("neo4j.password")
