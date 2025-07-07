@@ -1,140 +1,312 @@
 {
-		"DOC": {
-				"SUPPORTING_INSTITUTION": {},
-				"TEI_SOURCE_VERSION_NUMBER": {},
-				"TEI_SOURCE_OUTPUT_DATE": {},
-				"THIS_JSON_DATETIME": {},
-				"DOCUMENT_TITLE": {},
-				"PREPARED_BY": {},
-				"PART": {},
-				"CONTAINS_PARTS": {
-						"SEQUENCE": {},
-						"CONTAINS_CHAPTERS": {
-								"SEQUENCE": {},
-								"CHAPTER": {
-										"SEQUENCE": {},
-										"CHAPTER": {},
-										"ID": {},
-										"RELATES_TO": {
-												"ID": {}
-										}
-								},
-								"CONTAINS_SECTIONS": {
-										"SEQUENCE": {},
-										"SECTION": {},
-										"ID": {}
-								},
-								"CONTAINS_PARAS": {
-										"PARA": {},
-										"SEQUENCE": {},
-										"TEI_ENCODING_DISCUSSED": {},
-										"ID": {},
-										"RELATES_TO": {
-												"ID": {}
-										},
-										"SECTION": {
-												"SEQUENCE": {},
-												"SECTION": {},
-												"ID": {},
-												"CONTAINS_PARAS": {
-														"PARA": {},
-														"SEQUENCE": {},
-														"TEI_ENCODING_DISCUSSED": {},
-														"ELEMENTS_MENTIONED": {}
-												},
-												"TEI_ENCODING_DISCUSSED": {
-														"ELEMENTS_MENTIONED": {},
-														"ATTRIBUTES_MENTIONED": {},
-														"CLASS": {},
-														"EXAMPLES": {},
-														"MODULE": {},
-														"MACRO": {},
-														"GE": {},
-														"PE": {}
-												},
-												"CONTAINS_SPECGRPS": {
-														"SPECGRP_NAME": {},
-														"SPECGRP_ID": {},
-														"RELATES_TO": {
-																"ID": {}
-														},
-														"REMARKS_ON": {
-																"REMARKS": {},
-																"VERSION_DATE": {},
-																"LANGUAGE": {}
-														},
-														"CONTAINS_SPECS": {
-																"PART_OF_MODULE": {},
-																"SPEC_NAME": {},
-																"MEMBER_OF_CLASS": {},
-																"SPEC_TYPE": {},
-																"TAKES_DEFAULT_VALUE": {},
-																"USAGE": {},
-																"CONTAINS_EXAMPLES": {},
-																"REMARKS_ON": {},
-																"LISTS_ATTRIBUTES": {
-																		"DEFINES_ATTRIBUTES": {
-																				"CONTAINS_VALUE_LIST": {
-																						"VALUE_OPTIONS": {},
-																						"VAL_LIST_TYPE": {}
-																				},
-																				"TAKES_DATATYPE": {
-																						"DATATYPE": {},
-																						"DATATYPE_DESCRIBED_BY": {}
-																				}
-																		},
-																		"ATTRIBUTE_DEFINITION": {
-																				"CONSTRAINED_BY": {
-																						"EQUIVALENT_NAME": {}
-																				}
-																		},
-																		"CONTAINS_EXAMPLES": {
-																				"EXAMPLE": {},
-																				"CONTAINS_PARAS": {
-																						"PARA": {},
-																						"SEQUENCE": {},
-																						"TEI_ENCODING_DISCUSSED": {}
-																				}
-																		},
-																		"CONTENT_MODEL": {
-																				"classRef": {},
-																				"empty": {},
-																				"sequence": {},
-																				"alternate": {},
-																				"CONTAINS": {
-																						"classRef": {},
-																						"elementRef": {},
-																						"alternate": {},
-																						"sequence": {}
-																				}
-																		}
-																},
-																"CONTAINS_VALUE_LIST": {
-																		"VALUE_OPTIONS": {},
-																		"VAL_LIST_TYPE": {}
-																},
-																"GLOSSED_BY": {
-																		"LANGUAGE": {}
-																},
-																"ATTRIBUTE_DEFINITION": {
-																		"CONSTRAINED_BY": {
-																				"EQUIVALENT_NAME": {}
-																		}
-																},
-																"TAKES_DATATYPE": {
-																		"DATATYPE": {},
-																		"DATATYPE_DESCRIBED_BY": {}
-																},
-																"DESCRIBED_BY": {
-																		"DESC": {},
-																		"VERSION_DATE": {},
-																		"LANGUAGE": {}
-																}
-														}
-												}
-										}
-								}
-						}
-				}
-		}
+    "CONTAINS_PARTS": {
+        "SEQUENCE": {},
+        "PART": {},
+        "CONTAINS_CHAPTERS": {
+            "SEQUENCE": {},
+            "CHAPTER": {},
+            "ID": {},
+            "CONTAINS_PARAS": {
+                "PARA": {},
+                "SEQUENCE": {},
+                "TEI_ENCODING_DISCUSSED": {}
+            },
+            "RELATES_TO": {
+                "ID": {}
+            },
+            "CONTAINS_SECTIONS": {
+                "RELATES_TO": {
+                    "ID": {}
+                },
+                "CONTAINS_PARAS": {
+                    "PARA": {},
+                    "SEQUENCE": {},
+                    "TEI_ENCODING_DISCUSSED": {
+                        "ELEMENTS_MENTIONED": {},
+                        "CLASS": {},
+                        "ATTRIBUTES_MENTIONED": {},
+                        "EXAMPLES": {},
+                        "MODULE": {},
+                        "FILE": {},
+                        "DATATYPE": {},
+                        "DESCRIBED_BY": {
+                            "DESC": {},
+                            "VERSION_DATE": {},
+                            "LANGUAGE": {}
+                        },
+                        "CONTAINS_SPECGRPS": {
+                            "array": {
+                                "RELATES_TO": {},
+                                "SPECGRP_NAME": {},
+                                "SPECGRP_ID": {},
+                                "CONTAINS_SPECS": {
+                                    "CONSTRAINED_BY": {},
+                                    "EQUIVALENT_NAME": {},
+                                    "LISTS_ATTRIBUTES": {
+                                        "array": {
+                                            "DEFINES_ATTRIBUTES": {
+                                                "CONSTRAINED_BY": {},
+                                                "TAKES_DEFAULT_VALUE": {},
+                                                "USAGE": {},
+                                                "CONTAINS_EXAMPLES": {
+                                                    "EXAMPLE": {},
+                                                    "CONTAINS_PARAS": {
+                                                        "array": {
+                                                            "PARA": {},
+                                                            "SEQUENCE": {},
+                                                            "TEI_ENCODING_DISCUSSED": {}
+                                                        }
+                                                    },
+                                                    "LANGUAGE": {}
+                                                },
+                                                "REMARKS_ON": {
+                                                    "REMARKS": {
+                                                        "PARA": {},
+                                                        "SEQUENCE": {},
+                                                        "TEI_ENCODING_DISCUSSED": {}
+                                                    },
+                                                    "VERSION_DATE": {},
+                                                    "LANGUAGE": {}
+                                                },
+                                                "CONTAINS_VALUE_LIST": {
+                                                    "array": {
+                                                        "VALUE_OPTIONS": {},
+                                                        "VAL_LIST_TYPE": {}
+                                                    }
+                                                },
+                                                "GLOSSED_BY": {
+                                                    "GLOSS": {},
+                                                    "VERSION_DATE": {},
+                                                    "LANGUAGE": {}
+                                                },
+                                                "ATTRIBUTE_DEFINITION": {},
+                                                "TAKES_DATATYPE": {},
+                                                "DESCRIBED_BY": {
+                                                    "DESC": {},
+                                                    "VERSION_DATE": {},
+                                                    "LANGUAGE": {}
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "CONTENT_MODEL": {
+                                        "array": {
+                                            "alternate": {
+                                                "minOccurs": {},
+                                                "maxOccurs": {}
+                                            },
+                                            "CONTAINS": {
+                                                "classRef": {},
+                                                "sequence": {},
+                                                "elementRef": {},
+                                                "alternate": {
+                                                    "minOccurs": {},
+                                                    "maxOccurs": {}
+                                                },
+                                                "textNode": {}
+                                            },
+                                            "sequence": {
+                                                "minOccurs": {},
+                                                "maxOccurs": {}
+                                            },
+                                            "macroRef": {
+                                                "key": {}
+                                            },
+                                            "elementRef": {
+                                                "key": {},
+                                                "minOccurs": {},
+                                                "maxOccurs": {}
+                                            },
+                                            "classRef": {
+                                                "key": {},
+                                                "minOccurs": {},
+                                                "maxOccurs": {},
+                                                "expand": {}
+                                            },
+                                            "empty": {}
+                                        }
+                                    },
+                                    "PART_OF_MODULE": {},
+                                    "CONTAINS_EXAMPLES": {
+                                        "EXAMPLE": {},
+                                        "CONTAINS_PARAS": {
+                                            "array": {
+                                                "PARA": {},
+                                                "SEQUENCE": {},
+                                                "TEI_ENCODING_DISCUSSED": {}
+                                            }
+                                        },
+                                        "LANGUAGE": {}
+                                    },
+                                    "REMARKS_ON": {
+                                        "REMARKS": {
+                                            "PARA": {},
+                                            "SEQUENCE": {},
+                                            "TEI_ENCODING_DISCUSSED": {}
+                                        },
+                                        "GLOSSED_BY": {
+                                            "GLOSS": {},
+                                            "VERSION_DATE": {},
+                                            "LANGUAGE": {}
+                                        },
+                                        "SPEC_NAME": {},
+                                        "MEMBER_OF_CLASS": {},
+                                        "DESCRIBED_BY": {
+                                            "DESC": {},
+                                            "VERSION_DATE": {},
+                                            "LANGUAGE": {}
+                                        },
+                                        "SPEC_TYPE": {}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "ID": {},
+                    "SECTION": {},
+                    "CONTAINS_SECTIONS": {
+                        "RELATES_TO": {
+                            "ID": {}
+                        },
+                        "CONTAINS_PARAS": {
+                            "PARA": {},
+                            "SEQUENCE": {},
+                            "TEI_ENCODING_DISCUSSED": {
+                                "ELEMENTS_MENTIONED": {},
+                                "CLASS": {},
+                                "ATTRIBUTES_MENTIONED": {},
+                                "EXAMPLES": {},
+                                "MODULE": {},
+                                "FILE": {},
+                                "CONTAINS_SPECGRPS": {
+                                    "array": {
+                                        "RELATES_TO": {},
+                                        "SPECGRP_NAME": {},
+                                        "SPECGRP_ID": {},
+                                        "CONTAINS_SPECS": {
+                                            "CONSTRAINED_BY": {},
+                                            "EQUIVALENT_NAME": {},
+                                            "LISTS_ATTRIBUTES": {},
+                                            "CONTENT_MODEL": {},
+                                            "PART_OF_MODULE": {},
+                                            "CONTAINS_EXAMPLES": {
+                                                "EXAMPLE": {},
+                                                "CONTAINS_PARAS": {
+                                                    "array": {
+                                                        "PARA": {},
+                                                        "SEQUENCE": {},
+                                                        "TEI_ENCODING_DISCUSSED": {}
+                                                    }
+                                                },
+                                                "LANGUAGE": {}
+                                            },
+                                            "REMARKS_ON": {
+                                                "REMARKS": {
+                                                    "PARA": {},
+                                                    "SEQUENCE": {},
+                                                    "TEI_ENCODING_DISCUSSED": {}
+                                                },
+                                                "GLOSSED_BY": {
+                                                    "GLOSS": {},
+                                                    "VERSION_DATE": {},
+                                                    "LANGUAGE": {}
+                                                },
+                                                "SPEC_NAME": {},
+                                                "MEMBER_OF_CLASS": {},
+                                                "DESCRIBED_BY": {
+                                                    "DESC": {},
+                                                    "VERSION_DATE": {},
+                                                    "LANGUAGE": {}
+                                                },
+                                                "SPEC_TYPE": {}
+                                            }
+                                        }
+                                    },
+                                    "SCHEMA": {}
+                                }
+                            },
+                            "ID": {},
+                            "SECTION": {},
+                            "CONTAINS_SECTIONS": {
+                                "RELATES_TO": {
+                                    "ID": {}
+                                },
+                                "CONTAINS_PARAS": {
+                                    "PARA": {},
+                                    "SEQUENCE": {},
+                                    "TEI_ENCODING_DISCUSSED": {
+                                        "ELEMENTS_MENTIONED": {},
+                                        "CLASS": {},
+                                        "ATTRIBUTES_MENTIONED": {},
+                                        "EXAMPLES": {},
+                                        "MODULE": {},
+                                        "FILE": {},
+                                        "DATATYPE": {},
+                                        "DESCRIBED_BY": {
+                                            "DESC": {},
+                                            "VERSION_DATE": {},
+                                            "LANGUAGE": {}
+                                        },
+                                        "CONTAINS_SPECGRPS": {
+                                            "array": {
+                                                "RELATES_TO": {},
+                                                "SPECGRP_NAME": {},
+                                                "SPECGRP_ID": {},
+                                                "CONTAINS_SPECS": {
+                                                    "CONSTRAINED_BY": {},
+                                                    "EQUIVALENT_NAME": {},
+                                                    "LISTS_ATTRIBUTES": {},
+                                                    "CONTENT_MODEL": {},
+                                                    "PART_OF_MODULE": {},
+                                                    "CONTAINS_EXAMPLES": {
+                                                        "EXAMPLE": {},
+                                                        "CONTAINS_PARAS": {
+                                                            "array": {
+                                                                "PARA": {},
+                                                                "SEQUENCE": {},
+                                                                "TEI_ENCODING_DISCUSSED": {}
+                                                            }
+                                                        },
+                                                        "LANGUAGE": {}
+                                                    },
+                                                    "REMARKS_ON": {
+                                                        "REMARKS": {
+                                                            "PARA": {},
+                                                            "SEQUENCE": {},
+                                                            "TEI_ENCODING_DISCUSSED": {}
+                                                        },
+                                                        "GLOSSED_BY": {
+                                                            "GLOSS": {},
+                                                            "VERSION_DATE": {},
+                                                            "LANGUAGE": {}
+                                                        },
+                                                        "SPEC_NAME": {},
+                                                        "MEMBER_OF_CLASS": {},
+                                                        "DESCRIBED_BY": {
+                                                            "DESC": {},
+                                                            "VERSION_DATE": {},
+                                                            "LANGUAGE": {}
+                                                        },
+                                                        "SPEC_TYPE": {}
+                                                    }
+                                                }
+                                            },
+                                            "NS": {},
+                                            "MACRO": {},
+                                            "SCHEMA": {},
+                                            "PE": {},
+                                            "FRAG": {},
+                                            "GE": {}
+                                        }
+                                    },
+                                    "ID": {},
+                                    "SECTION": {}
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
