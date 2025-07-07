@@ -673,18 +673,6 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
             <xsl:sequence select="$newline, $indent, $tab, my:generate-node-statement($child-type, $child-cypher-var, $child-json-var)"/>
             <xsl:sequence select="$newline, $indent, $tab, 'MERGE (', $parent_cypher_var, ')-[:', $relationship, ']->(', $child-cypher-var, ')'"/>
             
-            <!-- special deal for processing paragraphs with the specList array -->
-            
-            <xsl:if test="$child-type = 'paragraph'">
-                <xsl:variable name="spec-link-cypher" as="xs:string" select="
-                    concat($newline, $indent, $tab, 'FOREACH (spec_link IN ', $child-json-var, '.CONTAINS_SPECLISTS.SPECLIST |',
-                    $newline, $indent, $tab, $tab, 'MERGE (s:Spec {name: spec_link.LINK_TO_SPEC})',
-                    $newline, $indent, $tab, $tab, 'MERGE (', $child-cypher-var, ')-[:REFERENCES_SPEC]->(s)',
-                    $newline, $indent, $tab, ')')
-                    "/>
-                <xsl:sequence select="$spec-link-cypher"/>
-            </xsl:if>
-            
            <xsl:if test="exists($child-model?children)">
                 <xsl:call-template name="my:process-children">
                     <xsl:with-param name="parent_cypher_var" select="$child-cypher-var"/>
