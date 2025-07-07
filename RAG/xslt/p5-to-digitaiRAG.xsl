@@ -399,9 +399,32 @@
                     </xsl:map-entry>
                 </xsl:map>
             </xsl:map-entry>
-            
-           
-
+            <xsl:map-entry key="'example'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'Example'"/>
+                    <xsl:map-entry key="'xpathPattern'">eg:egXML</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'" select="'example'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'example'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'EXAMPLE'"/>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'language'">LANGUAGE</xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry>
+                    <xsl:map-entry key="'children'">
+                        <xsl:sequence select="array{ 
+                            map {
+                            'jsonChildrenKey': 'CONTAINS_PARAS',
+                            'childEntityType': 'paragraph',
+                            'relationship': 'HAS_PARAGRAPH',
+                            'isSequence': true()
+                            }
+                            
+                            }"/>   
+                    </xsl:map-entry>
+                </xsl:map>  
+            </xsl:map-entry>
+    
         </xsl:map>
     </xsl:variable>
 
