@@ -31,14 +31,6 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
  					 FOREACH ( paragraph_6_data_6  IN  nestedsubsection_5_data_5 . CONTAINS_PARAS  | 
  					 	 MERGE (paragraph_6:Para {paragraph: paragraph_6_data_6.PARASTRING}) SET paragraph_6.sequence = paragraph_6_data_6.SEQUENCE, paragraph_6.spec_references = [x IN paragraph_6_data_6.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph_6.text = paragraph_6_data_6.PARASTRING 
  					 	 MERGE ( nestedsubsection_5 )-[: HAS_PARAGRAPH ]->( paragraph_6 ) 
- 						 FOREACH ( speclist_7_data_7  IN  paragraph_6_data_6 . CONTAINS_SPECLISTS  | 
- 						 	 MERGE (speclist_7:Speclist {name: speclist_7_data_7.SPECLIST}) 
- 						 	 MERGE ( paragraph_6 )-[: HAS_SPECLIST ]->( speclist_7 ) 
- 							 FOREACH ( link_to_spec_8_data_8  IN  speclist_7_data_7 . LINK_TO_SPEC  | 
- 							 	 MERGE (link_to_spec_8:LinkToSpec {name: link_to_spec_8_data_8.LINK_TO_SPEC}) 
- 							 	 MERGE ( speclist_7 )-[: REFERS_TO_SPECIFICATION ]->( link_to_spec_8 ) 
- 							 ) 
- 						 ) 
  						 FOREACH ( specgrp_7_data_7  IN  paragraph_6_data_6 . CONTAINS_SPECGRPS  | 
  						 	 MERGE (specgrp_7:Specgrp {name: specgrp_7_data_7.SPECGRP}) SET specgrp_7.title = specgrp_7_data_7.SPECGRP 
  						 	 MERGE ( paragraph_6 )-[: HAS_SPECGRP ]->( specgrp_7 ) 
@@ -60,14 +52,6 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
  				 FOREACH ( paragraph_5_data_5  IN  subsection_4_data_4 . CONTAINS_PARAS  | 
  				 	 MERGE (paragraph_5:Para {paragraph: paragraph_5_data_5.PARASTRING}) SET paragraph_5.sequence = paragraph_5_data_5.SEQUENCE, paragraph_5.spec_references = [x IN paragraph_5_data_5.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph_5.text = paragraph_5_data_5.PARASTRING 
  				 	 MERGE ( subsection_4 )-[: HAS_PARAGRAPH ]->( paragraph_5 ) 
- 					 FOREACH ( speclist_6_data_6  IN  paragraph_5_data_5 . CONTAINS_SPECLISTS  | 
- 					 	 MERGE (speclist_6:Speclist {name: speclist_6_data_6.SPECLIST}) 
- 					 	 MERGE ( paragraph_5 )-[: HAS_SPECLIST ]->( speclist_6 ) 
- 						 FOREACH ( link_to_spec_7_data_7  IN  speclist_6_data_6 . LINK_TO_SPEC  | 
- 						 	 MERGE (link_to_spec_7:LinkToSpec {name: link_to_spec_7_data_7.LINK_TO_SPEC}) 
- 						 	 MERGE ( speclist_6 )-[: REFERS_TO_SPECIFICATION ]->( link_to_spec_7 ) 
- 						 ) 
- 					 ) 
  					 FOREACH ( specgrp_6_data_6  IN  paragraph_5_data_5 . CONTAINS_SPECGRPS  | 
  					 	 MERGE (specgrp_6:Specgrp {name: specgrp_6_data_6.SPECGRP}) SET specgrp_6.title = specgrp_6_data_6.SPECGRP 
  					 	 MERGE ( paragraph_5 )-[: HAS_SPECGRP ]->( specgrp_6 ) 
@@ -89,14 +73,6 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
  			 FOREACH ( paragraph_4_data_4  IN  section_3_data_3 . CONTAINS_PARAS  | 
  			 	 MERGE (paragraph_4:Para {paragraph: paragraph_4_data_4.PARASTRING}) SET paragraph_4.sequence = paragraph_4_data_4.SEQUENCE, paragraph_4.spec_references = [x IN paragraph_4_data_4.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph_4.text = paragraph_4_data_4.PARASTRING 
  			 	 MERGE ( section_3 )-[: HAS_PARAGRAPH ]->( paragraph_4 ) 
- 				 FOREACH ( speclist_5_data_5  IN  paragraph_4_data_4 . CONTAINS_SPECLISTS  | 
- 				 	 MERGE (speclist_5:Speclist {name: speclist_5_data_5.SPECLIST}) 
- 				 	 MERGE ( paragraph_4 )-[: HAS_SPECLIST ]->( speclist_5 ) 
- 					 FOREACH ( link_to_spec_6_data_6  IN  speclist_5_data_5 . LINK_TO_SPEC  | 
- 					 	 MERGE (link_to_spec_6:LinkToSpec {name: link_to_spec_6_data_6.LINK_TO_SPEC}) 
- 					 	 MERGE ( speclist_5 )-[: REFERS_TO_SPECIFICATION ]->( link_to_spec_6 ) 
- 					 ) 
- 				 ) 
  				 FOREACH ( specgrp_5_data_5  IN  paragraph_4_data_4 . CONTAINS_SPECGRPS  | 
  				 	 MERGE (specgrp_5:Specgrp {name: specgrp_5_data_5.SPECGRP}) SET specgrp_5.title = specgrp_5_data_5.SPECGRP 
  				 	 MERGE ( paragraph_4 )-[: HAS_SPECGRP ]->( specgrp_5 ) 
@@ -118,14 +94,6 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
  		 FOREACH ( paragraph_3_data_3  IN  chapter_2_data_2 . CONTAINS_PARAS  | 
  		 	 MERGE (paragraph_3:Para {paragraph: paragraph_3_data_3.PARASTRING}) SET paragraph_3.sequence = paragraph_3_data_3.SEQUENCE, paragraph_3.spec_references = [x IN paragraph_3_data_3.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph_3.text = paragraph_3_data_3.PARASTRING 
  		 	 MERGE ( chapter_2 )-[: HAS_PARAGRAPH ]->( paragraph_3 ) 
- 			 FOREACH ( speclist_4_data_4  IN  paragraph_3_data_3 . CONTAINS_SPECLISTS  | 
- 			 	 MERGE (speclist_4:Speclist {name: speclist_4_data_4.SPECLIST}) 
- 			 	 MERGE ( paragraph_3 )-[: HAS_SPECLIST ]->( speclist_4 ) 
- 				 FOREACH ( link_to_spec_5_data_5  IN  speclist_4_data_4 . LINK_TO_SPEC  | 
- 				 	 MERGE (link_to_spec_5:LinkToSpec {name: link_to_spec_5_data_5.LINK_TO_SPEC}) 
- 				 	 MERGE ( speclist_4 )-[: REFERS_TO_SPECIFICATION ]->( link_to_spec_5 ) 
- 				 ) 
- 			 ) 
  			 FOREACH ( specgrp_4_data_4  IN  paragraph_3_data_3 . CONTAINS_SPECGRPS  | 
  			 	 MERGE (specgrp_4:Specgrp {name: specgrp_4_data_4.SPECGRP}) SET specgrp_4.title = specgrp_4_data_4.SPECGRP 
  			 	 MERGE ( paragraph_3 )-[: HAS_SPECGRP ]->( specgrp_4 ) 

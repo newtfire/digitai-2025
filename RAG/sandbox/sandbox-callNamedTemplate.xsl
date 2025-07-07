@@ -214,11 +214,11 @@
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="
                                 array {
-                                    map {
+                                  (:  map {
                                         'jsonChildrenKey': 'CONTAINS_SPECLISTS',
                                         'childEntityType': 'speclist',
                                         'relationship': 'HAS_SPECLIST'
-                                    },
+                                    },:)
                                     map {
                                         'jsonChildrenKey': 'CONTAINS_SPECGRPS',
                                         'childEntityType': 'specgrp',
@@ -228,7 +228,7 @@
                     </xsl:map-entry>
                 </xsl:map>
             </xsl:map-entry>
-            <xsl:map-entry key="'speclist'">
+          <!--  <xsl:map-entry key="'speclist'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Speclist'"/>
                     <xsl:map-entry key="'xpathPattern'">specList</xsl:map-entry>
@@ -245,8 +245,8 @@
                                
                              </xsl:map-entry>
                 </xsl:map>
-            </xsl:map-entry>
-            <xsl:map-entry key="'link_to_spec'">
+            </xsl:map-entry>-->
+        <!--    <xsl:map-entry key="'link_to_spec'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'LinkToSpec'"/>
                     <xsl:map-entry key="'xpathPattern'">specDesc</xsl:map-entry>
@@ -254,7 +254,7 @@
                     <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
                     <xsl:map-entry key="'jsonKeyForPK'">LINK_TO_SPEC</xsl:map-entry>
                 </xsl:map>
-            </xsl:map-entry>
+            </xsl:map-entry>-->
             <xsl:map-entry key="'specgrp'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Specgrp'"/>
