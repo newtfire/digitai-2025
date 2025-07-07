@@ -201,6 +201,14 @@
                     <xsl:map-entry key="'properties'">
                         <xsl:map>
                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
+                            <xsl:map-entry key="'text'" select="'PARASTRING'"/>
+                            <xsl:map-entry key="'spec_references'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'CONTAINS_SPECLISTS.SPECLIST'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'LINK_TO_SPEC'"/>
+                                </xsl:map>
+                            </xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
                     <xsl:map-entry key="'children'">
@@ -499,9 +507,22 @@
                 <xsl:for-each select="map:keys($properties-map)">
                     <xsl:variable name="prop-key" select="."/>
                     <xsl:variable name="json-key" select="$properties-map($prop-key)"/>
-                    <xsl:sequence
+                   <!-- <xsl:sequence
                         select="$cypher-var||'.' || $prop-key || ' = ' || $current-json-var || '.' || $json-key"
-                    />
+                    />-->
+                    <xsl:choose>
+                        <xsl:when test="$json-key instance of map(*) and $json-key?isListComprehension">
+                            <xsl:sequence select="
+                                $cypher-var||'.'||$prop-key||' = [x IN '||$current-json-var||'.'||$json-key('sourceArrayPath')||' WHERE x IS NOT NULL | x.'||$json-key('sourcePropertyKey')||']'
+                                "/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="
+                                $cypher-var||'.'||$prop-key||' = '||$current-json-var||'.'||$json-key
+                                "/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    
                 </xsl:for-each>
             </xsl:if>
         </xsl:variable>
