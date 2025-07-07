@@ -720,7 +720,6 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
                 
             </xsl:if>
         </xsl:for-each>
-        
      
     </xsl:template>
     
