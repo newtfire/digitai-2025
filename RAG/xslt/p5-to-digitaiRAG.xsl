@@ -510,10 +510,68 @@
                          'jsonChildrenKey': 'CONTAINS_EXAMPLES',
                          'childEntityType': 'example',
                          'relationship': 'HAS_EXAMPLE'
-                         }
+                         } 
                         }"/>
-                </xsl:map-entry>
-                                    
+                </xsl:map-entry>                  
+            </xsl:map-entry>
+            <xsl:map-entry key="'content_model'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'Contentmodel'"/>
+                    <xsl:map-entry key="'xpathPattern'">content</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'" select="'content_model'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'spec_id'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'SPEC_ID'"/>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'textnode'">TEXTNODE</xsl:map-entry>
+                            <xsl:map-entry key="'empty'">EMPTY</xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry>
+                    <xsl:map-entry key="'children'">
+                        <xsl:sequence select="array{ 
+                            map { 
+                            'jsonChildrenKey' : 'CONTAINS_ALTERNATING_CONTENTS',
+                            'childEntityType' : 'alternate',
+                            'relationship' : 'ALTERNATING'
+                            },
+                            map { 
+                            'jsonChildrenKey' : 'CONTAINS_SEQUENTIAL_CONTENTS',
+                            'childEntityType' : 'sequence',
+                            'relationship' : 'SEQUENCE',
+                            'isSequence': true()
+                            },
+                            map { 
+                            'jsonChildrenKey' : 'CONTAINS_VALLIST',
+                            'childEntityType' : 'vallist',
+                            'relationship' : 'HAS_VAL'
+                            },
+                            map{ 
+                            'jsonChildrenKey': 'CONTAINS_DATAREF',
+                            'childEntityType': 'dataref',
+                            'relationship': 'HAS_DATAREF'
+                            },
+                            map{ 
+                            'jsonChildrenKey': 'CONTAINS_MACROREF',
+                            'childEntityType': 'macroref',
+                            'relationship': 'HAS_MACROREF'
+                            },
+                            map{ 
+                            'jsonChildrenKey': 'CONTAINS_CLASSREF',
+                            'childEntityType': 'classref',
+                            'relationship': 'HAS_CLASSREF'
+                            },
+                            map{ 
+                            'jsonChildrenKey': 'CONTAINS_ELEMENTREF',
+                            'childEntityType': 'elementref',
+                            'relationship': 'HAS_ELEMENTREF'
+                            }
+                            }"/>
+                    </xsl:map-entry>
+                    
+                    
+                    
+                    
+                </xsl:map> 
             </xsl:map-entry>
         </xsl:map>
     </xsl:variable>
@@ -643,7 +701,7 @@
                 data.<xsl:value-of select="$PART"/>) MERGE (doc)-[:CONTAINS_PART]->(part)
             <!-- Go through the CONTAINS_CHAPTERS array to create Chapter nodes --> FOREACH
                 (<xsl:value-of select="$CHAPTER"/>_data IN json_data.<xsl:value-of
-                select="$CONTAINS_CHAPTERS"/> | MERGE (chapter:Chapter {id: chatper_data.ID}) ON
+                select="$CONTAINS_CHAPTERS"/> | MERGE (chapter:Chapter {id: chapter_data.ID}) ON
             CREATE SET chapter.chapter = chapter_data.CHAPTER
             <!-- CONNECT ELEMENTS and ATTRIBUTES MENTIONED to their SPECS -->
         </xsl:result-document>

@@ -248,6 +248,7 @@
         </xsl:variable>
         <xsl:sequence select="map{
             $content/* ! name() : array {$contentIndicators},
+            (: ebb: make this an xsl:if: NOT ALL CONTENT MODELS HAVE DEEPER NESTING THAN JUST ONE ELEMENT :)
             'CONTAINS' : array {$contentModelParts}  
               
             } "/>
