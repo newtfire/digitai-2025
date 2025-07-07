@@ -21,6 +21,7 @@
             <xsl:map-entry key="'document'">
                 <xsl:map>
                     <xsl:map-entry key="'label'">Document</xsl:map-entry>
+                    <xsl:map-entry key="'xpathPattern'">document()</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'">doc</xsl:map-entry>
                     <xsl:map-entry key="'jsonVar'">value</xsl:map-entry>
                     <!-- ebb: Literally 'value' is the value of the document imported on load into neo4j. -->
@@ -43,14 +44,15 @@
             <xsl:map-entry key="'part'">
                 <xsl:map>
                     <xsl:map-entry key="'label'">Part</xsl:map-entry>
+                    <xsl:map-entry key="'xpathPattern'">front | body</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'">part</xsl:map-entry>
                     <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
                     <xsl:map-entry key="'jsonKeyForPK'">PART</xsl:map-entry>
-                    <xsl:map-entry key="'properties'">
+                 <!--   <xsl:map-entry key="'properties'">
                         <xsl:map>
                             <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
                         </xsl:map>
-                    </xsl:map-entry>
+                    </xsl:map-entry>-->
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="
                                 array {
@@ -66,13 +68,14 @@
             </xsl:map-entry>
             <xsl:map-entry key="'chapter'">
                 <xsl:map>
-                    <xsl:map-entry key="'label'" select="'Section'"/>
+                    <xsl:map-entry key="'label'" select="'Chapter'"/>
+                    <xsl:map-entry key="'xpathPattern'">div[@type='chapter']</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'chapter'"/>
-                    <xsl:map-entry key="'primaryKey'" select="'id'"/>
-                    <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'chapter'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'CHAPTER'"/>
                     <xsl:map-entry key="'properties'">
                         <xsl:map>
-                            <xsl:map-entry key="'title'">CHAPTER</xsl:map-entry>
+                            <xsl:map-entry key="'title'">HEAD</xsl:map-entry>
                             <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
@@ -99,13 +102,14 @@
             <xsl:map-entry key="'section'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Section'"/>
+                    <xsl:map-entry key="'xpathPattern'">div[@type='section']</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'section'"/>
-                    <xsl:map-entry key="'primaryKey'" select="'id'"/>
-                    <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'section'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'SECTION'"/>
                     <xsl:map-entry key="'properties'">
                         <xsl:map>
-                            <xsl:map-entry key="'title'">SECTION</xsl:map-entry>
-                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
+                            <xsl:map-entry key="'title'">HEAD</xsl:map-entry>
+                           <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
                     <xsl:map-entry key="'children'">
@@ -131,13 +135,14 @@
             <xsl:map-entry key="'subsection'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Subsection'"/>
+                    <xsl:map-entry key="'xpathPattern'">div[@type='section']</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'subsection'"/>
-                    <xsl:map-entry key="'primaryKey'" select="'id'"/>
-                    <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'subsection'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'SUBSECTION'"/>
                     <xsl:map-entry key="'properties'">
                         <xsl:map>
-                            <xsl:map-entry key="'title'">SUBSECTION</xsl:map-entry>
-                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
+                            <xsl:map-entry key="'title'">HEAD</xsl:map-entry>
+                           <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
                     <xsl:map-entry key="'children'">
@@ -163,26 +168,19 @@
             <xsl:map-entry key="'nestedsubsection'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Nestedsubsection'"/>
+                    <xsl:map-entry key="'xpathPattern'">div[@type='section']</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'nestedsubsection'"/>
-                    <xsl:map-entry key="'primaryKey'" select="'id'"/>
-                    <xsl:map-entry key="'jsonKeyForPK'" select="'ID'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'nestedsubsection'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'NESTEDSUBSECTION'"/>
                     <xsl:map-entry key="'properties'">
                         <xsl:map>
-                            <xsl:map-entry key="'title'">NESTEDSUBSECTION</xsl:map-entry>
+                            <xsl:map-entry key="'title'">HEAD</xsl:map-entry>
                             <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="
-                            array {
-                           (: map {
-                            'jsonChildrenKey': 'CONTAINS_NESTED_SUBSECTIONS',
-                            'childEntityType': 'nestedsubsection',
-                            'relationship': 'HAS_NESTED_SUBSECTION',
-                            'isSequence': 'true()'
-                            },:)
-                            
-                            map {
+                            array {map {
                             'jsonChildrenKey': 'CONTAINS_PARAS',
                             'childEntityType': 'paragraph',
                             'relationship': 'HAS_PARAGRAPH',
@@ -196,23 +194,25 @@
             <xsl:map-entry key="'paragraph'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Para'"/>
+                    <xsl:map-entry key="'xpathPattern'">p</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'paragraph'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'paragraph'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'PARASTRING'"/>
                     <xsl:map-entry key="'properties'">
                         <xsl:map>
-                            <xsl:map-entry key="'text'">PARASTRING</xsl:map-entry>
-                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
+                           <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="
                                 array {
                                     map {
-                                        'jsonChildrenKey': 'CONTAINS_SPECLIST',
+                                        'jsonChildrenKey': 'CONTAINS_SPECLISTS',
                                         'childEntityType': 'speclist',
                                         'relationship': 'HAS_SPECLIST'
                                     },
                                     map {
-                                        'jsonChildrenKey': 'CONTAINS_SPECGRP',
+                                        'jsonChildrenKey': 'CONTAINS_SPECGRPS',
                                         'childEntityType': 'specgrp',
                                         'relationship': 'HAS_SPECGRP'
                                     }
@@ -223,7 +223,10 @@
             <xsl:map-entry key="'speclist'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Speclist'"/>
+                    <xsl:map-entry key="'xpathPattern'">specList</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'speclist'"/>
+                    <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
+                    <xsl:map-entry key="'jsonKeyForPK'">SPECLIST</xsl:map-entry>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map{
@@ -238,14 +241,19 @@
             <xsl:map-entry key="'link_to_spec'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'LinkToSpec'"/>
+                    <xsl:map-entry key="'xpathPattern'">specDesc</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'link_to_spec'"/>
-                    
+                    <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
+                    <xsl:map-entry key="'jsonKeyForPK'">LINK_TO_SPEC</xsl:map-entry>
                 </xsl:map>
             </xsl:map-entry>
             <xsl:map-entry key="'specgrp'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Specgrp'"/>
+                    <xsl:map-entry key="'xpathPattern'">specGrp</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'specgrp'"/>
+                    <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
+                    <xsl:map-entry key="'jsonKeyForPK'">SPECGRP</xsl:map-entry>
                     <xsl:map-entry key="'properties'" select="
                             map {
                                 'title': 'SPECGRP'
@@ -266,12 +274,13 @@
             <xsl:map-entry key="'specification'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Spec'"/>
+                    <xsl:map-entry key="'xpathPattern'">spec</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'specification'"/>
-                    <xsl:map-entry key="'primaryKey'" select="'id'"/>
+                    <xsl:map-entry key="'primaryKey'" select="''"/>
                     <xsl:map-entry key="'jsonKeyForPK'" select="'SPEC'"/>
                     <xsl:map-entry key="'children'">
                                 <xsl:sequence select="array{
-                                    map{'contentModel': 'CONTENT',
+                                    map{'jsonChildrenKey': 'HAS_CONTENT',
                                         'childEntityType': 'contentmodel',
                                         'relationship': 'DEFINES_CONTENT_MODEL'},
                                     map{'jsonChildrenKey': 'CONTAINS_PARAS',
@@ -285,9 +294,11 @@
             <xsl:map-entry key="'contentmodel'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Content'"/>
+                    <xsl:map-entry key="'xpathPattern'">contentModel</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'contentmodel'"/>
-                    <xsl:map-entry key="'properties'" select="map{'rule':'RULE'}"/>
-
+                    <xsl:map-entry key="'primaryKey'" select="'name'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'CONTENT'"/>
+                    <xsl:map-entry key="'properties'" select="map{'rule':'RULE'}"/> 
                 </xsl:map>
             </xsl:map-entry>
         </xsl:map>
@@ -348,12 +359,12 @@
             <xsl:if test="$para/*">
                 <xsl:choose>
                     <xsl:when test="$para/*[self::specGrp]">
-                        <xsl:map-entry key="'CONTAINS_SPECGRP'">
+                        <xsl:map-entry key="'CONTAINS_SPECGRPS'">
                             <xsl:sequence select="array {my:specGrpMapper($para/specGrp)}"/>
                         </xsl:map-entry>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:map-entry key="'CONTAINS_SPECLIST'">
+                        <xsl:map-entry key="'CONTAINS_SPECLISTS'">
                             <xsl:variable name="specRefs" as="map(*)*">
                                 <xsl:for-each select="$para//specDesc">
                                     <xsl:map>
@@ -361,11 +372,10 @@
                                             <xsl:value-of
                                                 select="current()/@key ! normalize-space()"/>
                                         </xsl:map-entry>
-
                                     </xsl:map>
                                 </xsl:for-each>
                             </xsl:variable>
-                            <xsl:sequence select="array {$specRefs}"/>
+                            <xsl:sequence select="map{ 'SPECLIST': array {$specRefs}}"/>
                         </xsl:map-entry>
 
                     </xsl:otherwise>
@@ -377,7 +387,8 @@
     <xsl:function name="my:specGrpMapper" as="map(*)*">
         <xsl:param name="specGrp" as="element()"/>
         <xsl:variable name="specs" as="element()+" select="$specGrp/spec"/>
-        <xsl:for-each select="$specs">
+        <xsl:variable name="specMaps" as="map(*)*">
+            <xsl:for-each select="$specs">
             <xsl:map>
                 <xsl:map-entry key="'SPEC'">
                     <xsl:value-of select="current()/@ident ! normalize-space()"/>
@@ -394,9 +405,11 @@
                     <xsl:sequence select="current()/contentModel ! name()"/>
                 </xsl:map-entry>
             </xsl:map>
-
         </xsl:for-each>
-
+        </xsl:variable>
+        <xsl:map>
+            <xsl:map-entry key="'SPECGRP'" select="array{$specMaps}"/>
+        </xsl:map>
     </xsl:function>
 
     <xsl:template match="/">
@@ -445,6 +458,7 @@
 
         <xsl:variable name="model" select="$my:graph-model($current-entity-type)"/>
         <xsl:variable name="label" select="$model('label')"/>
+        <xsl:variable name="cypher-var" as="xs:string" select="$model('cypherVar') ! string()"/>
 
 
         <xsl:variable name="node-clause" as="xs:string">
@@ -457,14 +471,14 @@
                             "/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:variable name="cypher-var" as="xs:string" select="$model('cypherVar') ! string()"/>
+                    
                     <xsl:sequence select="
                             'CREATE (' || $cypher-var || ':' || $model('label') || ')'
                             "/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-      <!--  <xsl:variable name="set-clauses" as="xs:string*">
+       <xsl:variable name="set-clauses" as="xs:string*">
             <xsl:if test="map:contains($model, 'properties')">
                 <xsl:variable name="properties-map" select="$model('properties')"/>
                 <xsl:for-each select="map:keys($properties-map)">
@@ -477,12 +491,12 @@
             </xsl:if>
         </xsl:variable>
         <xsl:variable name="full-set-statement" as="xs:string"
-            select="string-join($set-clauses, ', ')"/> -->
+            select="string-join($set-clauses, ', ')"/> 
         <xsl:sequence select="
-              (:  if (exists($set-clauses))
+                if (exists($set-clauses))
                 then
                     $node-clause || ' SET ' || $full-set-statement
-                else:)
+                else
                     $node-clause
                 "/>
     </xsl:function>
@@ -511,25 +525,26 @@
 
     <!-- FUNCTION FOR PROCESSING SEQUENCES OF SIBLINGS  -->
     <xsl:function name="my:create-next-links" as="xs:string*">
-        <xsl:param name="node-label" as="xs:string"/>
+        <xsl:param name="child-entity" as="xs:string"/>
         <xsl:param name="sort-property" as="xs:string"/>
         <!--ebb:
             We expect to read properties of a 'children' map here, if they are in sequence.
             $sort-property will just be 'sequence'. (Refactor child maps accordingly.)
-    
+            Also, this expects to be seeing the capitalized cypher node name (e.g. 'Part'). 
         -->
+        <xsl:variable name="node-label" as="xs:string" select="$my:graph-model($child-entity)?label"/> 
         
         <xsl:sequence>
             <xsl:value-of select="$newline, '// Link sequential :', $node-label, ' nodes', $newline"/>
             <xsl:variable name="cypher" as="xs:string" select="
-                'MATCH (n:'||$node-label||')
-                WHERE n.'||$sort-property||' IS NOT NULL
-                WITH n.'||$sort-property||', n
-                ORDER BY n.'||$sort-property||'
-                WITH collect(n) AS ordered_nodes
-                UNWIND range(0, size(ordered_nodes) - 2) AS i
-                WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
-                MERGE (n1)-[:NEXT]->(n2)'
+                $tab||'MATCH (n:'||$node-label||')'||$nltab||
+                $tab||'WHERE n.'||$sort-property||' IS NOT NULL'||$nltab||
+                $tab||'WITH n.'||$sort-property||', n'||$nltab||
+                $tab||'ORDER BY n.'||$sort-property||$nltab||
+                $tab||'WITH collect(n) AS ordered_nodes'||$nltab||
+                $tab||'UNWIND range(0, size(ordered_nodes) - 2) AS i'||$nltab||
+                $tab||$tab||'WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2'||$nltab||
+                $tab||$tab||'MERGE (n1)-[:NEXT]->(n2)'||$nltab
                 "/>
             <xsl:sequence select="$cypher"/>
         </xsl:sequence>
@@ -568,11 +583,7 @@ CALL apoc.load.json("file:///sandboxTest.json") YIELD value
 MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
 
 </xsl:text>
-      <!-- ebb: Don't try sending the root node through the node generator function because it won't 
-          respond properly: it'll behave as if it's the child of another node, and generate a non-existent document_data property.
-          <xsl:sequence select="my:generate-node-statement($root-entity-type, $root-json-var, $root-json-pk), $newline, $newline"/>-->
-      
-          <!-- needs to indicate that it contains PARTS, so step down and look them up and write the MERGE here -->
+
             <xsl:if test="map:contains($root-model, 'children')">
                 <xsl:for-each select="$root-model?children?*"> 
                     <!-- ebb: child-type is the entity name for the child that we use in our graph-map in this XSLT.
@@ -592,41 +603,127 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
                         <xsl:variable name="sequence" as="xs:string" select="current()('isSequence')"/>
                     </xsl:if>-->
                     
-                    <xsl:sequence select="my:generate-foreach-statement($child-type, $root-json-var, $json-children-key)"/>
+               <xsl:sequence select="my:generate-foreach-statement($child-type, $root-json-var, $json-children-key)"/>
                     
                     
-               <xsl:apply-templates select="$currentXMLNode//front | $currentXMLNode//body">
+               <xsl:apply-templates select="$currentXMLNode//front | $currentXMLNode//body" mode="cypher">
                    <xsl:with-param name="parent-context-node" as="document-node()" select="$currentXMLNode"/>
                    <xsl:with-param name="parent-cypher-var" as="xs:string" select="$root-cypher-var"/>
                    <xsl:with-param name="map-entity-to-process" as="xs:string*" select="$child-type"/>
                    <xsl:with-param name="parent-child-relationship" as="xs:string" select="$relationship"/>
                 </xsl:apply-templates>
+                    
+                  <xsl:sequence select="my:create-next-links($child-type, 'sequence')"/>
                 </xsl:for-each>
         </xsl:if>
 
         </xsl:result-document>
     </xsl:template>
-    <xsl:template match="front | body">
+    <xsl:template match="front | body" mode="cypher">
         <xsl:param name="parent-context-node" as="document-node()"/>
         <xsl:param name="parent-cypher-var" as="xs:string"/>
         <xsl:param name="map-entity-to-process" as="xs:string*"/>
         <xsl:param name="parent-child-relationship" as="xs:string"/>
         
+        <xsl:variable name="current-context-node" as="element()" select="current()"/>
         <xsl:variable name="current-entity-type"  as="xs:string" select="$map-entity-to-process"/>
         <xsl:variable name="current-model" select="$my:graph-model($current-entity-type)"/>
         <xsl:variable name="current-cypher-var" select="$current-model('cypherVar') ! string()" as="xs:string"/>
-       <xsl:variable name="current-json-var" select="$current-model('jsonVar') ! string()"/>
+      <!-- <xsl:variable name="current-json-var" select="$current-model('jsonVar') ! string()"/>-->
         <xsl:variable name="current-pk" select="$current-model('primaryKey') ! string()"/>
         <xsl:variable name="current-json-pk" select="$current-model('jsonKeyForPK') ! string()"/>
-        
-       
+   
       <xsl:if test="current() = $parent-context-node//*[self::front | self::body][last()]">  
           <xsl:sequence select="my:generate-node-statement($current-entity-type, $current-pk, $current-json-pk), $nltab, $nltab"/>
           <xsl:sequence select="my:generate-relationship-merge($current-cypher-var, $parent-cypher-var, $parent-child-relationship), $nltab"/>
+          <xsl:if test="map:contains($current-model, 'children')">
+            <xsl:for-each select="$current-model?children?*"> 
+                <!-- ebb: child-type is the entity name for the child that we use in our graph-map in this XSLT.
+                    It's included in the children map entry for each map that has children to facilitate linkage  -->
+                <xsl:variable name="child-type" as="xs:string" select="current()('childEntityType') ! string()"/>
+                <!-- ebb: just calculate the child-json-name (block-cap the entity name) -->
+                <xsl:variable name="child-json-name" as="xs:string" select="$child-type ! upper-case(.)"/>
+                <!-- ebb: json-children-key: For example, 'CONTAINS_PARTS' (plural) -->
+                <xsl:variable name="json-children-key" as="xs:string" select="current()('jsonChildrenKey') ! string()"/>
+                <!-- ebb: relationship: For example, 'HAS_PART' (singular): 
+                       Pass this information down as a parameter to the next template that processes the children one by one. -->  
+                <xsl:variable name="relationship" as="xs:string" select="current()('relationship') ! string()"/>
+                <xsl:sequence select="my:generate-foreach-statement($child-type, $current-json-pk, $json-children-key)"/>
+    
+               <xsl:call-template name="processChildren">
+                    <xsl:with-param name="child-context-node" as="element()+" select="$current-context-node/*"/>
+                    <xsl:with-param name="parent-context-node" as="element()" select="$current-context-node"/>
+                    <xsl:with-param name="parent-cypher-var" as="xs:string" select="$current-cypher-var"/>
+                    <xsl:with-param name="map-entity-to-process" as="xs:string*" select="$child-type"/>
+                    <xsl:with-param name="parent-child-relationship" as="xs:string" select="$relationship"/>
+                </xsl:call-template>   
+                <xsl:sequence select="my:create-next-links($child-type, 'sequence')"/>
+            </xsl:for-each>
+        </xsl:if>
       </xsl:if>
+    </xsl:template>
+    
+    <!-- ebb: NAMED TEMPLATE FOR PROCESSING CHILDREN -->
+    <xsl:template name="processChildren">
+        <xsl:param name="child-context-node" as="element()+"/>
+        <xsl:param name="parent-context-node" as="element()"/>
+        <xsl:param name="parent-cypher-var" as="xs:string"/>
+        <xsl:param name="map-entity-to-process" as="xs:string"/>
+        <xsl:param name="parent-child-relationship" as="xs:string"/>
         
+        <xsl:variable name="current-context-node" as="element()+" select="$child-context-node"/>
+        <xsl:variable name="current-model" select="$my:graph-model($map-entity-to-process)"/>
+        <xsl:variable name="current-cypher-var" select="$current-model('cypherVar') ! string()" as="xs:string"/>
+        <xsl:variable name="current-json-var" select="$current-model('jsonVar') ! string()"/>
+        <xsl:variable name="current-pk" select="$current-model('primaryKey') ! string()"/>
+        <xsl:variable name="current-json-pk" select="$current-model('jsonKeyForPK') ! string()"/>
         
+        <!-- ebb: find the distinct-values of the child-context-nodes delivered to this template. -->
+        <xsl:variable name="distinctChildNames" as="xs:string+" select="distinct-values($child-context-node ! name())"/>
         
+        <xsl:for-each select="$distinctChildNames">
+            <xsl:variable name="AllChildElemsWithThisName" as="element()*" select="$parent-context-node/*[name() = current()]"/>
+            <xsl:if test="($AllChildElemsWithThisName)[last()]">
+               
+                <xsl:sequence select="my:generate-node-statement($map-entity-to-process, $current-pk, $current-json-pk), $nltab, $nltab"/>
+                <xsl:sequence select="my:generate-relationship-merge($current-cypher-var, $parent-cypher-var, $parent-child-relationship), $nltab"/>
+                
+      
+                <xsl:if test="$AllChildElemsWithThisName[*]">
+                    <xsl:for-each select="$current-model('children')?*"> 
+                     
+                        <!-- ebb: child-type is the entity name for the child that we use in our graph-map in this XSLT.
+                    It's included in the children map entry for each map that has children to facilitate linkage  -->
+                        <xsl:variable name="child-type" as="xs:string" select="current()('childEntityType') ! string()"/>
+                        <!-- ebb: just calculate the child-json-name (block-cap the entity name) -->
+                        <xsl:variable name="child-json-name" as="xs:string" select="$child-type ! upper-case(.)"/>
+                        <!-- ebb: json-children-key: For example, 'CONTAINS_PARTS' (plural) -->
+                        <xsl:variable name="json-children-key" as="xs:string?" select="current()('jsonChildrenKey') ! string()"/>
+                        <xsl:message><xsl:value-of select="$json-children-key"/></xsl:message>
+                        <!-- ebb: relationship: For example, 'HAS_PART' (singular): 
+                       Pass this information down as a parameter to the next template that processes the children one by one. -->  
+                        <xsl:variable name="relationship" as="xs:string" select="current()('relationship') ! string()"/>
+                        <xsl:sequence select="my:generate-foreach-statement($child-type, $current-json-pk, ($json-children-key,'NONE')[1])"/>
+                        
+                        <xsl:if test="$AllChildElemsWithThisName/*"> 
+                           <xsl:call-template name="processChildren">
+                            <xsl:with-param name="child-context-node" as="element()+" select="$AllChildElemsWithThisName/*"/>
+                               <xsl:with-param name="parent-context-node" as="element()" select="($AllChildElemsWithThisName[*][count(descendant::* ! name() => distinct-values())  = count(descendant::* ! name() => distinct-values())  => max()])[1]"/>
+                            <!-- ebb: Trying to isolate the node with the max depth: [last()] -->
+                            <xsl:with-param name="parent-cypher-var" as="xs:string" select="$current-cypher-var"/>
+                            <xsl:with-param name="map-entity-to-process" as="xs:string*" select="$child-type"/>
+                            <xsl:with-param name="parent-child-relationship" as="xs:string" select="$relationship"/>
+                        </xsl:call-template>  </xsl:if>
+                       
+                        <xsl:if test="map:contains(current(), 'isSequence')">
+                            <xsl:sequence select="my:create-next-links($child-type, 'sequence')"/>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:if>
+       
+            </xsl:if>
+        </xsl:for-each>
+ 
     </xsl:template>
 
 

@@ -17,4 +17,487 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
 	 MERGE (part:Part {name: part_data.PART}) 
 	 
 	 MERGE (doc)-[:HAS_PART]->(part) 
+	 
+	FOREACH (chapter_data IN PART.CONTAINS_CHAPTERS |
+	 MERGE (chapter:Chapter {chapter: chapter_data.CHAPTER}) SET chapter.sequence = chapter.SEQUENCE, chapter.title = chapter.HEAD 
+	 
+	 MERGE (part)-[:HAS_CHAPTER]->(chapter) 
+	 
+	FOREACH (section_data IN CHAPTER.CONTAINS_SECTIONS |
+	 MERGE (section:Section {section: section_data.SECTION}) SET section.sequence = section.SEQUENCE, section.title = section.HEAD 
+	 
+	 MERGE (chapter)-[:HAS_SECTION]->(section) 
+	 MERGE (section:Section {section: section_data.SECTION}) SET section.sequence = section.SEQUENCE, section.title = section.HEAD 
+	 
+	 MERGE (chapter)-[:HAS_SECTION]->(section) 
+	 MERGE (section:Section {section: section_data.SECTION}) SET section.sequence = section.SEQUENCE, section.title = section.HEAD 
+	 
+	 MERGE (chapter)-[:HAS_SECTION]->(section) 
+	 
+	FOREACH (subsection_data IN SECTION.CONTAINS_SUBSECTIONS |
+	 MERGE (subsection:Subsection {subsection: subsection_data.SUBSECTION}) SET subsection.sequence = subsection.SEQUENCE, subsection.title = subsection.HEAD 
+	 
+	 MERGE (section)-[:HAS_SUBSECTION]->(subsection) 
+	 MERGE (subsection:Subsection {subsection: subsection_data.SUBSECTION}) SET subsection.sequence = subsection.SEQUENCE, subsection.title = subsection.HEAD 
+	 
+	 MERGE (section)-[:HAS_SUBSECTION]->(subsection) 
+	 
+	FOREACH (nestedsubsection_data IN SUBSECTION.CONTAINS_NESTED_SUBSECTIONS |
+	 MERGE (nestedsubsection:Nestedsubsection {nestedsubsection: nestedsubsection_data.NESTEDSUBSECTION}) SET nestedsubsection.sequence = nestedsubsection.SEQUENCE, nestedsubsection.title = nestedsubsection.HEAD 
+	 
+	 MERGE (subsection)-[:HAS_NESTED_SUBSECTION]->(nestedsubsection) 
+	 
+	FOREACH (paragraph_data IN NESTEDSUBSECTION.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (nestedsubsection)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+ // Link sequential : Para  nodes 
+ 	MATCH (n:Para)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+ // Link sequential : Nestedsubsection  nodes 
+ 	MATCH (n:Nestedsubsection)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+	FOREACH (paragraph_data IN SUBSECTION.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (subsection)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+ // Link sequential : Para  nodes 
+ 	MATCH (n:Para)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 MERGE (subsection:Subsection {subsection: subsection_data.SUBSECTION}) SET subsection.sequence = subsection.SEQUENCE, subsection.title = subsection.HEAD 
+	 
+	 MERGE (section)-[:HAS_SUBSECTION]->(subsection) 
+	 
+	FOREACH (nestedsubsection_data IN SUBSECTION.CONTAINS_NESTED_SUBSECTIONS |
+	 MERGE (nestedsubsection:Nestedsubsection {nestedsubsection: nestedsubsection_data.NESTEDSUBSECTION}) SET nestedsubsection.sequence = nestedsubsection.SEQUENCE, nestedsubsection.title = nestedsubsection.HEAD 
+	 
+	 MERGE (subsection)-[:HAS_NESTED_SUBSECTION]->(nestedsubsection) 
+	 MERGE (nestedsubsection:Nestedsubsection {nestedsubsection: nestedsubsection_data.NESTEDSUBSECTION}) SET nestedsubsection.sequence = nestedsubsection.SEQUENCE, nestedsubsection.title = nestedsubsection.HEAD 
+	 
+	 MERGE (subsection)-[:HAS_NESTED_SUBSECTION]->(nestedsubsection) 
+	 
+	FOREACH (paragraph_data IN NESTEDSUBSECTION.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (nestedsubsection)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (link_to_spec_data IN SPECLIST.LINK_TO_SPEC |
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+	FOREACH (specification_data IN SPECGRP.CONTAINS_SPECS |
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 
+	FOREACH (contentmodel_data IN SPEC.HAS_CONTENT |
+	 MERGE (contentmodel:Content {name: contentmodel_data.CONTENT}) SET contentmodel.rule = name.RULE 
+	 
+	 MERGE (specification)-[:DEFINES_CONTENT_MODEL]->(contentmodel) 
+	 
+	FOREACH (paragraph_data IN SPEC.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (specification)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+ // Link sequential : Para  nodes 
+ 	MATCH (n:Para)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+ // Link sequential : Nestedsubsection  nodes 
+ 	MATCH (n:Nestedsubsection)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+	FOREACH (paragraph_data IN SUBSECTION.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (subsection)-[:HAS_PARAGRAPH]->(paragraph) 
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (subsection)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (link_to_spec_data IN SPECLIST.LINK_TO_SPEC |
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+	FOREACH (specification_data IN SPECGRP.CONTAINS_SPECS |
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 
+	FOREACH (contentmodel_data IN SPEC.HAS_CONTENT |
+	 MERGE (contentmodel:Content {name: contentmodel_data.CONTENT}) SET contentmodel.rule = name.RULE 
+	 
+	 MERGE (specification)-[:DEFINES_CONTENT_MODEL]->(contentmodel) 
+	 MERGE (contentmodel:Content {name: contentmodel_data.CONTENT}) SET contentmodel.rule = name.RULE 
+	 
+	 MERGE (specification)-[:DEFINES_CONTENT_MODEL]->(contentmodel) 
+	 
+	FOREACH (paragraph_data IN SPEC.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (specification)-[:HAS_PARAGRAPH]->(paragraph) 
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (specification)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+ // Link sequential : Para  nodes 
+ 	MATCH (n:Para)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+ // Link sequential : Subsection  nodes 
+ 	MATCH (n:Subsection)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+	FOREACH (paragraph_data IN SECTION.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (section)-[:HAS_PARAGRAPH]->(paragraph) 
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (section)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (link_to_spec_data IN SPECLIST.LINK_TO_SPEC |
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+	FOREACH (specification_data IN SPECGRP.CONTAINS_SPECS |
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (section)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (link_to_spec_data IN SPECLIST.LINK_TO_SPEC |
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+	FOREACH (specification_data IN SPECGRP.CONTAINS_SPECS |
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 
+	FOREACH (contentmodel_data IN SPEC.HAS_CONTENT |
+	 MERGE (contentmodel:Content {name: contentmodel_data.CONTENT}) SET contentmodel.rule = name.RULE 
+	 
+	 MERGE (specification)-[:DEFINES_CONTENT_MODEL]->(contentmodel) 
+	 
+	FOREACH (paragraph_data IN SPEC.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (specification)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (link_to_spec_data IN SPECLIST.LINK_TO_SPEC |
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+	FOREACH (specification_data IN SPECGRP.CONTAINS_SPECS |
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 
+ // Link sequential : Para  nodes 
+ 	MATCH (n:Para)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+ // Link sequential : Section  nodes 
+ 	MATCH (n:Section)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+	FOREACH (paragraph_data IN CHAPTER.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (chapter)-[:HAS_PARAGRAPH]->(paragraph) 
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (chapter)-[:HAS_PARAGRAPH]->(paragraph) 
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (chapter)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (link_to_spec_data IN SPECLIST.LINK_TO_SPEC |
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (link_to_spec_data IN SPECLIST.LINK_TO_SPEC |
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+	FOREACH (specification_data IN SPECGRP.CONTAINS_SPECS |
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 
+	FOREACH (contentmodel_data IN SPEC.HAS_CONTENT |
+	 MERGE (contentmodel:Content {name: contentmodel_data.CONTENT}) SET contentmodel.rule = name.RULE 
+	 
+	 MERGE (specification)-[:DEFINES_CONTENT_MODEL]->(contentmodel) 
+	 
+	FOREACH (paragraph_data IN SPEC.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (specification)-[:HAS_PARAGRAPH]->(paragraph) 
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+	FOREACH (specification_data IN SPECGRP.CONTAINS_SPECS |
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 
+	FOREACH (contentmodel_data IN SPEC.HAS_CONTENT |
+	 MERGE (contentmodel:Content {name: contentmodel_data.CONTENT}) SET contentmodel.rule = name.RULE 
+	 
+	 MERGE (specification)-[:DEFINES_CONTENT_MODEL]->(contentmodel) 
+	 
+	FOREACH (paragraph_data IN SPEC.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (specification)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+	FOREACH (speclist_data IN PARASTRING.CONTAINS_SPECLISTS |
+	 MERGE (speclist:Speclist {name: speclist_data.SPECLIST}) 
+	 
+	 MERGE (paragraph)-[:HAS_SPECLIST]->(speclist) 
+	 
+	FOREACH (link_to_spec_data IN SPECLIST.LINK_TO_SPEC |
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 MERGE (link_to_spec:LinkToSpec {name: link_to_spec_data.LINK_TO_SPEC}) 
+	 
+	 MERGE (speclist)-[:REFERS_TO_SPECIFICATION]->(link_to_spec) 
+	 
+	FOREACH (specgrp_data IN PARASTRING.CONTAINS_SPECGRPS |
+	 MERGE (specgrp:Specgrp {name: specgrp_data.SPECGRP}) SET specgrp.title = name.SPECGRP 
+	 
+	 MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp) 
+	 
+	FOREACH (specification_data IN SPECGRP.CONTAINS_SPECS |
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 MERGE (specification:Spec {: specification_data.SPEC}) 
+	 
+	 MERGE (specgrp)-[:HAS_SPEC]->(specification) 
+	 
+	FOREACH (contentmodel_data IN SPEC.HAS_CONTENT |
+	 MERGE (contentmodel:Content {name: contentmodel_data.CONTENT}) SET contentmodel.rule = name.RULE 
+	 
+	 MERGE (specification)-[:DEFINES_CONTENT_MODEL]->(contentmodel) 
+	 
+	FOREACH (paragraph_data IN SPEC.CONTAINS_PARAS |
+	 MERGE (paragraph:Para {paragraph: paragraph_data.PARASTRING}) SET paragraph.sequence = paragraph.SEQUENCE 
+	 
+	 MERGE (specification)-[:HAS_PARAGRAPH]->(paragraph) 
+	 
+ // Link sequential : Para  nodes 
+ 	MATCH (n:Para)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+ // Link sequential : Chapter  nodes 
+ 	MATCH (n:Chapter)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
+	 
+ // Link sequential : Part  nodes 
+ 	MATCH (n:Part)
+		WHERE n.sequence IS NOT NULL
+		WITH n.sequence, n
+		ORDER BY n.sequence
+		WITH collect(n) AS ordered_nodes
+		UNWIND range(0, size(ordered_nodes) - 2) AS i
+			WITH ordered_nodes[i] AS n1, ordered_nodes[i+1] AS n2
+			MERGE (n1)-[:NEXT]->(n2)
 	

@@ -54,24 +54,24 @@
                   "SECTION": "title abc-1-sub-nest1",
                   "CONTAINS_PARAS": [ {
                       "SEQUENCE": "1",
-                      "CONTAINS_SPECGRP": [ {
-                          "CONTAINS-PARAS": {
-                            "SEQUENCE": "1",
-                            "PARASTRING": "...."
-                          },
-                          "CONTENT": "contentModel",
-                          "SPEC": "MYSPEC1"
-                        } ],
+                      "CONTAINS_SPECGRPS": [ { "SPECGRP":[ {
+                              "CONTAINS-PARAS": {
+                                "SEQUENCE": "1",
+                                "PARASTRING": "...."
+                              },
+                              "CONTENT": "contentModel",
+                              "SPEC": "MYSPEC1"
+                            } ] } ],
                       "PARASTRING": "...... ...."
                     } ]
                 } ],
               "CONTAINS_PARAS": [ {
                   "SEQUENCE": "1",
                   "PARASTRING": "......",
-                  "CONTAINS_SPECLIST": [
-                    { "LINK_TO_SPEC":"MYSPEC1" },
-                    { "LINK_TO_SPEC":"MYSPEC2" }
-                  ]
+                  "CONTAINS_SPECLISTS": { "SPECLIST":[
+                      { "LINK_TO_SPEC":"MYSPEC1" },
+                      { "LINK_TO_SPEC":"MYSPEC2" }
+                    ] }
                 } ]
             } ],
           "CONTAINS_PARAS": [ {
@@ -96,14 +96,14 @@
                 } ],
               "CONTAINS_PARAS": [ {
                   "SEQUENCE": "1",
-                  "CONTAINS_SPECGRP": [ {
-                      "CONTAINS-PARAS": {
-                        "SEQUENCE": "1",
-                        "PARASTRING": "...."
-                      },
-                      "CONTENT": "contentModel",
-                      "SPEC": "MYSPEC2"
-                    } ],
+                  "CONTAINS_SPECGRPS": [ { "SPECGRP":[ {
+                          "CONTAINS-PARAS": {
+                            "SEQUENCE": "1",
+                            "PARASTRING": "...."
+                          },
+                          "CONTENT": "contentModel",
+                          "SPEC": "MYSPEC2"
+                        } ] } ],
                   "PARASTRING": "..... ...."
                 } ]
             } ],
