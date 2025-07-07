@@ -16,9 +16,6 @@
     <!-- 2025-06-30 ebb: graph model is complete for this sandbox example, but functions
     require revision! 
     -->
-    <xsl:variable name="processing-order" as="xs:string*" 
-        select="('document', 'part', 'chapter', 'section', 'subsection', 'nestedsubsection', 
-        'paragraph', 'specgrp', 'specification', 'contentmodel', 'speclist', 'link_to_spec')"/>
     <xsl:variable name="my:graph-model" as="map(xs:string, map(*))">
         <xsl:map>
             <xsl:map-entry key="'document'">
@@ -37,7 +34,7 @@
                                         'jsonChildrenKey': 'CONTAINS_PARTS',
                                         'childEntityType': 'part',
                                         'relationship': 'HAS_PART',
-                                        'isSequence': 'true()'
+                                        'isSequence': true()
                                     }
                                 
                                 }"/>
@@ -63,7 +60,7 @@
                                         'jsonChildrenKey': 'CONTAINS_CHAPTERS',
                                         'childEntityType': 'chapter',
                                         'relationship': 'HAS_CHAPTER',
-                                        'isSequence': 'true()'
+                                        'isSequence': true()
                                     }
                                 }"/>
                     </xsl:map-entry>
@@ -89,13 +86,13 @@
                                         'jsonChildrenKey': 'CONTAINS_SECTIONS',
                                         'childEntityType': 'section',
                                         'relationship': 'HAS_SECTION',
-                                        'isSequence': 'true()'
+                                        'isSequence': true()
                                     },
                                     map {
                                         'jsonChildrenKey': 'CONTAINS_PARAS',
                                         'childEntityType': 'paragraph',
                                         'relationship': 'HAS_PARAGRAPH',
-                                        'isSequence': 'true()'
+                                        'isSequence': true()
                                     }
                                 }"/>
                     </xsl:map-entry>
@@ -122,14 +119,14 @@
                                         'jsonChildrenKey': 'CONTAINS_SUBSECTIONS',
                                         'childEntityType': 'subsection',
                                         'relationship': 'HAS_SUBSECTION',
-                                        'isSequence': 'true()'
+                                        'isSequence': true()
                                     },
                                     
                                     map {
                                         'jsonChildrenKey': 'CONTAINS_PARAS',
                                         'childEntityType': 'paragraph',
                                         'relationship': 'HAS_PARAGRAPH',
-                                        'isSequence': 'true()'
+                                        'isSequence': true()
                                     }
                                 }"/>
                     </xsl:map-entry>
@@ -155,14 +152,14 @@
                             'jsonChildrenKey': 'CONTAINS_NESTED_SUBSECTIONS',
                             'childEntityType': 'nestedsubsection',
                             'relationship': 'HAS_NESTED_SUBSECTION',
-                            'isSequence': 'true()'
+                            'isSequence': true()
                             },
                             
                             map {
                             'jsonChildrenKey': 'CONTAINS_PARAS',
                             'childEntityType': 'paragraph',
                             'relationship': 'HAS_PARAGRAPH',
-                            'isSequence': 'true()'
+                            'isSequence': true()
                             }
                             }"/>
                     </xsl:map-entry>
@@ -187,7 +184,7 @@
                             'jsonChildrenKey': 'CONTAINS_PARAS',
                             'childEntityType': 'paragraph',
                             'relationship': 'HAS_PARAGRAPH',
-                            'isSequence': 'true()'
+                            'isSequence': true()
                             }
                             }"/>
                     </xsl:map-entry>
@@ -286,12 +283,26 @@
                                     map{'jsonChildrenKey': 'HAS_CONTENT',
                                         'childEntityType': 'contentmodel',
                                         'relationship': 'DEFINES_CONTENT_MODEL'},
-                                    map{'jsonChildrenKey': 'CONTAINS_PARAS',
-                                        'childEntityType': 'paragraph',
-                                        'relationship': 'HAS_PARAGRAPH'
+                                    map{'jsonChildrenKey': 'CONTAINS_TERMINAL_PARAS',
+                                        'childEntityType': 'terminal_paragraph',
+                                        'relationship': 'HAS_TERMINAL_PARA',
+                                        'isSequence': true()
                                     }
                                     }"/>
                             </xsl:map-entry>
+                </xsl:map>
+            </xsl:map-entry>
+            <xsl:map-entry key="'terminal_paragraph'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'">Para</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'">terminal_paragraph</xsl:map-entry>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'text'">PARASTRING</xsl:map-entry>
+                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry>
+                    
                 </xsl:map>
             </xsl:map-entry>
             <xsl:map-entry key="'contentmodel'">
@@ -456,22 +467,22 @@
     <!-- FUNCTION TO CREATE GRAPH NODES -->
     <xsl:function name="my:generate-node-statement" as="xs:string">
         <xsl:param name="current-entity-type" as="xs:string"/>
+        <xsl:param name="cypher-var" as="xs:string"/> 
         <xsl:param name="current-json-var" as="xs:string"/>
-        <xsl:param name="model" as="map(*)*"/>
-       <!-- <xsl:param name="current-json-pk" as="xs:string"/>-->
 
-     <!--   <xsl:variable name="model" select="$my:graph-model($current-entity-type)"/>-->
+
+        <xsl:variable name="model" select="$my:graph-model($current-entity-type)"/>
         <xsl:variable name="label" select="$model('label')"/>
-        <xsl:variable name="cypher-var" as="xs:string" select="$model('cypherVar') ! string()"/>
+      <!--  <xsl:variable name="cypher-var" as="xs:string" select="$model('cypherVar') ! string()"/>-->
 
 
         <xsl:variable name="node-clause" as="xs:string">
             <xsl:choose>
                 <xsl:when test="map:contains($model, 'primaryKey')">
-                    <xsl:variable name="current-cypher-pk" as="xs:string" select="$model('primaryKey') ! string()"/>
+                  <xsl:variable name="current-cypher-pk" as="xs:string" select="$model('primaryKey') ! string()"/>
                     <xsl:sequence select="
-                            'MERGE (' || $current-entity-type || ':' || $label ||
-                            ' {' || $current-cypher-pk || ': ' || $current-entity-type||'_data'||'.' || $model('jsonKeyForPK') || '})'
+                            'MERGE (' || $cypher-var|| ':' || $label ||
+                            ' {' || $current-cypher-pk || ': ' ||$current-json-var||'.' || $model('jsonKeyForPK') || '})'
                             "/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -489,7 +500,7 @@
                     <xsl:variable name="prop-key" select="."/>
                     <xsl:variable name="json-key" select="$properties-map($prop-key)"/>
                     <xsl:sequence
-                        select="$current-entity-type||'_data'|| '.' || $prop-key || ' = ' || $current-json-var || '.' || $json-key"
+                        select="$cypher-var||'.' || $prop-key || ' = ' || $current-json-var || '.' || $json-key"
                     />
                 </xsl:for-each>
             </xsl:if>
@@ -550,29 +561,6 @@
     
     <!-- GENERATE CYPHER FROM THE SOURCE XML AND OUR GRAPH MODEL VARIABLE AT THE TOP OF THIS FILE -->
   
-    <xsl:function name="my:generate-cypher-for-entity" as="xs:string*">
-        <xsl:param name="entity-type" as="xs:string?"/>
-        
-        <xsl:variable name="model" select="$my:graph-model($entity-type)"/>
-        <xsl:variable name="parent-type" select="$model('parentEntityType')"/> 
-        <xsl:variable name="parent-model" select="$my:graph-model($parent-type)"/>
-        
-        <xsl:variable name="cypher-var" select="$model('cypherVar')"/>
-        <xsl:variable name="json-var" select="$cypher-var || '_data'"/>
-        
-        <xsl:variable name="parent-cypher-var" select="$parent-model('cypherVar')"/>
-        <xsl:variable name="relationship" select="$model('relationshipInParent')"/> 
-        <xsl:variable name="json-key" select="$model('jsonKeyInParent')"/> 
-        <xsl:sequence select="
-            $newline, '// Create and link all :', $model('label'), ' nodes', $newline,
-            'MATCH (', $parent-cypher-var, ':', $parent-model('label'), ')', $newline,
-            'WITH ', $parent-cypher-var, $newline,
-            'UNWIND ', $parent-cypher-var, '.', $json-key, ' AS ', $json-var, $newline,
-            my:generate-node-statement($cypher-var, $json-var, $model), $newline,
-            'MERGE (', $parent-cypher-var, ')-[:', $relationship, ']->(', $cypher-var, ');'
-            "/>
-    </xsl:function>
-  
 
     <xsl:template match="/" mode="cypher">
         <xsl:variable name="currentXMLNode" as="document-node()" select="current()"/>
@@ -602,21 +590,14 @@ CALL apoc.load.json("file:///sandboxTest.json") YIELD value as doc_data
 MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
 
 </xsl:text>
-            <xsl:variable name="outerKeys" as="xs:string+" 
-                select="map:keys($my:graph-model)"/>
-            
-
-            
-            <xsl:for-each select="$processing-order">
-                <xsl:variable name="entity-type-to-process" select="current()"/>
-                <xsl:variable name="model" select="$my:graph-model($entity-type-to-process)"/>
-                <xsl:if test="$entity-type-to-process != 'document'">
-                    <xsl:sequence select="my:generate-cypher-for-entity($entity-type-to-process)"/>
-                </xsl:if>
-                
-            </xsl:for-each>
-            
-            
+          
+            <xsl:call-template name="my:process-children">
+                <xsl:with-param name="parent_cypher_var" select="$root-model('cypherVar')"/>
+                <xsl:with-param name="parent_json_var" select="'doc_data'"/>
+                <xsl:with-param name="children_to_process" select="$root-model?children?*"/>
+                <xsl:with-param name="indent" select="''"/>
+                <xsl:with-param name="depth" select="1"/>
+            </xsl:call-template>      
 
             <xsl:text>
 ;
@@ -624,28 +605,68 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
 // STEP 2: Create sequential :NEXT relationships
 </xsl:text>
             
-         <!--   <xsl:sequence select="my:create-next-links('part', 'sequence'), ';'"/>
+        <!--    <xsl:sequence select="my:create-next-links('part', 'sequence'), ';'"/>
             <xsl:sequence select="my:create-next-links('section', 'sequence'), ';'"/>-->
             
-            <xsl:for-each select="$processing-order">
-                <xsl:variable name="model" select="$my:graph-model(.)"/>
-                <xsl:if test="exists($model?children?*[?isSequence])">
-                    <xsl:variable name="child-info" select="$model?children?*[?isSequence][1]"/>
+            <xsl:for-each select="map:keys($my:graph-model)[exists($my:graph-model(.)?children?*[?isSequence = true()])]">
+                
+                <xsl:variable name="parent-model" select="$my:graph-model(.)"/>
+                
+                <xsl:for-each select="$parent-model?children?*[?isSequence = true()]">
+                    <xsl:variable name="child-info" select="."/>
                     <xsl:variable name="child-model" select="$my:graph-model($child-info?childEntityType)"/>
                     <xsl:sequence select="my:create-next-links(
-                        $model('label'),
+                        $parent-model('label'),
                         $child-model('label'),
                         $child-info('relationship'),
                         'sequence'
                         ), ';'"/>
-                </xsl:if>
+                </xsl:for-each>
+                
             </xsl:for-each>
             
 
         </xsl:result-document>
     </xsl:template>
     
-  
+    <xsl:template name="my:process-children">
+        <xsl:param name="parent_cypher_var" as="xs:string"/>
+        <xsl:param name="parent_json_var" as="xs:string"/>
+        <xsl:param name="children_to_process" as="map(*)*"/>
+        <xsl:param name="indent" as="xs:string"/>
+        <xsl:param name="depth" as="xs:integer"/>
+        
+        <xsl:for-each select="$children_to_process">
+            <xsl:variable name="child-info" select="."/>
+            
+            <xsl:variable name="child-type" select="$child-info('childEntityType')"/>
+            <xsl:variable name="child-model" select="$my:graph-model($child-type)"/>
+            
+            <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')||'_'||$depth"/>
+            <xsl:variable name="child-json-var" select="$child-cypher-var||'_data_'||$depth"/>
+            <xsl:variable name="relationship" select="$child-info('relationship')"/>
+            <xsl:variable name="json-key" select="$child-info('jsonChildrenKey')"/>
+            
+          <!--  <xsl:sequence select="$newline, $indent, 'WITH ', $parent_cypher_var, ', ', $parent_json_var"/>-->
+            <xsl:sequence select="$newline, $indent, 'FOREACH (', $child-json-var, ' IN ', $parent_json_var, '.', $json-key, ' |'"/>
+            <xsl:sequence select="$newline, $indent, $tab, my:generate-node-statement($child-type, $child-cypher-var, $child-json-var)"/>
+            <xsl:sequence select="$newline, $indent, $tab, 'MERGE (', $parent_cypher_var, ')-[:', $relationship, ']->(', $child-cypher-var, ')'"/>
+            
+           <xsl:if test="exists($child-model?children)">
+                <xsl:call-template name="my:process-children">
+                    <xsl:with-param name="parent_cypher_var" select="$child-cypher-var"/>
+                    <xsl:with-param name="parent_json_var" select="$child-json-var"/>
+                    <xsl:with-param name="children_to_process" select="$child-model?children?*"/>
+                    <xsl:with-param name="indent" select="concat($indent, $tab)"/>
+                    <xsl:with-param name="depth" select="$depth + 1"/>
+                </xsl:call-template>
+            </xsl:if>
+            
+            <xsl:sequence select="$newline, $indent, ')'"/>
+        </xsl:for-each>
+        
+     
+    </xsl:template>
     
     
  

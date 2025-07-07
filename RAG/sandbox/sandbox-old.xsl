@@ -95,7 +95,7 @@
                                         'jsonChildrenKey': 'CONTAINS_PARAS',
                                         'childEntityType': 'paragraph',
                                         'relationship': 'HAS_PARAGRAPH',
-                                        'isSequence': 'true()'
+                                        'isSequence': true()
                                     }
                                 }"/>
                     </xsl:map-entry>
