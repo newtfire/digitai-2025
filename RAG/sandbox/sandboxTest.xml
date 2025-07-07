@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+    <front>
+        <div type="chapter" xml:id="intro-1">
+            <head>Frontmatter 1</head>
+            <p>......</p>
+            <p>......</p>
+            <p>......</p>
+        </div>
+        <div type="chapter" xml:id="intro-2">
+            <head>Frontmatter 2</head>
+            <p>......</p>
+            <p>......</p>
+        </div>
+    </front>
+    <body>
+        <div type="chapter" xml:id="abc-1">
+            <head>title abc-1</head>
+            <p>......</p>
+            <div type="section">
+                <head>title abc-1-sub1</head>
+                <p>...... <specList>
+                        <specDesc key="MYSPEC1"/>
+                        <specDesc key="MYSPEC2"/>
+                    </specList>
+                </p>
+
+                <div type="section">
+                    <head>title abc-1-sub-nest1</head>
+                    <p>...... <specGrp>
+                            <spec ident="MYSPEC1">
+                                <p>....</p>
+                                <contentModel>
+                                    <rules/>
+                                </contentModel>
+                            </spec>
+                        </specGrp>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div type="chapter" xml:id="abc-2">
+            <head>title abc-2</head>
+            <p>......</p>
+            <div type="section">
+                <head>section abc-2-sub1</head>
+                <p>..... <specGrp>
+                        <spec ident="MYSPEC2">
+                            <p>....</p>
+                            <contentModel>
+                                <rules/>
+                            </contentModel>
+                        </spec>
+                    </specGrp>
+                </p>
+                <div type="section">
+                    <head>section abc2-sub1-nest1</head>
+                    <p>......</p>
+                </div>
+            </div>
+        </div>
+        <div type="chapter" xml:id="abc-3">
+            <head>title abc-3</head>
+            <p>......</p>
+
+
+        </div>
+    </body>
+</xml>

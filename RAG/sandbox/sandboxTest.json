@@ -1,0 +1,130 @@
+{
+  "CONTAINS_PARTS": [
+    {
+      "SEQUENCE": "1",
+      "CONTAINS_CHAPTERS": [
+        {
+          "SEQUENCE": "1",
+          "CHAPTER": "Frontmatter 1",
+          "CONTAINS_PARAS": [
+            {
+              "SEQUENCE": "1",
+              "PARASTRING": "......"
+            },
+            {
+              "SEQUENCE": "2",
+              "PARASTRING": "......"
+            },
+            {
+              "SEQUENCE": "3",
+              "PARASTRING": "......"
+            }
+          ],
+          "ID": "intro-1"
+        },
+        {
+          "SEQUENCE": "2",
+          "CHAPTER": "Frontmatter 2",
+          "CONTAINS_PARAS": [
+            {
+              "SEQUENCE": "1",
+              "PARASTRING": "......"
+            },
+            {
+              "SEQUENCE": "2",
+              "PARASTRING": "......"
+            }
+          ],
+          "ID": "intro-2"
+        }
+      ],
+      "PART": "front"
+    },
+    {
+      "SEQUENCE": "2",
+      "CONTAINS_CHAPTERS": [
+        {
+          "SEQUENCE": "1",
+          "CHAPTER": "title abc-1",
+          "CONTAINS_SECTIONS": [ {
+              "SEQUENCE": "1",
+              "SECTION": "title abc-1-sub1",
+              "CONTAINS_SECTIONS": [ {
+                  "SEQUENCE": "1",
+                  "SECTION": "title abc-1-sub-nest1",
+                  "CONTAINS_PARAS": [ {
+                      "SEQUENCE": "1",
+                      "CONTAINS_SPECGRPS": [ { "SPECGRP":[ {
+                              "CONTAINS-PARAS": {
+                                "SEQUENCE": "1",
+                                "PARASTRING": "...."
+                              },
+                              "CONTENT": "contentModel",
+                              "SPEC": "MYSPEC1"
+                            } ] } ],
+                      "PARASTRING": "...... ...."
+                    } ]
+                } ],
+              "CONTAINS_PARAS": [ {
+                  "SEQUENCE": "1",
+                  "PARASTRING": "......",
+                  "CONTAINS_SPECLISTS": { "SPECLIST":[
+                      { "LINK_TO_SPEC":"MYSPEC1" },
+                      { "LINK_TO_SPEC":"MYSPEC2" }
+                    ] }
+                } ]
+            } ],
+          "CONTAINS_PARAS": [ {
+              "SEQUENCE": "1",
+              "PARASTRING": "......"
+            } ],
+          "ID": "abc-1"
+        },
+        {
+          "SEQUENCE": "2",
+          "CHAPTER": "title abc-2",
+          "CONTAINS_SECTIONS": [ {
+              "SEQUENCE": "1",
+              "SECTION": "section abc-2-sub1",
+              "CONTAINS_SECTIONS": [ {
+                  "SEQUENCE": "1",
+                  "SECTION": "section abc2-sub1-nest1",
+                  "CONTAINS_PARAS": [ {
+                      "SEQUENCE": "1",
+                      "PARASTRING": "......"
+                    } ]
+                } ],
+              "CONTAINS_PARAS": [ {
+                  "SEQUENCE": "1",
+                  "CONTAINS_SPECGRPS": [ { "SPECGRP":[ {
+                          "CONTAINS-PARAS": {
+                            "SEQUENCE": "1",
+                            "PARASTRING": "...."
+                          },
+                          "CONTENT": "contentModel",
+                          "SPEC": "MYSPEC2"
+                        } ] } ],
+                  "PARASTRING": "..... ...."
+                } ]
+            } ],
+          "CONTAINS_PARAS": [ {
+              "SEQUENCE": "1",
+              "PARASTRING": "......"
+            } ],
+          "ID": "abc-2"
+        },
+        {
+          "SEQUENCE": "3",
+          "CHAPTER": "title abc-3",
+          "CONTAINS_PARAS": [ {
+              "SEQUENCE": "1",
+              "PARASTRING": "......"
+            } ],
+          "ID": "abc-3"
+        }
+      ],
+      "PART": "body"
+    }
+  ],
+  "DOC_TITLE": "SOURCE XML AS BASIS FOR A KNOWLEDGE\n                    GRAPH"
+}
