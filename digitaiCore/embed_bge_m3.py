@@ -6,17 +6,6 @@ import logging
 from sentence_transformers import SentenceTransformer
 from digitaiCore.config_loader import ConfigLoader
 
-"""
-This script loads a text embedding model, reads node data from a JSONL export (rather than querying Neo4j directly),
-computes vector embeddings in batches, and writes the output to a JSONL file for use in retrieval-augmented generation (RAG).
-
-The JSONL file is typically generated using `neo4j_exporter.py` and contains pre-extracted node data (ID, text, and labels)
-from a Neo4j graph. This offline-first approach avoids the need for a live Neo4j connection at embedding time.
-
-All configuration values such as model type, batch size, normalization, output file path, and logging are read from 
-`digitaiCore/config.yaml`. Logging and parallelism settings can be tuned for optimal performance on different hardware setups.
-"""
-
 # === Load Configuration ===
 repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 config_path = os.path.join(repo_root, "digitaiCore", "config.yaml")
