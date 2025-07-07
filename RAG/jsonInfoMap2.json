@@ -1,0 +1,140 @@
+{
+		"DOC": {
+				"SUPPORTING_INSTITUTION": {},
+				"TEI_SOURCE_VERSION_NUMBER": {},
+				"TEI_SOURCE_OUTPUT_DATE": {},
+				"THIS_JSON_DATETIME": {},
+				"DOCUMENT_TITLE": {},
+				"PREPARED_BY": {},
+				"PART": {},
+				"CONTAINS_PARTS": {
+						"SEQUENCE": {},
+						"CONTAINS_CHAPTERS": {
+								"SEQUENCE": {},
+								"CHAPTER": {
+										"SEQUENCE": {},
+										"CHAPTER": {},
+										"ID": {},
+										"RELATES_TO": {
+												"ID": {}
+										}
+								},
+								"CONTAINS_SECTIONS": {
+										"SEQUENCE": {},
+										"SECTION": {},
+										"ID": {}
+								},
+								"CONTAINS_PARAS": {
+										"PARA": {},
+										"SEQUENCE": {},
+										"TEI_ENCODING_DISCUSSED": {},
+										"ID": {},
+										"RELATES_TO": {
+												"ID": {}
+										},
+										"SECTION": {
+												"SEQUENCE": {},
+												"SECTION": {},
+												"ID": {},
+												"CONTAINS_PARAS": {
+														"PARA": {},
+														"SEQUENCE": {},
+														"TEI_ENCODING_DISCUSSED": {},
+														"ELEMENTS_MENTIONED": {}
+												},
+												"TEI_ENCODING_DISCUSSED": {
+														"ELEMENTS_MENTIONED": {},
+														"ATTRIBUTES_MENTIONED": {},
+														"CLASS": {},
+														"EXAMPLES": {},
+														"MODULE": {},
+														"MACRO": {},
+														"GE": {},
+														"PE": {}
+												},
+												"CONTAINS_SPECGRPS": {
+														"SPECGRP_NAME": {},
+														"SPECGRP_ID": {},
+														"RELATES_TO": {
+																"ID": {}
+														},
+														"REMARKS_ON": {
+																"REMARKS": {},
+																"VERSION_DATE": {},
+																"LANGUAGE": {}
+														},
+														"CONTAINS_SPECS": {
+																"PART_OF_MODULE": {},
+																"SPEC_NAME": {},
+																"MEMBER_OF_CLASS": {},
+																"SPEC_TYPE": {},
+																"TAKES_DEFAULT_VALUE": {},
+																"USAGE": {},
+																"CONTAINS_EXAMPLES": {},
+																"REMARKS_ON": {},
+																"LISTS_ATTRIBUTES": {
+																		"DEFINES_ATTRIBUTES": {
+																				"CONTAINS_VALUE_LIST": {
+																						"VALUE_OPTIONS": {},
+																						"VAL_LIST_TYPE": {}
+																				},
+																				"TAKES_DATATYPE": {
+																						"DATATYPE": {},
+																						"DATATYPE_DESCRIBED_BY": {}
+																				}
+																		},
+																		"ATTRIBUTE_DEFINITION": {
+																				"CONSTRAINED_BY": {
+																						"EQUIVALENT_NAME": {}
+																				}
+																		},
+																		"CONTAINS_EXAMPLES": {
+																				"EXAMPLE": {},
+																				"CONTAINS_PARAS": {
+																						"PARA": {},
+																						"SEQUENCE": {},
+																						"TEI_ENCODING_DISCUSSED": {}
+																				}
+																		},
+																		"CONTENT_MODEL": {
+																				"classRef": {},
+																				"empty": {},
+																				"sequence": {},
+																				"alternate": {},
+																				"CONTAINS": {
+																						"classRef": {},
+																						"elementRef": {},
+																						"alternate": {},
+																						"sequence": {}
+																				}
+																		}
+																},
+																"CONTAINS_VALUE_LIST": {
+																		"VALUE_OPTIONS": {},
+																		"VAL_LIST_TYPE": {}
+																},
+																"GLOSSED_BY": {
+																		"LANGUAGE": {}
+																},
+																"ATTRIBUTE_DEFINITION": {
+																		"CONSTRAINED_BY": {
+																				"EQUIVALENT_NAME": {}
+																		}
+																},
+																"TAKES_DATATYPE": {
+																		"DATATYPE": {},
+																		"DATATYPE_DESCRIBED_BY": {}
+																},
+																"DESCRIBED_BY": {
+																		"DESC": {},
+																		"VERSION_DATE": {},
+																		"LANGUAGE": {}
+																}
+														}
+												}
+										}
+								}
+						}
+				}
+		}
+}
