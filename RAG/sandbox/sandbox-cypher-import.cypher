@@ -13,100 +13,100 @@ CALL apoc.load.json("https://raw.githubusercontent.com/newtfire/digitai/refs/hea
 MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
 
 
-  FOREACH ( part_1_data_1  IN  doc_data . CONTAINS_PARTS  | 
-  	 MERGE (part_1:Part {name: part_1_data_1.PART}) 
-  	 MERGE ( doc )-[: HAS_PART ]->( part_1 ) 
- 	 FOREACH ( chapter_2_data_2  IN  part_1_data_1 . CONTAINS_CHAPTERS  | 
- 	 	 MERGE (chapter_2:Chapter {chapter: chapter_2_data_2.CHAPTER}) SET chapter_2.sequence = chapter_2_data_2.SEQUENCE, chapter_2.title = chapter_2_data_2.CHAPTER 
- 	 	 MERGE ( part_1 )-[: HAS_CHAPTER ]->( chapter_2 ) 
- 		 FOREACH ( section_3_data_3  IN  chapter_2_data_2 . CONTAINS_SECTIONS  | 
- 		 	 MERGE (section_3:Section {section: section_3_data_3.SECTION}) SET section_3.sequence = section_3_data_3.SEQUENCE, section_3.title = section_3_data_3.SECTION 
- 		 	 MERGE ( chapter_2 )-[: HAS_SECTION ]->( section_3 ) 
- 			 FOREACH ( subsection_4_data_4  IN  section_3_data_3 . CONTAINS_SUBSECTIONS  | 
- 			 	 MERGE (subsection_4:Subsection {subsection: subsection_4_data_4.SUBSECTION}) SET subsection_4.sequence = subsection_4_data_4.SEQUENCE, subsection_4.title = subsection_4_data_4.SECTION 
- 			 	 MERGE ( section_3 )-[: HAS_SUBSECTION ]->( subsection_4 ) 
- 				 FOREACH ( nestedsubsection_5_data_5  IN  subsection_4_data_4 . CONTAINS_NESTED_SUBSECTIONS  | 
- 				 	 MERGE (nestedsubsection_5:Nestedsubsection {nestedsubsection: nestedsubsection_5_data_5.NESTEDSUBSECTION}) SET nestedsubsection_5.sequence = nestedsubsection_5_data_5.SEQUENCE, nestedsubsection_5.title = nestedsubsection_5_data_5.SECTION 
- 				 	 MERGE ( subsection_4 )-[: HAS_NESTED_SUBSECTION ]->( nestedsubsection_5 ) 
- 					 FOREACH ( paragraph_6_data_6  IN  nestedsubsection_5_data_5 . CONTAINS_PARAS  | 
- 					 	 MERGE (paragraph_6:Para {paragraph: paragraph_6_data_6.PARASTRING}) SET paragraph_6.sequence = paragraph_6_data_6.SEQUENCE, paragraph_6.spec_references = [x IN paragraph_6_data_6.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph_6.text = paragraph_6_data_6.PARASTRING 
- 					 	 MERGE ( nestedsubsection_5 )-[: HAS_PARAGRAPH ]->( paragraph_6 )
- 						 FOREACH ( specgrp_data_7  IN  paragraph_6_data_6 .CONTAINS_SPECGRPS | 
+  FOREACH ( part_data_1  IN  doc_data . CONTAINS_PARTS  | 
+  	 MERGE (part:Part {name: part_data_1.PART}) 
+  	 MERGE ( doc )-[: HAS_PART ]->(part) 
+ 	 FOREACH ( chapter_data_2  IN  part_data_1 . CONTAINS_CHAPTERS  | 
+ 	 	 MERGE (chapter:Chapter {chapter: chapter_data_2.CHAPTER}) SET chapter.sequence = chapter_data_2.SEQUENCE, chapter.title = chapter_data_2.CHAPTER 
+ 	 	 MERGE ( part )-[: HAS_CHAPTER ]->( chapter ) 
+ 		 FOREACH ( section_data_3  IN  chapter_data_2 . CONTAINS_SECTIONS  | 
+ 		 	 MERGE (section:Section {section: section_data_3.SECTION}) SET section.sequence = section_data_3.SEQUENCE, section.title = section_data_3.SECTION 
+ 		 	 MERGE ( chapter )-[: HAS_SECTION ]->( section ) 
+ 			 FOREACH ( subsection_data_4  IN  section_data_3 . CONTAINS_SUBSECTIONS  | 
+ 			 	 MERGE (subsection:Subsection {subsection: subsection_data_4.SUBSECTION}) SET subsection.sequence = subsection_data_4.SEQUENCE, subsection.title = subsection_data_4.SECTION 
+ 			 	 MERGE ( section )-[: HAS_SUBSECTION ]->( subsection ) 
+ 				 FOREACH ( nestedsubsection_data_5  IN  subsection_data_4 . CONTAINS_NESTED_SUBSECTIONS  | 
+ 				 	 MERGE (nestedsubsection:Nestedsubsection {nestedsubsection: nestedsubsection_data_5.NESTEDSUBSECTION}) SET nestedsubsection.sequence = nestedsubsection_data_5.SEQUENCE, nestedsubsection.title = nestedsubsection_data_5.SECTION 
+ 				 	 MERGE ( subsection )-[: HAS_NESTED_SUBSECTION ]->( nestedsubsection ) 
+ 					 FOREACH ( paragraph_data_6  IN  nestedsubsection_data_5 . CONTAINS_PARAS  | 
+ 					 	 MERGE (paragraph:Para {paragraph: paragraph_data_6.PARASTRING}) SET paragraph.sequence = paragraph_data_6.SEQUENCE, paragraph.spec_references = [x IN paragraph_data_6.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph.text = paragraph_data_6.PARASTRING 
+ 					 	 MERGE ( nestedsubsection )-[: HAS_PARAGRAPH ]->( paragraph )
+ 						 FOREACH ( specgrp_data_7  IN  paragraph_data_6 .CONTAINS_SPECGRPS | 
  						 	 CREATE ( specgrp_7 : Specgrp ) 
- 						 	 MERGE ( paragraph_6 )-[:HAS_SPECGRP]->( specgrp_7 ) 
+ 						 	 MERGE ( paragraph )-[:HAS_SPECGRP]->( specgrp_7 ) 
  						 	 FOREACH ( specification_item_7  IN  specgrp_data_7 .SPECGRP | 
  						 	 	 MERGE ( specification_7 : Spec  {name:  specification_item_7 .SPEC}) 
  						 	 	 MERGE ( specgrp_7 )-[:HAS_SPEC]->( specification_7 ) 
- 								 FOREACH ( contentmodel_8_data_8  IN  specification_item_7 . HAS_CONTENT  | 
- 								 	 MERGE (contentmodel_8:Content {name: contentmodel_8_data_8.CONTENT}) SET contentmodel_8.rule = contentmodel_8_data_8.RULE 
- 								 	 MERGE ( specification_7 )-[: DEFINES_CONTENT_MODEL ]->( contentmodel_8 ) 
+ 								 FOREACH ( contentmodel_data_8  IN  specification_item_7 . HAS_CONTENT  | 
+ 								 	 MERGE (contentmodel:Content {name: contentmodel_data_8.CONTENT}) SET contentmodel.rule = contentmodel_data_8.RULE 
+ 								 	 MERGE ( specification_7 )-[: DEFINES_CONTENT_MODEL ]->( contentmodel ) 
  								 ) 
- 								 FOREACH ( terminal_paragraph_8_data_8  IN  specification_item_7 . CONTAINS_TERMINAL_PARAS  | 
- 								 	 CREATE (terminal_paragraph_8:Para) SET terminal_paragraph_8.sequence = terminal_paragraph_8_data_8.SEQUENCE, terminal_paragraph_8.text = terminal_paragraph_8_data_8.PARASTRING 
- 								 	 MERGE ( specification_7 )-[: HAS_TERMINAL_PARA ]->( terminal_paragraph_8 ) 
+ 								 FOREACH ( terminal_paragraph_data_8  IN  specification_item_7 . CONTAINS_TERMINAL_PARAS  | 
+ 								 	 CREATE (terminal_paragraph:Para) SET terminal_paragraph.sequence = terminal_paragraph_data_8.SEQUENCE, terminal_paragraph.text = terminal_paragraph_data_8.PARASTRING 
+ 								 	 MERGE ( specification_7 )-[: HAS_TERMINAL_PARA ]->(terminal_paragraph) 
  								 ) 
  						 	 ) 
  						 )
  					 ) 
  				 ) 
- 				 FOREACH ( paragraph_5_data_5  IN  subsection_4_data_4 . CONTAINS_PARAS  | 
- 				 	 MERGE (paragraph_5:Para {paragraph: paragraph_5_data_5.PARASTRING}) SET paragraph_5.sequence = paragraph_5_data_5.SEQUENCE, paragraph_5.spec_references = [x IN paragraph_5_data_5.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph_5.text = paragraph_5_data_5.PARASTRING 
- 				 	 MERGE ( subsection_4 )-[: HAS_PARAGRAPH ]->( paragraph_5 )
- 					 FOREACH ( specgrp_data_6  IN  paragraph_5_data_5 .CONTAINS_SPECGRPS | 
+ 				 FOREACH ( paragraph_data_5  IN  subsection_data_4 . CONTAINS_PARAS  | 
+ 				 	 MERGE (paragraph:Para {paragraph: paragraph_data_5.PARASTRING}) SET paragraph.sequence = paragraph_data_5.SEQUENCE, paragraph.spec_references = [x IN paragraph_data_5.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph.text = paragraph_data_5.PARASTRING 
+ 				 	 MERGE ( subsection )-[: HAS_PARAGRAPH ]->( paragraph )
+ 					 FOREACH ( specgrp_data_6  IN  paragraph_data_5 .CONTAINS_SPECGRPS | 
  					 	 CREATE ( specgrp_6 : Specgrp ) 
- 					 	 MERGE ( paragraph_5 )-[:HAS_SPECGRP]->( specgrp_6 ) 
+ 					 	 MERGE ( paragraph )-[:HAS_SPECGRP]->( specgrp_6 ) 
  					 	 FOREACH ( specification_item_6  IN  specgrp_data_6 .SPECGRP | 
  					 	 	 MERGE ( specification_6 : Spec  {name:  specification_item_6 .SPEC}) 
  					 	 	 MERGE ( specgrp_6 )-[:HAS_SPEC]->( specification_6 ) 
- 							 FOREACH ( contentmodel_7_data_7  IN  specification_item_6 . HAS_CONTENT  | 
- 							 	 MERGE (contentmodel_7:Content {name: contentmodel_7_data_7.CONTENT}) SET contentmodel_7.rule = contentmodel_7_data_7.RULE 
- 							 	 MERGE ( specification_6 )-[: DEFINES_CONTENT_MODEL ]->( contentmodel_7 ) 
+ 							 FOREACH ( contentmodel_data_7  IN  specification_item_6 . HAS_CONTENT  | 
+ 							 	 MERGE (contentmodel:Content {name: contentmodel_data_7.CONTENT}) SET contentmodel.rule = contentmodel_data_7.RULE 
+ 							 	 MERGE ( specification_6 )-[: DEFINES_CONTENT_MODEL ]->( contentmodel ) 
  							 ) 
- 							 FOREACH ( terminal_paragraph_7_data_7  IN  specification_item_6 . CONTAINS_TERMINAL_PARAS  | 
- 							 	 CREATE (terminal_paragraph_7:Para) SET terminal_paragraph_7.sequence = terminal_paragraph_7_data_7.SEQUENCE, terminal_paragraph_7.text = terminal_paragraph_7_data_7.PARASTRING 
- 							 	 MERGE ( specification_6 )-[: HAS_TERMINAL_PARA ]->( terminal_paragraph_7 ) 
+ 							 FOREACH ( terminal_paragraph_data_7  IN  specification_item_6 . CONTAINS_TERMINAL_PARAS  | 
+ 							 	 CREATE (terminal_paragraph:Para) SET terminal_paragraph.sequence = terminal_paragraph_data_7.SEQUENCE, terminal_paragraph.text = terminal_paragraph_data_7.PARASTRING 
+ 							 	 MERGE ( specification_6 )-[: HAS_TERMINAL_PARA ]->(terminal_paragraph) 
  							 ) 
  					 	 ) 
  					 )
  				 ) 
  			 ) 
- 			 FOREACH ( paragraph_4_data_4  IN  section_3_data_3 . CONTAINS_PARAS  | 
- 			 	 MERGE (paragraph_4:Para {paragraph: paragraph_4_data_4.PARASTRING}) SET paragraph_4.sequence = paragraph_4_data_4.SEQUENCE, paragraph_4.spec_references = [x IN paragraph_4_data_4.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph_4.text = paragraph_4_data_4.PARASTRING 
- 			 	 MERGE ( section_3 )-[: HAS_PARAGRAPH ]->( paragraph_4 )
- 				 FOREACH ( specgrp_data_5  IN  paragraph_4_data_4 .CONTAINS_SPECGRPS | 
+ 			 FOREACH ( paragraph_data_4  IN  section_data_3 . CONTAINS_PARAS  | 
+ 			 	 MERGE (paragraph:Para {paragraph: paragraph_data_4.PARASTRING}) SET paragraph.sequence = paragraph_data_4.SEQUENCE, paragraph.spec_references = [x IN paragraph_data_4.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph.text = paragraph_data_4.PARASTRING 
+ 			 	 MERGE ( section )-[: HAS_PARAGRAPH ]->( paragraph )
+ 				 FOREACH ( specgrp_data_5  IN  paragraph_data_4 .CONTAINS_SPECGRPS | 
  				 	 CREATE ( specgrp_5 : Specgrp ) 
- 				 	 MERGE ( paragraph_4 )-[:HAS_SPECGRP]->( specgrp_5 ) 
+ 				 	 MERGE ( paragraph )-[:HAS_SPECGRP]->( specgrp_5 ) 
  				 	 FOREACH ( specification_item_5  IN  specgrp_data_5 .SPECGRP | 
  				 	 	 MERGE ( specification_5 : Spec  {name:  specification_item_5 .SPEC}) 
  				 	 	 MERGE ( specgrp_5 )-[:HAS_SPEC]->( specification_5 ) 
- 						 FOREACH ( contentmodel_6_data_6  IN  specification_item_5 . HAS_CONTENT  | 
- 						 	 MERGE (contentmodel_6:Content {name: contentmodel_6_data_6.CONTENT}) SET contentmodel_6.rule = contentmodel_6_data_6.RULE 
- 						 	 MERGE ( specification_5 )-[: DEFINES_CONTENT_MODEL ]->( contentmodel_6 ) 
+ 						 FOREACH ( contentmodel_data_6  IN  specification_item_5 . HAS_CONTENT  | 
+ 						 	 MERGE (contentmodel:Content {name: contentmodel_data_6.CONTENT}) SET contentmodel.rule = contentmodel_data_6.RULE 
+ 						 	 MERGE ( specification_5 )-[: DEFINES_CONTENT_MODEL ]->( contentmodel ) 
  						 ) 
- 						 FOREACH ( terminal_paragraph_6_data_6  IN  specification_item_5 . CONTAINS_TERMINAL_PARAS  | 
- 						 	 CREATE (terminal_paragraph_6:Para) SET terminal_paragraph_6.sequence = terminal_paragraph_6_data_6.SEQUENCE, terminal_paragraph_6.text = terminal_paragraph_6_data_6.PARASTRING 
- 						 	 MERGE ( specification_5 )-[: HAS_TERMINAL_PARA ]->( terminal_paragraph_6 ) 
+ 						 FOREACH ( terminal_paragraph_data_6  IN  specification_item_5 . CONTAINS_TERMINAL_PARAS  | 
+ 						 	 CREATE (terminal_paragraph:Para) SET terminal_paragraph.sequence = terminal_paragraph_data_6.SEQUENCE, terminal_paragraph.text = terminal_paragraph_data_6.PARASTRING 
+ 						 	 MERGE ( specification_5 )-[: HAS_TERMINAL_PARA ]->(terminal_paragraph) 
  						 ) 
  				 	 ) 
  				 )
  			 ) 
  		 ) 
- 		 FOREACH ( paragraph_3_data_3  IN  chapter_2_data_2 . CONTAINS_PARAS  | 
- 		 	 MERGE (paragraph_3:Para {paragraph: paragraph_3_data_3.PARASTRING}) SET paragraph_3.sequence = paragraph_3_data_3.SEQUENCE, paragraph_3.spec_references = [x IN paragraph_3_data_3.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph_3.text = paragraph_3_data_3.PARASTRING 
- 		 	 MERGE ( chapter_2 )-[: HAS_PARAGRAPH ]->( paragraph_3 )
- 			 FOREACH ( specgrp_data_4  IN  paragraph_3_data_3 .CONTAINS_SPECGRPS | 
+ 		 FOREACH ( paragraph_data_3  IN  chapter_data_2 . CONTAINS_PARAS  | 
+ 		 	 MERGE (paragraph:Para {paragraph: paragraph_data_3.PARASTRING}) SET paragraph.sequence = paragraph_data_3.SEQUENCE, paragraph.spec_references = [x IN paragraph_data_3.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.LINK_TO_SPEC], paragraph.text = paragraph_data_3.PARASTRING 
+ 		 	 MERGE ( chapter )-[: HAS_PARAGRAPH ]->( paragraph )
+ 			 FOREACH ( specgrp_data_4  IN  paragraph_data_3 .CONTAINS_SPECGRPS | 
  			 	 CREATE ( specgrp_4 : Specgrp ) 
- 			 	 MERGE ( paragraph_3 )-[:HAS_SPECGRP]->( specgrp_4 ) 
+ 			 	 MERGE ( paragraph )-[:HAS_SPECGRP]->( specgrp_4 ) 
  			 	 FOREACH ( specification_item_4  IN  specgrp_data_4 .SPECGRP | 
  			 	 	 MERGE ( specification_4 : Spec  {name:  specification_item_4 .SPEC}) 
  			 	 	 MERGE ( specgrp_4 )-[:HAS_SPEC]->( specification_4 ) 
- 					 FOREACH ( contentmodel_5_data_5  IN  specification_item_4 . HAS_CONTENT  | 
- 					 	 MERGE (contentmodel_5:Content {name: contentmodel_5_data_5.CONTENT}) SET contentmodel_5.rule = contentmodel_5_data_5.RULE 
- 					 	 MERGE ( specification_4 )-[: DEFINES_CONTENT_MODEL ]->( contentmodel_5 ) 
+ 					 FOREACH ( contentmodel_data_5  IN  specification_item_4 . HAS_CONTENT  | 
+ 					 	 MERGE (contentmodel:Content {name: contentmodel_data_5.CONTENT}) SET contentmodel.rule = contentmodel_data_5.RULE 
+ 					 	 MERGE ( specification_4 )-[: DEFINES_CONTENT_MODEL ]->( contentmodel ) 
  					 ) 
- 					 FOREACH ( terminal_paragraph_5_data_5  IN  specification_item_4 . CONTAINS_TERMINAL_PARAS  | 
- 					 	 CREATE (terminal_paragraph_5:Para) SET terminal_paragraph_5.sequence = terminal_paragraph_5_data_5.SEQUENCE, terminal_paragraph_5.text = terminal_paragraph_5_data_5.PARASTRING 
- 					 	 MERGE ( specification_4 )-[: HAS_TERMINAL_PARA ]->( terminal_paragraph_5 ) 
+ 					 FOREACH ( terminal_paragraph_data_5  IN  specification_item_4 . CONTAINS_TERMINAL_PARAS  | 
+ 					 	 CREATE (terminal_paragraph:Para) SET terminal_paragraph.sequence = terminal_paragraph_data_5.SEQUENCE, terminal_paragraph.text = terminal_paragraph_data_5.PARASTRING 
+ 					 	 MERGE ( specification_4 )-[: HAS_TERMINAL_PARA ]->(terminal_paragraph) 
  					 ) 
  			 	 ) 
  			 )

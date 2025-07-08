@@ -5,7 +5,7 @@
                 json_data.CONTAINS_PARTS | MERGE (part:Part {name:
                 data.PART) MERGE (doc)-[:CONTAINS_PART]->(part)
              FOREACH
-                (CHAPTER_data IN json_data.CONTAINS_CHAPTERS | MERGE (chapter:Chapter {id: chatper_data.ID}) ON
+                (CHAPTER_data IN json_data.CONTAINS_CHAPTERS | MERGE (chapter:Chapter {id: chapter_data.ID}) ON
             CREATE SET chapter.chapter = chapter_data.CHAPTER
             
         

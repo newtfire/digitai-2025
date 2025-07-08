@@ -567,7 +567,10 @@
                             }
                             }"/>
                     </xsl:map-entry>
-                    
+                    <xsl:map-entry key="'alternate'">
+                        
+                        
+                    </xsl:map-entry>
                     
                     
                     
@@ -635,9 +638,7 @@
                             <xsl:map-entry key="'SEQUENCE'">
                                 <xsl:value-of select="count($chap/preceding-sibling::*) + 1"/>
                             </xsl:map-entry>
-
-
-                            <!--   <xsl:if test="current()[p]">
+                          <!-- <xsl:if test="current()[p]">
                                         <xsl:map-entry key="$CONTAINS_PARAS"><xsl:sequence select="array{nf:paraPuller(current()/p) }"/></xsl:map-entry>
                                     </xsl:if>-->
                         </xsl:map>

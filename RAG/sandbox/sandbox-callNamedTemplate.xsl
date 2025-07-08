@@ -664,7 +664,7 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
             <xsl:variable name="child-model" select="$my:graph-model($child-type)"/>
             
           <xsl:if test="$child-type != 'specgrp'">  
-            <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')||'_'||$depth"/>
+            <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')"/>
             <xsl:variable name="child-json-var" select="$child-cypher-var||'_data_'||$depth"/>
             <xsl:variable name="relationship" select="$child-info('relationship')"/>
             <xsl:variable name="json-key" select="$child-info('jsonChildrenKey')"/>
