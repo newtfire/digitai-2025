@@ -16,8 +16,12 @@
     <xsl:variable name="P5-version" as="xs:string" select="$P5//edition/ref[2] ! normalize-space()"/>
     <xsl:variable name="P5-versionDate" as="xs:string"
         select="$P5//edition/date/@when ! normalize-space()"/>
+    
+    <xsl:variable name="newline" as="xs:string" select="'&#10;'"/>
+    <xsl:variable name="tab" as="xs:string" select="'&#x9;'"/>
+    <xsl:variable name="nltab" as="xs:string" select="$newline || $tab"/>
 
-    <xsl:variable name="nf:graph-model" as="map(xs:string, map(*))">
+    <xsl:variable name="nf:graph-model" as="map(*)*">
         <xsl:map>
             <xsl:map-entry key="'document'">
                 <xsl:map>
@@ -414,15 +418,170 @@
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map {
-                            'jsonChildrenKey': 'CONTAINS_PARAS',
-                            'childEntityType': 'paragraph',
-                            'relationship': 'HAS_PARAGRAPH',
+                            'jsonChildrenKey': 'CONTAINS_END_PARAS',
+                            'childEntityType': 'terminal_paragraph',
+                            'relationship': 'HAS_END_PARAGRAPH',
                             'isSequence': true()
                             }
                             
                             }"/>   
                     </xsl:map-entry>
                 </xsl:map>  
+            </xsl:map-entry>
+            <xsl:map-entry key="'terminal_paragraph'">
+                <!-- THIS MODEL ENTRY IS FOR PARAGRAPHS THAT MAY NOT CONTAIN MEMBERS OF THIS GRAPH THAT THEMSELVES 
+                CONTAIN PARAGRAPHS. -->
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'Terminalpara'"/>
+                    <xsl:map-entry key="'xpathPattern'">p[not(*//p)]</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'" select="'terminal_paragraph'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'parastring'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'PARASTRING'"/>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'sequence'">SEQUENCE</xsl:map-entry>
+                            <xsl:map-entry key="'links'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'RELATES_TO.SECTION'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'ID'"/>
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'elements_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'ELEMENT_NAME'"/>
+                                    <!-- EBB: Should we change this to match the name we give in an elementSpec? -->
+                                </xsl:map>
+                            </xsl:map-entry> 
+                            <xsl:map-entry key="'attributes_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'ATTRIBUTE_NAME'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a classSpec / attribute definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <!-- idents_mentioned: 11 different JSON keys -->
+                            <xsl:map-entry key="'modules_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.MODULES_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'MODULE'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'classes_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'CLASS'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'files_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.FILES_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'FILE'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'datatypes_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'DATATYPE'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'macros_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.MACROS_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'MACRO'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'ns_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.NSS_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'NS'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'schemas_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'SCHEMA'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'parameter_entities_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.PES_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'PE'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'parameter_entities_mentioned_ge'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.PES_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'GE'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'frags_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'FRAG'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'relaxng_mentioned'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.RNGS_MENTIONED'"/>
+                                    <!-- EBB: UPDATE THE FUNCTION THAT OUTPUTS THESE ^^^^^^^ -->
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'RNG'"/>
+                                    <!-- EBB: Should we change this to match the name we give in a *Spec definition? -->
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'speclist_links'">
+                                <!-- ebb: We were not processing these before, but I experimented with something similar in my xslt Sandbox.
+                                <specList> elements contain just one kind of element child: <specDesc>
+                                The <specList> can be children of <p>, or descendants of <p> (within a list[@type='gloss']/item)
+                                The <specDesc> children have a @key that points to the ID of a spec, like so:
+                                <specList>
+                                      <specDesc key="correction" atts="status method"/>
+                                </specList>
+                                -->
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'ID'"/>
+                                </xsl:map>
+                            </xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry>
+                   <!-- ebb: terminal_paragraph definition must NOT contain 'children' map.  -->
+                </xsl:map>
             </xsl:map-entry>
             <xsl:map-entry key="'specgrp'">
                 <xsl:map>
@@ -444,20 +603,28 @@
                             </xsl:map>
                         </xsl:map-entry>
                     <xsl:map-entry key="'children'">
+                        <!-- ebb: CHILD MAP IS WRONG: Propetries or 'children' need to cover: 
+                            classSpec
+                            macroSpec
+                            dataSpec
+                            elementSpec
+                            specGrpRef
+                            
+                           -->
                         <xsl:sequence select="array{
                             map{
-                                'jsonChildrenKey': 'CONTAINS_SPECS',
-                                'childEntityType': 'spec',
+                                'jsonChildrenKey': 'CONTAINS_SPECS', 
+                                'childEntityType': 'specification',
                                 'relationship': 'HAS_SPEC'
                             }
                             }"/>
                     </xsl:map-entry>                
                 </xsl:map>
             </xsl:map-entry>
-            <xsl:map-entry key="'spec'">
+            <xsl:map-entry key="'specification'"><!-- NO! REWRITE THS. NEEDS TO BE MULTIPLE KINDS OF SPECS -->
                 <xsl:map-entry key="'label'" select="'Spec'"/>
-                <xsl:map-entry key="'xpathPattern'">specGrp</xsl:map-entry>
-                <xsl:map-entry key="'cypherVar'" select="'spec'"/>
+                <xsl:map-entry key="'xpathPattern'">spec</xsl:map-entry>
+                <xsl:map-entry key="'cypherVar'" select="'specification'"/>
                 <xsl:map-entry key="'primaryKey'" select="'spec_id'"/>
                 <xsl:map-entry key="'jsonKeyForPK'" select="'SPEC_ID'"/>
                 <xsl:map-entry key="'properties'">
@@ -735,6 +902,260 @@
             </xsl:map>
         </xsl:result-document>
         <xsl:apply-templates select="/" mode="cypher"/>
+    </xsl:template>
+    
+    <!-- CYPHER MAP, FUNCTIONS AND TEMPLATES FOR IMPORTING THE JSON AND BUILDING THE GRAPH -->
+    
+    <!-- FUNCTION TO CREATE GRAPH NODES -->
+    <xsl:function name="nf:generate-node-statement" as="xs:string">
+        <xsl:param name="current-entity-type" as="xs:string"/>
+        <xsl:param name="cypher-var" as="xs:string"/> 
+        <xsl:param name="current-json-var" as="xs:string"/>
+        
+        
+        <xsl:variable name="model" select="$nf:graph-model($current-entity-type)"/>
+        <xsl:variable name="label" select="$model('label')"/>
+        <!--  <xsl:variable name="cypher-var" as="xs:string" select="$model('cypherVar') ! string()"/>-->
+        
+        
+        <xsl:variable name="node-clause" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="map:contains($model, 'primaryKey')">
+                    <xsl:variable name="current-cypher-pk" as="xs:string" select="$model('primaryKey') ! string()"/>
+                    <xsl:sequence select="
+                        'MERGE (' || $cypher-var|| ':' || $label ||
+                        ' {' || $current-cypher-pk || ': ' ||$current-json-var||'.' || $model('jsonKeyForPK') || '})'
+                        "/>
+                </xsl:when>
+                <xsl:otherwise>
+                    
+                    <xsl:sequence select="
+                        'CREATE (' || $cypher-var || ':' || $model('label') || ')'
+                        "/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="set-clauses" as="xs:string*">
+            <xsl:if test="map:contains($model, 'properties')">
+                <xsl:variable name="properties-map" select="$model('properties')"/>
+                <xsl:for-each select="map:keys($properties-map)">
+                    <xsl:variable name="prop-key" select="."/>
+                    <xsl:variable name="json-key" select="$properties-map($prop-key)"/>
+                    <!-- <xsl:sequence
+                        select="$cypher-var||'.' || $prop-key || ' = ' || $current-json-var || '.' || $json-key"
+                    />-->
+                    <xsl:choose>
+                        <xsl:when test="$json-key instance of map(*) and $json-key?isListComprehension">
+                            <xsl:sequence select="
+                                $cypher-var||'.'||$prop-key||' = [x IN '||$current-json-var||'.'||$json-key('sourceArrayPath')||' WHERE x IS NOT NULL | x.'||$json-key('sourcePropertyKey')||']'
+                                "/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="
+                                $cypher-var||'.'||$prop-key||' = '||$current-json-var||'.'||$json-key
+                                "/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    
+                </xsl:for-each>
+            </xsl:if>
+        </xsl:variable>
+        <xsl:variable name="full-set-statement" as="xs:string"
+            select="string-join($set-clauses, ', ')"/> 
+        <xsl:sequence select="
+            if (exists($set-clauses))
+            then
+            $node-clause || ' SET ' || $full-set-statement
+            else
+            $node-clause
+            "/>
+    </xsl:function>
+    
+    <!-- FUNCTION TO ESTABLISH A SINGLE FOREACH STATEMENT (ONE FOR EACH CHILDTYPE OF A NODE) -->
+    <!-- ebb: Fire this function while looking down at the children while processing the current node. -->
+    <!--  <xsl:function name="my:generate-foreach-statement" as="xs:string">
+        <xsl:param name="child-type" as="xs:string"/>
+        <xsl:param name="parent-cypher-var" as="xs:string"/>
+        <xsl:param name="json-children-key" as="xs:string"/><!-\- ebb: for example: "CONTAINS_PARTS"  -\->
+        <xsl:value-of select="$nltab||'FOREACH ('||$child-type||'_data'||' IN '||$parent-cypher-var||'_data.'||$json-children-key||' |'||$nltab"/>
+    </xsl:function>
+-->
+    
+    <!-- FUNCTION TO ESTABLISH EACH GRAPH EDGES (RELATIONSHIP CONNECTIONS)-->
+    <xsl:function name="nf:generate-relationship-merge" as="xs:string+">
+        <xsl:param name="child-cypher-var" as="xs:string"/>
+        <xsl:param name="parent-cypher-var" as="xs:string"/>
+        <xsl:param name="relationship-name" as="xs:string"/>
+        
+        
+        <xsl:sequence select="
+            'MERGE (' || $parent-cypher-var || ')-[:' || $relationship-name || ']->(' || $child-cypher-var || ')'
+            "/>
+    </xsl:function>
+    
+    <!-- FUNCTION FOR PROCESSING SEQUENCES OF SIBLINGS  -->
+    <xsl:function name="nf:create-next-links" as="xs:string*">
+        <xsl:param name="parent-label" as="xs:string"/>
+        <xsl:param name="child-label" as="xs:string"/>
+        <xsl:param name="relationship" as="xs:string"/>
+        <xsl:param name="sort-property" as="xs:string"/>
+        
+        <xsl:variable name="cypher" as="xs:string" select="
+            'MATCH (parent:'||$parent-label||')-[:'||$relationship||']->(child:'||$child-label||')
+            WHERE child.'||$sort-property||' IS NOT NULL
+            WITH parent, child ORDER BY child.'||$sort-property||'
+            WITH parent, collect(child) AS ordered_children
+            UNWIND range(0, size(ordered_children) - 2) AS i
+            WITH ordered_children[i] AS n1, ordered_children[i+1] AS n2
+            MERGE (n1)-[:NEXT]->(n2)'
+            "/>
+        <xsl:sequence select="$newline, '// Link sequential :', $child-label, ' nodes within each :', $parent-label, $newline, $cypher"/>
+    </xsl:function>
+    
+    
+    
+    <!-- GENERATE CYPHER FROM THE SOURCE XML AND OUR GRAPH MODEL VARIABLE AT THE TOP OF THIS FILE -->
+    
+    
+    <xsl:template match="/" mode="cypher">
+        <xsl:variable name="currentXMLNode" as="document-node()" select="current()"/>
+        <xsl:result-document href="sandbox-cypher-import.cypher" method="text">
+            
+            <!-- ebb: Define the variables in the graph model where the cypher script processing must begin. 
+            Presumably it's the document mode, so that is what we've set here.-->
+            <xsl:variable name="root-entity-type"  as="xs:string" select="'document'"/>
+            <xsl:variable name="root-model" select="$nf:graph-model($root-entity-type)"/>
+            <xsl:variable name="root-cypher-var" select="$root-model('cypherVar') ! string()" as="xs:string"/>
+            <xsl:variable name="root-json-var" select="$root-model('jsonVar') ! string()"/>
+            <xsl:variable name="root-pk" select="$root-model('primaryKey') ! string()"/>
+            <xsl:variable name="root-json-pk" select="$root-model('jsonKeyForPK') ! string()"/>
+            
+            <xsl:text>
+// ==== Generated by XSLT Transformation ====
+
+// 1. SETUP: Create Constraints for Performance and Data Integrity
+ CREATE CONSTRAINT IF NOT EXISTS FOR (d:Document) REQUIRE d.title IS UNIQUE;
+ CREATE CONSTRAINT IF NOT EXISTS FOR (s:Section) REQUIRE s.id IS UNIQUE;
+ CREATE CONSTRAINT IF NOT EXISTS FOR (spec:Specification) REQUIRE spec.name IS UNIQUE;
+
+// 2. LOAD AND PROCESS: Load the JSON and start the recursive import
+CALL apoc.load.json("https://raw.githubusercontent.com/newtfire/digitai/refs/heads/ebb-json/RAG/sandbox/sandboxTest.json") YIELD value as doc_data
+
+// Create the root Document node
+MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
+
+</xsl:text>
+            
+            <xsl:call-template name="nf:process-children">
+                <xsl:with-param name="parent_cypher_var" select="$root-model('cypherVar')"/>
+                <xsl:with-param name="parent_json_var" select="'doc_data'"/>
+                <xsl:with-param name="children_to_process" select="$root-model?children?*"/>
+                <xsl:with-param name="indent" select="''"/>
+                <xsl:with-param name="depth" select="1"/>
+            </xsl:call-template>      
+            
+            <xsl:text>
+;
+
+// STEP 2: Create sequential :NEXT relationships
+</xsl:text>
+            
+            <!--    <xsl:sequence select="my:create-next-links('part', 'sequence'), ';'"/>
+            <xsl:sequence select="my:create-next-links('section', 'sequence'), ';'"/>-->
+            
+            <xsl:for-each select="map:keys($nf:graph-model)[exists($nf:graph-model(.)?children?*[?isSequence = true()])]">
+                
+                <xsl:variable name="parent-model" select="$nf:graph-model(.)"/>
+                
+                <xsl:for-each select="$parent-model?children?*[?isSequence = true()]">
+                    <xsl:variable name="child-info" select="."/>
+                    <xsl:variable name="child-model" select="$nf:graph-model($child-info?childEntityType)"/>
+                    <xsl:sequence select="nf:create-next-links(
+                        $parent-model('label'),
+                        $child-model('label'),
+                        $child-info('relationship'),
+                        'sequence'
+                        ), ';'"/>
+                </xsl:for-each>
+                
+            </xsl:for-each>
+            
+            
+        </xsl:result-document>
+    </xsl:template>
+    
+    <xsl:template name="nf:process-children">
+        <xsl:param name="parent_cypher_var" as="xs:string"/>
+        <xsl:param name="parent_json_var" as="xs:string"/>
+        <xsl:param name="children_to_process" as="map(*)*"/>
+        <xsl:param name="indent" as="xs:string"/>
+        <xsl:param name="depth" as="xs:integer"/>
+        
+        <xsl:for-each select="$children_to_process">
+            <xsl:variable name="child-info" select="."/>
+            
+            <xsl:variable name="child-type" select="$child-info('childEntityType')"/>
+            <xsl:variable name="child-model" select="$nf:graph-model($child-type)"/>
+            
+           <xsl:if test="$child-type != 'specgrp'">
+                <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')"/>
+       
+                <xsl:variable name="child-json-var" select="$child-cypher-var||'_data_'||$depth"/>
+                <xsl:variable name="relationship" select="$child-info('relationship')"/>
+                <xsl:variable name="json-key" select="$child-info('jsonChildrenKey')"/>
+                
+                <xsl:sequence select="$newline, $indent, 'WITH ', $parent_cypher_var, ', ', $parent_json_var"/>
+                <xsl:sequence select="$newline, $indent, 'FOREACH (', $child-json-var, ' IN ', $parent_json_var, '.', $json-key, ' |'"/>
+                <xsl:sequence select="$newline, $indent, $tab, nf:generate-node-statement($child-type, $child-cypher-var, $child-json-var)"/>
+                <xsl:sequence select="$newline, $indent, $tab, 'MERGE (', $parent_cypher_var, ')-[:', $relationship, ']->(', $child-cypher-var, ')'"/>
+                
+                <xsl:if test="exists($child-model?children)">
+                    <xsl:call-template name="nf:process-children">
+                        <xsl:with-param name="parent_cypher_var" select="$child-cypher-var"/>
+                        <xsl:with-param name="parent_json_var" select="$child-json-var"/>
+                        <xsl:with-param name="children_to_process" select="$child-model?children?*"/>
+                        <xsl:with-param name="indent" select="concat($indent, $tab)"/>
+                        <xsl:with-param name="depth" select="$depth + 1"/>
+                    </xsl:call-template>
+                </xsl:if>
+                
+                <xsl:sequence select="$newline, $indent, ')'"/>
+            </xsl:if>
+           <xsl:if test="$child-type = 'specgrp'"> 
+                <xsl:variable name="specgrp_model" select="$nf:graph-model('specgrp')"/>
+                <xsl:variable name="specgrp_cypher_var" select="concat($specgrp_model('cypherVar'), '_', $depth)"/>
+                <xsl:variable name="specgrp_json_var" select="concat($specgrp_model('cypherVar'), '_data_', $depth)"/>
+                
+                <xsl:variable name="spec_model" select="$nf:graph-model('specification')"/>
+                <xsl:variable name="spec_cypher_var" select="$spec_model('cypherVar')"/>
+                <xsl:variable name="spec_json_var" select="concat($spec_model('cypherVar'), '_item_', $depth)"/>
+                
+                <xsl:variable name="cypher-block">
+                    <xsl:sequence select="$newline, $indent, 'FOREACH (', $specgrp_json_var, ' IN ', $parent_json_var, '.CONTAINS_SPECGRPS |'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, 'CREATE (', $specgrp_cypher_var, ':', $specgrp_model('label'), ')'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, 'MERGE (', $parent_cypher_var, ')-[:HAS_SPECGRP]->(', $specgrp_cypher_var, ')'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, 'FOREACH (', $spec_json_var, ' IN ', $specgrp_json_var, '.SPECGRP |'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, $tab, 'MERGE (', $spec_cypher_var, ':', $spec_model('label'), ' {name: ', $spec_json_var, '.SPEC})'"/>
+                    <xsl:sequence select="$newline, $indent, $tab, $tab, 'MERGE (', $specgrp_cypher_var, ')-[:HAS_SPEC]->(', $spec_cypher_var, ')'"/>
+                    
+                    <xsl:if test="exists($spec_model?children)">
+                        <xsl:call-template name="nf:process-children">
+                            <xsl:with-param name="parent_cypher_var" select="$spec_cypher_var"/>
+                            <xsl:with-param name="parent_json_var" select="$spec_json_var"/>
+                            <xsl:with-param name="children_to_process" select="$spec_model?children?*"/>
+                            <xsl:with-param name="indent" select="concat($indent, $tab, $tab)"/>
+                            <xsl:with-param name="depth" select="$depth + 1"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                    
+                    <xsl:sequence select="$newline, $indent, $tab, ')'"/>
+                    <xsl:sequence select="$newline, $indent, ')'"/>
+                </xsl:variable>
+                <xsl:sequence select="$cypher-block"/>
+                
+            </xsl:if>
+        </xsl:for-each>
+        
     </xsl:template>
 
 </xsl:stylesheet>
