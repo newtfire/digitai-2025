@@ -665,11 +665,11 @@
                         'jsonChildrenKey': 'CONTAINS_CONTENT_MODEL',
                         'childEntityType': 'content_model',
                         'relationship': 'CONTENT_MODEL'
-                         }
-                      (:   map{ 
-                         'jsonChildrenKey': 'LISTS_ATTRIBUTES',
-                         'childEntityType': 'attribute',
-                         'relationship': 'HAS_ATTRIBUTE'
+                         },
+                         map{ 
+                         'jsonChildrenKey': 'CONTAINS_ATTLISTS',
+                         'childEntityType': 'list_attribute',
+                         'relationship': 'HAS_ATTRIBUTE_LIST'
                          },
                          map{ 
                          'jsonChildrenKey': 'CONSTRAINED_BY',
@@ -680,7 +680,7 @@
                          'jsonChildrenKey': 'CONTAINS_EXAMPLES',
                          'childEntityType': 'example',
                          'relationship': 'HAS_EXAMPLE'
-                         } :)
+                         } 
                         }"/>
                 </xsl:map-entry>                  
                </xsl:map>
