@@ -13,193 +13,179 @@ CALL apoc.load.json("https://raw.githubusercontent.com/newtfire/digitai/refs/hea
 MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
 
 
-  WITH  doc ,  doc_data 
-  FOREACH ( part_data_1  IN  doc_data . CONTAINS_PARTS  | 
-  	 MERGE (part:Part {name: part_data_1.PART}) SET part.sequence = part_data_1.SEQUENCE 
-  	 MERGE ( doc )-[: HAS_PART ]->(part) 
- 	 WITH  part ,  part_data_1 
- 	 FOREACH ( chapter_data_2  IN  part_data_1 . CONTAINS_CHAPTERS  | 
- 	 	 MERGE (chapter:Chapter {chapter_id: chapter_data_2.ID}) SET chapter.sequence = chapter_data_2.SEQUENCE, chapter.title = chapter_data_2.CHAPTER, chapter.links = [x IN chapter_data_2.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 	 	 MERGE ( part )-[: HAS_CHAPTER ]->( chapter ) 
- 		 WITH  chapter ,  chapter_data_2 
- 		 FOREACH ( section_1_data_3  IN  chapter_data_2 . CONTAINS_SECTIONS  | 
- 		 	 MERGE (section_1:Section_1 {section_id: section_1_data_3.ID}) SET section_1.sequence = section_1_data_3.SEQUENCE, section_1.title = section_1_data_3.SECTION, section_1.links = [x IN section_1_data_3.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 		 	 MERGE ( chapter )-[: HAS_SECTION ]->( section_1 ) 
- 			 WITH  section_1 ,  section_1_data_3 
- 			 FOREACH ( section_2_data_4  IN  section_1_data_3 . CONTAINS_SUBSECTIONS  | 
- 			 	 MERGE (section_2:Section_2 {section_id: section_2_data_4.ID}) SET section_2.sequence = section_2_data_4.SEQUENCE, section_2.title = section_2_data_4.SECTION, section_2.links = [x IN section_2_data_4.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 			 	 MERGE ( section_1 )-[: HAS_SUBSECTION ]->( section_2 ) 
- 				 WITH  section_2 ,  section_2_data_4 
- 				 FOREACH ( section_3_data_5  IN  section_2_data_4 . CONTAINS_SUBSECTIONS  | 
- 				 	 MERGE (section_3:Section_3 {section_id: section_3_data_5.ID}) SET section_3.sequence = section_3_data_5.SEQUENCE, section_3.title = section_3_data_5.SECTION, section_3.links = [x IN section_3_data_5.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID] 
- 				 	 MERGE ( section_2 )-[: HAS_SUBSECTION ]->( section_3 ) 
- 					 WITH  section_3 ,  section_3_data_5 
- 					 FOREACH ( paragraph_data_6  IN  section_3_data_5 . CONTAINS_PARAS  | 
- 					 	 MERGE (paragraph:Para {parastring: paragraph_data_6.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_6.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_6.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
- 					 	 MERGE ( section_3 )-[: HAS_PARAGRAPH ]->( paragraph ) 
- 						 WITH  paragraph ,  paragraph_data_6 
- 						 FOREACH ( example_data_7  IN  paragraph_data_6 . TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES  | 
- 						 	 MERGE (example:Example {example: example_data_7.EXAMPLE}) SET example.language = example_data_7.LANGUAGE 
- 						 	 MERGE ( paragraph )-[: HAS_EXAMPLE ]->( example ) 
- 							 WITH  example ,  example_data_7 
- 							 FOREACH ( paragraph_data_8  IN  example_data_7 . CONTAINS_END_PARAS  | 
- 							 	 MERGE (paragraph:TerminalPara {parastring: paragraph_data_8.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_8.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_8.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
- 							 	 MERGE ( example )-[: HAS_END_PARAGRAPH ]->( paragraph ) 
+WITH doc, doc_data 
+FOREACH (part_data_1 IN doc_data.CONTAINS_PARTS | 
+	MERGE (part:Part {name: part_data_1.PART}) SET part.sequence = part_data_1.SEQUENCE 
+	MERGE (doc)-[:HAS_PART]->(part) 
+	WITH part, part_data_1 
+	FOREACH (chapter_data_2 IN part_data_1.CONTAINS_CHAPTERS | 
+		MERGE (chapter:Chapter {chapter_id: chapter_data_2.ID}) SET chapter.sequence = chapter_data_2.SEQUENCE, chapter.title = chapter_data_2.CHAPTER, chapter.links = [x IN chapter_data_2.RELATES_TO WHERE x IS NOT NULL | x.ID] 
+		MERGE (part)-[:HAS_CHAPTER]->(chapter) 
+		WITH chapter, chapter_data_2 
+		FOREACH (section_1_data_3 IN chapter_data_2.CONTAINS_SECTIONS | 
+			MERGE (section_1:Section_1 {section_id: section_1_data_3.ID}) SET section_1.sequence = section_1_data_3.SEQUENCE, section_1.title = section_1_data_3.SECTION, section_1.links = [x IN section_1_data_3.RELATES_TO WHERE x IS NOT NULL | x.ID] 
+			MERGE (chapter)-[:HAS_SECTION]->(section_1) 
+			WITH section_1, section_1_data_3 
+			FOREACH (section_2_data_4 IN section_1_data_3.CONTAINS_SUBSECTIONS | 
+				MERGE (section_2:Section_2 {section_id: section_2_data_4.ID}) SET section_2.sequence = section_2_data_4.SEQUENCE, section_2.title = section_2_data_4.SECTION, section_2.links = [x IN section_2_data_4.RELATES_TO WHERE x IS NOT NULL | x.ID] 
+				MERGE (section_1)-[:HAS_SUBSECTION]->(section_2) 
+				WITH section_2, section_2_data_4 
+				FOREACH (section_3_data_5 IN section_2_data_4.CONTAINS_SUBSECTIONS | 
+					MERGE (section_3:Section_3 {section_id: section_3_data_5.ID}) SET section_3.sequence = section_3_data_5.SEQUENCE, section_3.title = section_3_data_5.SECTION, section_3.links = [x IN section_3_data_5.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID] 
+					MERGE (section_2)-[:HAS_SUBSECTION]->(section_3) 
+					WITH section_3, section_3_data_5 
+					FOREACH (paragraph_data_6 IN section_3_data_5.CONTAINS_PARAS | 
+						MERGE (paragraph:Para {parastring: paragraph_data_6.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_6.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_6.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
+						MERGE (section_3)-[:HAS_PARAGRAPH]->(paragraph) 
+						WITH paragraph, paragraph_data_6 
+						FOREACH (example_data_7 IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES | 
+							MERGE (example:Example {example: example_data_7.EXAMPLE}) SET example.language = example_data_7.LANGUAGE 
+							MERGE (paragraph)-[:HAS_EXAMPLE]->(example) 
+							WITH example, example_data_7 
+							FOREACH (paragraph_data_8 IN example_data_7.CONTAINS_END_PARAS | 
+								MERGE (paragraph:TerminalPara {parastring: paragraph_data_8.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_8.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_8.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_8.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
+								MERGE (example)-[:HAS_END_PARAGRAPH]->(paragraph) 
  							 ) 
- 						 ) 
- 						 WITH  paragraph ,  paragraph_data_6 
- 						 FOREACH ( spcgrp_data_7  IN  paragraph_data_6 . TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS  | 
- 						 	 MERGE (spcgrp:Specgrp {specgrp_id: spcgrp_data_7.SPECGRP_ID}) SET spcgrp.name = spcgrp_data_7.SPECGRP_NAME, spcgrp.links = [x IN spcgrp_data_7.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 						 	 MERGE ( paragraph )-[: HAS_SPECGRP ]->( spcgrp ) 
- 							 WITH  spcgrp ,  spcgrp_data_7 
- 							 FOREACH ( spec_data_8  IN  spcgrp_data_7 . CONTAINS_SPECS  | 
- 							 	 MERGE (spec:Specification {spec_id: spec_data_8.SPEC_ID}) SET spec.module = spec_data_8.PART_OF_MODULE, spec.remarks = [x IN spec_data_8.REMARKS_ON WHERE x IS NOT NULL | x.REMARK], spec.equiv_name = spec_data_8.EQUIVALENT_NAME, spec.descriptions = [x IN spec_data_8.DESCRIBED_BY WHERE x IS NOT NULL | x.DESC], spec.class = spec_data_8.MEMBER_OF_CLASS, spec.glosses = [x IN spec_data_8.GLOSSED_BY WHERE x IS NOT NULL | x.GLOSS], spec.spec_type = spec_data_8.SPEC_TYPE 
- 							 	 MERGE ( spcgrp )-[: HAS_SPEC ]->( spec ) 
- 								 WITH  spec ,  spec_data_8 
- 								 FOREACH ( content_model_data_9  IN  spec_data_8 . CONTAINS_CONTENT_MODEL  | 
- 								 	 MERGE (content_model:ContentModel {spec_id: content_model_data_9.SPEC_ID}) SET content_model.empty = content_model_data_9.EMPTY, content_model.textnode = content_model_data_9.TEXTNODE 
- 								 	 MERGE ( spec )-[: CONTENT_MODEL ]->( content_model ) 
+ 						 )
+						FOREACH (specgrp_data_7 IN paragraph_data_6.CONTAINS_SPECGRPS | 
+							CREATE (specgrp_7:Specgrp) 
+							MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp_7) 
+							FOREACH (spec_item_7 IN specgrp_data_7.SPECGRP | 
+								MERGE (spec:Specification {name: spec_item_7.SPEC}) 
+								MERGE (specgrp_7)-[:HAS_SPEC]->(spec) 
+								WITH spec, spec_item_7 
+								FOREACH (content_model_data_8 IN spec_item_7.CONTAINS_CONTENT_MODEL | 
+									MERGE (content_model:ContentModel {spec_id: content_model_data_8.SPEC_ID}) SET content_model.empty = content_model_data_8.EMPTY, content_model.textnode = content_model_data_8.TEXTNODE 
+									MERGE (spec)-[:CONTENT_MODEL]->(content_model) 
  								 ) 
+ 						 	 ) 
+ 						 )
+ 					 )
+					FOREACH (specgrp_data_6 IN section_3_data_5.CONTAINS_SPECGRPS | 
+						CREATE (specgrp_6:Specgrp) 
+						MERGE (section_3)-[:HAS_SPECGRP]->(specgrp_6) 
+						FOREACH (spec_item_6 IN specgrp_data_6.SPECGRP | 
+							MERGE (spec:Specification {name: spec_item_6.SPEC}) 
+							MERGE (specgrp_6)-[:HAS_SPEC]->(spec) 
+							WITH spec, spec_item_6 
+							FOREACH (content_model_data_7 IN spec_item_6.CONTAINS_CONTENT_MODEL | 
+								MERGE (content_model:ContentModel {spec_id: content_model_data_7.SPEC_ID}) SET content_model.empty = content_model_data_7.EMPTY, content_model.textnode = content_model_data_7.TEXTNODE 
+								MERGE (spec)-[:CONTENT_MODEL]->(content_model) 
  							 ) 
+ 					 	 ) 
+ 					 )
+ 				 ) 
+				WITH section_2, section_2_data_4 
+				FOREACH (paragraph_data_5 IN section_2_data_4.CONTAINS_PARAS | 
+					MERGE (paragraph:Para {parastring: paragraph_data_5.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_5.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_5.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
+					MERGE (section_2)-[:HAS_PARAGRAPH]->(paragraph) 
+					WITH paragraph, paragraph_data_5 
+					FOREACH (example_data_6 IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES | 
+						MERGE (example:Example {example: example_data_6.EXAMPLE}) SET example.language = example_data_6.LANGUAGE 
+						MERGE (paragraph)-[:HAS_EXAMPLE]->(example) 
+						WITH example, example_data_6 
+						FOREACH (paragraph_data_7 IN example_data_6.CONTAINS_END_PARAS | 
+							MERGE (paragraph:TerminalPara {parastring: paragraph_data_7.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_7.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_7.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
+							MERGE (example)-[:HAS_END_PARAGRAPH]->(paragraph) 
  						 ) 
- 					 ) 
- 					 WITH  section_3 ,  section_3_data_5 
- 					 FOREACH ( spcgrp_data_6  IN  section_3_data_5 . TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS  | 
- 					 	 MERGE (spcgrp:Specgrp {specgrp_id: spcgrp_data_6.SPECGRP_ID}) SET spcgrp.name = spcgrp_data_6.SPECGRP_NAME, spcgrp.links = [x IN spcgrp_data_6.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 					 	 MERGE ( section_3 )-[: HAS_SPECGRP ]->( spcgrp ) 
- 						 WITH  spcgrp ,  spcgrp_data_6 
- 						 FOREACH ( spec_data_7  IN  spcgrp_data_6 . CONTAINS_SPECS  | 
- 						 	 MERGE (spec:Specification {spec_id: spec_data_7.SPEC_ID}) SET spec.module = spec_data_7.PART_OF_MODULE, spec.remarks = [x IN spec_data_7.REMARKS_ON WHERE x IS NOT NULL | x.REMARK], spec.equiv_name = spec_data_7.EQUIVALENT_NAME, spec.descriptions = [x IN spec_data_7.DESCRIBED_BY WHERE x IS NOT NULL | x.DESC], spec.class = spec_data_7.MEMBER_OF_CLASS, spec.glosses = [x IN spec_data_7.GLOSSED_BY WHERE x IS NOT NULL | x.GLOSS], spec.spec_type = spec_data_7.SPEC_TYPE 
- 						 	 MERGE ( spcgrp )-[: HAS_SPEC ]->( spec ) 
- 							 WITH  spec ,  spec_data_7 
- 							 FOREACH ( content_model_data_8  IN  spec_data_7 . CONTAINS_CONTENT_MODEL  | 
- 							 	 MERGE (content_model:ContentModel {spec_id: content_model_data_8.SPEC_ID}) SET content_model.empty = content_model_data_8.EMPTY, content_model.textnode = content_model_data_8.TEXTNODE 
- 							 	 MERGE ( spec )-[: CONTENT_MODEL ]->( content_model ) 
+ 					 )
+					FOREACH (specgrp_data_6 IN paragraph_data_5.CONTAINS_SPECGRPS | 
+						CREATE (specgrp_6:Specgrp) 
+						MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp_6) 
+						FOREACH (spec_item_6 IN specgrp_data_6.SPECGRP | 
+							MERGE (spec:Specification {name: spec_item_6.SPEC}) 
+							MERGE (specgrp_6)-[:HAS_SPEC]->(spec) 
+							WITH spec, spec_item_6 
+							FOREACH (content_model_data_7 IN spec_item_6.CONTAINS_CONTENT_MODEL | 
+								MERGE (content_model:ContentModel {spec_id: content_model_data_7.SPEC_ID}) SET content_model.empty = content_model_data_7.EMPTY, content_model.textnode = content_model_data_7.TEXTNODE 
+								MERGE (spec)-[:CONTENT_MODEL]->(content_model) 
  							 ) 
+ 					 	 ) 
+ 					 )
+ 				 )
+				FOREACH (specgrp_data_5 IN section_2_data_4.CONTAINS_SPECGRPS | 
+					CREATE (specgrp_5:Specgrp) 
+					MERGE (section_2)-[:HAS_SPECGRP]->(specgrp_5) 
+					FOREACH (spec_item_5 IN specgrp_data_5.SPECGRP | 
+						MERGE (spec:Specification {name: spec_item_5.SPEC}) 
+						MERGE (specgrp_5)-[:HAS_SPEC]->(spec) 
+						WITH spec, spec_item_5 
+						FOREACH (content_model_data_6 IN spec_item_5.CONTAINS_CONTENT_MODEL | 
+							MERGE (content_model:ContentModel {spec_id: content_model_data_6.SPEC_ID}) SET content_model.empty = content_model_data_6.EMPTY, content_model.textnode = content_model_data_6.TEXTNODE 
+							MERGE (spec)-[:CONTENT_MODEL]->(content_model) 
  						 ) 
- 					 ) 
- 				 ) 
- 				 WITH  section_2 ,  section_2_data_4 
- 				 FOREACH ( paragraph_data_5  IN  section_2_data_4 . CONTAINS_PARAS  | 
- 				 	 MERGE (paragraph:Para {parastring: paragraph_data_5.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_5.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_5.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
- 				 	 MERGE ( section_2 )-[: HAS_PARAGRAPH ]->( paragraph ) 
- 					 WITH  paragraph ,  paragraph_data_5 
- 					 FOREACH ( example_data_6  IN  paragraph_data_5 . TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES  | 
- 					 	 MERGE (example:Example {example: example_data_6.EXAMPLE}) SET example.language = example_data_6.LANGUAGE 
- 					 	 MERGE ( paragraph )-[: HAS_EXAMPLE ]->( example ) 
- 						 WITH  example ,  example_data_6 
- 						 FOREACH ( paragraph_data_7  IN  example_data_6 . CONTAINS_END_PARAS  | 
- 						 	 MERGE (paragraph:TerminalPara {parastring: paragraph_data_7.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_7.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_7.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_7.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
- 						 	 MERGE ( example )-[: HAS_END_PARAGRAPH ]->( paragraph ) 
- 						 ) 
- 					 ) 
- 					 WITH  paragraph ,  paragraph_data_5 
- 					 FOREACH ( spcgrp_data_6  IN  paragraph_data_5 . TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS  | 
- 					 	 MERGE (spcgrp:Specgrp {specgrp_id: spcgrp_data_6.SPECGRP_ID}) SET spcgrp.name = spcgrp_data_6.SPECGRP_NAME, spcgrp.links = [x IN spcgrp_data_6.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 					 	 MERGE ( paragraph )-[: HAS_SPECGRP ]->( spcgrp ) 
- 						 WITH  spcgrp ,  spcgrp_data_6 
- 						 FOREACH ( spec_data_7  IN  spcgrp_data_6 . CONTAINS_SPECS  | 
- 						 	 MERGE (spec:Specification {spec_id: spec_data_7.SPEC_ID}) SET spec.module = spec_data_7.PART_OF_MODULE, spec.remarks = [x IN spec_data_7.REMARKS_ON WHERE x IS NOT NULL | x.REMARK], spec.equiv_name = spec_data_7.EQUIVALENT_NAME, spec.descriptions = [x IN spec_data_7.DESCRIBED_BY WHERE x IS NOT NULL | x.DESC], spec.class = spec_data_7.MEMBER_OF_CLASS, spec.glosses = [x IN spec_data_7.GLOSSED_BY WHERE x IS NOT NULL | x.GLOSS], spec.spec_type = spec_data_7.SPEC_TYPE 
- 						 	 MERGE ( spcgrp )-[: HAS_SPEC ]->( spec ) 
- 							 WITH  spec ,  spec_data_7 
- 							 FOREACH ( content_model_data_8  IN  spec_data_7 . CONTAINS_CONTENT_MODEL  | 
- 							 	 MERGE (content_model:ContentModel {spec_id: content_model_data_8.SPEC_ID}) SET content_model.empty = content_model_data_8.EMPTY, content_model.textnode = content_model_data_8.TEXTNODE 
- 							 	 MERGE ( spec )-[: CONTENT_MODEL ]->( content_model ) 
- 							 ) 
- 						 ) 
- 					 ) 
- 				 ) 
- 				 WITH  section_2 ,  section_2_data_4 
- 				 FOREACH ( spcgrp_data_5  IN  section_2_data_4 . TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS  | 
- 				 	 MERGE (spcgrp:Specgrp {specgrp_id: spcgrp_data_5.SPECGRP_ID}) SET spcgrp.name = spcgrp_data_5.SPECGRP_NAME, spcgrp.links = [x IN spcgrp_data_5.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 				 	 MERGE ( section_2 )-[: HAS_SPECGRP ]->( spcgrp ) 
- 					 WITH  spcgrp ,  spcgrp_data_5 
- 					 FOREACH ( spec_data_6  IN  spcgrp_data_5 . CONTAINS_SPECS  | 
- 					 	 MERGE (spec:Specification {spec_id: spec_data_6.SPEC_ID}) SET spec.module = spec_data_6.PART_OF_MODULE, spec.remarks = [x IN spec_data_6.REMARKS_ON WHERE x IS NOT NULL | x.REMARK], spec.equiv_name = spec_data_6.EQUIVALENT_NAME, spec.descriptions = [x IN spec_data_6.DESCRIBED_BY WHERE x IS NOT NULL | x.DESC], spec.class = spec_data_6.MEMBER_OF_CLASS, spec.glosses = [x IN spec_data_6.GLOSSED_BY WHERE x IS NOT NULL | x.GLOSS], spec.spec_type = spec_data_6.SPEC_TYPE 
- 					 	 MERGE ( spcgrp )-[: HAS_SPEC ]->( spec ) 
- 						 WITH  spec ,  spec_data_6 
- 						 FOREACH ( content_model_data_7  IN  spec_data_6 . CONTAINS_CONTENT_MODEL  | 
- 						 	 MERGE (content_model:ContentModel {spec_id: content_model_data_7.SPEC_ID}) SET content_model.empty = content_model_data_7.EMPTY, content_model.textnode = content_model_data_7.TEXTNODE 
- 						 	 MERGE ( spec )-[: CONTENT_MODEL ]->( content_model ) 
- 						 ) 
- 					 ) 
- 				 ) 
+ 				 	 ) 
+ 				 )
  			 ) 
- 			 WITH  section_1 ,  section_1_data_3 
- 			 FOREACH ( paragraph_data_4  IN  section_1_data_3 . CONTAINS_PARAS  | 
- 			 	 MERGE (paragraph:Para {parastring: paragraph_data_4.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_4.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_4.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
- 			 	 MERGE ( section_1 )-[: HAS_PARAGRAPH ]->( paragraph ) 
- 				 WITH  paragraph ,  paragraph_data_4 
- 				 FOREACH ( example_data_5  IN  paragraph_data_4 . TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES  | 
- 				 	 MERGE (example:Example {example: example_data_5.EXAMPLE}) SET example.language = example_data_5.LANGUAGE 
- 				 	 MERGE ( paragraph )-[: HAS_EXAMPLE ]->( example ) 
- 					 WITH  example ,  example_data_5 
- 					 FOREACH ( paragraph_data_6  IN  example_data_5 . CONTAINS_END_PARAS  | 
- 					 	 MERGE (paragraph:TerminalPara {parastring: paragraph_data_6.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_6.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_6.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
- 					 	 MERGE ( example )-[: HAS_END_PARAGRAPH ]->( paragraph ) 
+			WITH section_1, section_1_data_3 
+			FOREACH (paragraph_data_4 IN section_1_data_3.CONTAINS_PARAS | 
+				MERGE (paragraph:Para {parastring: paragraph_data_4.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_4.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_4.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_4.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
+				MERGE (section_1)-[:HAS_PARAGRAPH]->(paragraph) 
+				WITH paragraph, paragraph_data_4 
+				FOREACH (example_data_5 IN paragraph_data_4.TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES | 
+					MERGE (example:Example {example: example_data_5.EXAMPLE}) SET example.language = example_data_5.LANGUAGE 
+					MERGE (paragraph)-[:HAS_EXAMPLE]->(example) 
+					WITH example, example_data_5 
+					FOREACH (paragraph_data_6 IN example_data_5.CONTAINS_END_PARAS | 
+						MERGE (paragraph:TerminalPara {parastring: paragraph_data_6.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_6.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_6.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_6.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
+						MERGE (example)-[:HAS_END_PARAGRAPH]->(paragraph) 
  					 ) 
- 				 ) 
- 				 WITH  paragraph ,  paragraph_data_4 
- 				 FOREACH ( spcgrp_data_5  IN  paragraph_data_4 . TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS  | 
- 				 	 MERGE (spcgrp:Specgrp {specgrp_id: spcgrp_data_5.SPECGRP_ID}) SET spcgrp.name = spcgrp_data_5.SPECGRP_NAME, spcgrp.links = [x IN spcgrp_data_5.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 				 	 MERGE ( paragraph )-[: HAS_SPECGRP ]->( spcgrp ) 
- 					 WITH  spcgrp ,  spcgrp_data_5 
- 					 FOREACH ( spec_data_6  IN  spcgrp_data_5 . CONTAINS_SPECS  | 
- 					 	 MERGE (spec:Specification {spec_id: spec_data_6.SPEC_ID}) SET spec.module = spec_data_6.PART_OF_MODULE, spec.remarks = [x IN spec_data_6.REMARKS_ON WHERE x IS NOT NULL | x.REMARK], spec.equiv_name = spec_data_6.EQUIVALENT_NAME, spec.descriptions = [x IN spec_data_6.DESCRIBED_BY WHERE x IS NOT NULL | x.DESC], spec.class = spec_data_6.MEMBER_OF_CLASS, spec.glosses = [x IN spec_data_6.GLOSSED_BY WHERE x IS NOT NULL | x.GLOSS], spec.spec_type = spec_data_6.SPEC_TYPE 
- 					 	 MERGE ( spcgrp )-[: HAS_SPEC ]->( spec ) 
- 						 WITH  spec ,  spec_data_6 
- 						 FOREACH ( content_model_data_7  IN  spec_data_6 . CONTAINS_CONTENT_MODEL  | 
- 						 	 MERGE (content_model:ContentModel {spec_id: content_model_data_7.SPEC_ID}) SET content_model.empty = content_model_data_7.EMPTY, content_model.textnode = content_model_data_7.TEXTNODE 
- 						 	 MERGE ( spec )-[: CONTENT_MODEL ]->( content_model ) 
+ 				 )
+				FOREACH (specgrp_data_5 IN paragraph_data_4.CONTAINS_SPECGRPS | 
+					CREATE (specgrp_5:Specgrp) 
+					MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp_5) 
+					FOREACH (spec_item_5 IN specgrp_data_5.SPECGRP | 
+						MERGE (spec:Specification {name: spec_item_5.SPEC}) 
+						MERGE (specgrp_5)-[:HAS_SPEC]->(spec) 
+						WITH spec, spec_item_5 
+						FOREACH (content_model_data_6 IN spec_item_5.CONTAINS_CONTENT_MODEL | 
+							MERGE (content_model:ContentModel {spec_id: content_model_data_6.SPEC_ID}) SET content_model.empty = content_model_data_6.EMPTY, content_model.textnode = content_model_data_6.TEXTNODE 
+							MERGE (spec)-[:CONTENT_MODEL]->(content_model) 
  						 ) 
+ 				 	 ) 
+ 				 )
+ 			 )
+			FOREACH (specgrp_data_4 IN section_1_data_3.CONTAINS_SPECGRPS | 
+				CREATE (specgrp_4:Specgrp) 
+				MERGE (section_1)-[:HAS_SPECGRP]->(specgrp_4) 
+				FOREACH (spec_item_4 IN specgrp_data_4.SPECGRP | 
+					MERGE (spec:Specification {name: spec_item_4.SPEC}) 
+					MERGE (specgrp_4)-[:HAS_SPEC]->(spec) 
+					WITH spec, spec_item_4 
+					FOREACH (content_model_data_5 IN spec_item_4.CONTAINS_CONTENT_MODEL | 
+						MERGE (content_model:ContentModel {spec_id: content_model_data_5.SPEC_ID}) SET content_model.empty = content_model_data_5.EMPTY, content_model.textnode = content_model_data_5.TEXTNODE 
+						MERGE (spec)-[:CONTENT_MODEL]->(content_model) 
  					 ) 
- 				 ) 
- 			 ) 
- 			 WITH  section_1 ,  section_1_data_3 
- 			 FOREACH ( spcgrp_data_4  IN  section_1_data_3 . TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS  | 
- 			 	 MERGE (spcgrp:Specgrp {specgrp_id: spcgrp_data_4.SPECGRP_ID}) SET spcgrp.name = spcgrp_data_4.SPECGRP_NAME, spcgrp.links = [x IN spcgrp_data_4.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 			 	 MERGE ( section_1 )-[: HAS_SPECGRP ]->( spcgrp ) 
- 				 WITH  spcgrp ,  spcgrp_data_4 
- 				 FOREACH ( spec_data_5  IN  spcgrp_data_4 . CONTAINS_SPECS  | 
- 				 	 MERGE (spec:Specification {spec_id: spec_data_5.SPEC_ID}) SET spec.module = spec_data_5.PART_OF_MODULE, spec.remarks = [x IN spec_data_5.REMARKS_ON WHERE x IS NOT NULL | x.REMARK], spec.equiv_name = spec_data_5.EQUIVALENT_NAME, spec.descriptions = [x IN spec_data_5.DESCRIBED_BY WHERE x IS NOT NULL | x.DESC], spec.class = spec_data_5.MEMBER_OF_CLASS, spec.glosses = [x IN spec_data_5.GLOSSED_BY WHERE x IS NOT NULL | x.GLOSS], spec.spec_type = spec_data_5.SPEC_TYPE 
- 				 	 MERGE ( spcgrp )-[: HAS_SPEC ]->( spec ) 
- 					 WITH  spec ,  spec_data_5 
- 					 FOREACH ( content_model_data_6  IN  spec_data_5 . CONTAINS_CONTENT_MODEL  | 
- 					 	 MERGE (content_model:ContentModel {spec_id: content_model_data_6.SPEC_ID}) SET content_model.empty = content_model_data_6.EMPTY, content_model.textnode = content_model_data_6.TEXTNODE 
- 					 	 MERGE ( spec )-[: CONTENT_MODEL ]->( content_model ) 
- 					 ) 
- 				 ) 
- 			 ) 
+ 			 	 ) 
+ 			 )
  		 ) 
- 		 WITH  chapter ,  chapter_data_2 
- 		 FOREACH ( paragraph_data_3  IN  chapter_data_2 . CONTAINS_PARAS  | 
- 		 	 MERGE (paragraph:Para {parastring: paragraph_data_3.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_3.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_3.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
- 		 	 MERGE ( chapter )-[: HAS_PARAGRAPH ]->( paragraph ) 
- 			 WITH  paragraph ,  paragraph_data_3 
- 			 FOREACH ( example_data_4  IN  paragraph_data_3 . TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES  | 
- 			 	 MERGE (example:Example {example: example_data_4.EXAMPLE}) SET example.language = example_data_4.LANGUAGE 
- 			 	 MERGE ( paragraph )-[: HAS_EXAMPLE ]->( example ) 
- 				 WITH  example ,  example_data_4 
- 				 FOREACH ( paragraph_data_5  IN  example_data_4 . CONTAINS_END_PARAS  | 
- 				 	 MERGE (paragraph:TerminalPara {parastring: paragraph_data_5.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_5.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_5.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
- 				 	 MERGE ( example )-[: HAS_END_PARAGRAPH ]->( paragraph ) 
+		WITH chapter, chapter_data_2 
+		FOREACH (paragraph_data_3 IN chapter_data_2.CONTAINS_PARAS | 
+			MERGE (paragraph:Para {parastring: paragraph_data_3.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_3.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_3.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_3.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
+			MERGE (chapter)-[:HAS_PARAGRAPH]->(paragraph) 
+			WITH paragraph, paragraph_data_3 
+			FOREACH (example_data_4 IN paragraph_data_3.TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES | 
+				MERGE (example:Example {example: example_data_4.EXAMPLE}) SET example.language = example_data_4.LANGUAGE 
+				MERGE (paragraph)-[:HAS_EXAMPLE]->(example) 
+				WITH example, example_data_4 
+				FOREACH (paragraph_data_5 IN example_data_4.CONTAINS_END_PARAS | 
+					MERGE (paragraph:TerminalPara {parastring: paragraph_data_5.PARASTRING}) SET paragraph.files_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.FILES_MENTIONED WHERE x IS NOT NULL | x.FILE], paragraph.parameter_entities_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.PE], paragraph.elements_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.ELEMENTS_MENTIONED WHERE x IS NOT NULL | x.ELEMENT_NAME], paragraph.attributes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.ATTRIBUTES_MENTIONED WHERE x IS NOT NULL | x.ATTRIBUTE_NAME], paragraph.sequence = paragraph_data_5.SEQUENCE, paragraph.frags_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.FRAGS_MENTIONED WHERE x IS NOT NULL | x.FRAG], paragraph.ns_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.NSS_MENTIONED WHERE x IS NOT NULL | x.NS], paragraph.classes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CLASSES_MENTIONED WHERE x IS NOT NULL | x.CLASS], paragraph.modules_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.MODULES_MENTIONED WHERE x IS NOT NULL | x.MODULE], paragraph.macros_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.MACROS_MENTIONED WHERE x IS NOT NULL | x.MACRO], paragraph.speclist_links = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.CONTAINS_SPECLISTS.SPECLIST WHERE x IS NOT NULL | x.ID], paragraph.relaxng_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.RNGS_MENTIONED WHERE x IS NOT NULL | x.RNG], paragraph.datatypes_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.DATATYPES_MENTIONED WHERE x IS NOT NULL | x.DATATYPE], paragraph.links = [x IN paragraph_data_5.RELATES_TO.SECTION WHERE x IS NOT NULL | x.ID], paragraph.parameter_entities_mentioned_ge = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.PES_MENTIONED WHERE x IS NOT NULL | x.GE], paragraph.schemas_mentioned = [x IN paragraph_data_5.TEI_ENCODING_DISCUSSED.SCHEMAS_MENTIONED WHERE x IS NOT NULL | x.SCHEMA] 
+					MERGE (example)-[:HAS_END_PARAGRAPH]->(paragraph) 
  				 ) 
- 			 ) 
- 			 WITH  paragraph ,  paragraph_data_3 
- 			 FOREACH ( spcgrp_data_4  IN  paragraph_data_3 . TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS  | 
- 			 	 MERGE (spcgrp:Specgrp {specgrp_id: spcgrp_data_4.SPECGRP_ID}) SET spcgrp.name = spcgrp_data_4.SPECGRP_NAME, spcgrp.links = [x IN spcgrp_data_4.RELATES_TO WHERE x IS NOT NULL | x.ID] 
- 			 	 MERGE ( paragraph )-[: HAS_SPECGRP ]->( spcgrp ) 
- 				 WITH  spcgrp ,  spcgrp_data_4 
- 				 FOREACH ( spec_data_5  IN  spcgrp_data_4 . CONTAINS_SPECS  | 
- 				 	 MERGE (spec:Specification {spec_id: spec_data_5.SPEC_ID}) SET spec.module = spec_data_5.PART_OF_MODULE, spec.remarks = [x IN spec_data_5.REMARKS_ON WHERE x IS NOT NULL | x.REMARK], spec.equiv_name = spec_data_5.EQUIVALENT_NAME, spec.descriptions = [x IN spec_data_5.DESCRIBED_BY WHERE x IS NOT NULL | x.DESC], spec.class = spec_data_5.MEMBER_OF_CLASS, spec.glosses = [x IN spec_data_5.GLOSSED_BY WHERE x IS NOT NULL | x.GLOSS], spec.spec_type = spec_data_5.SPEC_TYPE 
- 				 	 MERGE ( spcgrp )-[: HAS_SPEC ]->( spec ) 
- 					 WITH  spec ,  spec_data_5 
- 					 FOREACH ( content_model_data_6  IN  spec_data_5 . CONTAINS_CONTENT_MODEL  | 
- 					 	 MERGE (content_model:ContentModel {spec_id: content_model_data_6.SPEC_ID}) SET content_model.empty = content_model_data_6.EMPTY, content_model.textnode = content_model_data_6.TEXTNODE 
- 					 	 MERGE ( spec )-[: CONTENT_MODEL ]->( content_model ) 
+ 			 )
+			FOREACH (specgrp_data_4 IN paragraph_data_3.CONTAINS_SPECGRPS | 
+				CREATE (specgrp_4:Specgrp) 
+				MERGE (paragraph)-[:HAS_SPECGRP]->(specgrp_4) 
+				FOREACH (spec_item_4 IN specgrp_data_4.SPECGRP | 
+					MERGE (spec:Specification {name: spec_item_4.SPEC}) 
+					MERGE (specgrp_4)-[:HAS_SPEC]->(spec) 
+					WITH spec, spec_item_4 
+					FOREACH (content_model_data_5 IN spec_item_4.CONTAINS_CONTENT_MODEL | 
+						MERGE (content_model:ContentModel {spec_id: content_model_data_5.SPEC_ID}) SET content_model.empty = content_model_data_5.EMPTY, content_model.textnode = content_model_data_5.TEXTNODE 
+						MERGE (spec)-[:CONTENT_MODEL]->(content_model) 
  					 ) 
- 				 ) 
- 			 ) 
+ 			 	 ) 
+ 			 )
  		 ) 
  	 ) 
   )

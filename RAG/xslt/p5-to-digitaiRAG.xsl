@@ -156,7 +156,7 @@
                             },
                             map {
                             'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS',
-                            'childEntityType' : 'spcgrp',
+                            'childEntityType' : 'specgrp',
                             'relationship': 'HAS_SPECGRP'
                             }
                             }"/>
@@ -200,7 +200,7 @@
                             },
                             map {
                             'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS',
-                            'childEntityType' : 'spcgrp',
+                            'childEntityType' : 'specgrp',
                             'relationship': 'HAS_SPECGRP'
                             }
                             }"/>
@@ -238,7 +238,7 @@
                             },
                             map {
                             'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS',
-                            'childEntityType' : 'spcgrp',
+                            'childEntityType' : 'specgrp',
                             'relationship': 'HAS_SPECGRP'
                             }
                             }"/>
@@ -405,7 +405,7 @@
                             },
                             map {
                             'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS',
-                            'childEntityType' : 'spcgrp',
+                            'childEntityType' : 'specgrp',
                             'relationship': 'HAS_SPECGRP'
                             }
                             }"/>
@@ -592,11 +592,11 @@
                    <!-- ebb: terminal_paragraph definition must NOT contain 'children' map.  -->
                 </xsl:map>
             </xsl:map-entry>
-            <xsl:map-entry key="'spcgrp'">
+            <xsl:map-entry key="'specgrp'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Specgrp'"/>
                     <xsl:map-entry key="'xpathPattern'">specGrp</xsl:map-entry>
-                    <xsl:map-entry key="'cypherVar'" select="'spcgrp'"/>
+                    <xsl:map-entry key="'cypherVar'" select="'specgrp'"/>
                     <xsl:map-entry key="'primaryKey'" select="'specgrp_id'"/>
                     <xsl:map-entry key="'jsonKeyForPK'" select="'SPECGRP_ID'"/>
                     <xsl:map-entry key="'properties'">
@@ -1069,7 +1069,7 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
             <xsl:variable name="child-type" select="$child-info('childEntityType')"/>
             <xsl:variable name="child-model" as="map(*)*" select="$nf:graph-model($child-type)"/>
             
-         <!-- <xsl:if test="$child-type != 'specgrp'">-->
+          <xsl:if test="$child-type != 'specgrp'">
                 <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')"/>
              
        
@@ -1077,10 +1077,10 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
                 <xsl:variable name="relationship" select="$child-info('relationship')"/>
                 <xsl:variable name="json-key" select="$child-info('jsonChildrenKey')"/>
                 
-                <xsl:sequence select="$newline, $indent, 'WITH ', $parent_cypher_var, ', ', $parent_json_var"/>
-                <xsl:sequence select="$newline, $indent, 'FOREACH (', $child-json-var, ' IN ', $parent_json_var, '.', $json-key, ' |'"/>
-                <xsl:sequence select="$newline, $indent, $tab, nf:generate-node-statement($child-type, $child-cypher-var, $child-json-var)"/>
-                <xsl:sequence select="$newline, $indent, $tab, 'MERGE (', $parent_cypher_var, ')-[:', $relationship, ']->(', $child-cypher-var, ')'"/>
+                <xsl:sequence select="$newline||$indent||'WITH '||$parent_cypher_var||', '||$parent_json_var"/>
+                <xsl:sequence select="$newline||$indent||'FOREACH ('||$child-json-var||' IN '||$parent_json_var||'.'||$json-key||' |'"/>
+                <xsl:sequence select="$newline||$indent||$tab||nf:generate-node-statement($child-type, $child-cypher-var, $child-json-var)"/>
+                <xsl:sequence select="$newline||$indent||$tab||'MERGE ('||$parent_cypher_var||')-[:'||$relationship||']->('||$child-cypher-var||')'"/>
                 
                 <xsl:if test="exists($child-model?children)">
                     <xsl:call-template name="nf:process-children">
@@ -1093,23 +1093,23 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
                 </xsl:if>
                 
                 <xsl:sequence select="$newline, $indent, ')'"/>
-            <!--</xsl:if>-->
-    <!--  <xsl:if test="$child-type = 'specgrp'"> 
+            </xsl:if>
+      <xsl:if test="$child-type = 'specgrp'"> 
                 <xsl:variable name="specgrp_model" select="$nf:graph-model('specgrp')"/>
-                <xsl:variable name="specgrp_cypher_var" select="concat($specgrp_model('cypherVar'), '_', $depth)"/>
-                <xsl:variable name="specgrp_json_var" select="concat($specgrp_model('cypherVar'), '_data_', $depth)"/>
+                <xsl:variable name="specgrp_cypher_var" select="$specgrp_model('cypherVar')||'_'||$depth"/>
+                <xsl:variable name="specgrp_json_var" select="$specgrp_model('cypherVar')||'_data_'||$depth"/>
                 
-                <xsl:variable name="spec_model" select="$nf:graph-model('specification')"/>
+                <xsl:variable name="spec_model" select="$nf:graph-model('spec')"/>
                 <xsl:variable name="spec_cypher_var" select="$spec_model('cypherVar')"/>
-                <xsl:variable name="spec_json_var" select="concat($spec_model('cypherVar'), '_item_', $depth)"/>
+                <xsl:variable name="spec_json_var" select="$spec_model('cypherVar')||'_item_'||$depth"/>
                 
                 <xsl:variable name="cypher-block">
-                    <xsl:sequence select="$newline, $indent, 'FOREACH (', $specgrp_json_var, ' IN ', $parent_json_var, '.CONTAINS_SPECGRPS |'"/>
-                    <xsl:sequence select="$newline, $indent, $tab, 'CREATE (', $specgrp_cypher_var, ':', $specgrp_model('label'), ')'"/>
-                    <xsl:sequence select="$newline, $indent, $tab, 'MERGE (', $parent_cypher_var, ')-[:HAS_SPECGRP]->(', $specgrp_cypher_var, ')'"/>
-                    <xsl:sequence select="$newline, $indent, $tab, 'FOREACH (', $spec_json_var, ' IN ', $specgrp_json_var, '.SPECGRP |'"/>
-                    <xsl:sequence select="$newline, $indent, $tab, $tab, 'MERGE (', $spec_cypher_var, ':', $spec_model('label'), ' {name: ', $spec_json_var, '.SPEC})'"/>
-                    <xsl:sequence select="$newline, $indent, $tab, $tab, 'MERGE (', $specgrp_cypher_var, ')-[:HAS_SPEC]->(', $spec_cypher_var, ')'"/>
+                    <xsl:sequence select="$newline||$indent||'FOREACH ('||$specgrp_json_var||' IN '||$parent_json_var||'.CONTAINS_SPECGRPS |'"/>
+                    <xsl:sequence select="$newline||$indent||$tab||'CREATE ('||$specgrp_cypher_var||':'||$specgrp_model('label')||')'"/>
+                    <xsl:sequence select="$newline||$indent||$tab||'MERGE ('||$parent_cypher_var||')-[:HAS_SPECGRP]->('||$specgrp_cypher_var||')'"/>
+                    <xsl:sequence select="$newline||$indent||$tab||'FOREACH ('||$spec_json_var||' IN '||$specgrp_json_var||'.SPECGRP |'"/>
+                    <xsl:sequence select="$newline||$indent||$tab||$tab||'MERGE ('||$spec_cypher_var||':'||$spec_model('label')||' {name: '||$spec_json_var||'.SPEC})'"/>
+                    <xsl:sequence select="$newline||$indent||$tab||$tab||'MERGE ('||$specgrp_cypher_var||')-[:HAS_SPEC]->('||$spec_cypher_var||')'"/>
                     
                     <xsl:if test="exists($spec_model?children)">
                         <xsl:call-template name="nf:process-children">
@@ -1126,7 +1126,7 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
                 </xsl:variable>
                 <xsl:sequence select="$cypher-block"/>
                 
-            </xsl:if>-->
+            </xsl:if>
         </xsl:for-each>
         
     </xsl:template>
