@@ -147,12 +147,17 @@
                             'relationship': 'HAS_SUBSECTION',
                             'isSequence': true()
                             },
-                            
+
                             map {
                             'jsonChildrenKey': 'CONTAINS_PARAS',
                             'childEntityType': 'paragraph',
                             'relationship': 'HAS_PARAGRAPH',
                             'isSequence': true()
+                            },
+                            map {
+                            'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS',
+                            'childEntityType' : 'spcgrp',
+                            'relationship': 'HAS_SPECGRP'
                             }
                             }"/>
                     </xsl:map-entry>
@@ -187,12 +192,16 @@
                             'relationship': 'HAS_SUBSECTION',
                             'isSequence': true()
                             },
-                            
                             map {
                             'jsonChildrenKey': 'CONTAINS_PARAS',
                             'childEntityType': 'paragraph',
                             'relationship': 'HAS_PARAGRAPH',
                             'isSequence': true()
+                            },
+                            map {
+                            'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS',
+                            'childEntityType' : 'spcgrp',
+                            'relationship': 'HAS_SPECGRP'
                             }
                             }"/>
                     </xsl:map-entry>
@@ -226,6 +235,11 @@
                             'childEntityType': 'paragraph',
                             'relationship': 'HAS_PARAGRAPH',
                             'isSequence': true()
+                            },
+                            map {
+                            'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS',
+                            'childEntityType' : 'spcgrp',
+                            'relationship': 'HAS_SPECGRP'
                             }
                             }"/>
                     </xsl:map-entry>
@@ -383,12 +397,7 @@
                     </xsl:map-entry>
                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="
-                            array {
-                            (: COMMENTED OUT B/C LIST COMPREHENSION IN PROPERTIES  map {
-                            'jsonChildrenKey': 'CONTAINS_SPECLISTS',
-                            'childEntityType': 'speclist',
-                            'relationship': 'HAS_SPECLIST'
-                            },:)
+                           array{
                             map{ 
                             'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_EXAMPLES',
                             'childEntityType': 'example',
@@ -396,7 +405,7 @@
                             },
                             map {
                             'jsonChildrenKey': 'TEI_ENCODING_DISCUSSED.CONTAINS_SPECGRPS',
-                            'childEntityType': 'specgrp',
+                            'childEntityType' : 'spcgrp',
                             'relationship': 'HAS_SPECGRP'
                             }
                             }"/>
@@ -432,9 +441,9 @@
                 <!-- THIS MODEL ENTRY IS FOR PARAGRAPHS THAT MAY NOT CONTAIN MEMBERS OF THIS GRAPH THAT THEMSELVES 
                 CONTAIN PARAGRAPHS. -->
                 <xsl:map>
-                    <xsl:map-entry key="'label'" select="'Terminalpara'"/>
-                    <xsl:map-entry key="'xpathPattern'">p[not(*//p)]</xsl:map-entry>
-                    <xsl:map-entry key="'cypherVar'" select="'terminal_paragraph'"/>
+                    <xsl:map-entry key="'label'" select="'TerminalPara'"/>
+                    <xsl:map-entry key="'xpathPattern'">p[not(*)]</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'" select="'paragraph'"/>
                     <xsl:map-entry key="'primaryKey'" select="'parastring'"/>
                     <xsl:map-entry key="'jsonKeyForPK'" select="'PARASTRING'"/>
                     <xsl:map-entry key="'properties'">
@@ -583,17 +592,18 @@
                    <!-- ebb: terminal_paragraph definition must NOT contain 'children' map.  -->
                 </xsl:map>
             </xsl:map-entry>
-            <xsl:map-entry key="'specgrp'">
+            <xsl:map-entry key="'spcgrp'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'Specgrp'"/>
                     <xsl:map-entry key="'xpathPattern'">specGrp</xsl:map-entry>
-                    <xsl:map-entry key="'cypherVar'" select="'specgrp'"/>
+                    <xsl:map-entry key="'cypherVar'" select="'spcgrp'"/>
                     <xsl:map-entry key="'primaryKey'" select="'specgrp_id'"/>
                     <xsl:map-entry key="'jsonKeyForPK'" select="'SPECGRP_ID'"/>
                     <xsl:map-entry key="'properties'">
                         <xsl:map>
                             <xsl:map-entry key="'name'">SPECGRP_NAME</xsl:map-entry>
                             <xsl:map-entry key="'links'">
+                                <!-- THIS SHOULD PICK UP SPECGRPREF TARGETS  -->
                                 <xsl:map>
                                     <xsl:map-entry key="'isListComprehension'" select="true()"/>
                                     <xsl:map-entry key="'sourceArrayPath'" select="'RELATES_TO'"/>
@@ -602,29 +612,22 @@
                             </xsl:map-entry>
                             </xsl:map>
                         </xsl:map-entry>
-                    <xsl:map-entry key="'children'">
-                        <!-- ebb: CHILD MAP IS WRONG: Propetries or 'children' need to cover: 
-                            classSpec
-                            macroSpec
-                            dataSpec
-                            elementSpec
-                            specGrpRef
-                            
-                           -->
+                     <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{
                             map{
-                                'jsonChildrenKey': 'CONTAINS_SPECS', 
-                                'childEntityType': 'specification',
+                                'jsonChildrenKey' : 'CONTAINS_SPECS',
+                                'childEntityType': 'spec',
                                 'relationship': 'HAS_SPEC'
                             }
                             }"/>
-                    </xsl:map-entry>                
+                    </xsl:map-entry>            
                 </xsl:map>
             </xsl:map-entry>
-            <xsl:map-entry key="'specification'"><!-- NO! REWRITE THS. NEEDS TO BE MULTIPLE KINDS OF SPECS -->
-                <xsl:map-entry key="'label'" select="'Spec'"/>
-                <xsl:map-entry key="'xpathPattern'">spec</xsl:map-entry>
-                <xsl:map-entry key="'cypherVar'" select="'specification'"/>
+       <xsl:map-entry key="'spec'">
+               <xsl:map> 
+                 <xsl:map-entry key="'label'" select="'Specification'"/>
+                <xsl:map-entry key="'xpathPattern'">spcGrp/*[name() ! ends-with(., 'Spec')]</xsl:map-entry>
+                <xsl:map-entry key="'cypherVar'" select="'spec'"/>
                 <xsl:map-entry key="'primaryKey'" select="'spec_id'"/>
                 <xsl:map-entry key="'jsonKeyForPK'" select="'SPEC_ID'"/>
                 <xsl:map-entry key="'properties'">
@@ -662,8 +665,8 @@
                         'jsonChildrenKey': 'CONTAINS_CONTENT_MODEL',
                         'childEntityType': 'content_model',
                         'relationship': 'CONTENT_MODEL'
-                         },
-                         map{ 
+                         }
+                      (:   map{ 
                          'jsonChildrenKey': 'LISTS_ATTRIBUTES',
                          'childEntityType': 'attribute',
                          'relationship': 'HAS_ATTRIBUTE'
@@ -677,13 +680,14 @@
                          'jsonChildrenKey': 'CONTAINS_EXAMPLES',
                          'childEntityType': 'example',
                          'relationship': 'HAS_EXAMPLE'
-                         } 
+                         } :)
                         }"/>
                 </xsl:map-entry>                  
+               </xsl:map>
             </xsl:map-entry>
             <xsl:map-entry key="'content_model'">
                 <xsl:map>
-                    <xsl:map-entry key="'label'" select="'Contentmodel'"/>
+                    <xsl:map-entry key="'label'" select="'ContentModel'"/>
                     <xsl:map-entry key="'xpathPattern'">content</xsl:map-entry>
                     <xsl:map-entry key="'cypherVar'" select="'content_model'"/>
                     <xsl:map-entry key="'primaryKey'" select="'spec_id'"/>
@@ -694,7 +698,7 @@
                             <xsl:map-entry key="'empty'">EMPTY</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
-                    <xsl:map-entry key="'children'">
+                   <!-- <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map { 
                             'jsonChildrenKey' : 'CONTAINS_ALTERNATING_CONTENTS',
@@ -733,16 +737,14 @@
                             'relationship': 'HAS_ELEMENTREF'
                             }
                             }"/>
-                    </xsl:map-entry>
-                    <xsl:map-entry key="'alternate'">
-                        
-                        
-                    </xsl:map-entry>
-                    
-                    
-                    
+                    </xsl:map-entry>-->
+      
                 </xsl:map> 
             </xsl:map-entry>
+            <!-- <xsl:map-entry key="'alternate'">
+                        
+                        
+                    </xsl:map-entry>-->
         </xsl:map>
     </xsl:variable>
 
@@ -846,36 +848,6 @@
 
         </xsl:map>
     </xsl:function>
-
-    <!--    <xsl:template match="/" mode="json-schema">
-        <xsl:result-document href="../digitai-RAG-json.schema">
-            
-            
-            
-        </xsl:result-document>
-    </xsl:template>-->
-
-    <xsl:template match="/" mode="cypher">
-        <xsl:result-document href="../digitai-RAG-cypher.cypher" method="text" indent="yes"> CALL
-            apoc.load.json("file:///digitai-RAG-data.json") YIELD value AS json_data
-            <!-- Create the document node --> MERGE (doc:Document { title: json_data.<xsl:value-of
-                select="$DOCUMENT_TITLE"/>, preparedBy: json_data.<xsl:value-of
-                select="$PREPARED_BY"/>, teiSourceVersion: json_data.<xsl:value-of
-                select="$TEI_SOURCE_VERSION_NUMBER"/>, teiSourceOutputDate: json_data.<xsl:value-of
-                select="$TEI_SOURCE_OUTPUT_DATE"/>, thisJsonDatetime: json_data.<xsl:value-of
-                select="$THIS_JSON_DATETIME"/>
-            <!-- Create the Part nodes --> FOREACH (<xsl:value-of select="$PART"/>_data IN
-                json_data.<xsl:value-of select="$CONTAINS_PARTS"/> | MERGE (part:Part {name:
-                data.<xsl:value-of select="$PART"/>) MERGE (doc)-[:CONTAINS_PART]->(part)
-            <!-- Go through the CONTAINS_CHAPTERS array to create Chapter nodes --> FOREACH
-                (<xsl:value-of select="$CHAPTER"/>_data IN json_data.<xsl:value-of
-                select="$CONTAINS_CHAPTERS"/> | MERGE (chapter:Chapter {id: chapter_data.ID}) ON
-            CREATE SET chapter.chapter = chapter_data.CHAPTER
-            <!-- CONNECT ELEMENTS and ATTRIBUTES MENTIONED to their SPECS -->
-        </xsl:result-document>
-    </xsl:template>
-
-
     <xsl:template match="/">
         <xsl:result-document href="../digitai-RAG-data.json" method="json" indent="yes">
             <xsl:map>
@@ -1019,7 +991,7 @@
     
     <xsl:template match="/" mode="cypher">
         <xsl:variable name="currentXMLNode" as="document-node()" select="current()"/>
-        <xsl:result-document href="sandbox-cypher-import.cypher" method="text">
+        <xsl:result-document href="../digitai-RAG-cypher.cypher" method="text">
             
             <!-- ebb: Define the variables in the graph model where the cypher script processing must begin. 
             Presumably it's the document mode, so that is what we've set here.-->
@@ -1095,10 +1067,11 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
             <xsl:variable name="child-info" select="."/>
             
             <xsl:variable name="child-type" select="$child-info('childEntityType')"/>
-            <xsl:variable name="child-model" select="$nf:graph-model($child-type)"/>
+            <xsl:variable name="child-model" as="map(*)*" select="$nf:graph-model($child-type)"/>
             
-           <xsl:if test="$child-type != 'specgrp'">
+         <!-- <xsl:if test="$child-type != 'specgrp'">-->
                 <xsl:variable name="child-cypher-var" select="$child-model('cypherVar')"/>
+             
        
                 <xsl:variable name="child-json-var" select="$child-cypher-var||'_data_'||$depth"/>
                 <xsl:variable name="relationship" select="$child-info('relationship')"/>
@@ -1120,8 +1093,8 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
                 </xsl:if>
                 
                 <xsl:sequence select="$newline, $indent, ')'"/>
-            </xsl:if>
-           <xsl:if test="$child-type = 'specgrp'"> 
+            <!--</xsl:if>-->
+    <!--  <xsl:if test="$child-type = 'specgrp'"> 
                 <xsl:variable name="specgrp_model" select="$nf:graph-model('specgrp')"/>
                 <xsl:variable name="specgrp_cypher_var" select="concat($specgrp_model('cypherVar'), '_', $depth)"/>
                 <xsl:variable name="specgrp_json_var" select="concat($specgrp_model('cypherVar'), '_data_', $depth)"/>
@@ -1153,7 +1126,7 @@ MERGE (doc:Document {title: 'SOURCE XML AS BASIS FOR A KNOWLEDGE GRAPH'})
                 </xsl:variable>
                 <xsl:sequence select="$cypher-block"/>
                 
-            </xsl:if>
+            </xsl:if>-->
         </xsl:for-each>
         
     </xsl:template>
