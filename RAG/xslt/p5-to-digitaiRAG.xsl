@@ -667,8 +667,8 @@
                         'relationship': 'CONTENT_MODEL'
                          },
                          map{ 
-                         'jsonChildrenKey': 'CONTAINS_ATTLISTS',
-                         'childEntityType': 'list_attribute',
+                         'jsonChildrenKey': 'CONTAINS_ATTLIST',
+                         'childEntityType': 'attribute_list',
                          'relationship': 'HAS_ATTRIBUTE_LIST'
                          },
                          map{ 
@@ -685,6 +685,84 @@
                 </xsl:map-entry>                  
                </xsl:map>
             </xsl:map-entry>
+            <xsl:map-entry key="'attribute_list'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'ListAttributes'"/>
+                    <xsl:map-entry key="'xpathPattern'">attList</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'" select="'attribute_list'"/>
+                    <xsl:map-entry key="'primaryKey'">name</xsl:map-entry>
+                    <xsl:map-entry key="'jsonKeyForPK'">ATTLIST</xsl:map-entry>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="'organization'">ORGANIZED_AS</xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry>
+                    <xsl:map-entry key="'children'">
+                        <xsl:sequence select="array{
+                            map{ 
+                            'jsonChildrenKey': 'CONTAINS_ATTLIST',
+                            'childEntityType': 'attribute_list',
+                            'relationship': 'HAS_ATTRIBUTE_LIST'
+                            },
+                            map{
+                            'jsonChildrenKey': 'DEFINES_ATTRIBUTES',
+                            'childEntityType': 'attribute_definition',
+                            'relationship': 'defines_attributes'
+                            }
+                            }"/>
+                    </xsl:map-entry>  
+                </xsl:map>
+            </xsl:map-entry>
+            <xsl:map-entry key="'attribute_definition'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'">Attribute_definition</xsl:map-entry>
+                    <xsl:map-entry key="'xpathPattern'">attDef</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'">attribute_definition</xsl:map-entry>
+                    <xsl:map-entry key="'primaryKey'">ATTRIBUTE_DEFINITION</xsl:map-entry>
+                    <xsl:map-entry key="'properties'">
+                        <xsl:map>
+                            <xsl:map-entry key="usage">USAGE</xsl:map-entry>
+                            <xsl:map-entry key="'glosses'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'GLOSSED_BY'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'GLOSS'"/>
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'descriptions'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'DESCRIBED_BY'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'DESC'"/>
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'remarks'">
+                                <xsl:map>
+                                    <xsl:map-entry key="'isListComprehension'" select="true()"/>
+                                    <xsl:map-entry key="'sourceArrayPath'" select="'REMARKS_ON'"/>
+                                    <xsl:map-entry key="'sourcePropertyKey'" select="'REMARK'"/>
+                                </xsl:map>
+                            </xsl:map-entry>
+                            <xsl:map-entry key="'default_value'">TAKES_DEFAULT_VALUE</xsl:map-entry>
+                            <xsl:map-entry key="'datatype'">TAKES_DATATYPE</xsl:map-entry>
+                        </xsl:map>
+                    </xsl:map-entry>
+                    <xsl:map-entry key="'children'">
+                        <xsl:sequence select="array{ 
+                            map{ 
+                            'jsonChildrenKey': 'CONSTRAINED_BY',
+                            'childEntityType': 'constraint',
+                            'relationship': 'HAS_CONSTRAINT'
+                            },
+                            map{
+                            'jsonChildrenKey': 'CONTAINS_EXAMPLES',
+                            'childEntityType': 'example',
+                            'relationship': 'HAS_EXAMPLE'
+                            }                            
+                            }"/>
+                    </xsl:map-entry>
+                </xsl:map>
+            </xsl:map-entry>
             <xsl:map-entry key="'content_model'">
                 <xsl:map>
                     <xsl:map-entry key="'label'" select="'ContentModel'"/>
@@ -698,7 +776,7 @@
                             <xsl:map-entry key="'empty'">EMPTY</xsl:map-entry>
                         </xsl:map>
                     </xsl:map-entry>
-                   <!-- <xsl:map-entry key="'children'">
+                   <xsl:map-entry key="'children'">
                         <xsl:sequence select="array{ 
                             map { 
                             'jsonChildrenKey' : 'CONTAINS_ALTERNATING_CONTENTS',
@@ -737,14 +815,73 @@
                             'relationship': 'HAS_ELEMENTREF'
                             }
                             }"/>
-                    </xsl:map-entry>-->
-      
+                    </xsl:map-entry>
                 </xsl:map> 
             </xsl:map-entry>
-            <!-- <xsl:map-entry key="'alternate'">
+            <xsl:map-entry key="'alternate'">
+                <xsl:map>
+                    <xsl:map-entry key="'label'" select="'Alternate'"/>
+                    <xsl:map-entry key="'xpathPattern'">alternate</xsl:map-entry>
+                    <xsl:map-entry key="'cypherVar'" select="'alternate'"/>
+                    <xsl:map-entry key="'primaryKey'" select="'name'"/>
+                    <xsl:map-entry key="'jsonKeyForPK'" select="'ALTERNATE'"/>
+                    <xsl:map-entry key="'properties'">
+                    <xsl:map>
+                        <xsl:map-entry key="'minimum_occurrence'">MINOCCURS</xsl:map-entry>
+                        <xsl:map-entry key="'maximum_occurrence'">MAXOCCURS</xsl:map-entry>
+                        <xsl:map-entry key="'textnode'">TEXTNODE</xsl:map-entry>
+                    </xsl:map>
+                </xsl:map-entry>
+                <xsl:map-entry key="'children'">
+                    <xsl:sequence select="array{ 
+                        map { 
+                        'jsonChildrenKey' : 'CONTAINS_ALTERNATING_CONTENTS',
+                        'childEntityType' : 'alternate',
+                        'relationship' : 'ALTERNATING'
+                        },
+                        map { 
+                        'jsonChildrenKey' : 'CONTAINS_SEQUENTIAL_CONTENTS',
+                        'childEntityType' : 'sequence',
+                        'relationship' : 'SEQUENCE',
+                        'isSequence': true()
+                        }
                         
+                      (: still deal with these possible children of alternate:
+                      * classRef
+                      * elementRef
+                      * dataRef
+                      * valList
+                      * anyElement
+                      
+                      :)
                         
-                    </xsl:map-entry>-->
+                        }"/>
+                   
+                   
+                </xsl:map-entry>
+                        
+                        </xsl:map>
+          </xsl:map-entry>
+            
+            <!--  <xsl:template name="content">
+         <xsl:param name="content" as="element()"/>
+       
+        <xsl:variable name="contentIndicators" as="map(*)*" select="nf:attUnpacker($content/*/@*)"/>
+        <xsl:variable name="contentModelParts" as="map(*)*">
+            <xsl:for-each select="$content/*/*">
+                <xsl:variable name="cmpAtts" as="map(*)*" select="nf:attUnpacker(current()/@*)"/>      
+                <xsl:sequence select="map{ 
+                    current()/name() ! upper-case(.) : array {$cmpAtts}
+                    }"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:sequence select="map{
+            $content/* ! name() ! upper-case(.) : array {$contentIndicators},
+            (: ebb: make this an xsl:if: NOT ALL CONTENT MODELS HAVE DEEPER NESTING THAN JUST ONE ELEMENT :)
+            'CONTAINS' : array {$contentModelParts}  
+              
+            } "/>
+    </xsl:template> -->
         </xsl:map>
     </xsl:variable>
 

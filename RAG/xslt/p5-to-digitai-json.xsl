@@ -59,7 +59,7 @@
                 'GLOSSED_BY': array { nf:glossDescPuller($glosses)},
                 'DESCRIBED_BY': array{ nf:glossDescPuller($descs)},
                 'CONTENT_MODEL' : array { $contentModel },
-                'LISTS_ATTRIBUTES' : array { nf:attListPuller(current()/attList) },
+                'CONTAINS_ATTLIST' : array { nf:attListPuller(current()/attList) },
                 'CONSTRAINED_BY': array {nf:constraintPuller($constraints)},
                 'CONTAINS_EXAMPLES': array{ nf:exemplumPuller($exempla)},
                 'REMARKS_ON': array { nf:glossDescPuller($remarks) }
@@ -118,12 +118,16 @@
         <xsl:choose>
            <xsl:when test="$attList/attList">
                <xsl:sequence select="map{
+               'NAME': 'ATTLIST',
+               'ORGANIZED_AS' : $attList/@org !  normalize-space(),
                'DEFINES_ATTRIBUTES' : array{ $attDefMaps},
-               'LISTS_ATTRIBUTES' : array { nf:attListPuller($attList/attList) }   
+               'CONTAINS_ATTLIST' : array { nf:attListPuller($attList/attList) }   
                }"/>
            </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="map{
+                    'NAME': 'ATTLIST',
+                    'ORGANIZED_AS' : $attList/@org !  normalize-space(),
                     'DEFINES_ATTRIBUTES' : array{ $attDefMaps}
                     }"/>
             </xsl:otherwise>
@@ -229,25 +233,34 @@
         <xsl:param name="atts" as="attribute()*"/>
          <xsl:for-each select="$atts">
              <xsl:sequence select="map{
-                  current()/name() : current() ! normalize-space()
+                  current()/name() ! upper-case(.) : current() ! normalize-space()
                  }"/>
          </xsl:for-each>
     </xsl:function>
     
      <xsl:template name="content">
          <xsl:param name="content" as="element()"/>
-       
         <xsl:variable name="contentIndicators" as="map(*)*" select="nf:attUnpacker($content/*/@*)"/>
         <xsl:variable name="contentModelParts" as="map(*)*">
             <xsl:for-each select="$content/*/*">
                 <xsl:variable name="cmpAtts" as="map(*)*" select="nf:attUnpacker(current()/@*)"/>      
                 <xsl:sequence select="map{ 
-                    current()/name() : array {$cmpAtts}
+                    current()/name() ! upper-case(.) : array {$cmpAtts}
                     }"/>
             </xsl:for-each>
         </xsl:variable>
+         <xsl:map>
+             <xsl:map-entry key="$content/* ! name() ! upper-case(.)">
+                 <xsl:sequence select="array {$contentIndicators}"/>
+             </xsl:map-entry>
+             <xsl:if test="$content/*/*">
+                 <xsl:map-entry key="'CONTAINS'">
+                     <xsl:sequence select="array {$contentModelParts}"/>                 
+                 </xsl:map-entry>
+             </xsl:if>
+         </xsl:map>
         <xsl:sequence select="map{
-            $content/* ! name() : array {$contentIndicators},
+            $content/* ! name() ! upper-case(.) : array {$contentIndicators},
             (: ebb: make this an xsl:if: NOT ALL CONTENT MODELS HAVE DEEPER NESTING THAN JUST ONE ELEMENT :)
             'CONTAINS' : array {$contentModelParts}  
               
