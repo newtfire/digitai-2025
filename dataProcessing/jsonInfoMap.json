@@ -1,0 +1,158 @@
+{"DOC":{
+  
+  "SUPPORTING_INSTITUTION": {Check},DONE
+  "TEI_SOURCE_VERSION_NUMBER": {Check},DONE
+  "TEI_SOURCE_OUTPUT_DATE": {Check},DONE
+  "THIS_JSON_DATETIME": {Check},DONE
+  "DOCUMENT_TITLE": {}, DONE
+  "PREPARED_BY": {} DONE
+  }
+            
+		  DONE "CONTAINS_PARTS": {
+		    "SEQUENCE": {Check},DONE
+		    "CONTAINS_CHAPTERS": {Check},DONE
+		    "PART": {Check}DONE
+		    }
+		  
+
+		  DONE "CONTAINS_CHAPTERS": {
+		    "SEQUENCE": {check},DONE
+		    "CHAPTER": {Check},DONE
+		    "CONTAINS_SECTIONS": {LATER},
+		    "CONTAINS_PARAS": {LATER},
+		    "ID": {Check},DONE
+		    "RELATES_TO": {Check}DONE
+		  },
+		  
+		  "PARA":{
+		    "
+		  } 
+
+		  DONE "CHAPTER": {
+		    "SEQUENCE": {Check},DONE
+		    "CHAPTER": {Check},DONE
+		    "ID": {Check} ,DONE
+		    "RELATES_TO": {Check} DONE
+		  } 
+		  
+		  DONE "RELATES_TO": {
+		    "ID": {Check}DONE
+		  },
+
+		  DONE "CONTAINS_SECTIONS": {
+		    "SEQUENCE": {Check},DONE
+		    "SECTION": {Check},DONE
+		    "ID": {Check}DONE
+		  },
+
+		  DONE "SECTION": {
+		    "SEQUENCE": {Check},DONE
+		    "SECTION": {Check},DONE
+		    "ID": {Check},DONE 
+		    "CONTAINS_PARAS": {LATER},
+		    "ELEMENTS_MENTIONED": {LATER}
+		  },
+
+		  DONE "CONTAINS_PARAS": {
+		    "PARA": {Check},
+		    "SEQUENCE": {Check},
+		    "TEI_ENCODING_DISCUSSED": {Check},
+		  {
+		  
+      DONE "TEI_ENCODING_DISCUSSED": {
+        "ELEMENTS_MENTIONED": {Check},DONE
+        "ATTRIBUTES_MENTIONED": {Check},DONE
+        "CLASS": {Check},DONE
+        "EXAMPLES": {Check},DONE
+        "MODULE": {Check},DONE
+        "MACRO": {Check}, DONE
+        "GE": {Check},DONE
+        "PE": {},DONE
+      },
+      
+		  TEI_ENCODING_DISCUSSED -> "DESCRIBED_BY": {
+		    "DESC": {},
+		    "VERSION_DATE": {},
+		    "LANGUAGE": {}
+		  },
+
+		  TEI_ENCODING_DISCUSSED -> "CONTAINS_SPECGRPS": {
+		    "RELATES_TO": {},
+		    "SPECGRP_NAME": {},
+		    "SPECGRP_ID": {},
+		    "CONTAINS_SPECS": {}
+		  }, 
+		  
+		  {
+		    CONTAINS_SPECGRPS -> "CONTAINS_SPECS": {
+		      "PART_OF_MODULE": {},
+          "SPEC_NAME": {},
+          "MEMBER_OF_CLASS": {},
+          "SPEC_TYPE": {}
+          
+      ,}
+      
+      		  CONTAINS_SPECS -> "CONSTRAINED_BY": {
+		    "EQUIVALENT_NAME": {}
+		  },
+
+		  CONTAINS_SPECS -> "CONTENT_MODEL": {
+		    "classRef": {}, 
+		    "empty": {},
+		    "CONTAINS": {},
+		    "sequence": {},
+		    "alternate": {}
+		  },
+
+		  CONTAINS_SPECS -> CONTENT_MODEL -> "CONTAINS": {
+		    "classRef": {},
+		    "elementRef": {},
+		    "alternate": {},
+		    "sequence": {}
+		  },
+		  
+		  CONTAINS_SPECS -> "REMARKS_ON": {
+		    "REMARKS": {},
+		    "VERSION_DATE": {},
+		    "LANGUAGE": {},
+
+		  },
+        CONTAINS_SPECS -> "CONTAINS_EXAMPLES": {
+          "EXAMPLE": {},
+          "CONTAINS_PARAS": {},
+          "LANGUAGE": {}
+        },
+        
+        CONTAINS_SPECS -> "LISTS_ATTRIBUTES": {
+          "ATTRIBUTE_DEFINITION": {}
+        },
+
+		  LIST_ATTRIBUTES -> "DEFINES_ATTRIBUTES": {
+		    "CONSTRAINED_BY": {},
+		    "TAKES_DEFAULT_VALUE": {},
+		    "USAGE": {},
+		    "CONTAINS_EXAMPLES": {},
+		    "REMARKS_ON": {},
+		    "CONTAINS_VALUE_LIST": {},
+		    "GLOSSED_BY": {},      
+		    "ATTRIBUTE_DEFINITION": {},
+		    "TAKES_DATATYPE": {},
+		    "DESCRIBED_BY": {},
+		    "TAKES_DEFAULT_VALUE": {},
+		  },
+        
+		  
+		  LISTS_ATTRIBUTES -> DEFINES_ATTRIBUTES -> "TAKES_DATATYPE": {
+          "DATATYPE": {},
+          "DATATYPE_DESCRIBED_BY": {}
+        },
+        
+        LISTS_ATTRIBUTES -> DEFINES_ATTRIBUTES -> "CONTAINS_VALUE_LIST": {
+          "VALUE_OPTIONS": {},
+          "VAL_LIST_TYPE": {}
+        },
+        
+        LISTS_ATTRIBUTES -> DEFINES_ATTRIBUTES -> "ATTRIBUTE_DEFINITION": {
+          },
+		  
+		}

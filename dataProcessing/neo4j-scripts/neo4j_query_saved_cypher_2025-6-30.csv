@@ -1,0 +1,613 @@
+name,description,query,id,parentId,isFolder
+Nodes,,,0,,true
+Document,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+// Create Document Node
+MERGE (doc:Document {
+    title: json_data.DOCUMENT_TITLE,
+    preparedBy: json_data.PREPARED_BY,
+    teiSourceVersion: json_data.TEI_SOURCE_VERSION_NUMBER,
+    teiSourceOutputDate: json_data.TEI_SOURCE_OUTPUT_DATE,
+    thisJsonDatetime: json_data.THIS_JSON_DATETIME
+})
+
+RETURN doc",1,0,false
+Part,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  MERGE (part:Part {name: part_data.PART})
+
+RETURN DISTINCT part",2,0,false
+Chapter,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  MERGE (chapter:Chapter {chapter: chapter_data.CHAPTER})
+      ON CREATE SET
+          chapter.ID = chapter_data.ID,
+          chapter.containsSpecs = apoc.convert.toJson(chapter_data.CONTAINS_SPECS),
+          chapter.relatesTo = CASE
+                                  WHEN chapter_data.RELATES_TO IS NOT NULL AND size(chapter_data.RELATES_TO) > 0
+                                  THEN REDUCE(ids = [], rel IN chapter_data.RELATES_TO | ids + rel.ID)
+                                  ELSE []
+                              END,
+          chapter.containsCitation = apoc.convert.toJson(chapter_data.CONTAINS_CITATION),
+          chapter.containsModule = apoc.convert.toJson(chapter_data.CONTAINS_MODULE)
+      ON MATCH SET
+          chapter.chapter = chapter_data.CHAPTER,
+          chapter.containsSpecs = apoc.convert.toJson(chapter_data.CONTAINS_SPECS),
+          chapter.relatesTo = CASE
+                                  WHEN chapter_data.RELATES_TO IS NOT NULL AND size(chapter_data.RELATES_TO) > 0
+                                  THEN REDUCE(ids = [], rel IN chapter_data.RELATES_TO | ids + rel.ID)
+                                  ELSE []
+                              END,
+          chapter.containsCitation = apoc.convert.toJson(chapter_data.CONTAINS_CITATION),
+          chapter.containsModule = apoc.convert.toJson(chapter_data.CONTAINS_MODULE)
+
+RETURN chapter",3,0,false
+DESTROY EVERYTHING,,MATCH (n) DETACH DELETE n,4,5,false
+DELETE Chapter,,MATCH (chapter) DETACH DELETE chapter,6,5,false
+DELETE,,,5,,true
+DELETE Part,,MATCH (part) DETACH DELETE part,7,5,false
+DELETE Document,,MATCH (doc) DETACH DELETE doc,8,5,false
+Chapter Paragraph,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+
+UNWIND CASE WHEN chapter_data.CONTAINS_PARAS IS NOT NULL THEN chapter_data.CONTAINS_PARAS ELSE [] END AS chapter_para
+
+CREATE (para:Paragraph {
+    text: chapter_para.PARA,
+    paraStringLength: chapter_para.`Para-String-Length`
+})
+SET
+
+    para.Elements = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN chapter_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN chapter_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END
+        )
+    )),
+    
+    para.Attributes = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN chapter_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN chapter_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END
+        )
+    )),
+    
+    para.Classes = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN chapter_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN chapter_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END
+        )
+    )),
+    
+    para.Examples = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN chapter_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN chapter_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END
+        )
+    )),
+    
+    para.Modules = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN chapter_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN chapter_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END
+        )
+    )),
+    
+    para.Macros = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN chapter_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN chapter_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END
+        )
+    )),
+    
+    para.GeneralEntities = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN chapter_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN chapter_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END
+        )
+    ))
+
+RETURN para",9,0,false
+DELETE Paragraph,,MATCH (para) DETACH DELETE para,10,5,false
+DELETE Section,,MATCH (section) DETACH DELETE section,11,5,false
+DELETE Subsection,,MATCH (subsection) DETACH DELETE subsection,12,5,false
+Section,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+  // Use section_data.NAME for the Section node property and also set a 'name' property for display
+  MERGE (section:Section {name: section_data.NAME})
+    ON CREATE SET
+          section.ID = section_data.ID,
+          section.ContainsSpecs = apoc.convert.toJson(section_data.CONTAINS_SPECS),
+          section.ContainsSpecGrps = apoc.convert.toJson(section_data.CONTAINS_SPECGRPS),
+          section.RelatesTo = CASE
+                                  WHEN section_data.RELATES_TO IS NOT NULL AND size(section_data.RELATES_TO) > 0
+                                  THEN REDUCE(ids = [], rel IN section_data.RELATES_TO | ids + rel.ID)
+                                  ELSE []
+                              END,
+          section.ContainsCitation = apoc.convert.toJson(section_data.CONTAINS_CITATION),
+          section.ContainsModule = apoc.convert.toJson(section_data.CONTAINS_MODULE)
+    ON MATCH SET
+          // Update the Section and name properties with section_data.NAME on match as well
+// Update 'name' property on match
+          section.ContainsSpecs = apoc.convert.toJson(section_data.CONTAINS_SPECS),
+          section.ContainsSpecGrps = apoc.convert.toJson(section_data.CONTAINS_SPECGRPS),
+          section.RelatesTo = CASE
+                                  WHEN section_data.RELATES_TO IS NOT NULL AND size(section_data.RELATES_TO) > 0
+                                  THEN REDUCE(ids = [], rel IN section_data.RELATES_TO | ids + rel.ID)
+                                  ELSE []
+                              END,
+          section.ContainsCitation = apoc.convert.toJson(section_data.CONTAINS_CITATION),
+          section.ContainsModule = apoc.convert.toJson(section_data.CONTAINS_MODULE)
+
+RETURN section",13,0,false
+Section Paragraph,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+
+UNWIND CASE WHEN section_data.CONTAINS_PARAS IS NOT NULL THEN section_data.CONTAINS_PARAS ELSE [] END AS section_para
+
+CREATE (para:Paragraph {
+    text: section_para.PARA,
+    paraStringLength: section_para.`Para-String-Length`
+})
+SET
+
+    para.Elements = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN section_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN section_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END
+        )
+    )),
+    
+    para.Attributes = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN section_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN section_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END
+        )
+    )),
+    
+    para.Classes = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN section_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN section_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END
+        )
+    )),
+    
+    para.Examples = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN section_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN section_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END
+        )
+    )),
+    
+    para.Modules = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN section_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN section_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END
+        )
+    )),
+    
+    para.Macros = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN section_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN section_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END
+        )
+    )),
+    
+    para.GeneralEntities = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN section_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN section_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END
+        )
+    ))
+
+RETURN para",14,0,false
+Subsection,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+  UNWIND section_data.CONTAINS_SUBSECTION AS subsection_data
+
+  MERGE (subsection:Subsection {name: subsection_data.NAME})
+    ON CREATE SET
+          subsection.ID = subsection_data.ID,
+          subsection.ContainsSpecs = apoc.convert.toJson(subsection_data.CONTAINS_SPECS),
+          subsection.ContainsSpecGrps = apoc.convert.toJson(subsection_data.CONTAINS_SPECGRPS),
+          subsection.RelatesTo = CASE
+                                  WHEN subsection_data.RELATES_TO IS NOT NULL AND size(subsection_data.RELATES_TO) > 0
+                                  THEN REDUCE(ids = [], rel IN subsection_data.RELATES_TO | ids + rel.ID)
+                                  ELSE []
+                              END,
+          subsection.ContainsCitation = apoc.convert.toJson(subsection_data.CONTAINS_CITATION),
+          subsection.ContainsModule = apoc.convert.toJson(subsection_data.CONTAINS_MODULE)
+    ON MATCH SET
+          subsection.ContainsSpecs = apoc.convert.toJson(subsection_data.CONTAINS_SPECS),
+          subsection.ContainsSpecGrps = apoc.convert.toJson(subsection_data.CONTAINS_SPECGRPS),
+          subsection.RelatesTo = CASE
+                                  WHEN subsection_data.RELATES_TO IS NOT NULL AND size(subsection_data.RELATES_TO) > 0
+                                  THEN REDUCE(ids = [], rel IN subsection_data.RELATES_TO | ids + rel.ID)
+                                  ELSE []
+                              END,
+          subsection.ContainsCitation = apoc.convert.toJson(subsection_data.CONTAINS_CITATION),
+          subsection.ContainsModule = apoc.convert.toJson(subsection_data.CONTAINS_MODULE)
+
+RETURN subsection",15,0,false
+Subsection Paragraph,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+  UNWIND section_data.CONTAINS_SUBSECTION AS subsection_data
+
+UNWIND CASE WHEN subsection_data.CONTAINS_PARAS IS NOT NULL THEN subsection_data.CONTAINS_PARAS ELSE [] END AS subsection_para
+
+CREATE (para:Paragraph {
+    text: subsection_para.PARA,
+    paraStringLength: subsection_para.`Para-String-Length`
+})
+SET
+
+    para.Elements = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END
+        )
+    )),
+    
+    para.Attributes = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END
+        )
+    )),
+    
+    para.Classes = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END
+        )
+    )),
+    
+    para.Examples = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END
+        )
+    )),
+    
+    para.Modules = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END
+        )
+    )),
+    
+    para.Macros = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END
+        )
+    )),
+    
+    para.GeneralEntities = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END
+        )
+    ))
+
+RETURN para",16,0,false
+NestedSubsection,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+  UNWIND section_data.CONTAINS_SUBSECTION AS subsection_data
+  UNWIND subsection_data.CONTAINS_NESTED_SUBSECTION AS nested_subsection_data
+
+  MERGE (nestedSubsection:NestedSubsection {name: nested_subsection_data.NAME})
+    ON CREATE SET
+          nestedSubsection.ID = nested_subsection_data.ID,
+          nestedSubsection.ContainsSpecs = apoc.convert.toJson(nested_subsection_data.CONTAINS_SPECS),
+          nestedSubsection.ContainsSpecGrps = apoc.convert.toJson(nested_subsection_data.CONTAINS_SPECGRPS),
+          nestedSubsection.RelatesTo = CASE
+                                  WHEN nested_subsection_data.RELATES_TO IS NOT NULL AND size(nested_subsection_data.RELATES_TO) > 0
+                                  THEN REDUCE(ids = [], rel IN nested_subsection_data.RELATES_TO | ids + rel.ID)
+                                  ELSE []
+                              END,
+          nestedSubsection.ContainsCitation = apoc.convert.toJson(nested_subsection_data.CONTAINS_CITATION),
+          nestedSubsection.ContainsModule = apoc.convert.toJson(nested_subsection_data.CONTAINS_MODULE)
+    ON MATCH SET
+          nestedSubsection.ContainsSpecs = apoc.convert.toJson(nested_subsection_data.CONTAINS_SPECS),
+          nestedSubsection.ContainsSpecGrps = apoc.convert.toJson(nested_subsection_data.CONTAINS_SPECGRPS),
+          nestedSubsection.RelatesTo = CASE
+                                  WHEN nested_subsection_data.RELATES_TO IS NOT NULL AND size(nested_subsection_data.RELATES_TO) > 0
+                                  THEN REDUCE(ids = [], rel IN nested_subsection_data.RELATES_TO | ids + rel.ID)
+                                  ELSE []
+                              END,
+          nestedSubsection.ContainsCitation = apoc.convert.toJson(nested_subsection_data.CONTAINS_CITATION),
+          nestedSubsection.ContainsModule = apoc.convert.toJson(nested_subsection_data.CONTAINS_MODULE)
+
+RETURN nestedSubsection",17,0,false
+NestedSubsection Paragraph,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+  UNWIND section_data.CONTAINS_SUBSECTION AS nested_subsection_data
+  UNWIND nested_subsection_data.CONTAINS_NESTED_SUBSECTION AS nested_nested_subsection_data
+
+UNWIND CASE WHEN nested_subsection_data.CONTAINS_PARAS IS NOT NULL THEN nested_subsection_data.CONTAINS_PARAS ELSE [] END AS nested_subsection_para
+
+CREATE (para:Paragraph {
+    text: nested_subsection_para.PARA,
+    paraStringLength: nested_subsection_para.`Para-String-Length`
+})
+SET
+
+    para.Elements = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN nested_subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN nested_subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.`ELEMENTS MENTIONED` IS NOT NULL THEN mention.`ELEMENTS MENTIONED` ELSE [] END
+        )
+    )),
+    
+    para.Attributes = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN nested_subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN nested_subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.`ATTRIBUTES MENTIONED` IS NOT NULL THEN mention.`ATTRIBUTES MENTIONED` ELSE [] END
+        )
+    )),
+    
+    para.Classes = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN nested_subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN nested_subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.CLASS IS NOT NULL THEN mention.CLASS ELSE [] END
+        )
+    )),
+    
+    para.Examples = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN nested_subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN nested_subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.EXAMPLES IS NOT NULL THEN mention.EXAMPLES ELSE [] END
+        )
+    )),
+    
+    para.Modules = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN nested_subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN nested_subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.MODULE IS NOT NULL THEN mention.MODULE ELSE [] END
+        )
+    )),
+    
+    para.Macros = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN nested_subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN nested_subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.MACRO IS NOT NULL THEN mention.MACRO ELSE [] END
+        )
+    )),
+    
+    para.GeneralEntities = apoc.coll.toSet(apoc.coll.flatten(
+        REDUCE(acc = [], mention IN CASE WHEN nested_subsection_para.TEI_ENCODING_DISCUSSED IS NOT NULL THEN nested_subsection_para.TEI_ENCODING_DISCUSSED ELSE [] END |
+            acc + CASE WHEN mention.GE IS NOT NULL THEN mention.GE ELSE [] END
+        )
+    ))
+
+RETURN para",18,0,false
+Section SpecGrp,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+
+UNWIND CASE WHEN section_data.CONTAINS_SPECGRPS IS NOT NULL THEN section_data.CONTAINS_SPECGRPS ELSE [] END AS section_specgrp
+
+WITH section_specgrp // Pass the unwound data to the next step
+WHERE section_specgrp.SPECGRP_ID IS NOT NULL // Apply the filter here
+
+MERGE (specGrp:SpecGrp {
+    ID: section_specgrp.SPECGRP_ID
+})
+ON CREATE SET
+          specGrp.Name = section_specgrp.SPECGRP_NAME,
+          specGrp.ContainsSpecs = apoc.convert.toJson(section_specgrp.CONTAINS_SPECS),
+          specGrp.RelatesTo = CASE
+                                    WHEN section_specgrp.RELATES_TO IS NOT NULL AND size(section_specgrp.RELATES_TO) > 0
+                                    THEN REDUCE(ids = [], rel_item IN section_specgrp.RELATES_TO | ids + rel_item[0].ID)
+                                    ELSE []
+                                END
+ON MATCH SET
+          specGrp.ContainsSpecs = apoc.convert.toJson(section_specgrp.CONTAINS_SPECS),
+          specGrp.RelatesTo = CASE
+                                    WHEN section_specgrp.RELATES_TO IS NOT NULL AND size(section_specgrp.RELATES_TO) > 0
+                                    THEN REDUCE(ids = [], rel_item IN section_specgrp.RELATES_TO | ids + rel_item[0].ID)
+                                    ELSE []
+                                END
+RETURN specGrp",19,0,false
+DELETE NestedSubsection,,MATCH (nestedSubsection) DETACH DELETE nestedSubsection,20,5,false
+Subsection SpecGrp,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+  // Add an UNWIND for CONTAINS_SUBSECTION
+  UNWIND CASE WHEN section_data.CONTAINS_SUBSECTION IS NOT NULL THEN section_data.CONTAINS_SUBSECTION ELSE [] END AS subsection_data
+
+// Now, correctly unwind CONTAINS_SPECGRPS from the subsection_data
+UNWIND CASE WHEN subsection_data.CONTAINS_SPECGRPS IS NOT NULL THEN subsection_data.CONTAINS_SPECGRPS ELSE [] END AS subsection_specgrp
+
+WITH subsection_specgrp // Pass the unwound data to the next step
+WHERE subsection_specgrp.SPECGRP_ID IS NOT NULL // Apply the filter here
+
+MERGE (specGrp:SpecGrp {
+    ID: subsection_specgrp.SPECGRP_ID
+})
+ON CREATE SET
+           specGrp.Name = subsection_specgrp.SPECGRP_NAME,
+           specGrp.ContainsSpecs = apoc.convert.toJson(subsection_specgrp.CONTAINS_SPECS),
+           specGrp.RelatesTo = CASE
+                                   WHEN subsection_specgrp.RELATES_TO IS NOT NULL AND size(subsection_specgrp.RELATES_TO) > 0
+                                   THEN REDUCE(ids = [], rel_item IN subsection_specgrp.RELATES_TO | ids + rel_item[0].ID)
+                                   ELSE []
+                               END
+ON MATCH SET
+           specGrp.ContainsSpecs = apoc.convert.toJson(subsection_specgrp.CONTAINS_SPECS),
+           specGrp.RelatesTo = CASE
+                                   WHEN subsection_specgrp.RELATES_TO IS NOT NULL AND size(subsection_specgrp.RELATES_TO) > 0
+                                   THEN REDUCE(ids = [], rel_item IN subsection_specgrp.RELATES_TO | ids + rel_item[0].ID)
+                                   ELSE []
+                               END
+RETURN specGrp",21,0,false
+NestedSubsection SpecGrp,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+  // Add an UNWIND for CONTAINS_SUBSECTION
+  UNWIND CASE WHEN section_data.CONTAINS_SUBSECTION IS NOT NULL THEN section_data.CONTAINS_SUBSECTION ELSE [] END AS subsection_data
+
+  UNWIND CASE WHEN subsection_data.CONTAINS_NESTED_SUBSECTION IS NOT NULL THEN subsection_data.CONTAINS_NESTED_SUBSECTION ELSE [] END AS nested_subsection_data
+
+// Now, correctly unwind CONTAINS_SPECGRPS from the nested_subsection_data
+UNWIND CASE WHEN nested_subsection_data.CONTAINS_SPECGRPS IS NOT NULL THEN nested_subsection_data.CONTAINS_SPECGRPS ELSE [] END AS nested_subsection_specgrp
+
+WITH nested_subsection_specgrp // Pass the unwound data to the next step
+WHERE nested_subsection_specgrp.SPECGRP_ID IS NOT NULL // Apply the filter here
+
+MERGE (specGrp:SpecGrp {
+    ID: nested_subsection_specgrp.SPECGRP_ID
+})
+ON CREATE SET
+           specGrp.Name = nested_subsection_specgrp.SPECGRP_NAME,
+           specGrp.ContainsSpecs = apoc.convert.toJson(nested_subsection_specgrp.CONTAINS_SPECS),
+           specGrp.RelatesTo = CASE
+                                   WHEN nested_subsection_specgrp.RELATES_TO IS NOT NULL AND size(nested_subsection_specgrp.RELATES_TO) > 0
+                                   THEN REDUCE(ids = [], rel_item IN nested_subsection_specgrp.RELATES_TO | ids + rel_item[0].ID)
+                                   ELSE []
+                               END
+ON MATCH SET
+           specGrp.ContainsSpecs = apoc.convert.toJson(nested_subsection_specgrp.CONTAINS_SPECS),
+           specGrp.RelatesTo = CASE
+                                   WHEN nested_subsection_specgrp.RELATES_TO IS NOT NULL AND size(nested_subsection_specgrp.RELATES_TO) > 0
+                                   THEN REDUCE(ids = [], rel_item IN nested_subsection_specgrp.RELATES_TO | ids + rel_item[0].ID)
+                                   ELSE []
+                               END
+RETURN specGrp",22,0,false
+NestedSubsection2 SpecGrp,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+WITH json_data
+  UNWIND json_data.CONTAINS_PARTS AS part_data
+  UNWIND part_data.CONTAINS_CHAPTERS AS chapter_data
+  UNWIND chapter_data.CONTAINS_SECTIONS AS section_data
+  // Add an UNWIND for CONTAINS_SUBSECTION
+  UNWIND CASE WHEN section_data.CONTAINS_SUBSECTION IS NOT NULL THEN section_data.CONTAINS_SUBSECTION ELSE [] END AS subsection_data
+
+  UNWIND CASE WHEN subsection_data.CONTAINS_NESTED_SUBSECTION IS NOT NULL THEN subsection_data.CONTAINS_NESTED_SUBSECTION ELSE [] END AS nested_subsection_data
+
+  UNWIND CASE WHEN nested_subsection_data.CONTAINS_NESTED_SUBSECTION IS NOT NULL THEN nested_subsection_data.CONTAINS_NESTED_SUBSECTION ELSE [] END AS nested_subsection_data_2
+
+// Now, correctly unwind CONTAINS_SPECGRPS from the nested_subsection_data
+UNWIND CASE WHEN nested_subsection_data_2.CONTAINS_SPECGRPS IS NOT NULL THEN nested_subsection_data_2.CONTAINS_SPECGRPS ELSE [] END AS nested_subsection_specgrp_2
+
+WITH nested_subsection_specgrp_2 // Pass the unwound data to the next step
+WHERE nested_subsection_specgrp_2.SPECGRP_ID IS NOT NULL // Apply the filter here
+
+MERGE (specGrp:SpecGrp {
+    ID: nested_subsection_specgrp_2.SPECGRP_ID
+})
+ON CREATE SET
+           specGrp.Name = nested_subsection_specgrp_2.SPECGRP_NAME,
+           specGrp.ContainsSpecs = apoc.convert.toJson(nested_subsection_specgrp_2.CONTAINS_SPECS),
+           specGrp.RelatesTo = CASE
+                                   WHEN nested_subsection_specgrp_2.RELATES_TO IS NOT NULL AND size(nested_subsection_specgrp_2.RELATES_TO) > 0
+                                   THEN REDUCE(ids = [], rel_item IN nested_subsection_specgrp_2.RELATES_TO | ids + rel_item[0].ID)
+                                   ELSE []
+                               END
+ON MATCH SET
+           specGrp.ContainsSpecs = apoc.convert.toJson(nested_subsection_specgrp_2.CONTAINS_SPECS),
+           specGrp.RelatesTo = CASE
+                                   WHEN nested_subsection_specgrp_2.RELATES_TO IS NOT NULL AND size(nested_subsection_specgrp_2.RELATES_TO) > 0
+                                   THEN REDUCE(ids = [], rel_item IN nested_subsection_specgrp_2.RELATES_TO | ids + rel_item[0].ID)
+                                   ELSE []
+                               END
+RETURN specGrp",23,0,false
+DELETE SpecGrp,,MATCH (specGrp) DETACH DELETE specGrp,24,5,false
+Relationships,,,25,,true
+Doc-Part-Chapter,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+// Create Document Node
+MERGE (doc:Document {
+    title: json_data.DOCUMENT_TITLE,
+    preparedBy: json_data.PREPARED_BY,
+    teiSourceVersion: json_data.TEI_SOURCE_VERSION_NUMBER,
+    teiSourceOutputDate: json_data.TEI_SOURCE_OUTPUT_DATE,
+    thisJsonDatetime: json_data.THIS_JSON_DATETIME
+})
+
+// Iterate through CONTAINS_PARTS to create Part nodes and CONTAINS_PART relationship
+FOREACH (part_data IN json_data.CONTAINS_PARTS |
+    MERGE (part:Part {name: part_data.PART})
+    MERGE (doc)-[:CONTAINS_PART]->(part)
+
+    // Iterate through CONTAINS_CHAPTERS to create Chapter nodes and CONTAINS_CHAPTER relationship
+    FOREACH (chapter_data IN part_data.CONTAINS_CHAPTERS |
+        MERGE (chapter:Chapter {id: chapter_data.ID})
+        ON CREATE SET
+            chapter.chapter = chapter_data.CHAPTER,
+            chapter.containsSpecs = apoc.convert.toJson(chapter_data.CONTAINS_SPECS),
+            chapter.relatesTo = CASE
+                                    WHEN chapter_data.RELATES_TO IS NOT NULL AND size(chapter_data.RELATES_TO) > 0
+                                    THEN REDUCE(ids = [], rel IN chapter_data.RELATES_TO | ids + rel.ID)
+                                    ELSE []
+                                END,
+            chapter.containsCitation = apoc.convert.toJson(chapter_data.CONTAINS_CITATION),
+            chapter.containsModule = apoc.convert.toJson(chapter_data.CONTAINS_MODULE)
+        ON MATCH SET
+            chapter.chapter = chapter_data.CHAPTER,
+            chapter.containsSpecs = apoc.convert.toJson(chapter_data.CONTAINS_SPECS),
+            chapter.relatesTo = CASE
+                                    WHEN chapter_data.RELATES_TO IS NOT NULL AND size(chapter_data.RELATES_TO) > 0
+                                    THEN REDUCE(ids = [], rel IN chapter_data.RELATES_TO | ids + rel.ID)
+                                    ELSE []
+                                END,
+            chapter.containsCitation = apoc.convert.toJson(chapter_data.CONTAINS_CITATION),
+            chapter.containsModule = apoc.convert.toJson(chapter_data.CONTAINS_MODULE)
+        MERGE (part)-[:CONTAINS_CHAPTER]->(chapter)
+    )
+)",26,25,false
+Doc->Part,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+// Create Document Node
+MERGE (doc:Document {
+    title: json_data.DOCUMENT_TITLE,
+    preparedBy: json_data.PREPARED_BY,
+    teiSourceVersion: json_data.TEI_SOURCE_VERSION_NUMBER,
+    teiSourceOutputDate: json_data.TEI_SOURCE_OUTPUT_DATE,
+    thisJsonDatetime: json_data.THIS_JSON_DATETIME
+})
+
+// Iterate through CONTAINS_PARTS to create Part nodes and CONTAINS_PART relationship
+FOREACH (part_data IN json_data.CONTAINS_PARTS |
+    MERGE (part:Part {name: part_data.PART})
+    MERGE (doc)-[:CONTAINS_PART]->(part))",27,25,false
+Part->Chapter,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+
+// Iterate through CONTAINS_PARTS to create Part nodes and CONTAINS_PART relationship
+FOREACH (part_data IN json_data.CONTAINS_PARTS |
+    MERGE (part:Part {name: part_data.PART})
+
+    // Iterate through CONTAINS_CHAPTERS to create Chapter nodes and CONTAINS_CHAPTER relationship
+    FOREACH (chapter_data IN part_data.CONTAINS_CHAPTERS |
+        MERGE (chapter:Chapter {chapter: chapter_data.CHAPTER})
+ 
+        MERGE (part)-[:CONTAINS_CHAPTER]->(chapter)
+    )
+)",28,25,false
+Chapter->Para,,"CALL apoc.load.json(""file:///digitai-p5.json"") YIELD value AS json_data
+UNWIND json_data.CONTAINS_PARTS AS part_data
+
+FOREACH (chapter_data IN part_data.CONTAINS_CHAPTERS |
+        MERGE (chapter:Chapter {chapter: chapter_data.CHAPTER})
+
+    FOREACH (chapter_data IN chapter_data.CONTAINS_PARAS |
+        MERGE (para:Paragraph {para: chapter_data.PARA})
+ 
+        MERGE (chapter)-[:CONTAINS_PARA]->(para)
+    )
+)",29,25,false

@@ -1,0 +1,37 @@
+ CALL apoc.load.json("file:///sandboxTest.json") YIELD value AS json_data
+             <!-- Create the document node -->
+            MERGE (doc:Document {
+                title: json_data.DOC_TITLE
+                })
+          // Iterate through CONTAINS_PARTS to create Part nodes      
+             FOREACH (part_data IN json_data.CONTAINS_PARTS |
+                MERGE (part:Part {name: data.PART)
+                MERGE (doc)-[:CONTAINS_PART]->(part)
+           
+           // Iterate through the CONTAINS_CHAPTERS array to create Chapter nodes 
+            FOREACH (chapter_data IN json_data.CONTAINS_CHAPTERS |
+                MERGE (chapter:Chapter {id: chapter_data.ID})
+                ON CREATE SET
+                    chapter.chapter = chapter_data.CHAPTER,
+                    chapter.containsSpecGrps = apoc.convert.toJson(chapter_data.CONTAINS_SPECGRP),
+                    chapter.containsSpecLists = apoc.convert.toJson(chapter_data.CONTAINS_SPECLIST)
+             MERGE (part)-[:CONTAINS_CHAPTER]->(chapter)
+             FOREACH (para_data IN chapter_data.CONTAINS_PARAS |
+                CREATE (para:PARA {
+                    text: para_data.PARASTRING
+                 FOREACH (specgrp_data IN json_data.CONTAINS_SPECGRP |
+                    MERGE (specGrp:Specgrp {spec: specgrp_data.SPEC})
+                    ON CREATE SET
+                       spec.content = specgrp_data.CONTENT,
+                       spec.paras = apoc.convert.toJson(specgrp_data.CONTAINS_PARAS)
+             
+                         
+                 )
+                 }
+                 )    
+                    
+             MERGE (chapter)-[:CONTAINS_PARA]->(para)
+             
+                    
+                    
+                    
