@@ -73,6 +73,10 @@ All settings are controlled in `digitaiCore/config.yaml`. This file lets you man
 
 ## 🧪 How to Run the Pipeline
 
+The pipeline we have constructed should build the vector embeddings that the AI LLM needs to run and to query the RAG system. 
+If you are building this on a local computer, the following steps should run the pipeline to build what you need. Be sure that you 
+are running Python 3.13.
+
 ### Export Nodes from Neo4j
 
 ```bash
@@ -85,7 +89,7 @@ python digitaiCore/neo4j_exporter.py
 python digitaiCore/embed_bge_m3.py
 ```
 
-> Output: `data/p5/neo4jNodeEmbeddings.jsonl` (and FAISS index if configured)
+> Output: `data/p5/p5Embeddings.jsonl` (and FAISS index if configured)
 
 ### Run RAG query *(Currently in beta)*
 
