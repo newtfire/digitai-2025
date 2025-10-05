@@ -1,7 +1,7 @@
 Metadata-Version: 2.4
 Name: digitai-core
-Version: 0.1.0
-Summary: DigitAI Core AI Fine-tuning Framework
+Version: 0.2.0b1
+Summary: DigitAI Core: A TEI-aware RAG system using Neo4j, FAISS, and BGE-M3 to assist scholars in applying the TEI Guidelines.
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE
@@ -16,10 +16,9 @@ Requires-Dist: scikit-learn~=1.7.0
 Dynamic: license-file
 Dynamic: requires-python
 
-# 🧠 DigitAI: A Localized RAG Framework for Archival Data
+# 🧠 DigitAI: A TEI-Aware AI Tutor for XML Encoding
 
-DigitAI is a research-driven pipeline designed to perform retrieval-augmented generation (RAG) over highly structured XML-derived corpora (e.g., the P5 Build). It uses a hybrid of graph-based and vector-based retrieval to power accurate local language models for digital humanities and archival work.
-
+DigitAI is a local RAG (Retrieval-Augmented Generation) system built to help students, archivists, and researchers understand and encode TEI documents. It uses a mix of vector search and graph structure to give helpful, grounded answers without needing the cloud.
 ---
 
 ## 🚀 Features
@@ -27,7 +26,6 @@ DigitAI is a research-driven pipeline designed to perform retrieval-augmented ge
 - 🔎 **Hybrid Retrieval**: Combines semantic embeddings (FAISS + BGE-M3) with graph-based lookup (Neo4j)
 - 🧠 **Local LLM-Compatible**: Designed to integrate with local models like Mistral or LLaMA via Ollama
 - ⚙️ **Configurable Pipeline**: Driven by `digitaiCore/config.yaml` for easy control over indexing, logging, and Neo4j settings
-- 📄 **XSLT-Compatible**: Works with JSON output from an XSLT transformation of XML documents (e.g., TEI-based corpora)
 - 🧪 **Research-Ready**: Supports embedding visualization, document analysis, and RAG-based exploration
 
 ---
@@ -74,47 +72,20 @@ source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 pip install -e .
 ```
 
-### 4. Install Dev Tools (Optional but Recommended)
 
-```bash
-pip install -r dev-requirements.txt
-```
 
 ---
 
 ## 🔧 Configuration
 
-All settings are controlled via `digitaiCore/config.yaml`. Here’s an example:
+All settings are controlled in `digitaiCore/config.yaml`. This file lets you manage global options like file paths, logging, Neo4j connection details, and model settings. If you want to change where outputs go, adjust which model is used, or tweak how embeddings run, this is the place to do it.
 
-```yaml
-dataPaths:
-  outputFile: "data/p5/neo4jNodeEmbeddings.jsonl"
+> 🛑 **Reminder:** Never commit passwords. Use a `.env` file or local override if needed.
 
-neo4j:
-  uri: "bolt://localhost:7687"
-  user: "neo4j"
-  password: "d1g1tAI!"
-  cypher: "MATCH (n) WHERE n.text IS NOT NULL RETURN n.text AS text, id(n) AS node_id"
-
-embedding:
-  model: "BAAI/bge-m3"
-  batch_size: 32
-  normalize: true
-  throttle: 0.1
-
-vectorIndex:
-  dimension: 1024
-
-logging:
-  enabled: true
-  file: "data/embedding.log"
-  level: "INFO"
-  format: "%(asctime)s - %(levelname)s - %(message)s"
-```
 
 ---
 
-## 🧠 Usage
+## 🧪 How to Run the Pipeline
 
 ### Export Nodes from Neo4j
 
@@ -130,68 +101,66 @@ python digitaiCore/embed_bge_m3.py
 
 > Output: `data/p5/neo4jNodeEmbeddings.jsonl` (and FAISS index if configured)
 
-### (Coming Soon) Run Full RAG Retrieval
+### Run RAG query *(Currently in beta)*
 
 ```bash
 python digitaiCore/rag_pipeline.py
 ```
+>This grabs the most relevant TEI content using both semantic similarity and structural relationships, builds a custom context window, and sends it to your local LLM to answer or explain.
 
 ---
 
-## 🧪 Dev Tools (Optional)
+## 🧠 What You Can Use It For
 
-To maintain clean and stable code, install and use:
-
-| Tool     | Purpose                      |
-|----------|------------------------------|
-| `black`  | Auto-formatting               |
-| `flake8` | Linting / syntax issues       |
-| `pytest` | Testing framework             |
-| `mypy`   | Type checking (if typed)      |
-
-Install them via:
-
-```bash
-pip install -r dev-requirements.txt
-```
+- ✍️ **Ask for Markup Help** — Get suggestions for how to encode specific TEI structures  
+- 🛠️ **Debug Your Encoding** — Review or compare your TEI markup against the official specs *(coming soon)*  
+- 🎓 **Learn TEI** — Ask questions and get clear, simple explanations using real schema content  
 
 ---
 
-## 🔮 Future Additions
+## 🔮 What’s Next?
 
-- [ ] Unified `rag_pipeline.py` combining FAISS + Neo4j search
-- [ ] FAISS index visualizer with Cytoscape-exported edge data
-- [ ] Optional local LLM prompt interface (via Ollama or LM Studio)
-- [ ] Dockerfile for containerized deployments
-- [ ] Jupyter notebooks for exploratory search + visualization
-
+- 🎯 **Fine-Tuning Prep** — Begin curating examples and formatting data for instruction tuning  
+- 🧪 **RAG Evaluation** — Test output accuracy and context relevance using real-world queries  
+- 🛠️ **Interface Refinement** — Improve prompt formatting, response handling, and context window logic  
+- 🧱 **Local.yaml Overrides** — Add clean support for optional secrets/config overrides  
+- 📦 **(Optional) Docker Packaging** — Package for easier setup across devices, if needed
 ---
 
 ## 🛠 Current Maintainers & Contributors
 
-### **Alexander C. Fisher** — *Student Researcher, Project Initiator & Pipeline Developer*  
-Digital Media, Arts, and Technology  
-Penn State Behrend  
-GitHub: [@afish2003](https://github.com/afish2003)  
-**Role:** Initiated the DigitAI project and leads the development of its retrieval-augmented pipeline. Responsible for system architecture, configuration design, embedding integration (BGE-M3), FAISS indexing, and Neo4j orchestration. Collaborates with Hadleigh Bills to align retrieval mechanics with the underlying data structure.
+### Alexander C. Fisher  
+**Role:** Project Lead, Pipeline Developer, and Literature Review Co-Lead  
+**Affiliation:** DIGIT Major @ Penn State Behrend  
+**GitHub:** [@afish2003](https://github.com/afish2003)
+
+- Designed and built the full Python pipeline: embeddings, FAISS indexing, Neo4j integration, and RAG prompting  
+- Leads configuration design, system architecture, and interface logic  
+- Will lead the upcoming fine-tuning phase to improve LLM performance  
+- Co-leads the literature review, analyzing scholarly sources to inform system design  
 
 ---
 
-### **Hadleigh Jae Bills** — *Student Researcher, Data Architect & Knowledge Graph Engineer*  
-Digital Media, Arts, and Technology  
-Penn State Behrend  
-GitHub: [@HadleighJae](https://github.com/HadleighJae)  
-**Role:** Designs and prepares the training dataset for semantic retrieval. Developed Cypher scripts and logic to construct the Neo4j graph from XSLT-derived JSON exports. Works closely with Alexander Fisher to structure and transform data for effective vector and graph-based retrieval.
+### Hadleigh Jae Bills  
+**Role:** Data Pipeline Lead and Graph Architect  
+**Affiliation:** DIGIT Major @ Penn State Behrend  
+**GitHub:** [@HadleighJae](https://github.com/HadleighJae)
+
+- Prepares and structures TEI-derived JSON for both vector and graph pipelines  
+- Builds and maintains the full Neo4j graph with custom Cypher logic  
+- Designs the data model the pipeline relies on and supports structural debugging  
+- Leads research on TEI schema logic and contributes key sources for literature review  
 
 ---
 
-### **Dr. Elisa Beshero-Bondar** — *Faculty Advisor, Project Sponsor & XSLT Architect*  
-Digital Media, Arts, and Technology  
-Penn State Behrend  
-GitHub: [@ebeshero](https://github.com/ebeshero)  
-**Role:** Provides mentorship and academic guidance on the project. Developed the XSLT transformation framework that converts archival TEI/XML into structured JSON. Advises on semantic modeling, digital preservation practices, and the broader scholarly context of the project.
+### Dr. Elisa Beshero-Bondar  
+**Role:** Faculty Advisor, XSLT Architect, and Research Lead  
+**Affiliation:** Faculty @ Penn State Behrend  
+**GitHub:** [@ebeshero](https://github.com/ebeshero)
 
----
+- Authored the XSLT transformation for converting TEI P5 XML into structured JSON  
+- Provides core expertise in TEI, digital editing, and scholarly infrastructure  
+- Leads the literature review and guides the team’s research direction  
 
-> This project is part of an ongoing digital humanities research initiative at Penn State Behrend and is being presented at DH2025. Please cite responsibly.
+> This project is part of an ongoing digital humanities research initiative at Penn State Behrend. Please cite responsibly.
 ---
