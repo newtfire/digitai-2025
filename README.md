@@ -89,7 +89,7 @@ python digitaiCore/neo4j_exporter.py
 python digitaiCore/embed_bge_m3.py
 ```
 
-> Output: `data/p5/neo4jNodeEmbeddings.jsonl` (and FAISS index if configured)
+> Output: `data/p5/p5Embeddings.jsonl` (and FAISS index if configured)
 
 ### Run RAG query *(Currently in beta)*
 
