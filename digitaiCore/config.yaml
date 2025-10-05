@@ -1,5 +1,5 @@
 dataPaths:
-  neo4jExport: "data/p5/p5Neo4j.jsonl"            # Output from neo4j_exporter.py (raw node data)
+  neo4jExport: "data/p5/neo4jNodeEmbeddings.jsonl"            # Output from neo4j_exporter.py (raw node data)
   bgem3Embeddings: "data/p5/p5Embeddings.jsonl"   # Output from embed_bge_m3.py (vector embeddings)
   faissIndex: "data/p5/p5Index.faiss"             # Output from build_faiss_index.py (FAISS binary index)
   faissIdMap: "data/p5/p5IdMap.json"              # Output from build_faiss_index.py (FAISS index ID map)
