@@ -73,6 +73,10 @@ All settings are controlled in `digitaiCore/config.yaml`. This file lets you man
 
 ## 🧪 How to Run the Pipeline
 
+The pipeline we have constructed should build the vector embeddings that the AI LLM needs to run and to query the RAG system. 
+If you are building this on a local computer, the following steps should run the pipeline to build what you need. Be sure that you 
+are running Python 3.13.
+
 ### Export Nodes from Neo4j
 
 ```bash
