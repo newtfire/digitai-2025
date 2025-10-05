@@ -30,17 +30,33 @@ logging.info(f"📥 Loading embeddings from: {embedding_path}")
 embeddings = []
 id_map = {}
 
-with open(embedding_path, "r") as f:
+with open(embedding_path, "r", encoding="utf-8") as f:
     for i, line in enumerate(f):
+        line = line.strip()
+        if not line:
+            continue
         record = json.loads(line)
         embeddings.append(record["embedding"])
         id_map[i] = record["id"]  # FAISS index position → node_id
 
-embedding_matrix = np.array(embeddings).astype("float32")
+embedding_matrix = np.array(embeddings, dtype="float32")
 
 if config.get("embedding.normalize"):
     logging.info("📐 Normalizing embeddings for cosine similarity...")
-    embedding_matrix = faiss.normalize_L2(embedding_matrix)
+    # faiss.normalize_L2 works IN-PLACE and returns None
+    faiss.normalize_L2(embedding_matrix)
+
+# Ensure dimension is valid and matches data
+try:
+    dimension = int(dimension) if dimension is not None else None
+except Exception:
+    dimension = None
+# Infer from data if missing or mismatched
+if dimension is None or (embedding_matrix.ndim == 2 and embedding_matrix.shape[1] != dimension):
+    actual_dim = embedding_matrix.shape[1] if embedding_matrix.ndim == 2 else 0
+    if dimension not in (None, actual_dim):
+        logging.warning(f"Configured dimension ({dimension}) != data dimension ({actual_dim}); using {actual_dim}.")
+    dimension = actual_dim
 
 logging.info(f"🔧 Building FAISS index: {len(embedding_matrix)} vectors, dimension = {dimension}")
 index = faiss.IndexFlatIP(dimension)
