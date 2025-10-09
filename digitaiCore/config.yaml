@@ -40,4 +40,4 @@ vectorIndex:
 
 llm:
   provider: "ollama"
-  model: "qwen:7b"
+  model: "qwen3:8b"
