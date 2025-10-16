@@ -60,10 +60,10 @@ source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 pip install -e .
 ```
 
-### 4. Download and Install Ollama and the Qwen3–8b Model
+### 4. Download and Install Ollama and the Current Qwen Model
 
 * [Download Ollama here](https://ollama.com/download/mac).
-* Once installed, select and download the **qwen3:8b** model (the project is configured by default to use this model provided by Ollama).
+* Once installed, select and download the Qwen model (the project is configured by default to use this model provided by Ollama).
 
 ---
 
