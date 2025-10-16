@@ -3,6 +3,7 @@ import json
 import time
 import torch
 import logging
+import psutil
 from sentence_transformers import SentenceTransformer
 from digitaiCore.config_loader import ConfigLoader
 
@@ -43,28 +44,50 @@ if config.get("logging.enabled"):
         format=config.get("logging.format")
     )
     logging.info("=== Embedding Script Start ===")
+    logging.info(f"Config loaded from {config_path}")
+    logging.info(f"Repository root: {repo_root}")
+
+# === Utility: Memory Snapshot ===
+def log_memory(prefix=""):
+    try:
+        process = psutil.Process(os.getpid())
+        mem = process.memory_info().rss / (1024 ** 2)
+        logging.debug(f"[MEMORY] {prefix} {mem:.2f} MB in use")
+    except Exception:
+        pass  # psutil not critical
 
 # === Load SentenceTransformer Model ===
 # The embedding model specified in the config will be used to convert natural language into numerical vectors.
 model_name = config.get("embedding.model")
+start_time = time.time()
 try:
     model = SentenceTransformer(model_name)
     if config.get("logging.enabled"):
         logging.info(f"Loaded model: {model_name}")
+        log_memory("After model load:")
 except Exception as e:
     logging.exception("Model load failed")
     raise SystemExit(f"[FATAL] Could not load model: {e}")
+if config.get("logging.enabled"):
+    logging.info(f"Model load time: {time.time() - start_time:.2f}s")
 
 # === Load Node Texts from JSONL File ===
 # This replaces Neo4j queries by loading a static file created by neo4j_exporter.py.
 # Each line in the file should be a JSON object with 'id', 'text', and optional 'labels'.
 input_path = os.path.join(repo_root, config.get("dataPaths.neo4jExport"))
 if not os.path.exists(input_path):
+    if config.get("logging.enabled"):
+        logging.critical(f"Input file not found: {input_path}")
     raise SystemExit(f"[FATAL] Input file not found: {input_path}")
 
 nodes = []
+load_start = time.time()
+lines_read = 0
 with open(input_path, "r", encoding="utf-8") as f:
     for line in f:
+        lines_read += 1
+        if lines_read % 1000 == 0 and config.get("logging.enabled"):
+            logging.debug(f"Loaded {lines_read} lines so far...")
         record = json.loads(line)
         # Only embed nodes that contain actual body text; structure-only nodes are skipped
         if record.get("text"):
@@ -72,6 +95,9 @@ with open(input_path, "r", encoding="utf-8") as f:
 
 if config.get("logging.enabled"):
     logging.info(f"Loaded {len(nodes)} nodes with text from {input_path}")
+    load_time = time.time() - load_start
+    logging.info(f"Loaded {len(nodes)} nodes with text in {load_time:.2f}s from {input_path}")
+    log_memory("After node load:")
 
 # === Fail Early if No Embeddable Nodes Exist ===
 # This prevents wasting GPU/CPU resources or generating an empty output file.
@@ -92,11 +118,17 @@ throttle = config.get("embedding.throttle")         # Optional pause between bat
 output_path = os.path.join(repo_root, config.get("dataPaths.bgem3Embeddings"))
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
 print(f"[DEBUG] Writing embeddings to: {output_path}")
+if config.get("logging.enabled"):
+    total_batches = (len(nodes) + batch_size - 1) // batch_size
+    logging.info(f"Beginning embedding run with {total_batches} batches of up to {batch_size} items each")
+start_total = time.time()
 
 # === Embed Texts in Batches ===
 # For each batch of node texts, compute sentence embeddings and write each result to a new JSONL line.
 with open(output_path, "w", encoding="utf-8") as f:
     for i in range(0, len(nodes), batch_size):
+        batch_start = time.time()
+        batch_index = (i // batch_size) + 1
         batch = nodes[i:i + batch_size]
         ids, texts = zip(*batch)
 
@@ -117,6 +149,12 @@ with open(output_path, "w", encoding="utf-8") as f:
                 f.write("\n")
 
             if config.get("logging.enabled"):
+                batch_time = time.time() - batch_start
+                logging.info(f"Batch {batch_index} embedded in {batch_time:.2f}s ({len(batch)} items)")
+                log_memory(f"After batch {batch_index}:")
+                if batch_time > 60:
+                    logging.warning(f"Slow batch {batch_index}: took {batch_time:.2f}s")
+            if config.get("logging.enabled"):
                 logging.info(f"Embedded batch {i} to {i + len(batch)}")
         except Exception as e:
             # Catch errors without halting the script; logs the batch that failed.
@@ -130,6 +168,10 @@ with open(output_path, "w", encoding="utf-8") as f:
 # === Final Status ===
 # Log the script completion and file path to confirm success in automated pipelines.
 if config.get("logging.enabled"):
+    total_time = time.time() - start_total
+    avg_per_batch = total_time / ((len(nodes) + batch_size - 1) // batch_size) if len(nodes) > 0 else 0
+    logging.info(f"All batches complete. Total time: {total_time:.2f}s (avg {avg_per_batch:.2f}s/batch)")
+    log_memory("Final snapshot:")
     logging.info(f"Saved embeddings to {output_path}")
     logging.info("=== Embedding Script End ===")
 

@@ -26,8 +26,8 @@ performance:
 
 logging:
   enabled: true
-  bgem3Log: "logs/bgem3.log"
-  faissLog: "logs/faiss.log"
+  bgem3Log: "data/logs/bgem3.log"
+  faissLog: "data/logs/faiss.log"
   ragLog: "logs/rag.log"
   level: "INFO"
   format: "%(asctime)s - %(levelname)s - %(message)s"
