@@ -26,7 +26,6 @@ digitai/
 ├── data/
 │   └── p5/
 ├── requirements.txt
-├── dev-requirements.txt
 └── README.md
 ```
 
@@ -35,7 +34,10 @@ digitai/
 ## ⚙️ Setup
 
 ### Preliminary
-* Python installation: 3.13 (as of spring 2025)
+* System requirements:
+  * Storage: at least 7.00 GB (approx. 1.00 GB for core dependencies and 5.20 GB for Ollama’s qwen3.8b model download)
+  * Other requirements: _still being tested and optimized for less powerful systems_
+* Python installation: 3.13 (as of Spring 2025)
 * We are using this version to [optimize threading performance on Macs](https://docs.python.org/3/howto/free-threading-python.html), but DigitAI should run on Mac or Windows.
 
 ### 1. Clone the Repo
@@ -45,7 +47,7 @@ git clone https://github.com/newtfire/digitai.git
 cd digitai
 ```
 
-### 2. Create & Activate Virtual Environment
+### 2. Create & Activate Virtual Environment Within the Project Directory
 
 ```bash
 python -m venv .venv
@@ -58,7 +60,10 @@ source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 pip install -e .
 ```
 
+### 4. Download and Install Ollama and the Qwen3–8b Model
 
+* [Download Ollama here](https://ollama.com/download/mac).
+* Once installed, select and download the **qwen3:8b** model (the project is configured by default to use this model provided by Ollama).
 
 ---
 
@@ -140,6 +145,16 @@ python digitaiCore/rag_pipeline.py
 - Builds and maintains the full Neo4j graph with custom Cypher logic  
 - Designs the data model the pipeline relies on and supports structural debugging  
 - Leads research on TEI schema logic and contributes key sources for literature review  
+
+---
+
+### Michael Simons
+**Role:** Battle-Tester and Documentation  
+**Affiliation:** DIGIT Major @ Penn State Behrend  
+**GitHub:** [@mrs7068](https://github.com/mrs7068)
+
+- Recent addition to the project as an additional battle-tester
+- Maintains project documentation
 
 ---
 
