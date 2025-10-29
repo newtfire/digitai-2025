@@ -6,6 +6,7 @@ import requests  # To send prompt to Ollama server
 from sklearn.preprocessing import normalize as sk_normalize  # For cosine similarity
 from sentence_transformers import SentenceTransformer  # Used to embed the user query
 from digitaiCore.config_loader import ConfigLoader  # Loads config from YAML via dot notation
+from datetime import datetime
 
 """
 This script performs a single Retrieval-Augmented Generation (RAG) step by:
@@ -128,3 +129,40 @@ answer = ask_ollama(prompt, llm_model)
 # === Display the result ===
 print("\n🧾 Response:\n")
 print(answer)
+
+log_dir = os.path.join(repo_root, "data", "logs")
+os.makedirs(log_dir, exist_ok=True)
+log_file_path = os.path.join(log_dir, "conversation_history.log")
+with open(log_file_path, "a", encoding="utf-8") as log_file:
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_file.write(f"[{timestamp}]\nQuestion: {query}\nAnswer: {answer}\n\n")
+
+while True:
+    follow_up = input("\n❓ Do you want to ask a follow-up question? (yes/no): ").strip().lower()
+    if follow_up not in ("yes", "y"):
+        print("👋 Exiting RAG pipeline.")
+        break
+    new_query = input("❓ Enter your follow-up query: ").strip()
+    if not new_query:
+        print("👋 Exiting RAG pipeline.")
+        break
+    # Rebuild prompt using previous answer as context
+    prompt = f"""You are a chatbot that helps people understand the TEI guidelines which specify how to encode machine-readable texts using XML.
+
+Answer the question below in the **same language the question is asked in**.
+Use examples from the provided context as needed — they can be in any language. Do not translate them.
+
+Context:
+{answer}
+
+Question:
+{new_query}
+"""
+    print(f"🤖 Sending prompt to LLM ({llm_model})...")
+    answer = ask_ollama(prompt, llm_model)
+    print("\n🧾 Response:\n")
+    print(answer)
+    # Log the follow-up question and answer to the same log file
+    with open(log_file_path, "a", encoding="utf-8") as log_file:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_file.write(f"[{timestamp}]\nQuestion: {new_query}\nAnswer: {answer}\n\n")

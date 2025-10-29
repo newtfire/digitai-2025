@@ -48,3 +48,6 @@ logs/
 /data/logs/p5Index.faiss
 /data/p5/p5IdMap.json
 /data/p5/p5Embeddings.jsonl
+/data/logs/conversation_history.log
+/data/logs/embedding.log
+
