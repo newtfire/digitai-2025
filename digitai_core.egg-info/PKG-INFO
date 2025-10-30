@@ -52,6 +52,10 @@ digitai/
 
 ## ⚙️ Setup
 
+### Preliminary
+* Python installation: 3.13 (as of spring 2025)
+* We are using this version to [optimize threading performance on Macs](https://docs.python.org/3/howto/free-threading-python.html), but DigitAI should run on Mac or Windows.
+
 ### 1. Clone the Repo
 
 ```bash

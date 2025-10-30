@@ -43,8 +43,7 @@ local.yaml
 # -----------------------
 # Logs and generated data
 # -----------------------
-*.log
-logs/
+# *.log
 /data/logs/p5Index.faiss
 /data/p5/p5IdMap.json
 /data/p5/p5Embeddings.jsonl
