@@ -29,6 +29,7 @@ logging:
   bgem3Log: "data/logs/bgem3.log"
   faissLog: "data/logs/faiss.log"
   ragLog: "data/logs/rag.log"
+  conversationHistory: "data/logs/conversationHistory.log"
   level: "INFO"
   format: "%(asctime)s - %(levelname)s - %(message)s"
 

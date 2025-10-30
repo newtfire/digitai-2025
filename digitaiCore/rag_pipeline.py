@@ -130,9 +130,8 @@ answer = ask_ollama(prompt, llm_model)
 print("\n🧾 Response:\n")
 print(answer)
 
-log_dir = os.path.join(repo_root, "data", "logs")
-os.makedirs(log_dir, exist_ok=True)
-log_file_path = os.path.join(log_dir, "conversation_history.log")
+log_file_path = os.path.join(repo_root, config.get("logging.conversationHistory"))
+os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
 with open(log_file_path, "a", encoding="utf-8") as log_file:
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_file.write(f"[{timestamp}]\nQuestion: {query}\nAnswer: {answer}\n\n")
