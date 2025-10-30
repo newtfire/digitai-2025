@@ -39,6 +39,7 @@ share/
 # -----------------------
 .env/
 local.yaml
+digitaiCore/config.yaml
 
 # -----------------------
 # Logs and generated data
