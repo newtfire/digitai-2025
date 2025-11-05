@@ -15,7 +15,7 @@ cypher:
 
 embedding:
   model: "BAAI/bge-m3"
-  batch_size: 16
+  batch_size: 2
   normalize: true
   throttle: 0.0
 
@@ -26,10 +26,10 @@ performance:
 
 logging:
   enabled: true
-  bgem3Log: "data/logs/bgem3.log"
-  faissLog: "data/logs/faiss.log"
-  ragLog: "data/logs/rag.log"
-  conversationHistory: "data/logs/conversationHistory.log"
+  bgem3Log: "data/logs/michael/bgem3.log"
+  faissLog: "data/logs/michael/faiss.log"
+  ragLog: "data/logs/michael/rag.log"
+  conversationHistory: "data/logs/michael/conversationHistory.log"
   level: "INFO"
   format: "%(asctime)s - %(levelname)s - %(message)s"
 

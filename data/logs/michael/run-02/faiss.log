@@ -1,0 +1,24 @@
+2025-11-04 20:18:41,494 - INFO - === FAISS Index Build Script Start ===
+2025-11-04 20:18:41,494 - INFO - Config loaded from /Users/michaelsimons/Documents/GitHub/digitai/digitaiCore/config.yaml
+2025-11-04 20:18:41,494 - INFO - Repository root: /Users/michaelsimons/Documents/GitHub/digitai
+2025-11-04 20:18:41,494 - INFO - 📥 Loading embeddings from: /Users/michaelsimons/Documents/GitHub/digitai/data/p5/p5Embeddings.jsonl
+2025-11-04 20:18:42,374 - INFO - Loaded 3301 embeddings in 0.88s
+2025-11-04 20:18:42,428 - INFO - 📐 Normalizing embeddings for cosine similarity...
+2025-11-04 20:18:42,429 - INFO - 🔧 Building FAISS index: 3301 vectors, dimension = 1024
+2025-11-04 20:18:42,431 - INFO - Index built in 0.00s
+2025-11-04 20:18:42,434 - INFO - ✅ FAISS index saved to: /Users/michaelsimons/Documents/GitHub/digitai/data/p5/p5Index.faiss
+2025-11-04 20:18:42,441 - INFO - 🗂️  ID map saved to: /Users/michaelsimons/Documents/GitHub/digitai/data/p5/p5IdMap.json
+2025-11-04 20:18:42,441 - INFO - Saved index and ID map in 0.01s
+2025-11-04 20:18:42,441 - INFO - Total FAISS build runtime: 0.95s
+2025-11-04 20:41:07,991 - INFO - === FAISS Index Build Script Start ===
+2025-11-04 20:41:07,991 - INFO - Config loaded from /Users/michaelsimons/Documents/GitHub/digitai/digitaiCore/config.yaml
+2025-11-04 20:41:07,991 - INFO - Repository root: /Users/michaelsimons/Documents/GitHub/digitai
+2025-11-04 20:41:07,991 - INFO - 📥 Loading embeddings from: /Users/michaelsimons/Documents/GitHub/digitai/data/p5/p5Embeddings.jsonl
+2025-11-04 20:41:08,569 - INFO - Loaded 3313 embeddings in 0.58s
+2025-11-04 20:41:08,625 - INFO - 📐 Normalizing embeddings for cosine similarity...
+2025-11-04 20:41:08,627 - INFO - 🔧 Building FAISS index: 3313 vectors, dimension = 1024
+2025-11-04 20:41:08,629 - INFO - Index built in 0.00s
+2025-11-04 20:41:08,632 - INFO - ✅ FAISS index saved to: /Users/michaelsimons/Documents/GitHub/digitai/data/p5/p5Index.faiss
+2025-11-04 20:41:08,633 - INFO - 🗂️  ID map saved to: /Users/michaelsimons/Documents/GitHub/digitai/data/p5/p5IdMap.json
+2025-11-04 20:41:08,633 - INFO - Saved index and ID map in 0.00s
+2025-11-04 20:41:08,633 - INFO - Total FAISS build runtime: 0.64s
