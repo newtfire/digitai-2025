@@ -1,7 +1,7 @@
 # 🧠 DigitAI (2025): A TEI-Aware AI Tutor for XML Encoding
 
-DigitAI is a local RAG (Retrieval-Augmented Generation) system built to help students, archivists, and researchers understand and encode TEI documents. It uses a mix of vector search and graph structure to give helpful, grounded answers without needing the cloud.
----
+DigitAI is a local RAG (Retrieval-Augmented Generation) system built to help students, archivists, and researchers understand and encode TEI documents. It uses a mix of vector search and graph structure to give helpful, grounded answers without needing the cloud. This is the first stage of the project, developed in 2025. 
+
 
 ## 🚀 Features
 
